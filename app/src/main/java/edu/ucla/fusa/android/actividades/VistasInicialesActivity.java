@@ -21,8 +21,14 @@ import static edu.ucla.fusa.android.actividades.R.color.vinotinto_oscuro;
 
 /**
  * Created by juanlabrador on 16/10/14.
+ *
+ * Esta clase administra todas las vista deslizables iniciales, donde se muestra información
+ * de la Fundación, y manejamos dos opciones de iniciación, logueandose o postulandose con
+ * Fundamusical.
+ *
  */
 public class VistasInicialesActivity extends FragmentActivity {
+
     private ViewPager pagina;
     private ViewPagerFragmentAdapter fragmentoPagina;
     private CirclePageIndicator indicadorPagina;
@@ -34,9 +40,11 @@ public class VistasInicialesActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vistasiniciales);
 
-        if(cargarPreferencias() != true) {
-            this.pagina = (ViewPager) this.findViewById(R.id.vistaPaginas);
 
+        /** Buscamos en la preferencias si existen, que ya se haya visualizado antes las vistas */
+        if(cargarPreferencias() != true) { /** De no haber sucedido */
+            this.pagina = (ViewPager) this.findViewById(R.id.vistaPaginas);
+               /** Agregamos los fragment a el ViewPager */
             fragmentoPagina = new ViewPagerFragmentAdapter(getSupportFragmentManager(), this);
             fragmentoPagina.adicionarFragmento(VistaInicialSplashScreenFragment.newInstance());
             fragmentoPagina.adicionarFragmento(VistaInicialEstudiantesFragment.newInstance());
@@ -44,16 +52,17 @@ public class VistasInicialesActivity extends FragmentActivity {
             fragmentoPagina.adicionarFragmento(VistaInicialEventosFragment.newInstance());
             fragmentoPagina.adicionarFragmento(VistaInicialPostularseFragment.newInstance());
             this.pagina.setAdapter(fragmentoPagina);
-
+            /** Aqui agregamos los indicadores de página */
             indicadorPagina = (CirclePageIndicator) this.findViewById(R.id.indicador);
             indicadorPagina.setViewPager(pagina);
             indicadorPagina.setSnap(true);
             indicadorPagina.setFillColor(Color.WHITE);
             indicadorPagina.setPageColor(vinotinto_oscuro);
             indicadorPagina.setStrokeColor(Color.TRANSPARENT);
-
+            /** Guardamos la información de que ya se ha instanciado estas vistas */
             guardarPreferencias(true);
 
+            /** Si ya habian sido instanceadas, se redirige a la vista de Tipo de Acceso */
         } else if (cargarPreferencias() == true) {
             startActivity(new Intent(this, VistasAccesoActivity.class).putExtra("acceso", 2));
             finish();
@@ -65,6 +74,7 @@ public class VistasInicialesActivity extends FragmentActivity {
         finish();
     }
 
+    /** Guardamos las preferencias que ignorar las vistas iniciales cuando inicie de nuevo la app */
     public void guardarPreferencias(boolean status) {
         preferencias = getSharedPreferences("index", Context.MODE_PRIVATE);
         editor = preferencias.edit();
@@ -72,6 +82,7 @@ public class VistasInicialesActivity extends FragmentActivity {
         editor.commit();
     }
 
+    /** Cargamos las preferencias de existir alamacenadas */
     public boolean cargarPreferencias() {
         preferencias = getSharedPreferences("index", Context.MODE_PRIVATE);
         return preferencias.getBoolean("ignorar", false);

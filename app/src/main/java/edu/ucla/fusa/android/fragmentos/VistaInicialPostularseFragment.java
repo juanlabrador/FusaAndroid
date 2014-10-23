@@ -12,9 +12,14 @@ import android.widget.TextView;
 import edu.ucla.fusa.android.actividades.VistasAccesoActivity;
 import edu.ucla.fusa.android.actividades.R;
 
+
 /**
- * Created by juanlabrador on 17/10/14.
+ * Created by juanlabrador on 16/10/14.
+ *
+ * Clase que administra la información presentada en una de las vistas iniciales del ViewPager
+ *
  */
+
 public class VistaInicialPostularseFragment extends Fragment implements View.OnClickListener {
 
     private Button postularse;
@@ -47,10 +52,10 @@ public class VistaInicialPostularseFragment extends Fragment implements View.OnC
     public void onClick(View v) {
         if(v.getId() == R.id.btnPostularse) {
             startActivity(new Intent(getActivity(), VistasAccesoActivity.class).putExtra("acceso", 1));
-            getActivity().finish();  //Finalizamos la antigua actividad
+            getActivity().finish();  /** Finalizamos la antigua actividad */
         } else if (v.getId() == R.id.tvIniciarSesion) {
             startActivity(new Intent(getActivity(), VistasAccesoActivity.class).putExtra("acceso", 0));
-            getActivity().finish();  //Finalizamos la antigua actividad
+            getActivity().finish();  /** Finalizamos la antigua actividad */
         }
     }
 }

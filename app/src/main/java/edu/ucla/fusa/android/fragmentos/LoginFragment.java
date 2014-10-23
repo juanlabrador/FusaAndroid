@@ -19,6 +19,8 @@ import edu.ucla.fusa.android.validadores.ValidadorEmails;
 
 /**
  * Created by juanlabrador on 17/10/14.
+ *
+ * Clase encargada del acceso del usuario.
  */
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
@@ -78,7 +80,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             break;
             case R.id.tvOlvidarPassword:
                 transaction = getFragmentManager().beginTransaction();
-                //Reemplazamos el LoginFragment por el RestaurarPasswordFragment
+                /** Reemplazamos el LoginFragment por el RestaurarPasswordFragment */
                 transaction.replace(android.R.id.content, RestaurarPasswordFragment.newInstance());
                 transaction.addToBackStack(null);
                 transaction.commit();

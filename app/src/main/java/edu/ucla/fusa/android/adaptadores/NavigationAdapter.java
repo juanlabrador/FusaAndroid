@@ -15,6 +15,11 @@ import edu.ucla.fusa.android.modelo.ItemListDrawer;
 
 /**
  * Created by juanlabrador on 19/10/14.
+ *
+ * Clase adaptadora que se utiliza para el diseño de la lista de navegación.
+ *
+ * Contiene un icono, y su texto asociado.
+ *
  */
 public class NavigationAdapter extends BaseAdapter {
 

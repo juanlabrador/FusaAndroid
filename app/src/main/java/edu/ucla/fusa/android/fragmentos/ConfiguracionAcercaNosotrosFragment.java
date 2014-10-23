@@ -11,6 +11,11 @@ import edu.ucla.fusa.android.actividades.R;
 
 /**
  * Created by juanlabrador on 22/10/14.
+ *
+ * Clase encargada de manejar la información referente del equipo de trabajo.
+ *
+ * Es un dialogo emergente que se instancia.
+ *
  */
 public class ConfiguracionAcercaNosotrosFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
@@ -20,11 +25,17 @@ public class ConfiguracionAcercaNosotrosFragment extends DialogFragment implemen
 
     public ConfiguracionAcercaNosotrosFragment() {}
 
+    /**
+     *
+     * Como la clase hereda de FragmentDialog, este metodo es parte de la clase
+     * para la creación de un dialogo.
+     *
+     * */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
-
+        /** Cargamos un layout personalizado al dialogo */
         view = getActivity().getLayoutInflater().inflate(R.layout.fragment_configuraciones_acerca_nosotros, null);
 
         return new AlertDialog.Builder(getActivity())
@@ -32,6 +43,7 @@ public class ConfiguracionAcercaNosotrosFragment extends DialogFragment implemen
                 .setPositiveButton("Volver", this).show();
     }
 
+    /** Evento de la clase DialogInterface cuando presiona el botón se cierra el dialogo */
     @Override
     public void onClick(DialogInterface dialog, int which) {
         dialog.cancel();

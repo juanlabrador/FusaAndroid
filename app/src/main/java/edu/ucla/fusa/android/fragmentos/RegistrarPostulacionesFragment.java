@@ -21,6 +21,9 @@ import edu.ucla.fusa.android.validadores.ValidadorEmails;
 
 /**
  * Created by juanlabrador on 18/10/14.
+ *
+ * Clase que se encarga de admnistrar los datos ingresados para una postulación de un aspirante.
+ *
  */
 public class RegistrarPostulacionesFragment extends Fragment implements View.OnClickListener {
 
@@ -38,7 +41,6 @@ public class RegistrarPostulacionesFragment extends Fragment implements View.OnC
     private int day;
     private int month;
     private int year;
-    private DialogFragment dialog;
 
 
 
@@ -101,10 +103,12 @@ public class RegistrarPostulacionesFragment extends Fragment implements View.OnC
         getActivity().getActionBar().setTitle(R.string.titulo_action_bar_postularse);
     }
 
+    /** Mostramos un dialogo incluyendo un DatePicker */
     public Dialog mostrarDatePicker() {
         return new DatePickerDialog(getActivity(), datePickerListener, year, month, day);
     }
 
+    /** Evento de la clase DatePickerDialog que captura la fecha indicada por el usuario */
     private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {

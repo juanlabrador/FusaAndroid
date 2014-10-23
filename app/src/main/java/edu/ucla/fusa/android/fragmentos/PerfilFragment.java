@@ -11,6 +11,8 @@ import edu.ucla.fusa.android.actividades.R;
 
 /**
  * Created by juanlabrador on 23/10/14.
+ *
+ * Clase que administra toda la información de perfil del usuario.
  */
 public class PerfilFragment extends Fragment {
 

@@ -14,6 +14,8 @@ import edu.ucla.fusa.android.actividades.R;
 
 /**
  * Created by juanlabrador on 18/10/14.
+ *
+ * Clase que gestion los tipos de acceso a la aplicación, ya sea por login o por postulate.
  */
 public class TipoAccesoFragment extends Fragment implements View.OnClickListener {
 

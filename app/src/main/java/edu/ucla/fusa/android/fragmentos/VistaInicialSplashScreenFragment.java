@@ -17,9 +17,14 @@ import java.util.TimerTask;
 import edu.ucla.fusa.android.actividades.VistasAccesoActivity;
 import edu.ucla.fusa.android.actividades.R;
 
+
 /**
  * Created by juanlabrador on 16/10/14.
+ *
+ * Clase que administra la información presentada en una de las vistas iniciales del ViewPager
+ *
  */
+
 public class VistaInicialSplashScreenFragment extends Fragment implements View.OnClickListener{
 
     private static long SPLASHDELAY = 3000;
@@ -31,7 +36,7 @@ public class VistaInicialSplashScreenFragment extends Fragment implements View.O
 
     private boolean status = false;
 
-    //Instanciamos el fragment
+    /** Instanciamos el fragment */
     public static VistaInicialSplashScreenFragment newInstance() {
         VistaInicialSplashScreenFragment activity = new VistaInicialSplashScreenFragment();
         activity.setRetainInstance(true);
@@ -40,7 +45,7 @@ public class VistaInicialSplashScreenFragment extends Fragment implements View.O
 
     public VistaInicialSplashScreenFragment() {}
 
-    //Metodo que infla la vista
+    /** Metodo que infla la vista */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -52,7 +57,7 @@ public class VistaInicialSplashScreenFragment extends Fragment implements View.O
         return view;
     }
 
-    //Al estar creada la vista
+    /** Al crearse la vista aplicamos las animaciones */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -73,10 +78,9 @@ public class VistaInicialSplashScreenFragment extends Fragment implements View.O
 
     }
 
-    /*
+    /**
     *
-    * Metodos para la ejecución de las animaciones para el logo y el texto
-    *
+    * Metodos para la ejecución de las animaciones para el logo y el texto.
     *
     * */
     private void startAnimationLogo() {
@@ -94,9 +98,9 @@ public class VistaInicialSplashScreenFragment extends Fragment implements View.O
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.tvIniciarSesion) {
-            //Instanciamos una nueva actividad
+            /** Instanciamos una nueva actividad */
             startActivity(new Intent(getActivity(), VistasAccesoActivity.class).putExtra("acceso", 0));
-            getActivity().finish();  //Finalizamos la antigua actividad
+            getActivity().finish();  /** Finalizamos la antigua actividad */
         }
     }
 }

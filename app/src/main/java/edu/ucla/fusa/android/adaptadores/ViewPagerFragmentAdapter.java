@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * Created by juanlabrador on 16/10/14.
+ *
+ * Clase adaptadora que se utiliza para agregar distintos fragment al viewPager.
  */
 public class ViewPagerFragmentAdapter extends FragmentPagerAdapter {
 

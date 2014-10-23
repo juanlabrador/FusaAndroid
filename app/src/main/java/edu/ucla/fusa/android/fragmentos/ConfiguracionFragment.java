@@ -25,13 +25,14 @@ import edu.ucla.fusa.android.modelo.ItemListConfiguration;
 
 /**
  * Created by juanlabrador on 19/10/14.
+ *
+ * Clase que administra todos los elementos de la lista de configuración.
+ *
  */
 public class ConfiguracionFragment extends PreferenceFragment implements AdapterView.OnItemClickListener {
 
     private View view;
-    private View header;
     private ListView list;
-    private ListAplicationsAdapter aplicationsAdapter;
     private ArrayList<Item> items = new ArrayList<Item>();
     private ListConfiguracionAdapter adapter;
     private SharedPreferences preferencias;
@@ -62,10 +63,10 @@ public class ConfiguracionFragment extends PreferenceFragment implements Adapter
         view = inflater.inflate(R.layout.fragment_drawer_configuraciones, container, false);
         list = (ListView) view.findViewById(R.id.lvConfiguraciones);
 
-        /* Limpiamos la lista para que no acumule los items */
+        /** Limpiamos la lista para que no acumule los items */
         items.clear();
 
-        /* Cargamos el listado de configuraciones */
+        /** Cargamos el listado de configuraciones */
         items.add(new HeaderListConfiguracion(getResources().getString(R.string.configuracion_cuenta), 0));
         items.add(new ItemListConfiguration(getResources().getString(R.string.configuracion_cuenta_cambiar_password),
                 R.drawable.ic_cambiar_password));
@@ -99,44 +100,44 @@ public class ConfiguracionFragment extends PreferenceFragment implements Adapter
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
-            /* Fragment de cambiar password */
+            /** Fragment de cambiar password */
             case 1:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.frame_container, ConfiguracionCambiarPasswordFragment.newInstance())
                         .addToBackStack(null)
                         .commit();
                 break;
-            /* Cerramos sesión */
+            /** Cerramos sesión */
             case 2:
                 preferencias = getActivity().getSharedPreferences("index", Context.MODE_PRIVATE);
                 asyncTaks = new CerrarSesionAsyncTaks(getActivity(), preferencias);
                 asyncTaks.execute();
                 break;
-            /* Fragment de Aplicaciones */
+            /** Fragment de Aplicaciones */
             case 4:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.frame_container, ConfiguracionAplicacionesFragment.newInstance())
                         .addToBackStack(null)
                         .commit();
                 break;
-            /* Fragment de Acerca de la versión */
+            /** Fragment de Acerca de la versión */
             case 6:
                 fragmentManager = getFragmentManager();
                 acercaVersion = new ConfiguracionAcercaVersionFragment();
                 acercaVersion.show(fragmentManager, "AcercaVersión");
                 break;
-            /* Fragment de Acerca de nosotros */
+            /** Fragment de Acerca de nosotros */
             case 7:
                 fragmentManager = getFragmentManager();
                 acercaNosotros = new ConfiguracionAcercaNosotrosFragment();
                 acercaNosotros.show(fragmentManager, "AcercaNosotros");
                 break;
-             /* Visitamos la página web de Fundamusical */
+             /** Visitamos la página web de Fundamusical */
             case 8:
                 getActivity().startActivity(new Intent(Intent.ACTION_VIEW)
                         .setData(Uri.parse(getActivity().getResources().getString(R.string.pagina_web))));
                 break;
-            /* Fragment de Informar un problema */
+            /** Fragment de Informar un problema */
             case 10:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.frame_container, ConfiguracionInformarProblemaFragment.newInstance())

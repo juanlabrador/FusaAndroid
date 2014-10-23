@@ -18,6 +18,11 @@ import edu.ucla.fusa.android.modelo.ItemListConfiguration;
 
 /**
  * Created by juanlabrador on 20/10/14.
+ *
+ * Clase adaptadora que se utiliza para personalizar la lista de configuración.
+ *
+ * Contiene un elemento de cabecera, y sus componentes asociados, un icono y un texto.
+ *
  */
 public class ListConfiguracionAdapter extends ArrayAdapter<Item> {
 

@@ -11,6 +11,10 @@ import edu.ucla.fusa.android.actividades.R;
 
 /**
  * Created by juanlabrador on 21/10/14.
+ *
+ * Clase que administra una vista de comentario acerca de un problema que tenga la aplicación
+ * manejando un EditTex y un botón de acción.
+ *
  */
 public class ConfiguracionInformarProblemaFragment extends Fragment {
 

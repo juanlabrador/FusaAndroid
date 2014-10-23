@@ -8,6 +8,12 @@ import android.view.ViewGroup;
 
 import edu.ucla.fusa.android.actividades.R;
 
+/**
+ * Created by juanlabrador on 16/10/14.
+ *
+ * Clase que administra la información presentada en una de las vistas iniciales del ViewPager
+ *
+ */
 
 public class VistaInicialEstudiantesFragment extends Fragment {
 

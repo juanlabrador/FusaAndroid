@@ -1,3 +1,8 @@
+<!--
+    Layout que contiene el diseño de un item de
+    la lista de aplicaciones
+-->
+
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"

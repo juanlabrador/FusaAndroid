@@ -4,6 +4,8 @@ import edu.ucla.fusa.android.interfaces.Item;
 
 /**
  * Created by juanlabrador on 19/10/14.
+ *
+ * Clase modelo que maneja los elementos de cabecera de la lista
  */
 public class HeaderListConfiguracion implements Item {
 

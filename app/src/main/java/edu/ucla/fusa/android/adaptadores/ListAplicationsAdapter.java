@@ -16,6 +16,13 @@ import edu.ucla.fusa.android.modelo.ItemListDrawer;
 
 /**
  * Created by juanlabrador on 19/10/14.
+ *
+ * Clase adaptadora que se utiliza para personalizar el contenido de la lista de
+ * aplicación ubicada en configuraciones.
+ *
+ * Contiene la implementación de un icono, texto asociado y una imagen que funciona como
+ * checkbox que se activa o no al hacer click sobre un item de la lista.
+ *
  */
 public class ListAplicationsAdapter extends BaseAdapter {
 
@@ -42,6 +49,7 @@ public class ListAplicationsAdapter extends BaseAdapter {
         return position;
     }
 
+    /** Creamos una clase de los componentes de la lista */
     public static class Fila {
         TextView titulo;
         ImageView icono;
@@ -52,6 +60,7 @@ public class ListAplicationsAdapter extends BaseAdapter {
         Fila fila;
         LayoutInflater inflator = activity.getLayoutInflater();
 
+        /** Si no hay contenido en la lista, los crea */
         if (convertView == null) {
             fila = new Fila();
 

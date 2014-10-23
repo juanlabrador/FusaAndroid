@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 /**
  * Created by juanlabrador on 18/10/14.
+ *
+ * Clase validadora que sirve para comprobar que el email ingresado tenga un formato válido.
  */
 public class ValidadorEmails {
 

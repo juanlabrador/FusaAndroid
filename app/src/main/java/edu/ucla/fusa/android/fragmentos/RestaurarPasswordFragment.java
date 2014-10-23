@@ -14,6 +14,8 @@ import edu.ucla.fusa.android.validadores.ValidadorEmails;
 
 /**
  * Created by juanlabrador on 18/10/14.
+ *
+ * Clase encargada de reportar a la administración si el usuario a perdido o no recuerda su contraseña.
  */
 public class RestaurarPasswordFragment extends Fragment implements View.OnClickListener {
 
@@ -52,6 +54,7 @@ public class RestaurarPasswordFragment extends Fragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btnRestaurarPassword) {
+            /** Metodo que valida que el correo sea válido */
             boolean validar = ValidadorEmails.validarEmail(email.getText().toString());
             if (validar != true) {
                 Toast.makeText(getActivity(), R.string.mensaje_correo_invalido, Toast.LENGTH_SHORT).show();

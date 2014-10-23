@@ -21,6 +21,12 @@ import edu.ucla.fusa.android.fragmentos.ConfiguracionFragment;
 import edu.ucla.fusa.android.fragmentos.PerfilFragment;
 import edu.ucla.fusa.android.modelo.ItemListDrawer;
 
+/**
+ * Created by juanlabrador on 16/10/14.
+ *
+ * Esta clase administra el contenido de la aplicación a traves de fragmentos.
+ *
+ */
 
 public class VistasPrincipalesActivity extends Activity implements AdapterView.OnItemClickListener {
 
@@ -38,6 +44,7 @@ public class VistasPrincipalesActivity extends Activity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
+        /** Creamos el menu deslizable */
         navigationDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationDrawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
@@ -67,6 +74,7 @@ public class VistasPrincipalesActivity extends Activity implements AdapterView.O
         navigationList.setAdapter(navigationAdapter);
         navigationList.setOnItemClickListener(this);
 
+        /** Agregamos el icono de navegación en la esquina superior izquierda al lado del logo */
         mDrawerToogle = new ActionBarDrawerToggle(this, navigationDrawer,
                 R.drawable.ic_navigation_drawer,
                 R.string.drawer_open, R.string.drawer_close) {
@@ -115,6 +123,7 @@ public class VistasPrincipalesActivity extends Activity implements AdapterView.O
         mDrawerToogle.onConfigurationChanged(newConfig);
     }
 
+    /** Deacuerdo a su posición instanciamos el fragmento llamado desde el menú de navegación */
     private void showFragment(int position) {
 
         switch (position) {
@@ -144,6 +153,7 @@ public class VistasPrincipalesActivity extends Activity implements AdapterView.O
         navigationDrawer.closeDrawer(navigationList);
     }
 
+    /** Evento referente al presionar el botón back del teléfono */
     @Override
     public void onBackPressed() {
         if (navigationDrawer.isDrawerOpen(navigationList)) {
@@ -153,6 +163,7 @@ public class VistasPrincipalesActivity extends Activity implements AdapterView.O
         }
     }
 
+    /** Evento que ignora los iconos del menú de action bar al desplegar el menú de navegación */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = navigationDrawer.isDrawerOpen(navigationList);
@@ -160,6 +171,7 @@ public class VistasPrincipalesActivity extends Activity implements AdapterView.O
         return super.onPrepareOptionsMenu(menu);
     }
 
+    /** Evento onClickItem referente a la lista de navegación */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         showFragment(position);

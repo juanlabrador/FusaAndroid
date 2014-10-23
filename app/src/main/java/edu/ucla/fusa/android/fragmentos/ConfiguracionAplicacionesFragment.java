@@ -20,6 +20,9 @@ import edu.ucla.fusa.android.modelo.ItemListAplications;
 
 /**
  * Created by juanlabrador on 20/10/14.
+ *
+ * Clase que administra la lista de aplicaciones que se enlazaran a la aplicación.
+ *
  */
 public class ConfiguracionAplicacionesFragment extends Fragment implements AdapterView.OnItemClickListener {
 
@@ -49,6 +52,7 @@ public class ConfiguracionAplicacionesFragment extends Fragment implements Adapt
         aplicationIcons = getResources().obtainTypedArray(R.array.icons_app);
         titulos = getResources().getStringArray(R.array.redes_app);
 
+        /** Cargamos los items a la lista */
         items = new ArrayList<ItemListAplications>();
 
         items.add(new ItemListAplications(titulos[0], aplicationIcons.getResourceId(0, -1)));
@@ -70,6 +74,11 @@ public class ConfiguracionAplicacionesFragment extends Fragment implements Adapt
         getActivity().getActionBar().setTitle(R.string.configuracion_aplicaciones_cuentas_enlazadas);
     }
 
+    /**
+     * Evento de la clase onItemClickListener que acciona
+     * un elemento de la lista al presionar en él
+     *
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         iconoApp = (ImageView) view.findViewById(R.id.ivIconoApp);

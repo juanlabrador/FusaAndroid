@@ -138,7 +138,7 @@
 
     <!-- Elementos de la ventana de configuraciones - acerca de la versión -->
     <string name="configuracion_acerca_nosotros_titulo">Acerca de nosotros</string>
-    <string name="configuracion_acerca_nosotros_contenido">Somos un grupo de estudiante de la Universidad Centroccidental Lisandro Alvarado (UCLA), cual desarrollamos esta aplicación para la Fundación Musical Simón Bolívar (Fundamusical) como asignación de la materia Sistemas de Información. \n \nSomos mejor conocidos como ENERGY TEAM.</string>
+    <string name="configuracion_acerca_nosotros_contenido">Somos un grupo de estudiante de la Universidad Centroccidental Lisandro Alvarado (UCLA), cual desarrollamos esta aplicación para la Fundación Musical Simón Bolívar (Fundamusical) como asignación de la materia Sistemas de Información. \nSomos mejor conocidos como ENERGY TEAM.</string>
 
     <!-- Elementos de la vista de perfil -->
     <string name="contenido_perfil_action_bar_titulo">Perfil de usuario</string>

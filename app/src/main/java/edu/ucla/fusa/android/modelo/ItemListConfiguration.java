@@ -4,6 +4,9 @@ import edu.ucla.fusa.android.interfaces.Item;
 
 /**
  * Created by juanlabrador on 20/10/14.
+ *
+ * Clase modelo que administra los elementos de la lista de configuración.
+ *
  */
 public class ItemListConfiguration implements Item {
 

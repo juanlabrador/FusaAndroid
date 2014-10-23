@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:interpolator="@android:anim/accelerate_interpolator">
+
+    <!-- Item que aplica la transparencia del logo -->
     <alpha
         android:fromAlpha="0.0"
         android:toAlpha="1.0"
         android:duration="2000" />
+
+    <!-- Item que aplica el desplazamiento del logo -->
     <translate
         android:fromXDelta="0%"
         android:toXDelta="0%"

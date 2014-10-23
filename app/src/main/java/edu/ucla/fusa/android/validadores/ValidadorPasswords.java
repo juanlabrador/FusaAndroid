@@ -5,6 +5,9 @@ import java.util.regex.Pattern;
 
 /**
  * Created by juanlabrador on 18/10/14.
+ *
+ * Clase validadora de passwords pero en comprobar que el password cumpla ciertos requisitos, más no
+ * si es un buen password o no.
  */
 public class ValidadorPasswords {
 

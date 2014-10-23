@@ -15,6 +15,10 @@ import edu.ucla.fusa.android.actividades.VistasPrincipalesActivity;
 
 /**
  * Created by juanlabrador on 21/10/14.
+ *
+ * Clase de tareas programadas, que se utiliza al momento de cerrar sesión, pueda limpiar
+ * en segundo plano, todas las preferencias del usuario que se habia logueado.
+ *
  */
 public class CerrarSesionAsyncTaks extends AsyncTask<Void, Void, Void> {
 

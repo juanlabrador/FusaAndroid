@@ -12,20 +12,26 @@ import edu.ucla.fusa.android.actividades.R;
 
 /**
  * Created by juanlabrador on 19/10/14.
+ *
+ * Clase encargada de gestionar el calendario de información de interes, como clases, eventos, etc.
+ *
  */
 public class CalendarioFragment extends Fragment {
 
     private View view;
     private CalendarView calendario;
 
+    /** Creamos el metodo que instancia el fragmento, basandose en el patrón de Singlenton */
     public static CalendarioFragment newInstance() {
         CalendarioFragment activity = new CalendarioFragment();
         activity.setRetainInstance(true);
         return activity;
     }
 
+    /** Constructor vacio requisito necesario para el fragment */
     public CalendarioFragment() {}
 
+    /** Metodo de la clase Fragment, para inflar la vista en el activity */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -42,6 +48,7 @@ public class CalendarioFragment extends Fragment {
         return view;
     }
 
+    /** Metodo de la clase Fragment, para acondicionar los elementos de interfaz */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,0 +1,51 @@
+package edu.ucla.fusa.android.fragmentos;
+
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.Toast;
+
+import edu.ucla.fusa.android.actividades.R;
+
+/**
+ * Created by juanlabrador on 19/10/14.
+ */
+public class CalendarioFragment extends Fragment {
+
+    private View view;
+    private CalendarView calendario;
+
+    public static CalendarioFragment newInstance() {
+        CalendarioFragment activity = new CalendarioFragment();
+        activity.setRetainInstance(true);
+        return activity;
+    }
+
+    public CalendarioFragment() {}
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        view = inflater.inflate(R.layout.fragment_drawer_calendar, container, false);
+
+        calendario = (CalendarView) view.findViewById(R.id.cvCalendario);
+        calendario.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                Toast.makeText(getActivity(), dayOfMonth +"/"+month+"/"+ year, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().getActionBar().setIcon(R.drawable.ic_calendario);
+        getActivity().getActionBar().setTitle(R.string.contenido_calendario_action_bar_titulo);
+    }
+}

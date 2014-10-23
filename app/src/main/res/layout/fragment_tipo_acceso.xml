@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_tipo_acceso"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="50dp"
+    android:paddingTop="80dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logotipo_nombre"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/btnPostularse"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="@drawable/style_button_background_white"
+        android:textColor="@color/blanco"
+        android:textSize="18sp"
+        android:padding="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/texto_postularse"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/texto_pregunta_cuenta"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="@color/negro"
+            android:layout_margin="3dp"/>
+
+        <TextView
+            android:id="@+id/tvIniciarSesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:text="@string/texto_iniciar_sesion"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="@color/vinotinto_oscuro"
+            android:onClick="IniciarSesion"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingTop="7dp"
+    android:paddingBottom="7dp"
+    android:background="@drawable/style_list_selector_configuracion">
+
+    <ImageView
+        android:id="@+id/ivIconoApp"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tvTituloApp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:singleLine="true"
+        android:textSize="16sp"
+        android:textColor="@android:color/darker_gray"/>
+
+    <ImageView
+        android:id="@+id/ivIconoActivacionApp"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_activado"
+        android:scaleType="fitCenter"
+        android:visibility="invisible"/>
+
+</LinearLayout>

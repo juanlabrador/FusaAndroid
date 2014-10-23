@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/FusaAndroid.iml" filepath="$PROJECT_DIR$/FusaAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraryCircleImageView/libraryCircleImageView.iml" filepath="$PROJECT_DIR$/libraryCircleImageView/libraryCircleImageView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraryReverseDrawerLayout/libraryReverseDrawerLayout.iml" filepath="$PROJECT_DIR$/libraryReverseDrawerLayout/libraryReverseDrawerLayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraryViewPagerIndicator/libraryViewPagerIndicator.iml" filepath="$PROJECT_DIR$/libraryViewPagerIndicator/libraryViewPagerIndicator.iml" />
+    </modules>
+  </component>
+</project>
+

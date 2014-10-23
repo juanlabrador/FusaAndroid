@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blanco">#FFFFFF</color>
+    <color name="azul_claro">#33B5E5</color>
+    <color name="vinotinto_claro">#D07E9D</color>
+    <color name="vinotinto">#922952</color>
+    <color name="vinotinto_oscuro">#5C132F</color>
+    <color name="vinotinto_super_oscuro">#2C0614</color>
+    <color name="negro">#000000</color>
+
+    <color name="debil">#8A0808</color>
+    <color name="normal">#B45F04</color>
+    <color name="mejor">#86B404</color>
+    <color name="fuerte">#04B404</color>
+
+    <color name="nivel_1">#8A0808</color>
+    <color name="nivel_2">#C62020</color>
+    <color name="nivel_3">#B45F04</color>
+    <color name="nivel_4">#86B404</color>
+    <color name="nivel_5">#04B404</color>
+</resources>

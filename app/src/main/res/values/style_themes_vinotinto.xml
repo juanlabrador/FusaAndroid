@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="vinotinto" parent="@style/_vinotinto"/>
+
+  <style name="_vinotinto" parent="android:Theme.Holo.Light">
+
+    <item name="android:editTextBackground">@drawable/style_edit_text_vinotinto</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/style_checkbox_vinotinto</item>
+
+    <item name="android:listChoiceIndicatorSingle">@drawable/style_radio_btn_vinotinto</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/Spinnervinotinto</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarvinotinto</item>
+
+    <item name="android:listChoiceBackgroundIndicator">@drawable/style_list_vinotinto</item>
+
+    <item name="android:activatedBackgroundIndicator">@drawable/vinotinto_activated_background_holo_light</item>
+
+    <item name="android:fastScrollThumbDrawable">@drawable/vinotinto_fastscroll_thumb_holo</item>
+
+  </style>
+
+</resources>

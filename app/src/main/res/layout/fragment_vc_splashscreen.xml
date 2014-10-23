@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="10dp"
+    android:background="@color/vinotinto"
+    android:id="@+id/fragment_splashscreen">
+
+    <ImageView
+        android:id="@+id/logotipo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:padding="10dp"
+        android:contentDescription="@string/descripcion_logotipo"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logotipo"/>
+
+    <TextView
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/texto_bienvenida"
+        android:layout_below="@+id/logotipo"
+        android:textColor="@color/blanco"
+        android:textSize="32sp"/>
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/textoInformacion"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/texto_informativo"
+        android:textSize="18sp"
+        android:textColor="@color/blanco"
+        android:layout_margin="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="5dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/texto_pregunta_cuenta"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="@color/blanco"
+            android:layout_margin="3dp"/>
+
+        <TextView
+            android:id="@+id/tvIniciarSesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/texto_iniciar_sesion"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_margin="3dp"
+            android:textColor="@color/vinotinto_super_oscuro"
+            android:onClick="IniciarSesion"/>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="vinotinto">#922952</string>
+    <string name="app_name">Fusa</string>
+    <string name="pagina_web">http://www.fundamusical.org.ve</string>
+
+    <!-- Botones de acción en menu -->
+    <string name="configuracion">Configuración</string>
+
+    <!-- Mensajes de toast -->
+    <string name="mensaje_correo_invalido">Ingrese una cuenta de correo válida</string>
+
+    <!-- Elementos de las vistas curiosas -->
+    <string name="descripcion_logotipo">fusa</string>
+    <string name="texto_bienvenida">¡Bienvenido!</string>
+    <string name="texto_informativo">Desliza el dedo para obtener \ninformación acerca de \nFundamusical</string>
+    <string name="texto_pregunta_cuenta">¿Ya tienes una cuenta?</string>
+    <string name="texto_iniciar_sesion">Inicia sesión</string>
+    <string name="texto_postularse">Postulate en Fundamusical</string>
+
+    <string name="contenido_vista_inicial_estudiantes">Bebés, niños y jovenes \ntienen la oportunidad de \ndesenvolverse en el \nárea musical tomando en \ncuenta su desarrollo \nevolutivo y cognitivo</string>
+    <string name="contenido_vista_inicial_instrumentos">El estudiante se va \nfamiliarizando con una \nvariada gama de \ninstrumentos musicales \npara posterior elección</string>
+    <string name="contenido_vista_inicial_eventos">A partir de 6 años, \nlos estudiantes tienen la \noportunidad de desarrollarse \nen orquestas pre-infantiles, \ninfantiles y juveniles</string>
+    <string name="contenido_vista_registrarse">Con nosotros, \nel proceso de enseñanza \nen forma continua logrará \nde su trabajo un \naprendizaje constante \ny significativo</string>
+
+    <!-- Elementos de la vista Login -->
+    <string name="titulo_action_bar_login">Iniciar sesión en Fundamusical</string>
+    <string name="texto_boton_iniciar_sesion_login">Iniciar sesión</string>
+    <string name="texto_contenido_edittex_correo_login">Correo electrónico</string>
+    <string name="texto_contenido_edittex_clave_login">Contraseña</string>
+    <string name="texto_olvidar_clave">¿Has olvidado tu contraseña?</string>
+
+    <!-- Elementos de la vista restaurar contraseña -->
+    <string name="titulo_action_bar_restaurar">¿Olvidaste tu contraseña?</string>
+    <string name="texto_contenido_restaurar">¿No tienes una contraseña? No hay problema. Te enviaremos instrucciones para restaurar tu contraseña.</string>
+    <string name="texto_contenito_edittex_correo_restaurar">Correo electrónico</string>
+    <string name="texto_boton_restaurar">Restaurar contraseña</string>
+
+    <!-- Elementos de la vista registrar postulaciones -->
+    <string name="titulo_action_bar_postularse">Registrate como aspirante</string>
+    <string name="texto_contenido_editext_nombre_postularse">Nombre</string>
+    <string name="texto_contenido_editext_apellido_postularse">Apellido</string>
+    <string name="texto_contenido_edittext_correo_postularse">Correo electrónico</string>
+    <string name="texto_contenido_edittext_fecha_nacimiento_postularse">Fecha de nacimiento</string>
+    <string name="text_contenido_checkbox_participa_conservatorio_postularse">¿Esta inscrito en el conservatorio?</string>
+    <string name="text_contenido_checkbox_participa_coro_postularse">¿Esta inscrito en el coro?</string>
+    <string name="text_contenido_checkbox_posee_instrumento_postularse">¿Posee instrumento propio?</string>
+    <string name="text_contenido_checkbox_posee_beca_postularse">¿Posee una beca?</string>
+    <string name="texto_boton_crear_cuenta_datos_alumno">Enviar solicitud</string>
+
+    <!-- Ejemplo elementos Navigation Drawer-->
+
+    <string name="drawer_open">Menú principal</string>
+    <string name="drawer_close">Fusa</string>
+
+    <string-array name="nav_funciones_user">
+        <item>Home</item>
+        <item>Mis clases</item>
+        <item>Mis eventos</item>
+        <item>Calendario</item>
+        <item>Prestamos de instrumento</item>
+    </string-array>
+
+    <string-array name="nav_icons_user">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_mis_clases</item>
+        <item>@drawable/ic_mis_eventos</item>
+        <item>@drawable/ic_calendario</item>
+        <item>@drawable/ic_prestamos_instrumento</item>
+    </string-array>
+
+    <string-array name="nav_funciones_app">
+        <item>Configuración</item>
+    </string-array>
+
+    <string-array name="nav_icons_app">
+        <item>@drawable/ic_configuracion</item>
+    </string-array>
+
+    <!-- Elementos de cerrar sesión -->
+    <string name="cerrar_sesion">Cerrando sesión...</string>
+
+    <!-- Elementos de la ventana de configuraciones -->
+    <string name="configuracion_cuenta">Cuenta</string>
+    <string name="configuracion_cuenta_cambiar_password">Cambiar contraseña</string>
+    <string name="configuracion_cuenta_cerrar_sesion">Cerrar sesión</string>
+
+    <string name="configuracion_aplicaciones">Aplicaciones</string>
+    <string name="configuracion_aplicaciones_cuentas_enlazadas">Cuentas enlazadas</string>
+
+    <string-array name="redes_app">
+        <item>Facebook</item>
+        <item>Google+</item>
+        <item>Instagram</item>
+        <item>Twitter</item>
+    </string-array>
+
+    <string-array name="icons_app">
+        <item>@drawable/ic_facebook_disable</item>
+        <item>@drawable/ic_google_disable</item>
+        <item>@drawable/ic_instagram_disable</item>
+        <item>@drawable/ic_twitter_disable</item>
+    </string-array>
+
+    <string name="configuracion_informacion">Información</string>
+    <string name="configuracion_informacion_version">Acerca de esta versión</string>
+    <string name="configuracion_informacion_nosotros">Acerca de nosotros</string>
+    <string name="configuracion_informacion_web">Visita Fundamusical</string>
+
+    <string name="configuracion_ayuda">Ayuda</string>
+    <string name="configuracion_ayuda_problema">Informar de un problema</string>
+
+    <!-- Elementos de la ventana de configuraciones - cambiar password -->
+    <string name="configuracion_cambiar_password_antigua_contraseña">Antigua contraseña</string>
+    <string name="configuracion_cambiar_password_contraseña">Nueva contraseña</string>
+    <string name="configuracion_cambiar_password_repita_contraseña">Repita su nueva contraseña</string>
+    <string name="configuracion_cambiar_password_contenido_boton">Cambiar contraseña</string>
+    <string name="nivel_dificulad_contraseña_muy_debil">Muy débil</string>
+    <string name="nivel_dificulad_contraseña_debil">Débil</string>
+    <string name="nivel_dificulad_contraseña_normal">Más o menos</string>
+    <string name="nivel_dificulad_contraseña_fuerte">Mejor</string>
+    <string name="nivel_dificulad_contraseña_muy_fuerte">¡Excelente!</string>
+
+    <string name="cantidad_contenido_password_numero">Al menos un digito entre 0 - 9.</string>
+    <string name="cantidad_contenido_password_letras_mayuscula">Al menos una letra en mayuscula.</string>
+    <string name="cantidad_contenido_password_letras_minuscula">Al menos una letra en minuscula.</string>
+    <string name="cantidad_contenido_password_simbolos">Al menos un caracter especial (@#$%).</string>
+    <string name="cantidad_contenido_password_caracteres">Minimo 6 caracteres y máximo 20 caracteres.</string>
+
+    <!-- Elementos de la ventana de configuraciones - informar problema -->
+    <string name="configuracion_informar_problema">¿Qué desea que mejoremos?</string>
+    <string name="configuracion_informar_problema_contenido_boton">Enviar sugerencia</string>
+
+    <!-- Elementos de la ventana de configuraciones - acerca de la versión -->
+    <string name="configuracion_acerca_version_titulo">Acerca de la versión 1.0</string>
+    <string name="configuracion_acerca_version_contenido">Fusa for Android. \n \nCopyright © 2014 ENERGY TEAM. \nTodos los derechos reservados. \n \nFusa for Android es construido usando Open Source Software.</string>
+
+    <!-- Elementos de la ventana de configuraciones - acerca de la versión -->
+    <string name="configuracion_acerca_nosotros_titulo">Acerca de nosotros</string>
+    <string name="configuracion_acerca_nosotros_contenido">Somos un grupo de estudiante de la Universidad Centroccidental Lisandro Alvarado (UCLA), cual desarrollamos esta aplicación para la Fundación Musical Simón Bolívar (Fundamusical) como asignación de la materia Sistemas de Información. \n \nSomos mejor conocidos como ENERGY TEAM.</string>
+
+    <!-- Elementos de la vista de perfil -->
+    <string name="contenido_perfil_action_bar_titulo">Perfil de usuario</string>
+    <string name="contenido_barra_progreso_estudiante">Progreso Acádemico</string>
+    <string name="contenido_barra_progreso_nivel_1">Debes empezar a prácticar</string>
+    <string name="contenido_barra_progreso_nivel_2">Estas progresando, sigue así</string>
+    <string name="contenido_barra_progreso_nivel_3">Vas muy bien, no detengas el ritmo</string>
+    <string name="contenido_barra_progreso_nivel_4">Sigue así, la práctica hace al maestro</string>
+    <string name="contenido_barra_progreso_nivel_5">¡Bravo! Tu progreso ha sido excelente</string>
+
+    <string name="contenido_perfil_instrumento">Instrumento actual: </string>
+    <string name="contenido_perfil_catedra">Catedra actual: </string>
+    <string name="contenido_perfil_orquesta">Orquesta participante: </string>
+    <string name="contenido_perfil_fecha_ingreso">Fecha de ingreso: </string>
+    <string name="contenido_perfil_fecha_nacimiento">Fecha de nacimiento: </string>
+    <string name="contenido_perfil_edad">Edad: </string>
+    <string name="contenido_perfil_cedula">Cédula: </string>
+
+    <!-- Elementos de la vista de calendario -->
+    <string name="contenido_calendario_action_bar_titulo">Perfil de usuario</string>
+</resources>

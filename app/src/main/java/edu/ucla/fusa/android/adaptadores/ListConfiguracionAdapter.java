@@ -45,7 +45,7 @@ public class ListConfiguracionAdapter extends ArrayAdapter<Item> {
         if (i != null) {
             if (i.isSection()) {
                 HeaderListConfiguracion header = (HeaderListConfiguracion) i;
-                view = layout.inflate(R.layout.custom_item_list_section_configuracion, null);
+                view = layout.inflate(R.layout.custom_item_list_section_configuraciones, null);
 
                 view.setOnClickListener(null);
                 view.setOnLongClickListener(null);
@@ -56,7 +56,7 @@ public class ListConfiguracionAdapter extends ArrayAdapter<Item> {
 
             } else {
                 ItemListConfiguration iList = (ItemListConfiguration) i;
-                view = layout.inflate(R.layout.custom_item_list_content_configuracion, null);
+                view = layout.inflate(R.layout.custom_item_list_configuraciones, null);
 
                 final ImageView icono = (ImageView) view.findViewById(R.id.ivIconoContentConfiguracion);
                 final TextView titulo = (TextView) view.findViewById(R.id.tvTituloContentConfiguracion);

@@ -22,4 +22,6 @@
     <color name="feed_item_bg">#FFFFFF</color>
     <color name="feed_item_border">#C2C3C8</color>
     <color name="timestamp">#A0A3A7</color>
+
+    <color name="azul_llamativo">#395E6B</color>
 </resources>

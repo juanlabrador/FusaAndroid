@@ -13,7 +13,7 @@
 
     <!-- Elementos de las vistas curiosas -->
     <string name="descripcion_logotipo">fusa</string>
-    <string name="texto_bienvenida">¡Bienvenido!</string>
+    <string name="texto_bienvenida">¡Queremos darte la \nbienvenida!</string>
     <string name="texto_informativo">Desliza el dedo para obtener \ninformación acerca de \nFundamusical</string>
     <string name="texto_pregunta_cuenta">¿Ya tienes una cuenta?</string>
     <string name="texto_iniciar_sesion">Inicia sesión</string>

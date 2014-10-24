@@ -89,7 +89,7 @@ public class ConfiguracionAplicacionesFragment extends Fragment implements Adapt
                 if (checkApp.getVisibility() == View.INVISIBLE) {
                     checkApp.setVisibility(View.VISIBLE);
                     iconoApp.setImageResource(R.drawable.ic_facebook_enable);
-                    tituloApp.setTextColor(getResources().getColor(R.color.azul_claro));
+                    tituloApp.setTextColor(getResources().getColor(R.color.azul_llamativo));
 
                     /* Código para desactivar cuenta de Facebook */
                 } else {
@@ -104,7 +104,7 @@ public class ConfiguracionAplicacionesFragment extends Fragment implements Adapt
                 if (checkApp.getVisibility() == View.INVISIBLE) {
                     checkApp.setVisibility(View.VISIBLE);
                     iconoApp.setImageResource(R.drawable.ic_google_enable);
-                    tituloApp.setTextColor(getResources().getColor(R.color.azul_claro));
+                    tituloApp.setTextColor(getResources().getColor(R.color.azul_llamativo));
 
                     /* Código para desactivar cuenta de Facebook */
                 } else {
@@ -119,7 +119,7 @@ public class ConfiguracionAplicacionesFragment extends Fragment implements Adapt
                 if (checkApp.getVisibility() == View.INVISIBLE) {
                     checkApp.setVisibility(View.VISIBLE);
                     iconoApp.setImageResource(R.drawable.ic_instagram_enable);
-                    tituloApp.setTextColor(getResources().getColor(R.color.azul_claro));
+                    tituloApp.setTextColor(getResources().getColor(R.color.azul_llamativo));
 
                     /* Código para desactivar cuenta de Facebook */
                 } else {
@@ -134,7 +134,7 @@ public class ConfiguracionAplicacionesFragment extends Fragment implements Adapt
                 if (checkApp.getVisibility() == View.INVISIBLE) {
                     checkApp.setVisibility(View.VISIBLE);
                     iconoApp.setImageResource(R.drawable.ic_twitter_enable);
-                    tituloApp.setTextColor(getResources().getColor(R.color.azul_claro));
+                    tituloApp.setTextColor(getResources().getColor(R.color.azul_llamativo));
 
                     /* Código para desactivar cuenta de Facebook */
                 } else {

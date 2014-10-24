@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
     android:background="@color/azul">
 
     <ImageView
@@ -15,12 +17,11 @@
         android:src="@drawable/logotipo_fundamusical"/>
 
     <TextView
-        android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="3"
         android:text="@string/contenido_vista_registrarse"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:gravity="center"
         android:textColor="@color/blanco"/>
 
@@ -30,9 +31,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="20dp"
-        android:padding="15dp"
+        android:padding="10dp"
         android:text="@string/texto_postularse"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:gravity="center"
         android:background="@drawable/style_button_background_azul"
         android:textColor="@color/blanco"/>
@@ -43,15 +44,15 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/texto_pregunta_cuenta"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:gravity="center_vertical"
             android:layout_margin="3dp"
             android:textColor="@color/blanco"/>
@@ -61,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/texto_iniciar_sesion"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:gravity="center_vertical"
             android:layout_margin="3dp"
             android:textColor="@color/azul_super_oscuro"

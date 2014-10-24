@@ -20,6 +20,7 @@ import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
 import edu.ucla.fusa.android.fragmentos.ListadoConfiguracionFragment;
 import edu.ucla.fusa.android.fragmentos.ListadoNoticiasFragment;
 import edu.ucla.fusa.android.fragmentos.PerfilFragment;
+import edu.ucla.fusa.android.fragmentos.PrestamoInstrumentoFragment;
 import edu.ucla.fusa.android.modelo.ItemListDrawer;
 
 /**
@@ -64,6 +65,7 @@ public class VistasPrincipalesActivity extends Activity implements AdapterView.O
         items.add(new ItemListDrawer(titulos[1], navigationsIcons.getResourceId(1, -1)));
         items.add(new ItemListDrawer(titulos[2], navigationsIcons.getResourceId(2, -1)));
         items.add(new ItemListDrawer(titulos[3], navigationsIcons.getResourceId(3, -1)));
+        items.add(new ItemListDrawer(titulos[4], navigationsIcons.getResourceId(4, -1)));
 
         navigationsIcons = getResources().obtainTypedArray(R.array.nav_icons_app);
         titulos = getResources().getStringArray(R.array.nav_funciones_app);
@@ -151,6 +153,12 @@ public class VistasPrincipalesActivity extends Activity implements AdapterView.O
                         .commit();
                 break;
             case 5:
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, PrestamoInstrumentoFragment.newInstance())
+                                //.addToBackStack(null)
+                        .commit();
+                break;
+            case 6:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.frame_container, ListadoConfiguracionFragment.newInstance())
                         //.addToBackStack(null)

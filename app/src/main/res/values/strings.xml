@@ -164,4 +164,11 @@
     <string name="contenido_noticia_ver_mas">Ver más...</string>
     <string name="contenido_noticia_fecha_publicacion">Publicado el día </string>
     <string name="contenido_noticia_action_bar_titulo">Noticias</string>
+
+    <!-- Elemenos de la vista de prestamo de instrumentos -->
+    <string name="contenido_prestamo_instrumento_action_bar_titulo">Prestamo de instrumento</string>
+    <string name="contenido_prestamo_instrumento_codigo">Prestamo actual:</string>
+    <string name="contenido_prestamo_instrumento_tipo">Tipo de instrumento:</string>
+    <string name="contenido_prestamo_instrumento_fecha_vencimiento">Fecha de vencimiento:</string>
+    <string name="contenido_prestamo_instrumento_cuenta_regresiva">Cuenta regresiva:</string>
 </resources>

@@ -17,7 +17,8 @@ import java.util.ArrayList;
 
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
 import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
-import edu.ucla.fusa.android.fragmentos.ConfiguracionFragment;
+import edu.ucla.fusa.android.fragmentos.ListadoConfiguracionFragment;
+import edu.ucla.fusa.android.fragmentos.ListadoNoticiasFragment;
 import edu.ucla.fusa.android.fragmentos.PerfilFragment;
 import edu.ucla.fusa.android.modelo.ItemListDrawer;
 
@@ -93,6 +94,10 @@ public class VistasPrincipalesActivity extends Activity implements AdapterView.O
         navigationDrawer.setDrawerListener(mDrawerToogle);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+
+        getFragmentManager().beginTransaction()
+                .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
+                .commit();
     }
 
 
@@ -133,7 +138,13 @@ public class VistasPrincipalesActivity extends Activity implements AdapterView.O
                         //.addToBackStack(null)
                         .commit();
                 break;
-            case 3:
+            case 1:
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
+                                //.addToBackStack(null)
+                        .commit();
+                break;
+            case 4:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.frame_container, CalendarioFragment.newInstance())
                         //.addToBackStack(null)
@@ -141,7 +152,7 @@ public class VistasPrincipalesActivity extends Activity implements AdapterView.O
                 break;
             case 5:
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, ConfiguracionFragment.newInstance())
+                        .replace(R.id.frame_container, ListadoConfiguracionFragment.newInstance())
                         //.addToBackStack(null)
                         .commit();
                 break;

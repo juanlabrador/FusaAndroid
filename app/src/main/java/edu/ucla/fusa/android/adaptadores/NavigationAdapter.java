@@ -53,6 +53,7 @@ public class NavigationAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         Fila fila;
         LayoutInflater inflator = activity.getLayoutInflater();
 

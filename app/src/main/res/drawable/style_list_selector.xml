@@ -7,4 +7,6 @@
         android:state_pressed="true"/>
     <item android:drawable="@drawable/style_item_pressed_drawer"
         android:state_activated="true"/>
+    <item android:drawable="@drawable/style_item_pressed_drawer"
+        android:state_focused="true"/>
 </selector>

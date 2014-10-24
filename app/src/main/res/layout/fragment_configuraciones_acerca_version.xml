@@ -11,13 +11,13 @@
         android:layout_height="wrap_content"
         android:text="@string/configuracion_acerca_version_titulo"
         android:textSize="22sp"
-        android:textColor="@color/vinotinto"
+        android:textColor="@color/azul"
         android:gravity="center"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/vinotinto"/>
+        android:background="@color/azul"/>
 
     <TextView
         android:padding="5dp"

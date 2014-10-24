@@ -67,7 +67,7 @@
         android:layout_height="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="3dp"
-        android:background="@color/vinotinto_oscuro"/>
+        android:background="@color/azul_oscuro"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,7 +81,7 @@
             android:text="@string/contenido_perfil_cedula"
             android:layout_marginRight="5dp"
             android:textSize="15sp"
-            android:textColor="@color/vinotinto_oscuro"/>
+            android:textColor="@color/azul_oscuro"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -104,7 +104,7 @@
             android:text="@string/contenido_perfil_fecha_nacimiento"
             android:textSize="15sp"
             android:layout_marginRight="5dp"
-            android:textColor="@color/vinotinto_oscuro"/>
+            android:textColor="@color/azul_oscuro"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -127,7 +127,7 @@
             android:text="@string/contenido_perfil_fecha_ingreso"
             android:textSize="15sp"
             android:layout_marginRight="5dp"
-            android:textColor="@color/vinotinto_oscuro"/>
+            android:textColor="@color/azul_oscuro"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -150,7 +150,7 @@
             android:text="@string/contenido_perfil_instrumento"
             android:textSize="15sp"
             android:layout_marginRight="5dp"
-            android:textColor="@color/vinotinto_oscuro"/>
+            android:textColor="@color/azul_oscuro"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -171,7 +171,7 @@
             android:text="@string/contenido_perfil_catedra"
             android:textSize="15sp"
             android:layout_marginRight="5dp"
-            android:textColor="@color/vinotinto_oscuro"/>
+            android:textColor="@color/azul_oscuro"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -193,7 +193,7 @@
             android:text="@string/contenido_perfil_orquesta"
             android:textSize="15sp"
             android:layout_marginRight="5dp"
-            android:textColor="@color/vinotinto_oscuro"/>
+            android:textColor="@color/azul_oscuro"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -210,7 +210,7 @@
         android:layout_height="2dp"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="2dp"
-        android:background="@color/vinotinto_oscuro"/>
+        android:background="@color/azul_oscuro"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -218,7 +218,7 @@
         android:text="@string/contenido_barra_progreso_estudiante"
         android:layout_margin="5dp"
         android:textSize="16sp"
-        android:textColor="@color/vinotinto_oscuro"/>
+        android:textColor="@color/azul_oscuro"/>
 
     <LinearLayout
         android:layout_width="match_parent"

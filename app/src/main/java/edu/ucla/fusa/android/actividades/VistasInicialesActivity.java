@@ -17,8 +17,6 @@ import edu.ucla.fusa.android.fragmentos.VistaInicialPostularseFragment;
 import edu.ucla.fusa.android.fragmentos.VistaInicialSplashScreenFragment;
 import edu.ucla.fusa.android.fragmentos.VistaInicialEventosFragment;
 
-import static edu.ucla.fusa.android.actividades.R.color.vinotinto_oscuro;
-
 /**
  * Created by juanlabrador on 16/10/14.
  *
@@ -56,8 +54,8 @@ public class VistasInicialesActivity extends FragmentActivity {
             indicadorPagina = (CirclePageIndicator) this.findViewById(R.id.indicador);
             indicadorPagina.setViewPager(pagina);
             indicadorPagina.setSnap(true);
-            indicadorPagina.setFillColor(Color.WHITE);
-            indicadorPagina.setPageColor(vinotinto_oscuro);
+            indicadorPagina.setFillColor(getResources().getColor(R.color.blanco));
+            indicadorPagina.setPageColor(getResources().getColor(R.color.azul_oscuro));
             indicadorPagina.setStrokeColor(Color.TRANSPARENT);
             /** Guardamos la información de que ya se ha instanciado estas vistas */
             guardarPreferencias(true);

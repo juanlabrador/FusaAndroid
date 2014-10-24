@@ -158,5 +158,10 @@
     <string name="contenido_perfil_cedula">Cédula: </string>
 
     <!-- Elementos de la vista de calendario -->
-    <string name="contenido_calendario_action_bar_titulo">Perfil de usuario</string>
+    <string name="contenido_calendario_action_bar_titulo">Calendario</string>
+
+    <!-- Elementos de los item de la lista de noticias -->
+    <string name="contenido_noticia_ver_mas">Ver más...</string>
+    <string name="contenido_noticia_fecha_publicacion">Publicado el día </string>
+    <string name="contenido_noticia_action_bar_titulo">Noticias</string>
 </resources>

@@ -26,5 +26,4 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile project(':libraryViewPagerIndicator')
     compile 'de.hdodenhof:circleimageview:1.2.0'
-    compile project(':libraryReverseDrawerLayout')
 }

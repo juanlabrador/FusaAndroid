@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/texto_contenido_editext_nombre_postularse"
-        android:background="@drawable/style_edit_text_vinotinto"
+        android:background="@drawable/style_edit_text_azul"
         android:layout_margin="5dp"/>
 
     <EditText
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/texto_contenido_editext_apellido_postularse"
-        android:background="@drawable/style_edit_text_vinotinto"
+        android:background="@drawable/style_edit_text_azul"
         android:layout_margin="5dp"/>
 
     <EditText
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/texto_contenido_edittext_fecha_nacimiento_postularse"
-        android:background="@drawable/style_edit_text_vinotinto"
+        android:background="@drawable/style_edit_text_azul"
         android:layout_margin="5dp"/>
 
 
@@ -37,35 +37,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_contenido_checkbox_posee_instrumento_postularse"
-        android:button="@drawable/style_checkbox_vinotinto"/>
+        android:button="@drawable/style_btn_check_azul"/>
 
     <CheckBox
         android:id="@+id/cbConservatorio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_contenido_checkbox_participa_conservatorio_postularse"
-        android:button="@drawable/style_checkbox_vinotinto"/>
+        android:button="@drawable/style_btn_check_azul"/>
 
     <CheckBox
         android:id="@+id/cbCoro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_contenido_checkbox_participa_coro_postularse"
-        android:button="@drawable/style_checkbox_vinotinto"/>
+        android:button="@drawable/style_btn_check_azul"/>
 
     <CheckBox
         android:id="@+id/cbBeca"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_contenido_checkbox_posee_beca_postularse"
-        android:button="@drawable/style_checkbox_vinotinto"/>
+        android:button="@drawable/style_btn_check_azul"/>
 
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/texto_contenido_edittext_correo_postularse"
-        android:background="@drawable/style_edit_text_vinotinto"
+        android:background="@drawable/style_edit_text_azul"
         android:layout_margin="5dp"/>
 
     <Button

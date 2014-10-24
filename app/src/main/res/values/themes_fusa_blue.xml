@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="Fusa_blue" parent="@style/_Fusa_blue"/>
+
+  <style name="_Fusa_blue" parent="android:Theme.Holo.Light">
+
+    <item name="android:editTextBackground">@drawable/style_edit_text_azul</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/style_btn_check_azul</item>
+
+    <item name="android:buttonStyle">@style/ButtonFusa_blue</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonFusa_blue</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarFusa_blue</item>
+
+  </style>
+
+</resources>

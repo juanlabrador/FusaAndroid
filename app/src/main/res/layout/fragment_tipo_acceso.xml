@@ -29,7 +29,8 @@
         android:padding="15dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:text="@string/texto_postularse"/>
+        android:text="@string/texto_postularse"
+        android:fontFamily="origin"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,7 +48,8 @@
             android:textSize="14sp"
             android:gravity="center"
             android:textColor="@color/negro"
-            android:layout_margin="3dp"/>
+            android:layout_margin="3dp"
+            android:fontFamily="origin"/>
 
         <TextView
             android:id="@+id/tvIniciarSesion"
@@ -57,8 +59,9 @@
             android:text="@string/texto_iniciar_sesion"
             android:textSize="14sp"
             android:gravity="center"
-            android:textColor="@color/vinotinto_oscuro"
-            android:onClick="IniciarSesion"/>
+            android:textColor="@color/azul_oscuro"
+            android:onClick="IniciarSesion"
+            android:fontFamily="origin"/>
 
     </LinearLayout>
 

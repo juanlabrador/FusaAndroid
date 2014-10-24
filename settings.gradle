@@ -1,1 +1,1 @@
-include ':app', ':libraryViewPagerIndicator', ':libraryCircleImageView', ':libraryReverseDrawerLayout'
+include ':app', ':libraryViewPagerIndicator', ':libraryCircleImageView'

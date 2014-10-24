@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/texto_contenido_edittex_correo_login"
         android:layout_margin="5dp"
-        android:background="@drawable/style_edit_text_vinotinto"/>
+        android:background="@drawable/style_edit_text_azul"/>
 
     <EditText
         android:id="@+id/etPassword"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/texto_contenido_edittex_clave_login"
         android:layout_margin="5dp"
-        android:background="@drawable/style_edit_text_vinotinto"/>
+        android:background="@drawable/style_edit_text_azul"/>
 
     <Button
         android:id="@+id/btnLogin"

@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/ivIconoContentConfiguracion"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
         android:layout_weight="1"/>
 
     <TextView

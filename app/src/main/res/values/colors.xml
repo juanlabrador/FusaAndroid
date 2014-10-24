@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="blanco">#FFFFFF</color>
-    <color name="azul_claro">#33B5E5</color>
-    <color name="vinotinto_claro">#D07E9D</color>
-    <color name="vinotinto">#922952</color>
-    <color name="vinotinto_oscuro">#5C132F</color>
-    <color name="vinotinto_super_oscuro">#2C0614</color>
+    <color name="blanco">#F4F5F7</color>
+    <color name="azul_claro">#9CA4B3</color>
+    <color name="azul">#4966A6</color>
+    <color name="azul_oscuro">#223B73</color>
+    <color name="azul_super_oscuro">#32394A</color>
     <color name="negro">#000000</color>
 
     <color name="debil">#8A0808</color>
@@ -18,4 +17,9 @@
     <color name="nivel_3">#B45F04</color>
     <color name="nivel_4">#86B404</color>
     <color name="nivel_5">#04B404</color>
+
+    <color name="feed_bg">#D3D6DB</color>
+    <color name="feed_item_bg">#FFFFFF</color>
+    <color name="feed_item_border">#C2C3C8</color>
+    <color name="timestamp">#A0A3A7</color>
 </resources>

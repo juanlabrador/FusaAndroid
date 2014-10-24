@@ -21,11 +21,10 @@ la lista de navegación
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
-        android:divider="@color/blanco"
-        android:dividerHeight="1dp"
+        android:divider="@drawable/style_list_divider"
+        android:dividerHeight="0.5dp"
         android:textColor="@color/blanco"
-        android:padding="5dp"
-        android:background="@drawable/style_list_vinotinto"
+        android:background="@drawable/style_list_azul"
         android:listSelector="@drawable/style_list_selector"/>
 
 </android.support.v4.widget.DrawerLayout>

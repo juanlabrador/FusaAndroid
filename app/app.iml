@@ -84,7 +84,6 @@
     <orderEntry type="library" exported="" name="support-v4-20.0.0" level="project" />
     <orderEntry type="library" exported="" name="circleimageview-1.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-20.0.0" level="project" />
-    <orderEntry type="module" module-name="libraryReverseDrawerLayout" exported="" />
     <orderEntry type="module" module-name="libraryViewPagerIndicator" exported="" />
   </component>
 </module>

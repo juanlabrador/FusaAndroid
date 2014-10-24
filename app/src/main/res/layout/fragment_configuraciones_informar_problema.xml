@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/configuracion_informar_problema"
-        android:background="@drawable/style_edit_text_vinotinto"
+        android:background="@drawable/style_edit_text_azul"
         android:layout_margin="5dp"
         android:maxLength="200"
         android:textSize="14sp"/>

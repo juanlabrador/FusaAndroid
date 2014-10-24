@@ -5,17 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import edu.ucla.fusa.android.actividades.R;
 import edu.ucla.fusa.android.actividades.VistasPrincipalesActivity;
-import edu.ucla.fusa.android.validadores.ValidadorEmails;
+import edu.ucla.fusa.android.modelo.TypefaceSpan;
 
 /**
  * Created by juanlabrador on 17/10/14.
@@ -44,6 +45,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         super.onCreateView(inflater, container, savedInstanceState);
 
         view = inflater.inflate(R.layout.fragment_login, container, false);
+
         email = (EditText) view.findViewById(R.id.etEmail);
         password = (EditText) view.findViewById(R.id.etPassword);
         iniciarSesion = (Button) view.findViewById(R.id.btnLogin);
@@ -63,6 +65,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setMenuVisibility(true);
+
         getActivity().getActionBar().show();
         getActivity().getActionBar().setTitle(R.string.titulo_action_bar_login);
     }

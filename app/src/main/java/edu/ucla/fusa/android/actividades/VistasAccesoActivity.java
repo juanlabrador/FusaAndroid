@@ -1,11 +1,8 @@
 package edu.ucla.fusa.android.actividades;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.Toast;
-
 import edu.ucla.fusa.android.fragmentos.LoginFragment;
 import edu.ucla.fusa.android.fragmentos.RegistrarPostulacionesFragment;
 import edu.ucla.fusa.android.fragmentos.TipoAccesoFragment;
@@ -26,6 +23,7 @@ public class VistasAccesoActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         /**
          *

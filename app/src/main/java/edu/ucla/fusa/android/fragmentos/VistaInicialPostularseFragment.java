@@ -38,7 +38,7 @@ public class VistaInicialPostularseFragment extends Fragment implements View.OnC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        view = inflater.inflate(R.layout.fragment_vc_postularse, container, false);
+        view = inflater.inflate(R.layout.fragment_vista_inicial_contacto, container, false);
         postularse = (Button) view.findViewById(R.id.btnPostularse);
         iniciarSesion = (TextView) view.findViewById(R.id.tvIniciarSesion);
 

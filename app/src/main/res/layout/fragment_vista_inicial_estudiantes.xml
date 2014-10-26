@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp"
+    android:background="@color/azul">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:contentDescription="@string/descripcion_logotipo"
+        android:src="@drawable/grupo_alumnos"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:text="@string/contenido_vista_inicial_estudiantes"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:textColor="@color/blanco"/>
+
+    <Button
+        android:id="@+id/btnPostularse"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        android:text="@string/texto_postularse"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:padding="10dp"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:background="@drawable/style_button_background_azul"
+        android:textColor="@color/blanco"/>
+
+</LinearLayout>

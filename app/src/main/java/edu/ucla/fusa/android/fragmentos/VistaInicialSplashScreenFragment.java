@@ -49,7 +49,7 @@ public class VistaInicialSplashScreenFragment extends Fragment implements View.O
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        view = inflater.inflate(R.layout.fragment_vc_splashscreen, container, false);
+        view = inflater.inflate(R.layout.fragment_vista_inicial_splash_screen, container, false);
 
         tvIniciarSesion = (TextView) view.findViewById(R.id.tvIniciarSesion);
         tvIniciarSesion.setOnClickListener(this);

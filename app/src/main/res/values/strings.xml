@@ -17,12 +17,19 @@
     <string name="texto_informativo">Desliza el dedo para obtener \ninformación acerca de \nFundamusical</string>
     <string name="texto_pregunta_cuenta">¿Ya tienes una cuenta?</string>
     <string name="texto_iniciar_sesion">Inicia sesión</string>
-    <string name="texto_postularse">Postulate en Fundamusical</string>
+    <string name="texto_postularse">Postulate</string>
+    <string name="texto_participa">Participa</string>
+    <string name="texto_contribuye">Contribuye</string>
+    <string name="texto_presentaciones">Presentaciones</string>
+    <string name="texto_contrataciones">Contrataciones</string>
+    <string name="texto_contacto">Contactanos</string>
 
-    <string name="contenido_vista_inicial_estudiantes">Bebés, niños y jovenes \ntienen la oportunidad de \ndesenvolverse en el \nárea musical tomando en \ncuenta su desarrollo \nevolutivo y cognitivo</string>
+
+    <string name="contenido_vista_inicial_estudiantes">Bebés, niños y jovenes \ntienen la oportunidad de \ndesenvolverse en el \nárea musical</string>
+    <string name="contenido_vista_inicial_profesores">Profesores o \nestudiantes avanzados \ntienen la oportunidad \nde enseñar</string>
     <string name="contenido_vista_inicial_instrumentos">El estudiante se va \nfamiliarizando con una \nvariada gama de \ninstrumentos musicales \npara posterior elección</string>
     <string name="contenido_vista_inicial_eventos">A partir de 6 años, \nlos estudiantes tienen la \noportunidad de desarrollarse \nen orquestas pre-infantiles, \ninfantiles y juveniles</string>
-    <string name="contenido_vista_registrarse">Con nosotros, \nel proceso de enseñanza \nen forma continua logrará \nde su trabajo un \naprendizaje constante \ny significativo</string>
+    <string name="contenido_vista_inicial_contacto">Con nosotros, \nel proceso de enseñanza \nen forma continua logrará \nde su trabajo un \naprendizaje constante \ny significativo</string>
 
     <!-- Elementos de la vista Login -->
     <string name="titulo_action_bar_login">Iniciar sesión en Fundamusical</string>

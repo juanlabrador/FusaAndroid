@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:background="@color/azul">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/logo_fundamusical"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:text="@string/contenido_vista_inicial_contacto"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:textColor="@color/blanco"/>
+
+    <Button
+        android:id="@+id/btnPostularse"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:padding="10dp"
+        android:text="@string/texto_contacto"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:background="@drawable/style_button_background_azul"
+        android:textColor="@color/blanco"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/texto_pregunta_cuenta"
+            android:textSize="16sp"
+            android:gravity="center_vertical"
+            android:layout_margin="3dp"
+            android:textColor="@color/blanco"/>
+
+        <TextView
+            android:id="@+id/tvIniciarSesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/texto_iniciar_sesion"
+            android:textSize="16sp"
+            android:gravity="center_vertical"
+            android:layout_margin="3dp"
+            android:textColor="@color/azul_super_oscuro"
+            android:onClick="IniciarSesion"/>
+
+    </LinearLayout>
+
+</LinearLayout>

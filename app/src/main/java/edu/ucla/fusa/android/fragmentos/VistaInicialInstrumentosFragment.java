@@ -29,6 +29,6 @@ public class VistaInicialInstrumentosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_vc_instrumentos, container, false);
+        return inflater.inflate(R.layout.fragment_vista_inicial_instrumentos, container, false);
     }
 }

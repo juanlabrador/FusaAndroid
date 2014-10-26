@@ -14,6 +14,7 @@ import edu.ucla.fusa.android.adaptadores.ViewPagerFragmentAdapter;
 import edu.ucla.fusa.android.fragmentos.VistaInicialEstudiantesFragment;
 import edu.ucla.fusa.android.fragmentos.VistaInicialInstrumentosFragment;
 import edu.ucla.fusa.android.fragmentos.VistaInicialPostularseFragment;
+import edu.ucla.fusa.android.fragmentos.VistaInicialProfesoresFragment;
 import edu.ucla.fusa.android.fragmentos.VistaInicialSplashScreenFragment;
 import edu.ucla.fusa.android.fragmentos.VistaInicialEventosFragment;
 
@@ -46,6 +47,7 @@ public class VistasInicialesActivity extends FragmentActivity {
             fragmentoPagina = new ViewPagerFragmentAdapter(getSupportFragmentManager(), this);
             fragmentoPagina.adicionarFragmento(VistaInicialSplashScreenFragment.newInstance());
             fragmentoPagina.adicionarFragmento(VistaInicialEstudiantesFragment.newInstance());
+            fragmentoPagina.adicionarFragmento(VistaInicialProfesoresFragment.newInstance());
             fragmentoPagina.adicionarFragmento(VistaInicialInstrumentosFragment.newInstance());
             fragmentoPagina.adicionarFragmento(VistaInicialEventosFragment.newInstance());
             fragmentoPagina.adicionarFragmento(VistaInicialPostularseFragment.newInstance());

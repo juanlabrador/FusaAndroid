@@ -7,7 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 
-import edu.ucla.fusa.android.actividades.R;
+import edu.ucla.fusa.android.R;
 
 /**
  * Created by juanlabrador on 22/10/14.

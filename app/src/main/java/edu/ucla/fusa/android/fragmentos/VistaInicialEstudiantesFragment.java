@@ -5,8 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-import edu.ucla.fusa.android.actividades.R;
+import edu.ucla.fusa.android.R;
 
 /**
  * Created by juanlabrador on 16/10/14.
@@ -15,7 +16,10 @@ import edu.ucla.fusa.android.actividades.R;
  *
  */
 
-public class VistaInicialEstudiantesFragment extends Fragment {
+public class VistaInicialEstudiantesFragment extends Fragment implements View.OnClickListener {
+
+    private View view;
+    private Button postulate;
 
     public static VistaInicialEstudiantesFragment newInstance() {
         VistaInicialEstudiantesFragment activity = new VistaInicialEstudiantesFragment();
@@ -28,6 +32,22 @@ public class VistaInicialEstudiantesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_vista_inicial_estudiantes, container, false);
+        view = inflater.inflate(R.layout.fragment_vista_inicial_estudiantes, container, false);
+
+        postulate = (Button) view.findViewById(R.id.btnPostularse);
+        postulate.setOnClickListener(this);
+
+
+        return view;
     }
+
+
+    @Override
+    public void onClick(View v) {
+        getFragmentManager().beginTransaction()
+                .replace(R.id.inicial_container, InicialPostulacionesFragment.newInstance())
+                .commit();
+    }
+
+
 }

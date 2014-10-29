@@ -16,17 +16,11 @@ import java.util.List;
  */
 public class ViewPagerFragmentAdapter extends FragmentPagerAdapter {
 
-    List<Fragment> fragmentos;
-    private Context contexto;
-
-    public ViewPagerFragmentAdapter(FragmentManager fm, Context contexto) {
-        super(fm);
-        this.fragmentos = new ArrayList<Fragment>();
-        this.contexto = contexto;
-    }
+    private List<Fragment> fragmentos;
 
     public ViewPagerFragmentAdapter(FragmentManager fm) {
         super(fm);
+        this.fragmentos = new ArrayList<Fragment>();
     }
 
     public void adicionarFragmento(Fragment fragmento) {
@@ -41,5 +35,15 @@ public class ViewPagerFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return this.fragmentos.size();
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return super.getPageTitle(position);
     }
 }

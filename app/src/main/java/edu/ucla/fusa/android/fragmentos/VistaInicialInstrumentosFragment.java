@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.ucla.fusa.android.actividades.R;
+import edu.ucla.fusa.android.R;
 
 
 /**

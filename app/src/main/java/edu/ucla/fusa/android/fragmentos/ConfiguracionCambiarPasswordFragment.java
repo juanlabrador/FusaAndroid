@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import edu.ucla.fusa.android.actividades.R;
+import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.validadores.ValidadorPasswords;
 
 /**

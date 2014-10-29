@@ -4,32 +4,32 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="20dp"
-    android:background="@color/azul">
+    android:padding="10dp"
+    android:background="@color/azul"
+    android:id="@+id/fragment_vistas_iniciales_estudiantes">
 
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_height="230dp"
         android:contentDescription="@string/descripcion_logotipo"
-        android:src="@drawable/grupo_alumnos"/>
+        android:src="@drawable/estudiantes"
+        android:scaleType="fitCenter"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="@string/contenido_vista_inicial_estudiantes"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:gravity="center"
         android:textColor="@color/blanco"/>
 
     <Button
         android:id="@+id/btnPostularse"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/texto_postularse"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"

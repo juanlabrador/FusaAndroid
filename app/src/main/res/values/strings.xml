@@ -4,6 +4,7 @@
     <string name="vinotinto">#922952</string>
     <string name="app_name">Fusa</string>
     <string name="pagina_web">http://www.fundamusical.org.ve</string>
+    <string name="fundacion">Fundamusical Nucleo Barquisimeto</string>
 
     <!-- Botones de acción en menu -->
     <string name="configuracion">Configuración</string>
@@ -20,16 +21,16 @@
     <string name="texto_postularse">Postulate</string>
     <string name="texto_participa">Participa</string>
     <string name="texto_contribuye">Contribuye</string>
-    <string name="texto_presentaciones">Presentaciones</string>
-    <string name="texto_contrataciones">Contrataciones</string>
+    <string name="texto_presentaciones">Asiste</string>
+    <string name="texto_contrataciones">Contrata</string>
     <string name="texto_contacto">Contactanos</string>
 
 
-    <string name="contenido_vista_inicial_estudiantes">Bebés, niños y jovenes \ntienen la oportunidad de \ndesenvolverse en el \nárea musical</string>
-    <string name="contenido_vista_inicial_profesores">Profesores o \nestudiantes avanzados \ntienen la oportunidad \nde enseñar</string>
-    <string name="contenido_vista_inicial_instrumentos">El estudiante se va \nfamiliarizando con una \nvariada gama de \ninstrumentos musicales \npara posterior elección</string>
-    <string name="contenido_vista_inicial_eventos">A partir de 6 años, \nlos estudiantes tienen la \noportunidad de desarrollarse \nen orquestas pre-infantiles, \ninfantiles y juveniles</string>
-    <string name="contenido_vista_inicial_contacto">Con nosotros, \nel proceso de enseñanza \nen forma continua logrará \nde su trabajo un \naprendizaje constante \ny significativo</string>
+    <string name="contenido_vista_inicial_estudiantes">Bebés, niños y jovenes tienen la oportunidad de desenvolverse en el área musical</string>
+    <string name="contenido_vista_inicial_profesores">Profesores o estudiantes avanzados tienen la oportunidad de enseñar</string>
+    <string name="contenido_vista_inicial_instrumentos">El estudiante se va familiarizando con una variada gama de instrumentos musicales para posterior elección</string>
+    <string name="contenido_vista_inicial_eventos">A partir de 6 años, los estudiantes tienen la oportunidad de desarrollarse en orquestas pre-infantiles, infantiles y juveniles</string>
+    <string name="contenido_vista_inicial_contacto">Con nosotros, el proceso de enseñanza en forma continua logrará de su trabajo un aprendizaje constante y significativo</string>
 
     <!-- Elementos de la vista Login -->
     <string name="titulo_action_bar_login">Iniciar sesión en Fundamusical</string>
@@ -55,6 +56,41 @@
     <string name="text_contenido_checkbox_posee_instrumento_postularse">¿Posee instrumento propio?</string>
     <string name="text_contenido_checkbox_posee_beca_postularse">¿Posee una beca?</string>
     <string name="texto_boton_crear_cuenta_datos_alumno">Enviar solicitud</string>
+
+    <!-- Elementos de la vista registrar contrataciones -->
+    <string name="titulo_action_bar_contrataciones">Solicitud de evento</string>
+    <string name="texto_contenido_editext_rif_cedula_contrataciones">Rif o cédula</string>
+    <string name="texto_contenido_editext_solicitante_contrataciones">Solicitante</string>
+    <string name="texto_contenido_edittext_correo_contrataciones">Correo electrónico</string>
+    <string name="texto_contenido_datos_evento_contrataciones">Datos del evento</string>
+    <string name="texto_contenido_edittext_tema_contrataciones">Tema</string>
+    <string name="texto_contenido_edittext_lugar_contrataciones">Lugar</string>
+    <string name="texto_contenido_edittext_fecha_contrataciones">Fecha</string>
+    <string name="texto_contenido_edittext_hora_contrataciones">Hora</string>
+    <string name="texto_boton_enviar_solicitud_contrataciones">Enviar solicitud</string>
+
+    <!-- Elementos de la vista de contacto -->
+    <string name="texto_contenido_titulo_direccion_contacto">Dirección:</string>
+    <string name="texto_contenido_titulo_telefono_contacto">Teléfonos:</string>
+    <string name="texto_contenido_titulo_correo_contacto">Correo electrónico:</string>
+    <string name="texto_contenido_titulo_director_contacto">Director:</string>
+    <string name="texto_contenido_titulo_coordinador_contacto">Coordinador:</string>
+    <string name="texto_contenido_direccion_contacto">Av. Madrid con calle Capanaparo, Urb. Santa Elena. Conservatorio de música Vicente Emilio Sojo, sede del Fundamusical del Estado Lara.</string>
+    <string name="texto_contenido_email_contacto">crlara@fundamusical.org.ve</string>
+    <string name="texto_contenido_telefono1_contacto">0251-2676646</string>
+    <string name="texto_contenido_telefono2_contacto">0251-2532556</string>
+    <string name="texto_contenido_director_contacto">Alfredo D\' Addona, adaddonna@fundamusical.org.ve</string>
+    <string name="texto_contenido_coordinador_contacto">Coromoto de Giménez, msosadgimenez@hotmail.com</string>
+    <string name="error_llamada">¡Llamada fallida!</string>
+    <string name="error_enviar_correo">¡No posee un cliente de correo instalado!</string>
+    <string name="mensaje_elegir_cliente_correo">Elija un cliente de correo electrónico</string>
+    <string name="titulo_correo_contacto">Consulta</string>
+    <string name="titulo_tab_datos_contacto">Información</string>
+    <string name="titulo_tab_ubicacion_contacto">Ubicación</string>
+    <string name="titulo_action_bar_contacto">Contactanos</string>
+
+    <!-- Elementos de la vista de contacto mapa -->
+    <string name="mensaje_error_crear_mapa">¡Lo sentimos! Imposible crear el mapa</string>
 
     <!-- Ejemplo elementos Navigation Drawer-->
 

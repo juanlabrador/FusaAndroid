@@ -7,8 +7,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.SystemClock;
 
-import edu.ucla.fusa.android.actividades.R;
-import edu.ucla.fusa.android.actividades.VistasInicialesActivity;
+import edu.ucla.fusa.android.R;
+import edu.ucla.fusa.android.VistasInicialesActivity;
 
 /**
  * Created by juanlabrador on 21/10/14.

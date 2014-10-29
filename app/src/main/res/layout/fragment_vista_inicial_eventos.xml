@@ -4,29 +4,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="20dp"
+    android:padding="10dp"
     android:background="@color/azul">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:src="@drawable/grupo_orquesta"/>
+        android:layout_height="200dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/orquesta"/>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_height="wrap_content"
         android:text="@string/contenido_vista_inicial_eventos"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:gravity="center"
+        android:layout_margin="10dp"
         android:textColor="@color/blanco"/>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:gravity="center">
 
@@ -36,10 +35,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/texto_presentaciones"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:gravity="center"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:padding="5dp"
             android:layout_margin="2dp"
             android:background="@drawable/style_button_background_azul"
             android:textColor="@color/blanco"/>
@@ -50,10 +48,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="2dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:padding="5dp"
             android:text="@string/texto_contrataciones"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:gravity="center"
             android:background="@drawable/style_button_background_azul"
             android:textColor="@color/blanco"/>

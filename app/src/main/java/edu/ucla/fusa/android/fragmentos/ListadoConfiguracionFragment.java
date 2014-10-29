@@ -16,7 +16,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import edu.ucla.fusa.android.asynctask.CerrarSesionAsyncTaks;
-import edu.ucla.fusa.android.actividades.R;
+import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.ListConfiguracionAdapter;
 import edu.ucla.fusa.android.interfaces.Item;
 import edu.ucla.fusa.android.modelo.HeaderListConfiguracion;

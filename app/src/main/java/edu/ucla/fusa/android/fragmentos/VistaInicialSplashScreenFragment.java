@@ -1,6 +1,5 @@
 package edu.ucla.fusa.android.fragmentos;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,8 +13,7 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import edu.ucla.fusa.android.actividades.VistasAccesoActivity;
-import edu.ucla.fusa.android.actividades.R;
+import edu.ucla.fusa.android.R;
 
 
 /**
@@ -97,10 +95,9 @@ public class VistaInicialSplashScreenFragment extends Fragment implements View.O
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.tvIniciarSesion) {
-            /** Instanciamos una nueva actividad */
-            startActivity(new Intent(getActivity(), VistasAccesoActivity.class).putExtra("acceso", 0));
-            getActivity().finish();  /** Finalizamos la antigua actividad */
-        }
+        getFragmentManager().beginTransaction()
+                .replace(R.id.inicial_container, InicialLoginFragment.newInstance())
+                        //.addToBackStack(null)
+                .commit();
     }
 }

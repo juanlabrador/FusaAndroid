@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import edu.ucla.fusa.android.actividades.R;
+import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.interfaces.Item;
 import edu.ucla.fusa.android.modelo.HeaderListConfiguracion;
 import edu.ucla.fusa.android.modelo.ItemListConfiguration;

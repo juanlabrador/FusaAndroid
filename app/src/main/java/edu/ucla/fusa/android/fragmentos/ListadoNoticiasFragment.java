@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import edu.ucla.fusa.android.actividades.R;
+import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.ListNoticiasAdapter;
 import edu.ucla.fusa.android.modelo.ItemListNoticias;
 

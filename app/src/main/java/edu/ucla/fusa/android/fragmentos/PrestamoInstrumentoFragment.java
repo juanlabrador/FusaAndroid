@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Date;
 
-import edu.ucla.fusa.android.actividades.R;
+import edu.ucla.fusa.android.R;
 
 /**
  * Created by juanlabrador on 24/10/14.

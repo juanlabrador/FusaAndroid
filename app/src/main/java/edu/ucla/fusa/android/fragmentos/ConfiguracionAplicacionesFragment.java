@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import edu.ucla.fusa.android.actividades.R;
+import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.ListAplicationsAdapter;
 import edu.ucla.fusa.android.modelo.ItemListAplications;
 

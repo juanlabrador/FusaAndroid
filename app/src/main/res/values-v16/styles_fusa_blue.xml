@@ -30,6 +30,7 @@
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_style_fusa_blue</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Style_fusa_blue</item>
         <item name="android:actionMenuTextColor">@color/blanco</item>
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
     </style>
 
     <style name="ActionBar.Solid.Style_fusa_blue" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
@@ -54,7 +55,7 @@
     </style>
 
     <style name="ActionBarTabStyle.Style_fusa_blue" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
-        <item name="android:background">@drawable/tab_indicator_ab_style_fusa_blue</item>
+        <item name="android:background">@drawable/style_tab_indicator</item>
         <item name="android:titleTextStyle">@style/ActionBarTabStyle.Fusa_blue.TitleColor</item>
     </style>
 
@@ -100,4 +101,16 @@
         <item name="android:indeterminateDrawable">@drawable/fusa_blue_progress_indeterminate_horizontal_holo_light</item>
     </style>
 
+    <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
+        <item name="android:background">@drawable/style_tab_indicator</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAppearance">@style/TextAppearance.TabPageIndicator</item>
+        <item name="android:animateOnClick">true</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textColor">@color/negro</item>
+    </style>
 </resources>

@@ -11,8 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import edu.ucla.fusa.android.R;
-import edu.ucla.fusa.android.modelo.ItemListAplications;
-import edu.ucla.fusa.android.modelo.ItemListNoticias;
+import edu.ucla.fusa.android.modelo.ItemListNoticia;
 
 /**
  * Created by juanlabrador on 23/10/14.
@@ -26,9 +25,9 @@ import edu.ucla.fusa.android.modelo.ItemListNoticias;
 public class ListNoticiasAdapter extends BaseAdapter {
 
     private Activity activity;
-    private ArrayList<ItemListNoticias> arrayItems;
+    private ArrayList<ItemListNoticia> arrayItems;
 
-    public ListNoticiasAdapter(Activity activity, ArrayList<ItemListNoticias> arrayItems) {
+    public ListNoticiasAdapter(Activity activity, ArrayList<ItemListNoticia> arrayItems) {
         this.activity = activity;
         this.arrayItems = arrayItems;
     }
@@ -65,7 +64,7 @@ public class ListNoticiasAdapter extends BaseAdapter {
         if (convertView == null) {
             fila = new Fila();
 
-            ItemListNoticias item = arrayItems.get(position);
+            ItemListNoticia item = arrayItems.get(position);
             convertView = inflator.inflate(R.layout.custom_item_list_noticias, null);
 
             fila.titulo = (TextView) convertView.findViewById(R.id.tvTituloNoticia);

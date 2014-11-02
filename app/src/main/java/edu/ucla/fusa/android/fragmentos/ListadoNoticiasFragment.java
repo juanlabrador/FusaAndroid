@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.ListNoticiasAdapter;
-import edu.ucla.fusa.android.modelo.ItemListNoticias;
+import edu.ucla.fusa.android.modelo.ItemListNoticia;
 
 /**
  * Created by juanlabrador on 23/10/14.
@@ -23,7 +23,7 @@ public class ListadoNoticiasFragment extends Fragment implements ListView.OnItem
 
     private View view;
     private ListView list;
-    private ArrayList<ItemListNoticias> items;
+    private ArrayList<ItemListNoticia> items;
     private ListNoticiasAdapter adapter;
 
     public static ListadoNoticiasFragment newInstance() {
@@ -36,48 +36,48 @@ public class ListadoNoticiasFragment extends Fragment implements ListView.OnItem
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        view = inflater.inflate(R.layout.fragment_list_noticias, container, false);
+        view = inflater.inflate(R.layout.fragment_drawer_list_noticias, container, false);
         list = (ListView) view.findViewById(R.id.lvListadoNoticias);
 
-        items = new ArrayList<ItemListNoticias>();
+        items = new ArrayList<ItemListNoticia>();
 
-        items.add(new ItemListNoticias(
+        items.add(new ItemListNoticia(
                "Jóvenes de Barquisimeto y Villa de Leyva comparten atril en un concierto binacional Colombia-Venezuela",
                "22/10/2014",
                R.drawable.noticia1));
-        items.add(new ItemListNoticias(
+        items.add(new ItemListNoticia(
                 "Las voces de 1500 niños guariqueños se escucharán en el festival de coros",
                 "22/10/2014",
                 R.drawable.noticia2));
-        items.add(new ItemListNoticias(
+        items.add(new ItemListNoticia(
                 "Gustavo Dudamel dirigirá en Caracas fragmentos sinfónicos de las óperas de Wagner",
                 "21/10/2014",
                 R.drawable.noticia3));
-        items.add(new ItemListNoticias(
+        items.add(new ItemListNoticia(
                 "El #FESTLATMÚSICA: Un espacio para decantar el acervo histórico de la música latinoamericana",
                 "17/10/2014",
                 R.drawable.noticia4));
-        items.add(new ItemListNoticias(
+        items.add(new ItemListNoticia(
                 "Mozart sonará en el piano de un niño de diez años",
                 "16/10/2014",
                 R.drawable.noticia5));
-        items.add(new ItemListNoticias(
+        items.add(new ItemListNoticia(
                 "Banda sinfónica juvenil Simón Bolívar realiza gira por Venezuela y Colombia",
                 "16/10/2014",
                 R.drawable.noticia6));
-        items.add(new ItemListNoticias(
+        items.add(new ItemListNoticia(
                 "La influencia músical rusa se apodera de la sala Simón Bolívar",
                 "16/10/2014",
                 R.drawable.noticia7));
-        items.add(new ItemListNoticias(
+        items.add(new ItemListNoticia(
                 "El festival de violín Aragua 2014 reúne a destacados intérpretes",
                 "15/10/2014",
                 R.drawable.noticia8));
-        items.add(new ItemListNoticias(
+        items.add(new ItemListNoticia(
                 "Edicson Ruiz declarado visiante ilustre de la ciudad de Asunción",
                 "15/10/2014",
                 R.drawable.noticia9));
-        items.add(new ItemListNoticias(
+        items.add(new ItemListNoticia(
                 "Filarmónica de Radio Francia grabará obra de la venezolana Marianela Arocha",
                 "14/10/2014",
                 R.drawable.noticia10));

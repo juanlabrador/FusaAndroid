@@ -3,7 +3,7 @@ package edu.ucla.fusa.android;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-import edu.ucla.fusa.android.fragmentos.VistasInicialesFragment;
+import edu.ucla.fusa.android.fragmentos.ViewPagerInicialFragment;
 
 /**
  * Created by juanlabrador on 16/10/14.
@@ -28,7 +28,7 @@ public class VistasInicialesActivity extends FragmentActivity {
         arguments = new Bundle();
         arguments.putInt("position", position);
         getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.inicial_container, VistasInicialesFragment.newInstance(arguments))
+                    .replace(R.id.inicial_container, ViewPagerInicialFragment.newInstance(arguments))
                     .commit();
     }
 

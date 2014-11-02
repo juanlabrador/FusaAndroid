@@ -6,6 +6,8 @@
     <color name="azul_oscuro">#223B73</color>
     <color name="azul_super_oscuro">#32394A</color>
     <color name="negro">#000000</color>
+    <color name="gris">#D6D6D6</color>
+    <color name="gris_oscuro">#747474</color>
 
     <color name="debil">#8A0808</color>
     <color name="normal">#B45F04</color>
@@ -18,10 +20,10 @@
     <color name="nivel_4">#86B404</color>
     <color name="nivel_5">#04B404</color>
 
-    <color name="feed_bg">#D3D6DB</color>
-    <color name="feed_item_bg">#FFFFFF</color>
-    <color name="feed_item_border">#C2C3C8</color>
-    <color name="timestamp">#A0A3A7</color>
+    <color name="contenido_bg">#D6D6D6</color>
+    <color name="contenido_item_bg">#FFFFFF</color>
+    <color name="contenido_item_border">#C2C3C8</color>
+    <color name="contenido_item_fecha">#A0A3A7</color>
 
     <color name="azul_llamativo">#395E6B</color>
 </resources>

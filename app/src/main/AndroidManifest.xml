@@ -51,21 +51,8 @@
         <activity
             android:name="edu.ucla.fusa.android.VistasPrincipalesActivity"
             android:label="@string/app_name"
+
             android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name="edu.ucla.fusa.android.VistasAccesoActivity"
-            android:label="@string/titulo_action_bar_login"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity
-            android:name="edu.ucla.fusa.android.VistasContactoActivity"
-            android:label="@string/titulo_action_bar_contacto"
-            android:screenOrientation="portrait">
-
         </activity>
 
         <!-- Google API Key Maps -->

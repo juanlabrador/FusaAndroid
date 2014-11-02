@@ -214,4 +214,45 @@
     <string name="contenido_prestamo_instrumento_tipo">Tipo de instrumento:</string>
     <string name="contenido_prestamo_instrumento_fecha_vencimiento">Fecha de vencimiento:</string>
     <string name="contenido_prestamo_instrumento_cuenta_regresiva">Cuenta regresiva:</string>
+
+    <!-- Elementos de la vista de toda la informacion de un evento -->
+    <string name="contenido_evento_action_bar_titulo">Evento</string>
+    <string name="contenido_evento_informacion_tab_titulo">Información</string>
+    <string name="contenido_evento_ubicacion_tab_titulo">Ubicación</string>
+    <string name="contenido_evento_participantes_tab_titulo">Participantes</string>
+    <string name="contenido_evento_comentarios_tab_titulo">Comentarios</string>
+
+    <string name="contenido_informacion_evento_titulo">Titulo:</string>
+    <string name="contenido_informacion_evento_descripcion">Descripción:</string>
+    <string name="contenido_información_evento_fecha">Fecha:</string>
+    <string name="contenido_informacion_evento_hora">Hora:</string>
+    <string name="contenido_informacion_evento_lugar">Lugar:</string>
+    <string name="contenido_informacion_evento_repertorio">Repertorio:</string>
+
+    <string name="contenido_informacion_evento_titulo_prueba">110vo Aniversario Empresas Polar</string>
+    <string name="contenido_informacion_evento_descripcion_prueba">Empresas Polar por su grande trayectoria, los invita a participar en su aniversario Nro 110, con música clásica. Niños y jovenes de Fundamusical prestarán un espectaculo sin igual. Te esperamos...</string>
+    <string name="contenido_informacion_evento_fecha_prueba">31 de octubre del 2014</string>
+    <string name="contenido_informacion_evento_hora_prueba">6:00 pm</string>
+    <string name="contenido_informacion_evento_lugar_prueba">Teatro Juarez</string>
+
+    <string-array name="participantes_evento">
+        <item>Orquesta Juvenil Simón Bolívar</item>
+        <item>Orquesta Infantil Niños Larenses</item>
+        <item>Orquesta Juvenil La Barquisimetana</item>
+    </string-array>
+
+    <!-- Elementos de la ventana de comentarios -->
+    <string name="contenido_comentario_evento_empezar">Califica este evento</string>
+
+    <string name="contenido_titulo_tab_eventos_informacion">Información</string>
+    <string name="contenido_titulo_tab_eventos_ubicacion">Ubicación</string>
+    <string name="contenido_titulo_tab_eventos_participantes">Participantes</string>
+    <string name="contenido_titulo_tab_eventos_comentarios">Comentarios</string>
+
+
+    <string name="p1">Juan Labrador</string>
+    <string name="p2">5</string>
+    <string name="p3">31/10/2014</string>
+    <string name="p4">Excelente concierto, bravo por esos niños.</string>
+
 </resources>

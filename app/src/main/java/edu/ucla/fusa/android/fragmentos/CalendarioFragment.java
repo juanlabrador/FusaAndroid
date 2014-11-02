@@ -1,7 +1,8 @@
 package edu.ucla.fusa.android.fragmentos;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,11 @@ public class CalendarioFragment extends Fragment {
         calendario.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                Toast.makeText(getActivity(), dayOfMonth +"/"+month+"/"+ year, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), dayOfMonth +"/"+month+"/"+ year, Toast.LENGTH_SHORT).show();
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, ViewPagerEventoFragment.newInstance())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

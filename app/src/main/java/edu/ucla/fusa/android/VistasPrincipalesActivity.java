@@ -5,6 +5,8 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
@@ -15,10 +17,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
 import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
-import edu.ucla.fusa.android.fragmentos.ListadoConfiguracionFragment;
+import edu.ucla.fusa.android.fragmentos.ConfiguracionListadoFragment;
 import edu.ucla.fusa.android.fragmentos.ListadoNoticiasFragment;
 import edu.ucla.fusa.android.fragmentos.PerfilFragment;
 import edu.ucla.fusa.android.fragmentos.PrestamoInstrumentoFragment;
@@ -31,7 +32,7 @@ import edu.ucla.fusa.android.modelo.ItemListDrawer;
  *
  */
 
-public class VistasPrincipalesActivity extends Activity implements AdapterView.OnItemClickListener {
+public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
 
     private DrawerLayout navigationDrawer;
     private ListView navigationList;
@@ -41,6 +42,7 @@ public class VistasPrincipalesActivity extends Activity implements AdapterView.O
     private NavigationAdapter navigationAdapter;
     private TypedArray navigationsIcons;
     private ActionBarDrawerToggle mDrawerToogle;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +150,7 @@ public class VistasPrincipalesActivity extends Activity implements AdapterView.O
                         .commit();
                 break;
             case 4:
-                getFragmentManager().beginTransaction()
+                getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame_container, CalendarioFragment.newInstance())
                         //.addToBackStack(null)
                         .commit();
@@ -161,7 +163,7 @@ public class VistasPrincipalesActivity extends Activity implements AdapterView.O
                 break;
             case 6:
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, ListadoConfiguracionFragment.newInstance())
+                        .replace(R.id.frame_container, ConfiguracionListadoFragment.newInstance())
                         //.addToBackStack(null)
                         .commit();
                 break;

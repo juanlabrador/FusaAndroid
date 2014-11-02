@@ -41,9 +41,9 @@ public class CerrarSesionAsyncTaks extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        editor = preferencias.edit();
-        editor.clear();
-        editor.commit();
+        //editor = preferencias.edit();
+        //editor.clear();
+        //editor.commit();
         SystemClock.sleep(2000);
         return null;
     }

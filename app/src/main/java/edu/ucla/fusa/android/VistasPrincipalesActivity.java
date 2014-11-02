@@ -150,7 +150,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                         .commit();
                 break;
             case 4:
-                getSupportFragmentManager().beginTransaction()
+                getFragmentManager().beginTransaction()
                         .replace(R.id.frame_container, CalendarioFragment.newInstance())
                         //.addToBackStack(null)
                         .commit();

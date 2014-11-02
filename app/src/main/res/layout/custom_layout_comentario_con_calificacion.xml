@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="10dp">
 
     <LinearLayout
@@ -51,14 +51,16 @@
                     android:layout_height="wrap_content"
                     android:numStars="5"
                     android:stepSize="1"
-                    style="?android:attr/ratingBarStyleSmall"/>
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:id="@+id/calificacion_evento"/>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/p3"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/tv_fecha_comentario_evento"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -67,7 +69,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_editar"/>
+            android:src="@drawable/ic_editar"
+            android:id="@+id/btn_editar_comentario"/>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
@@ -76,5 +79,6 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:maxLines="2"
-        android:singleLine="true"/>
+        android:singleLine="true"
+        android:id="@+id/tv_comentario_final"/>
 </LinearLayout>

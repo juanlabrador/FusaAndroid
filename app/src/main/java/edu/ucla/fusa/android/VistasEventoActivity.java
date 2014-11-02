@@ -1,34 +1,25 @@
-package edu.ucla.fusa.android.fragmentos;
+package edu.ucla.fusa.android;
 
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.viewpagerindicator.TabPageIndicator;
 
-import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.IconsTabAdapter;
-import edu.ucla.fusa.android.adaptadores.ViewPagerFragmentAdapter;
+import edu.ucla.fusa.android.fragmentos.ViewPagerEventoComentariosFragment;
+import edu.ucla.fusa.android.fragmentos.ViewPagerEventoInformacionFragment;
+import edu.ucla.fusa.android.fragmentos.ViewPagerEventoParticipantesFragment;
+import edu.ucla.fusa.android.fragmentos.ViewPagerEventoUbicacionFragment;
 
 /**
  * Created by juanlabrador on 30/10/14.
  */
-public class ViewPagerEventoFragment extends Fragment implements ViewPager.OnPageChangeListener {
+public class VistasEventoActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
 
     private ViewPager viewPager;
     private IconsTabAdapter adapter;
     private TabPageIndicator tabPageIndicator;
-    private View view;
-    private ActionBar actionBar;
     private String[] titulos = new String[] {
             "Información", "Ubicación", "Participantes", "Comentarios"
     };
@@ -39,23 +30,14 @@ public class ViewPagerEventoFragment extends Fragment implements ViewPager.OnPag
             R.drawable.ic_comentarios
     };
 
-    public static ViewPagerEventoFragment newInstance() {
-        ViewPagerEventoFragment activity = new ViewPagerEventoFragment();
-        activity.setRetainInstance(true);
-        return activity;
-    }
-
-    public ViewPagerEventoFragment() {}
-
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       super.onCreateView(inflater, container, savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_vistas_evento);
 
-        view = inflater.inflate(R.layout.fragment_viewpager_evento, container, false);
+        viewPager = (ViewPager) findViewById(R.id.view_pager_evento);
 
-        viewPager = (ViewPager) view.findViewById(R.id.view_pager_evento);
-
-        adapter = new IconsTabAdapter(getFragmentManager(), titulos, iconos);
+        adapter = new IconsTabAdapter(getSupportFragmentManager(), titulos, iconos);
         adapter.adicionarFragmento(ViewPagerEventoInformacionFragment.newInstance());
         adapter.adicionarFragmento(ViewPagerEventoUbicacionFragment.newInstance());
         adapter.adicionarFragmento(ViewPagerEventoParticipantesFragment.newInstance());
@@ -82,10 +64,9 @@ public class ViewPagerEventoFragment extends Fragment implements ViewPager.OnPag
                 .setIcon(R.drawable.ic_comentarios)
                 .setTabListener(this));*/
 
-        tabPageIndicator = (TabPageIndicator) view.findViewById(R.id.tab_indicator_evento);
+        tabPageIndicator = (TabPageIndicator) findViewById(R.id.tab_indicator_evento);
         tabPageIndicator.setViewPager(viewPager);
 
-        return view;
     }
 
     @Override
@@ -95,7 +76,7 @@ public class ViewPagerEventoFragment extends Fragment implements ViewPager.OnPag
 
     @Override
     public void onPageSelected(int i) {
-        getActivity().getActionBar().setSelectedNavigationItem(i);
+        getActionBar().setSelectedNavigationItem(i);
     }
 
     @Override

@@ -1,15 +1,15 @@
 package edu.ucla.fusa.android.fragmentos;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
-import android.widget.Toast;
 
 import edu.ucla.fusa.android.R;
+import edu.ucla.fusa.android.VistasEventoActivity;
 
 /**
  * Created by juanlabrador on 19/10/14.
@@ -43,10 +43,7 @@ public class CalendarioFragment extends Fragment {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 //Toast.makeText(getActivity(), dayOfMonth +"/"+month+"/"+ year, Toast.LENGTH_SHORT).show();
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, ViewPagerEventoFragment.newInstance())
-                        .addToBackStack(null)
-                        .commit();
+                startActivity(new Intent(getActivity(), VistasEventoActivity.class));
             }
         });
 

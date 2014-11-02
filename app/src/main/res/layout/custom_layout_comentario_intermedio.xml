@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/azul">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_foto_perfil_calificando"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/foto_perfil"
+            app:border_color="@color/blanco"
+            app:border_width="1dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calificación por Juan Labrador"
+            android:layout_margin="5dp"
+            android:textSize="14sp"
+            android:textColor="@color/blanco"
+            android:id="@+id/tv_descripcion_usuario_calificacion"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/blanco"
+        android:paddingTop="10dp">
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/calificando_evento"
+            android:stepSize="1"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:progressDrawable="@drawable/style_rating_bar_azul"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/azul_oscuro"
+            android:layout_margin="5dp"
+            android:textSize="14sp"
+            android:id="@+id/tv_descripcion_calificando"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/style_edit_text_azul"
+            android:id="@+id/et_comentario_final"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -68,7 +68,7 @@ public class ViewPagerEventoComentariosFragment extends Fragment {
         list.setAdapter(adapter);
 
         getFragmentManager().beginTransaction().
-                replace(R.id.calificacion_container, ViewPagerEventoConCalificacionFragment.newInstance())
+                replace(R.id.calificacion_container, ViewPagerEventoSinCalificacionFragment.newInstance())
                 .commit();
 
         return view;

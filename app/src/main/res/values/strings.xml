@@ -249,6 +249,11 @@
     <string name="contenido_titulo_tab_eventos_participantes">Participantes</string>
     <string name="contenido_titulo_tab_eventos_comentarios">Comentarios</string>
 
+    <string name="nivel_calificacion_evento_1">No me gustó en lo absoluto</string>
+    <string name="nivel_calificacion_evento_2">No me gustó</string>
+    <string name="nivel_calificacion_evento_3">Está bien</string>
+    <string name="nivel_calificacion_evento_4">Me gustó</string>
+    <string name="nivel_calificacion_evento_5">Me encantó</string>
 
     <string name="p1">Juan Labrador</string>
     <string name="p2">5</string>

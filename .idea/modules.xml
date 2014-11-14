@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FusaAndroid.iml" filepath="$PROJECT_DIR$/FusaAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fusaandroid.iml" filepath="$PROJECT_DIR$/fusaandroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraryCircleImageView/libraryCircleImageView.iml" filepath="$PROJECT_DIR$/libraryCircleImageView/libraryCircleImageView.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraryViewPagerIndicator/libraryViewPagerIndicator.iml" filepath="$PROJECT_DIR$/libraryViewPagerIndicator/libraryViewPagerIndicator.iml" />
     </modules>

@@ -9,6 +9,9 @@
     <color name="gris">#D6D6D6</color>
     <color name="gris_oscuro">#747474</color>
 
+    <color name="verde">#40FF00</color>
+    <color name="rojo">#FF0000</color>
+
     <color name="debil">#8A0808</color>
     <color name="normal">#B45F04</color>
     <color name="mejor">#86B404</color>

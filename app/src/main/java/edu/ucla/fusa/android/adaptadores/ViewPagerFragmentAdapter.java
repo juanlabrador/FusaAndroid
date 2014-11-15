@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.viewpagerindicator.IconPagerAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,22 +16,31 @@ import java.util.List;
  *
  * Clase adaptadora que se utiliza para agregar distintos fragment al viewPager.
  */
-public class ViewPagerFragmentAdapter extends FragmentPagerAdapter {
+public class ViewPagerFragmentAdapter extends FragmentPagerAdapter implements IconPagerAdapter {
 
     private List<Fragment> fragmentos;
+    private int[] icons;
+    private String[] titulos;
 
-    public ViewPagerFragmentAdapter(FragmentManager fm) {
+    public ViewPagerFragmentAdapter(FragmentManager fm, int[] icons, String[] titulos) {
         super(fm);
         this.fragmentos = new ArrayList<Fragment>();
+        this.icons = icons;
+        this.titulos = titulos;
     }
 
-    public void adicionarFragmento(Fragment fragmento) {
+    public void addFragment(Fragment fragmento) {
         this.fragmentos.add(fragmento);
     }
 
     @Override
     public Fragment getItem(int i) {
         return this.fragmentos.get(i);
+    }
+
+    @Override
+    public int getIconResId(int index) {
+        return icons[index];
     }
 
     @Override
@@ -44,6 +55,10 @@ public class ViewPagerFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return super.getPageTitle(position);
+        if (titulos != null) {
+            return titulos[position % titulos.length].toUpperCase();
+        } else {
+            return null;
+        }
     }
 }

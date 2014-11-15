@@ -1,10 +1,13 @@
 package edu.ucla.fusa.android.fragmentos;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -29,27 +32,32 @@ public class InicialViewPagerContactoInformacionUbicacionFragment extends Fragme
     private LatLng positionMap; //Variable para indicar coordenadas.
     private CameraPosition cameraPosition; //Variable para definir la ubicación en el mapa.
     private CameraUpdate cameraUpdate; //Variable para movimiento de la camara.
+    private SupportMapFragment fragment;
 
     public static InicialViewPagerContactoInformacionUbicacionFragment newInstance() {
-        InicialViewPagerContactoInformacionUbicacionFragment activity = new InicialViewPagerContactoInformacionUbicacionFragment();
-        activity.setRetainInstance(true);
-        return activity;
+        InicialViewPagerContactoInformacionUbicacionFragment fragment = new InicialViewPagerContactoInformacionUbicacionFragment();
+        fragment.setRetainInstance(true);
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (container == null) {
-            return null;
-        }
+        return inflater.inflate(R.layout.fragment_viewpager_informacion_contacto_mapa, container, false);
+    }
 
-        view = inflater.inflate(R.layout.fragment_viewpager_informacion_contacto_mapa, container, false);
-        inicializarMapa();
-        return view;
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        fragment = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.mapa_ubicacion_contacto);
+        if (fragment == null) {
+            fragment = SupportMapFragment.newInstance();
+            getFragmentManager().beginTransaction().replace(R.id.mapa_ubicacion_contacto, fragment).commit();
+        }
     }
 
     private void inicializarMapa() {
         if (gMap == null) {
-            gMap = ((SupportMapFragment) getActivity().getSupportFragmentManager()
+            gMap = ((SupportMapFragment) getFragmentManager()
                     .findFragmentById(R.id.mapa_ubicacion_contacto)).getMap();
 
             if (gMap == null) {
@@ -82,7 +90,10 @@ public class InicialViewPagerContactoInformacionUbicacionFragment extends Fragme
     @Override
     public void onResume() {
         super.onResume();
-        inicializarMapa();
+        Log.i("UbicacionContacto", "entraaaaaaaa");
+        if (gMap == null) {
+            gMap = fragment.getMap();
+            setUpMap();
+        }
     }
-
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment />
 
     <attr name="centered" format="boolean" />

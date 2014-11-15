@@ -49,7 +49,7 @@ public class ViewPagerInicialSplashScreenFragment extends Fragment implements Vi
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_viewpager_inicial_splash_screen, container, false);
 
-        tvIniciarSesion = (TextView) view.findViewById(R.id.tvIniciarSesion);
+        tvIniciarSesion = (TextView) view.findViewById(R.id.tv_iniciar_sesion);
         tvIniciarSesion.setOnClickListener(this);
 
         return view;

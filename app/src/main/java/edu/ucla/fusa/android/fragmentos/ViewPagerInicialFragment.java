@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.viewpagerindicator.CirclePageIndicator;
+import com.viewpagerindicator.TabPageIndicator;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.ViewPagerFragmentAdapter;
@@ -23,10 +24,18 @@ import edu.ucla.fusa.android.adaptadores.ViewPagerFragmentAdapter;
  */
 public class ViewPagerInicialFragment extends Fragment {
 
-    private ViewPager pagina;
-    private ViewPagerFragmentAdapter fragmentoPagina;
-    private CirclePageIndicator indicadorPagina;
+    private ViewPager viewPager;
+    private ViewPagerFragmentAdapter adapter;
+    private TabPageIndicator tabPageIndicator;
     private View view;
+    private int[] icons = new int[] {
+            R.drawable.ic_cerrar_sesion,
+            R.drawable.ic_estudiantes,
+            R.drawable.ic_profesores,
+            R.drawable.ic_instrumentos,
+            R.drawable.ic_eventos,
+            R.drawable.ic_contacto
+    };
 
     public static ViewPagerInicialFragment newInstance(Bundle arguments) {
         ViewPagerInicialFragment activity = new ViewPagerInicialFragment();
@@ -43,28 +52,10 @@ public class ViewPagerInicialFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        view = inflater.inflate(R.layout.fragment_viewpager_iniciales, container, false);
 
-        pagina = (ViewPager) view.findViewById(R.id.vistaPaginas);
-        /** Agregamos los fragment a el ViewPager */
 
-        fragmentoPagina = new ViewPagerFragmentAdapter(getFragmentManager());
-        fragmentoPagina.adicionarFragmento(ViewPagerInicialSplashScreenFragment.newInstance());
-        fragmentoPagina.adicionarFragmento(ViewPagerInicialEstudiantesFragment.newInstance());
-        fragmentoPagina.adicionarFragmento(ViewPagerInicialProfesoresFragment.newInstance());
-        fragmentoPagina.adicionarFragmento(VIewPagerInicialInstrumentosFragment.newInstance());
-        fragmentoPagina.adicionarFragmento(ViewPagerInicialEventosFragment.newInstance());
-        fragmentoPagina.adicionarFragmento(ViewPagerInicialContactoFragment.newInstance());
-        this.pagina.setAdapter(fragmentoPagina);
-        /** Aqui agregamos los indicadores de página */
-        indicadorPagina = (CirclePageIndicator) view.findViewById(R.id.indicador);
-        indicadorPagina.setViewPager(pagina);
-        indicadorPagina.setSnap(true);
-        indicadorPagina.setFillColor(getResources().getColor(R.color.blanco));
-        indicadorPagina.setPageColor(getResources().getColor(R.color.azul_oscuro));
-        indicadorPagina.setStrokeColor(Color.TRANSPARENT);
 
-        pagina.setCurrentItem(getArguments().getInt("position"));
+        viewPager.setCurrentItem(getArguments().getInt("position"));
         return view;
     }
 

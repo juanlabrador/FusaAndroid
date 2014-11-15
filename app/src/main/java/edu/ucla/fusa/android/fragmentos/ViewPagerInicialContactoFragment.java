@@ -37,8 +37,8 @@ public class ViewPagerInicialContactoFragment extends Fragment implements View.O
         super.onCreateView(inflater, container, savedInstanceState);
 
         view = inflater.inflate(R.layout.fragment_viewpager_inicial_contacto, container, false);
-        contacto = (Button) view.findViewById(R.id.btnContacto);
-        iniciarSesion = (TextView) view.findViewById(R.id.tvIniciarSesion);
+        contacto = (Button) view.findViewById(R.id.btn_contacto);
+        iniciarSesion = (TextView) view.findViewById(R.id.tv_iniciar_sesion);
 
         contacto.setOnClickListener(this);
         iniciarSesion.setOnClickListener(this);
@@ -48,16 +48,17 @@ public class ViewPagerInicialContactoFragment extends Fragment implements View.O
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btnContacto) {
+        if(v.getId() == R.id.btn_contacto) {
             getFragmentManager().beginTransaction()
+                    .replace(android.R.id.content, InicialViewPagerContactoFragment.newInstance())
                     .addToBackStack(null)
-                    .replace(R.id.inicial_container, InicialViewPagerContactoFragment.newInstance())
                     .commit();
-        } else if (v.getId() == R.id.tvIniciarSesion) {
+        } else if (v.getId() == R.id.tv_iniciar_sesion) {
             getFragmentManager().beginTransaction()
+                    .replace(android.R.id.content, InicialLoginFragment.newInstance())
                     .addToBackStack(null)
-                    .replace(R.id.inicial_container, InicialLoginFragment.newInstance())
                     .commit();
         }
     }
+
 }

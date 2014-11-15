@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="vinotinto">#922952</string>
     <string name="app_name">Fusa</string>
     <string name="pagina_web">http://www.fundamusical.org.ve</string>
     <string name="fundacion">Fundamusical Nucleo Barquisimeto</string>
@@ -25,11 +24,16 @@
     <string name="texto_contrataciones">Contrata</string>
     <string name="texto_contacto">Contactanos</string>
 
+    <string name="contenido_titulo_inicial_estudiantes">Postulate para aprender</string>
+    <string name="contenido_titulo_inicial_profesores">Participa en enseñar</string>
+    <string name="contenido_titulo_inicial_instrumentos">Dona algún instrumento</string>
+    <string name="contenido_titulo_inicial_eventos">Apoya a las orquestas</string>
+    <string name="contenido_titulo_inicial_contacto">Contactanos</string>
 
     <string name="contenido_vista_inicial_estudiantes">Bebés, niños y jovenes tienen la oportunidad de desenvolverse en el área musical</string>
     <string name="contenido_vista_inicial_profesores">Profesores o estudiantes avanzados tienen la oportunidad de enseñar</string>
     <string name="contenido_vista_inicial_instrumentos">El estudiante se va familiarizando con una variada gama de instrumentos musicales para posterior elección</string>
-    <string name="contenido_vista_inicial_eventos">A partir de 6 años, los estudiantes tienen la oportunidad de desarrollarse en orquestas pre-infantiles, infantiles y juveniles</string>
+    <string name="contenido_vista_inicial_eventos">Los estudiantes tienen la oportunidad de desarrollarse en orquestas pre-infantiles, infantiles y juveniles</string>
     <string name="contenido_vista_inicial_contacto">Con nosotros, el proceso de enseñanza en forma continua logrará de su trabajo un aprendizaje constante y significativo</string>
 
     <!-- Elementos de la vista Login -->
@@ -38,6 +42,10 @@
     <string name="texto_contenido_edittex_correo_login">Correo electrónico</string>
     <string name="texto_contenido_edittex_clave_login">Contraseña</string>
     <string name="texto_olvidar_clave">¿Has olvidado tu contraseña?</string>
+    <string name="texto_boton_login_estado_normal">Iniciar sesión</string>
+    <string name="texto_boton_login_estado_error">¡Ups! Error</string>
+    <string name="texto_boton_login_estado_completado">Bienvenido</string>
+
 
     <!-- Elementos de la vista restaurar contraseña -->
     <string name="titulo_action_bar_restaurar">¿Olvidaste tu contraseña?</string>

@@ -22,9 +22,9 @@ public class ViewPagerInicialEstudiantesFragment extends Fragment implements Vie
     private Button postulate;
 
     public static ViewPagerInicialEstudiantesFragment newInstance() {
-        ViewPagerInicialEstudiantesFragment activity = new ViewPagerInicialEstudiantesFragment();
-        activity.setRetainInstance(true);
-        return activity;
+        ViewPagerInicialEstudiantesFragment fragment = new ViewPagerInicialEstudiantesFragment();
+        fragment.setRetainInstance(true);
+        return fragment;
     }
 
     public ViewPagerInicialEstudiantesFragment() {}
@@ -34,7 +34,7 @@ public class ViewPagerInicialEstudiantesFragment extends Fragment implements Vie
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_viewpager_inicial_estudiantes, container, false);
 
-        postulate = (Button) view.findViewById(R.id.btnPostularse);
+        postulate = (Button) view.findViewById(R.id.btn_postulate);
         postulate.setOnClickListener(this);
 
 

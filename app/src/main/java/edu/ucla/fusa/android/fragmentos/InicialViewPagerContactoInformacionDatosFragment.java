@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.ucla.fusa.android.R;
@@ -82,5 +83,17 @@ public class InicialViewPagerContactoInformacionDatosFragment extends Fragment i
                     Toast.makeText(getActivity(), R.string.error_enviar_correo, Toast.LENGTH_SHORT).show();
                 }
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ((TextView) getActivity().findViewById(R.id.tv_titulo_superior)).setText(R.string.titulo_tab_datos_contacto);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((TextView) getActivity().findViewById(R.id.tv_titulo_superior)).setText(R.string.titulo_tab_datos_contacto);
     }
 }

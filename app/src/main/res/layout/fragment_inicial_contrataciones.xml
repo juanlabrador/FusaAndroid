@@ -3,101 +3,132 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment_registrar_postulaciones"
-    android:padding="15dp"
-    android:background="@color/blanco">
-
-    <EditText
-        android:id="@+id/etRifoCedulaContrataciones"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/texto_contenido_editext_rif_cedula_contrataciones"
-        android:background="@drawable/style_edit_text_azul"
-        android:layout_margin="5dp"/>
-
-    <EditText
-        android:id="@+id/etSolicitanteContrataciones"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/texto_contenido_editext_solicitante_contrataciones"
-        android:background="@drawable/style_edit_text_azul"
-        android:layout_margin="5dp"/>
-
-    <EditText
-        android:id="@+id/etCorreoContrataciones"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/texto_contenido_edittext_correo_contrataciones"
-        android:background="@drawable/style_edit_text_azul"
-        android:layout_margin="5dp"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/texto_contenido_datos_evento_contrataciones"
-        android:textColor="@color/azul_oscuro"
-        android:textSize="18sp"
-        android:layout_marginTop="10dp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/azul"/>
-
-    <EditText
-        android:id="@+id/etTemaEventoContrataciones"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/texto_contenido_edittext_tema_contrataciones"
-        android:background="@drawable/style_edit_text_azul"
-        android:layout_margin="5dp"/>
-
-    <EditText
-        android:id="@+id/etLugarEventoContrataciones"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/texto_contenido_edittext_lugar_contrataciones"
-        android:background="@drawable/style_edit_text_azul"
-        android:layout_margin="5dp"/>
+    android:id="@+id/fragment_registrar_postulaciones">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center_vertical"
+        android:background="@color/azul">
 
-        <EditText
-            android:id="@+id/etFechaEventoContrataciones"
+        <ImageView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="@string/texto_contenido_edittext_fecha_contrataciones"
-            android:background="@drawable/style_edit_text_azul"
-            android:layout_margin="2dp"/>
+            android:src="@drawable/logo"/>
 
-        <EditText
-            android:id="@+id/etHoraEventoContrataciones"
+        <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="@string/texto_contenido_edittext_hora_contrataciones"
-            android:background="@drawable/style_edit_text_azul"
-            android:layout_margin="2dp"/>
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="@string/contenido_titulo_inicial_estudiantes"
+            android:textColor="@color/blanco"
+            android:textSize="16sp"
+            android:gravity="center_vertical"/>
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnEnviarSolicitud"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/blanco"
-        android:background="@drawable/style_button_background_white"
-        android:layout_marginTop="20dp"
-        android:textSize="22sp"
-        android:padding="10dp"
-        android:gravity="center"
-        android:text="@string/texto_boton_crear_cuenta_datos_alumno"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@color/blanco"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp">
 
+        <EditText
+            android:id="@+id/etRifoCedulaContrataciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/texto_contenido_editext_rif_cedula_contrataciones"
+            android:background="@drawable/style_edit_text_azul"
+            android:layout_margin="5dp"/>
+
+        <EditText
+            android:id="@+id/etSolicitanteContrataciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/texto_contenido_editext_solicitante_contrataciones"
+            android:background="@drawable/style_edit_text_azul"
+            android:layout_margin="5dp"/>
+
+        <EditText
+            android:id="@+id/etCorreoContrataciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/texto_contenido_edittext_correo_contrataciones"
+            android:background="@drawable/style_edit_text_azul"
+            android:layout_margin="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/texto_contenido_datos_evento_contrataciones"
+            android:textColor="@color/azul_oscuro"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/azul"/>
+
+        <EditText
+            android:id="@+id/etTemaEventoContrataciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/texto_contenido_edittext_tema_contrataciones"
+            android:background="@drawable/style_edit_text_azul"
+            android:layout_margin="5dp"/>
+
+        <EditText
+            android:id="@+id/etLugarEventoContrataciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/texto_contenido_edittext_lugar_contrataciones"
+            android:background="@drawable/style_edit_text_azul"
+            android:layout_margin="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <EditText
+                android:id="@+id/etFechaEventoContrataciones"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/texto_contenido_edittext_fecha_contrataciones"
+                android:background="@drawable/style_edit_text_azul"
+                android:layout_margin="2dp"/>
+
+            <EditText
+                android:id="@+id/etHoraEventoContrataciones"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/texto_contenido_edittext_hora_contrataciones"
+                android:background="@drawable/style_edit_text_azul"
+                android:layout_margin="2dp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnEnviarSolicitud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blanco"
+            android:background="@drawable/style_button_background_white"
+            android:layout_marginTop="20dp"
+            android:textSize="22sp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:text="@string/texto_boton_crear_cuenta_datos_alumno"/>
+    </LinearLayout>
 </LinearLayout>

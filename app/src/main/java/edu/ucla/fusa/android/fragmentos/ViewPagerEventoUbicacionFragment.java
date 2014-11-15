@@ -30,7 +30,6 @@ public class ViewPagerEventoUbicacionFragment extends Fragment {
     private LatLng positionMap; //Variable para indicar coordenadas.
     private CameraPosition cameraPosition; //Variable para definir la ubicación en el mapa.
     private CameraUpdate cameraUpdate; //Variable para movimiento de la camara.
-    private SupportMapFragment fragment;
 
     public static ViewPagerEventoUbicacionFragment newInstance() {
         ViewPagerEventoUbicacionFragment fragment = new ViewPagerEventoUbicacionFragment();
@@ -48,7 +47,7 @@ public class ViewPagerEventoUbicacionFragment extends Fragment {
 
     private void inicializarMapa() {
         if (gMap == null) {
-            gMap = ((SupportMapFragment) getActivity().getSupportFragmentManager()
+            gMap = ((SupportMapFragment) getFragmentManager()
                     .findFragmentById(R.id.map_ubicacion_evento)).getMap();
 
             if (gMap == null) {

@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.dd.CircularProgressButton;
+
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.VistasInicialesActivity;
 import edu.ucla.fusa.android.VistasPrincipalesActivity;
@@ -26,7 +28,7 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
 
     private EditText email;
     private EditText password;
-    private Button iniciarSesion;
+    private CircularProgressButton iniciarSesion;
     private View view;
     private TextView restaurarPassword;
     private FragmentTransaction transaction;
@@ -48,7 +50,7 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
 
         email = (EditText) view.findViewById(R.id.etEmail);
         password = (EditText) view.findViewById(R.id.etPassword);
-        iniciarSesion = (Button) view.findViewById(R.id.btnLogin);
+        iniciarSesion = (CircularProgressButton) view.findViewById(R.id.btn_login);
         restaurarPassword = (TextView) view.findViewById(R.id.tvOlvidarPassword);
         restaurarPassword.setOnClickListener(this);
         iniciarSesion.setOnClickListener(this);

@@ -20,7 +20,6 @@ import edu.ucla.fusa.android.R;
 public class ViewPagerInicialEventosFragment extends Fragment implements View.OnClickListener {
 
     private View view;
-    private Button asistir;
     private Button contratar;
 
     public static ViewPagerInicialEventosFragment newInstance() {
@@ -36,22 +35,16 @@ public class ViewPagerInicialEventosFragment extends Fragment implements View.On
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_viewpager_inicial_eventos, container, false);
 
-        asistir = (Button) view.findViewById(R.id.btnPresentaciones);
-        asistir.setOnClickListener(this);
-
-        contratar = (Button) view.findViewById(R.id.btnContrataciones);
+        contratar = (Button) view.findViewById(R.id.btn_contrataciones);
         contratar.setOnClickListener(this);
         return view;
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnContrataciones:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.inicial_container, InicialContratacionesFragment.newInstance())
-                        .commit();
-                break;
-        }
+        getFragmentManager().beginTransaction()
+                .replace(android.R.id.content, InicialContratacionesFragment.newInstance())
+                .commit();
+
     }
 }

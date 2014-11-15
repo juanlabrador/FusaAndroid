@@ -2,84 +2,74 @@
 <merger version="2" >
 
     <dataSet config="main" >
-        <source path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res" >
+        <source path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res" >
             <file
-                name="vpi__dark_theme"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/color/vpi__dark_theme.xml"
-                qualifiers=""
-                type="color" />
-            <file
-                name="vpi__light_theme"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/color/vpi__light_theme.xml"
-                qualifiers=""
-                type="color" />
-            <file
-                name="vpi__tab_unselected_pressed_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-hdpi/vpi__tab_unselected_pressed_holo.9.png"
-                qualifiers="hdpi-v4"
+                name="vpi__tab_selected_holo"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-xhdpi/vpi__tab_selected_holo.9.png"
+                qualifiers="xhdpi-v4"
                 type="drawable" />
             <file
-                name="vpi__tab_unselected_focused_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-hdpi/vpi__tab_unselected_focused_holo.9.png"
-                qualifiers="hdpi-v4"
+                name="vpi__tab_unselected_pressed_holo"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-xhdpi/vpi__tab_unselected_pressed_holo.9.png"
+                qualifiers="xhdpi-v4"
                 type="drawable" />
             <file
                 name="vpi__tab_selected_focused_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-hdpi/vpi__tab_selected_focused_holo.9.png"
-                qualifiers="hdpi-v4"
-                type="drawable" />
-            <file
-                name="vpi__tab_selected_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-hdpi/vpi__tab_selected_holo.9.png"
-                qualifiers="hdpi-v4"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-xhdpi/vpi__tab_selected_focused_holo.9.png"
+                qualifiers="xhdpi-v4"
                 type="drawable" />
             <file
                 name="vpi__tab_selected_pressed_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-hdpi/vpi__tab_selected_pressed_holo.9.png"
-                qualifiers="hdpi-v4"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-xhdpi/vpi__tab_selected_pressed_holo.9.png"
+                qualifiers="xhdpi-v4"
                 type="drawable" />
             <file
                 name="vpi__tab_unselected_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-hdpi/vpi__tab_unselected_holo.9.png"
-                qualifiers="hdpi-v4"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-xhdpi/vpi__tab_unselected_holo.9.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_focused_holo"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-xhdpi/vpi__tab_unselected_focused_holo.9.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_holo"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-mdpi/vpi__tab_selected_holo.9.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_pressed_holo"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-mdpi/vpi__tab_unselected_pressed_holo.9.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_focused_holo"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-mdpi/vpi__tab_selected_focused_holo.9.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_pressed_holo"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-mdpi/vpi__tab_selected_pressed_holo.9.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_holo"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-mdpi/vpi__tab_unselected_holo.9.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_focused_holo"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-mdpi/vpi__tab_unselected_focused_holo.9.png"
+                qualifiers="mdpi-v4"
                 type="drawable" />
             <file
                 name="vpi__tab_indicator"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable/vpi__tab_indicator.xml"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable/vpi__tab_indicator.xml"
                 qualifiers=""
                 type="drawable" />
             <file
-                name="vpi__tab_unselected_pressed_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-xhdpi/vpi__tab_unselected_pressed_holo.9.png"
-                qualifiers="xhdpi-v4"
-                type="drawable" />
-            <file
-                name="vpi__tab_unselected_focused_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-xhdpi/vpi__tab_unselected_focused_holo.9.png"
-                qualifiers="xhdpi-v4"
-                type="drawable" />
-            <file
-                name="vpi__tab_selected_focused_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-xhdpi/vpi__tab_selected_focused_holo.9.png"
-                qualifiers="xhdpi-v4"
-                type="drawable" />
-            <file
-                name="vpi__tab_selected_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-xhdpi/vpi__tab_selected_holo.9.png"
-                qualifiers="xhdpi-v4"
-                type="drawable" />
-            <file
-                name="vpi__tab_selected_pressed_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-xhdpi/vpi__tab_selected_pressed_holo.9.png"
-                qualifiers="xhdpi-v4"
-                type="drawable" />
-            <file
-                name="vpi__tab_unselected_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-xhdpi/vpi__tab_unselected_holo.9.png"
-                qualifiers="xhdpi-v4"
-                type="drawable" />
-            <file
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/values/vpi__defaults.xml"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/values/vpi__defaults.xml"
                 qualifiers="" >
                 <dimen name="default_title_indicator_title_padding" >5dp
                 </dimen>
@@ -176,7 +166,27 @@ true
                 </bool>
             </file>
             <file
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/values/vpi__styles.xml"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/values/vpi__colors.xml"
+                qualifiers="" >
+                <color name="vpi__bright_foreground_holo_light" >@color/vpi__background_holo_dark
+                </color>
+                <color name="vpi__bright_foreground_disabled_holo_dark" >#ff4c4c4c
+                </color>
+                <color name="vpi__bright_foreground_inverse_holo_light" >@color/vpi__bright_foreground_holo_dark
+                </color>
+                <color name="vpi__bright_foreground_disabled_holo_light" >#ffb2b2b2
+                </color>
+                <color name="vpi__bright_foreground_inverse_holo_dark" >@color/vpi__bright_foreground_holo_light
+                </color>
+                <color name="vpi__bright_foreground_holo_dark" >@color/vpi__background_holo_light
+                </color>
+                <color name="vpi__background_holo_dark" >#ff000000
+                </color>
+                <color name="vpi__background_holo_light" >#fff3f3f3
+                </color>
+            </file>
+            <file
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/values/vpi__styles.xml"
                 qualifiers="" >
 
                 <style
@@ -248,27 +258,7 @@ bold
                 </style>
             </file>
             <file
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/values/vpi__colors.xml"
-                qualifiers="" >
-                <color name="vpi__bright_foreground_holo_light" >@color/vpi__background_holo_dark
-                </color>
-                <color name="vpi__bright_foreground_disabled_holo_dark" >#ff4c4c4c
-                </color>
-                <color name="vpi__bright_foreground_inverse_holo_light" >@color/vpi__bright_foreground_holo_dark
-                </color>
-                <color name="vpi__bright_foreground_disabled_holo_light" >#ffb2b2b2
-                </color>
-                <color name="vpi__bright_foreground_inverse_holo_dark" >@color/vpi__bright_foreground_holo_light
-                </color>
-                <color name="vpi__bright_foreground_holo_dark" >@color/vpi__background_holo_light
-                </color>
-                <color name="vpi__background_holo_dark" >#ff000000
-                </color>
-                <color name="vpi__background_holo_light" >#fff3f3f3
-                </color>
-            </file>
-            <file
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/values/vpi__attrs.xml"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/values/vpi__attrs.xml"
                 qualifiers="" >
                 <attr
                     name="strokeWidth"
@@ -455,41 +445,51 @@ bold
                 </declare-styleable>
             </file>
             <file
-                name="vpi__tab_unselected_pressed_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-mdpi/vpi__tab_unselected_pressed_holo.9.png"
-                qualifiers="mdpi-v4"
+                name="vpi__dark_theme"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/color/vpi__dark_theme.xml"
+                qualifiers=""
+                type="color" />
+            <file
+                name="vpi__light_theme"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/color/vpi__light_theme.xml"
+                qualifiers=""
+                type="color" />
+            <file
+                name="vpi__tab_selected_holo"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-hdpi/vpi__tab_selected_holo.9.png"
+                qualifiers="hdpi-v4"
                 type="drawable" />
             <file
-                name="vpi__tab_unselected_focused_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-mdpi/vpi__tab_unselected_focused_holo.9.png"
-                qualifiers="mdpi-v4"
+                name="vpi__tab_unselected_pressed_holo"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-hdpi/vpi__tab_unselected_pressed_holo.9.png"
+                qualifiers="hdpi-v4"
                 type="drawable" />
             <file
                 name="vpi__tab_selected_focused_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-mdpi/vpi__tab_selected_focused_holo.9.png"
-                qualifiers="mdpi-v4"
-                type="drawable" />
-            <file
-                name="vpi__tab_selected_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-mdpi/vpi__tab_selected_holo.9.png"
-                qualifiers="mdpi-v4"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-hdpi/vpi__tab_selected_focused_holo.9.png"
+                qualifiers="hdpi-v4"
                 type="drawable" />
             <file
                 name="vpi__tab_selected_pressed_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-mdpi/vpi__tab_selected_pressed_holo.9.png"
-                qualifiers="mdpi-v4"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-hdpi/vpi__tab_selected_pressed_holo.9.png"
+                qualifiers="hdpi-v4"
                 type="drawable" />
             <file
                 name="vpi__tab_unselected_holo"
-                path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/main/res/drawable-mdpi/vpi__tab_unselected_holo.9.png"
-                qualifiers="mdpi-v4"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-hdpi/vpi__tab_unselected_holo.9.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_focused_holo"
+                path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/main/res/drawable-hdpi/vpi__tab_unselected_focused_holo.9.png"
+                qualifiers="hdpi-v4"
                 type="drawable" />
         </source>
-        <source path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/build/generated/res/rs/debug" />
-        <source path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/build/generated/res/generated/debug" />
+        <source path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/build/generated/res/rs/debug" />
+        <source path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/build/generated/res/generated/debug" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="/home/juanlabrador/AndroidStudioProjects/FusaAndroid/libraryViewPagerIndicator/src/debug/res" />
+        <source path="/home/juanlabrador/android-projects/fusaandroid/libraryViewPagerIndicator/src/debug/res" />
     </dataSet>
 
 </merger>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:paddingLeft="10.0dip"
+    android:paddingTop="10.0dip"
+    android:paddingRight="10.0dip"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5.0dip">
+
+        <TextView
+            android:textSize="18.0sp"
+            android:textColor="@color/azul_oscuro"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:text="@string/contenido_prestamo_instrumento_tipo"
+            android:layout_weight="2.0" />
+
+        <Spinner
+            android:id="@+id/sp_tipo_instrumento"
+            android:background="@drawable/style_spinner_azul"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0" />
+    </LinearLayout>
+
+    <TextView
+        android:textSize="18.0sp"
+        android:textColor="@color/azul_oscuro"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5.0dip"
+        android:text="@string/contenido_prestamo_instrumento_titulo_periodo" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip">
+
+        <RadioButton
+            android:id="@+id/rd_btn_periodo_fin_semana"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:button="@drawable/style_btn_radio_azul"
+            android:text="@string/contenido_prestamo_instrumento_periodo_fin_semana" />
+        <RadioButton
+            android:id="@+id/rd_btn_periodo_vacacional"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:button="@drawable/style_btn_radio_azul"
+            android:text="@string/contenido_prestamo_instrumento_periodo_vacacional" />
+    </RadioGroup>
+
+    <edu.ucla.fusa.android.modelo.FloatingHintEditText
+        android:id="@+id/et_desde"
+        android:background="@drawable/style_edit_text_azul"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5.0dip"
+        android:layout_marginRight="5dp"
+        android:focusable="false"
+        android:hint="@string/contenido_prestamo_instrumento_fecha_emision" />
+
+    <edu.ucla.fusa.android.modelo.FloatingHintEditText
+        android:id="@+id/et_hasta"
+        android:background="@drawable/style_edit_text_azul"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5.0dip"
+        android:layout_marginRight="5dp"
+        android:focusable="false"
+        android:hint="@string/contenido_prestamo_instrumento_fecha_vencimiento" />
+
+    <com.dd.CircularProgressButton
+        android:textSize="22.0sp"
+        android:textColor="@color/blanco"
+        android:gravity="center"
+        android:id="@+id/btn_enviar_solicitud_prestamo"
+        android:background="@drawable/style_button_background_white"
+        android:padding="10.0dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5.0dip"
+        android:text="@string/contenido_prestamo_instrumento_boton"
+        app:cpb_textComplete="@string/contenido_boton_enviado"
+        app:cpb_textIdle="@string/contenido_boton_normal"
+        app:cpb_textError="@string/contenido_boton_error"
+        app:cpb_colorProgress="@color/blanco"
+        app:cpb_colorIndicator="@color/azul"
+        app:cpb_colorIndicatorBackground="@color/gris"
+        app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
+        app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
+        app:cpb_selectorIdle="@color/style_btn_circular_progress_azul"/>
+</LinearLayout>

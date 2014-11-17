@@ -8,72 +8,53 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.modelo.ItemListDrawer;
+import java.util.ArrayList;
 
-/**
- * Created by juanlabrador on 19/10/14.
- *
- * Clase adaptadora que se utiliza para el diseño de la lista de navegación.
- *
- * Contiene un icono, y su texto asociado.
- *
- */
 public class NavigationAdapter extends BaseAdapter {
 
     private Activity activity;
     private ArrayList<ItemListDrawer> arrayItems;
 
-    public NavigationAdapter(Activity activity, ArrayList<ItemListDrawer> arrayItems) {
-        this.activity = activity;
-        this.arrayItems = arrayItems;
+    public NavigationAdapter(Activity paramActivity, ArrayList<ItemListDrawer> paramArrayList) {
+        this.activity = paramActivity;
+        this.arrayItems = paramArrayList;
     }
 
-    @Override
-    public Object getItem(int position) {
-        return arrayItems.get(position);
-    }
-
-    @Override
     public int getCount() {
-        return arrayItems.size();
+        return this.arrayItems.size();
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
+    public Object getItem(int paramInt) {
+        return this.arrayItems.get(paramInt);
+    }
+
+    public long getItemId(int paramInt) {
+        return paramInt;
+    }
+
+    public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
+        LayoutInflater layoutInflater = this.activity.getLayoutInflater();
+        Fila fila;
+        if (paramView == null) {
+            fila = new Fila();
+            ItemListDrawer item = this.arrayItems.get(paramInt);
+            View view = layoutInflater.inflate(R.layout.custom_item_list_drawer, null);
+            fila.titulo = ((TextView) view.findViewById(R.id.tv_funcionalidad_drawer));
+            fila.titulo.setText(item.getTitulo());
+            fila.icono = ((ImageView) view.findViewById(R.id.iv_icono_drawer));
+            fila.icono.setImageResource(item.getIcono());
+            view.setTag(fila);
+            return view;
+        } else {
+            fila = (Fila) paramView.getTag();
+        }
+        return paramView;
     }
 
     public static class Fila {
-        TextView titulo;
         ImageView icono;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        Fila fila;
-        LayoutInflater inflator = activity.getLayoutInflater();
-
-        if (convertView == null) {
-            fila = new Fila();
-
-            ItemListDrawer item = arrayItems.get(position);
-            convertView = inflator.inflate(R.layout.custom_item_list_drawer, null);
-
-            fila.titulo = (TextView) convertView.findViewById(R.id.tvFuncionalidad);
-            fila.titulo.setText(item.getTitulo());
-
-            fila.icono = (ImageView) convertView.findViewById(R.id.ivIcono);
-            fila.icono.setImageResource(item.getIcono());
-
-            convertView.setTag(fila);
-        } else {
-            fila = (Fila) convertView.getTag();
-        }
-
-        return convertView;
+        TextView titulo;
     }
 }

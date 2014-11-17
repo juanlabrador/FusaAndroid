@@ -1,46 +1,57 @@
 package edu.ucla.fusa.android.modelo;
 
-import edu.ucla.fusa.android.interfaces.Item;
-
-/**
- * Created by juanlabrador on 20/10/14.
- *
- * Clase modelo que administra los elementos de la lista de noticias.
- *
- */
 public class ItemListNoticia {
-
-    public String titulo;
+    public String descripcion;
     public String fecha;
+    public int id;
     public int imagen;
+    public String titulo;
 
-    public ItemListNoticia(String titulo, String fecha, int imagen) {
-        this.titulo = titulo;
-        this.fecha = fecha;
-        this.imagen = imagen;
+    public ItemListNoticia(int paramInt1, String paramString1, String paramString2, int paramInt2, String paramString3) {
+        this.id = paramInt1;
+        this.titulo = paramString1;
+        this.fecha = paramString2;
+        this.imagen = paramInt2;
+        this.descripcion = paramString3;
     }
 
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public String getDescripcion() {
+        return this.descripcion;
     }
 
     public String getFecha() {
-        return fecha;
+        return this.fecha;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public int getId() {
+        return this.id;
     }
 
     public int getImagen() {
-        return imagen;
+        return this.imagen;
     }
 
-    public void setImagen(int imagen) {
-        this.imagen = imagen;
+    public String getTitulo() {
+        return this.titulo;
+    }
+
+    public void setDescripcion(String paramString) {
+        this.descripcion = paramString;
+    }
+
+    public void setFecha(String paramString) {
+        this.fecha = paramString;
+    }
+
+    public void setId(int paramInt) {
+        this.id = paramInt;
+    }
+
+    public void setImagen(int paramInt) {
+        this.imagen = paramInt;
+    }
+
+    public void setTitulo(String paramString) {
+        this.titulo = paramString;
     }
 }

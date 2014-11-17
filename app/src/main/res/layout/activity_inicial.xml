@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-   xmlns:android="http://schemas.android.com/apk/res/android"
-   android:id="@+id/inicial_container"
     android:orientation="vertical"
-   android:layout_width="match_parent"
-   android:layout_height="match_parent"
-   android:background="@color/azul">
-
+    android:background="@color/azul"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager_iniciales"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:color/darker_gray"/>
-
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:layout_weight="1.0" />
     <com.viewpagerindicator.TabPageIndicator
-        android:id="@+id/tab_indicator_iniciales"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/gris"/>
+        android:id="@+id/tab_iniciales"
+        android:background="@color/gris"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip" />
 </LinearLayout>

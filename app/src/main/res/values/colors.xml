@@ -1,32 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="blanco">#F4F5F7</color>
-    <color name="azul_claro">#9CA4B3</color>
-    <color name="azul">#4966A6</color>
-    <color name="azul_oscuro">#223B73</color>
-    <color name="azul_super_oscuro">#32394A</color>
-    <color name="negro">#000000</color>
-    <color name="gris">#D6D6D6</color>
-    <color name="gris_oscuro">#747474</color>
+    <color name="azul">#ff4966a6</color>
+    <color name="azul_claro">#ff9ca4b3</color>
+    <color name="azul_llamativo">#ff395e6b</color>
+    <color name="azul_oscuro">#ff223b73</color>
+    <color name="azul_super_oscuro">#ff32394a</color>
+    <color name="blanco">#fff4f5f7</color>
+    <color name="gris">#ffd6d6d6</color>
+    <color name="gris_oscuro">#ff747474</color>
 
-    <color name="verde">#40FF00</color>
-    <color name="rojo">#FF0000</color>
 
-    <color name="debil">#8A0808</color>
-    <color name="normal">#B45F04</color>
-    <color name="mejor">#86B404</color>
-    <color name="fuerte">#04B404</color>
 
-    <color name="nivel_1">#8A0808</color>
-    <color name="nivel_2">#C62020</color>
-    <color name="nivel_3">#B45F04</color>
-    <color name="nivel_4">#86B404</color>
-    <color name="nivel_5">#04B404</color>
+    <color name="contenido_bg">#ffd6d6d6</color>
+    <color name="contenido_item_bg">#ffffffff</color>
+    <color name="contenido_item_border">#ffc2c3c8</color>
+    <color name="contenido_item_fecha">#ffa0a3a7</color>
 
-    <color name="contenido_bg">#D6D6D6</color>
-    <color name="contenido_item_bg">#FFFFFF</color>
-    <color name="contenido_item_border">#C2C3C8</color>
-    <color name="contenido_item_fecha">#A0A3A7</color>
+    <color name="debil">#ff8a0808</color>
+    <color name="normal">#ffb45f04</color>
+    <color name="mejor">#ff86b404</color>
+    <color name="fuerte">#ff04b404</color>
 
-    <color name="azul_llamativo">#395E6B</color>
+    <color name="fusa_blue_color">#ff4966a6</color>
+
+
+    <color name="negro">#ff000000</color>
+    <color name="negro_mas_transparente">#80000000</color>
+    <color name="negro_transparente">#cc000000</color>
+
+    <color name="nivel_1">#ff8a0808</color>
+    <color name="nivel_2">#ffc62020</color>
+    <color name="nivel_3">#ffb45f04</color>
+    <color name="nivel_4">#ff86b404</color>
+    <color name="nivel_5">#ff04b404</color>
+
+
+    <color name="rojo">#fffa2323</color>
+    <color name="rojo_oscuro">#ffe11a1a</color>
+    <color name="verde">#ff31e71c</color>
+    <color name="verde_oscuro">#ff35d024</color>
 </resources>

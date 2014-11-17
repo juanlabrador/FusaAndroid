@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:layout_gravity="start"
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:padding="10.0dip"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:layout_gravity="start">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/configuracion_acerca_nosotros_titulo"
-        android:textSize="22sp"
+        android:textSize="22.0sp"
         android:textColor="@color/azul"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/configuracion_acerca_nosotros_titulo" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/azul"/>
+    <View android:background="@color/azul"
+        android:layout_width="fill_parent"
+        android:layout_height="2.0dip" />
 
     <TextView
-        android:padding="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/configuracion_acerca_nosotros_contenido"
-        android:textSize="16sp"
+        android:textSize="16.0sp"
         android:textColor="@color/negro"
-        android:gravity="center_vertical"/>
+        android:gravity="center_vertical"
+        android:padding="5.0dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/configuracion_acerca_nosotros_contenido" />
 
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
-        android:src="@drawable/logo_equipo"/>
-
+        android:src="@drawable/logo_equipo"
+        android:scaleType="fitCenter" />
 </LinearLayout>

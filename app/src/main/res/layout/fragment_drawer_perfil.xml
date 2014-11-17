@@ -1,280 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:background="@color/blanco"
+    android:padding="10.0dip"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginBottom="10dp">
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10.0dip">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ivFotoPerfil"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:src="@drawable/foto_perfil"/>
+            android:id="@+id/iv_foto_perfil"
+            android:layout_width="0.0dip"
+            android:layout_height="100.0dip"
+            android:src="@drawable/foto_perfil"
+            android:layout_weight="1.0"
+            app:border_width="2.0dip"
+            app:border_color="@color/blanco" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:padding="5.0dip"
+            android:layout_width="0.0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:padding="5dp"
-            android:orientation="vertical">
-
+            android:layout_weight="2.0">
             <TextView
-                android:id="@+id/etNombrePerfil"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="Juan Labrador"
-                android:textSize="20sp"
-                android:layout_margin="1dp"
-                android:textColor="@color/negro"/>
-
-            <TextView
-                android:id="@+id/etEmailPerfil"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:singleLine="true"
+                android:textSize="18.0sp"
                 android:textColor="@color/negro"
-                android:textSize="16sp"
-                android:layout_margin="1dp"
-                android:text="micorreo@example.com"/>
-
+                android:id="@+id/et_nombre_perfil"
+                android:layout_width="wrap_content"
+                android:layout_height="0.0dip"
+                android:text="Juan Labrador"
+                android:layout_weight="1.0" />
+            <TextView
+                android:textSize="14.0sp"
+                android:textColor="@color/negro"
+                android:id="@+id/et_email_perfil"
+                android:layout_width="wrap_content"
+                android:layout_height="0.0dip"
+                android:text="micorreo@example.com"
+                android:singleLine="true"
+                android:layout_weight="1.0" />
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:textSize="14sp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:layout_marginTop="2dp"
-                android:text="@string/configuracion_cambiar_password_contenido_boton"
+                android:textSize="16.0sp"
+                android:textColor="@color/blanco"
+                android:gravity="center"
+                android:id="@+id/btn_cambiar_password_perfil"
                 android:background="@drawable/style_button_background_white"
-                android:textColor="@color/blanco"/>
-
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip"
+                android:layout_width="fill_parent"
+                android:layout_height="25.0dip"
+                android:layout_marginTop="2.0dip"
+                android:text="@string/configuracion_cambiar_password_contenido_boton_normal" />
         </LinearLayout>
     </LinearLayout>
-
     <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="3dp"
-        android:background="@color/azul_oscuro"/>
-
+        android:background="@color/azul_oscuro"
+        android:layout_width="fill_parent"
+        android:layout_height="2.0dip"
+        android:layout_marginTop="2.0dip"
+        android:layout_marginBottom="3.0dip" />
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="2dp">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2.0dip">
 
         <TextView
+            android:textSize="15.0sp"
+            android:textColor="@color/azul_oscuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/contenido_perfil_cedula"
-            android:layout_marginRight="5dp"
-            android:textSize="15sp"
-            android:textColor="@color/azul_oscuro"/>
-
+            android:layout_marginRight="5.0dip"
+            android:text="@string/contenido_perfil_cedula" />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textSize="15.0sp"
             android:id="@+id/tvCedulaPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="20.236.618"
-            android:singleLine="true"
-            android:textSize="15sp"/>
-
+            android:singleLine="true" />
     </LinearLayout>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="2dp">
-
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2.0dip">
         <TextView
+            android:textSize="15.0sp"
+            android:textColor="@color/azul_oscuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/contenido_perfil_fecha_nacimiento"
-            android:textSize="15sp"
-            android:layout_marginRight="5dp"
-            android:textColor="@color/azul_oscuro"/>
-
+            android:layout_marginRight="5.0dip"
+            android:text="@string/contenido_perfil_fecha_nacimiento" />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textSize="15.0sp"
             android:id="@+id/tvEdadPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="21/02/1991"
-            android:singleLine="true"
-            android:textSize="15sp"/>
-
+            android:singleLine="true" />
     </LinearLayout>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="2dp">
-
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2.0dip">
         <TextView
+            android:textSize="15.0sp"
+            android:textColor="@color/azul_oscuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/contenido_perfil_fecha_ingreso"
-            android:textSize="15sp"
-            android:layout_marginRight="5dp"
-            android:textColor="@color/azul_oscuro"/>
-
+            android:layout_marginRight="5.0dip"
+            android:text="@string/contenido_perfil_fecha_ingreso" />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textSize="15.0sp"
             android:id="@+id/tvFechaIngreso"
-            android:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="16/10/2012"
-            android:textSize="15sp"/>
-
+            android:singleLine="true" />
     </LinearLayout>
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="2dp">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2.0dip">
         <TextView
+            android:textSize="15.0sp"
+            android:textColor="@color/azul_oscuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/contenido_perfil_instrumento"
-            android:textSize="15sp"
-            android:layout_marginRight="5dp"
-            android:textColor="@color/azul_oscuro"/>
-
+            android:layout_marginRight="5.0dip"
+            android:text="@string/contenido_perfil_instrumento" />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textSize="15.0sp"
             android:id="@+id/tvInstrumentoPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Guitarra"
-            android:singleLine="true"
-            android:textSize="15sp"/>
+            android:singleLine="true" />
     </LinearLayout>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="2dp">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2.0dip">
         <TextView
+            android:textSize="15.0sp"
+            android:textColor="@color/azul_oscuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/contenido_perfil_catedra"
-            android:textSize="15sp"
-            android:layout_marginRight="5dp"
-            android:textColor="@color/azul_oscuro"/>
-
+            android:layout_marginRight="5.0dip"
+            android:text="@string/contenido_perfil_catedra" />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textSize="15.0sp"
             android:id="@+id/tvCatedraPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Prof. Gustavo Dudamel"
-            android:singleLine="true"
-            android:textSize="15sp"/>
+            android:singleLine="true" />
     </LinearLayout>
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="2dp">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2.0dip">
         <TextView
+            android:textSize="15.0sp"
+            android:textColor="@color/azul_oscuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/contenido_perfil_orquesta"
-            android:textSize="15sp"
-            android:layout_marginRight="5dp"
-            android:textColor="@color/azul_oscuro"/>
-
+            android:layout_marginRight="5.0dip"
+            android:text="@string/contenido_perfil_orquesta" />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textSize="15.0sp"
             android:id="@+id/tvOrquestaPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Orquesta Sinfonica de Venezuela"
-            android:singleLine="true"
-            android:textSize="15sp"/>
-
+            android:singleLine="true" />
     </LinearLayout>
-
     <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="2dp"
-        android:background="@color/azul_oscuro"/>
-
+        android:background="@color/azul_oscuro"
+        android:layout_width="fill_parent"
+        android:layout_height="2.0dip"
+        android:layout_marginTop="3.0dip"
+        android:layout_marginBottom="2.0dip" />
     <TextView
+        android:textSize="16.0sp"
+        android:textColor="@color/azul_oscuro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/contenido_barra_progreso_estudiante"
-        android:layout_margin="5dp"
-        android:textSize="16sp"
-        android:textColor="@color/azul_oscuro"/>
-
+        android:layout_margin="5.0dip"
+        android:text="@string/contenido_barra_progreso_estudiante" />
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
         <View
             android:id="@+id/barraNivel1"
-            android:layout_width="0dp"
-            android:layout_height="5dp"
-            android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:background="@color/nivel_2"/>
-
+            android:background="@color/nivel_2"
+            android:layout_width="0.0dip"
+            android:layout_height="5.0dip"
+            android:layout_margin="2.0dip"
+            android:layout_weight="1.0" />
         <View
             android:id="@+id/barraNivel2"
-            android:layout_width="0dp"
-            android:layout_height="5dp"
-            android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:background="@color/nivel_2"/>
-
+            android:background="@color/nivel_2"
+            android:layout_width="0.0dip"
+            android:layout_height="5.0dip"
+            android:layout_margin="2.0dip"
+            android:layout_weight="1.0" />
         <View
             android:id="@+id/barraNivel3"
-            android:layout_width="0dp"
-            android:layout_height="5dp"
-            android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:background="@android:color/darker_gray"/>
-
+            android:background="@android:color/darker_gray"
+            android:layout_width="0.0dip"
+            android:layout_height="5.0dip"
+            android:layout_margin="2.0dip"
+            android:layout_weight="1.0" />
         <View
             android:id="@+id/barraNivel4"
-            android:layout_width="0dp"
-            android:layout_height="5dp"
-            android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:background="@android:color/darker_gray"/>
-
+            android:background="@android:color/darker_gray"
+            android:layout_width="0.0dip"
+            android:layout_height="5.0dip"
+            android:layout_margin="2.0dip"
+            android:layout_weight="1.0" />
         <View
             android:id="@+id/barraNivel5"
-            android:layout_width="0dp"
-            android:layout_height="5dp"
-            android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:background="@android:color/darker_gray"/>
-
+            android:background="@android:color/darker_gray"
+            android:layout_width="0.0dip"
+            android:layout_height="5.0dip"
+            android:layout_margin="2.0dip"
+            android:layout_weight="1.0" />
     </LinearLayout>
-
     <TextView
-        android:id="@+id/tvStatusProgreso"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="13sp"
-        android:gravity="right"
-        android:layout_margin="5dp"
+        android:textSize="13.0sp"
         android:textColor="@color/nivel_2"
-        android:text="@string/contenido_barra_progreso_nivel_2"/>
-
+        android:gravity="right"
+        android:id="@+id/tvStatusProgreso"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5.0dip"
+        android:text="@string/contenido_barra_progreso_nivel_2" />
 </LinearLayout>

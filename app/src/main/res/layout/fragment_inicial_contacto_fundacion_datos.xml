@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:id="@+id/fragment_datos_contacto"
+    android:background="@color/blanco"
+    android:paddingLeft="20.0dip"
+    android:paddingTop="10.0dip"
+    android:paddingRight="20.0dip"
+    android:paddingBottom="10.0dip"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:textSize="18.0sp"
+        android:textColor="@color/azul_oscuro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/texto_contenido_titulo_direccion_contacto" />
+    <TextView
+        android:textSize="16.0sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5.0dip"
+        android:text="@string/texto_contenido_direccion_contacto" />
+    <TextView
+        android:textSize="18.0sp"
+        android:textColor="@color/azul_oscuro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/texto_contenido_titulo_telefono_contacto" />
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5.0dip"
+        android:layout_marginTop="5.0dip">
+        <TextView
+            android:textSize="16.0sp"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:text="@string/texto_contenido_telefono1_contacto"
+            android:layout_weight="1.0" />
+        <ImageView
+            android:id="@+id/btn_telefono_1"
+            android:layout_width="wrap_content"
+            android:layout_height="30.0dip"
+            android:src="@drawable/ic_llamada" />
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5.0dip"
+        android:layout_marginTop="2.0dip">
+        <TextView
+            android:textSize="16.0sp"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:text="@string/texto_contenido_telefono2_contacto"
+            android:layout_weight="1.0" />
+        <ImageView
+            android:id="@+id/btn_telefono_2"
+            android:layout_width="wrap_content"
+            android:layout_height="30.0dip"
+            android:src="@drawable/ic_llamada" />
+    </LinearLayout>
+    <TextView
+        android:textSize="18.0sp"
+        android:textColor="@color/azul_oscuro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/texto_contenido_titulo_correo_contacto" />
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5.0dip"
+        android:layout_marginTop="2.0dip">
+        <TextView
+            android:textSize="16.0sp"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:text="@string/texto_contenido_email_contacto"
+            android:layout_weight="1.0" />
+        <ImageView
+            android:id="@+id/btn_email"
+            android:layout_width="wrap_content"
+            android:layout_height="30.0dip"
+            android:src="@drawable/ic_correo" />
+    </LinearLayout>
+</LinearLayout>

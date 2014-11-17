@@ -10,49 +10,39 @@ import android.os.SystemClock;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.VistasInicialesActivity;
 
-/**
- * Created by juanlabrador on 21/10/14.
- *
- * Clase de tareas programadas, que se utiliza al momento de cerrar sesión, pueda limpiar
- * en segundo plano, todas las preferencias del usuario que se habia logueado.
- *
- */
 public class CerrarSesionAsyncTaks extends AsyncTask<Void, Void, Void> {
 
-    private ProgressDialog dialog;
     private Activity activity;
-    private SharedPreferences preferencias;
+    private ProgressDialog dialog;
     private SharedPreferences.Editor editor;
+    private SharedPreferences preferencias;
 
-    public CerrarSesionAsyncTaks(Activity activity, SharedPreferences preferencias) {
-        this.activity = activity;
-        this.preferencias = preferencias;
+    public CerrarSesionAsyncTaks(Activity paramActivity, SharedPreferences paramSharedPreferences) {
+        this.activity = paramActivity;
+        this.preferencias = paramSharedPreferences;
     }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        dialog = new ProgressDialog(activity);
-        dialog.setMessage(activity.getResources().getString(R.string.cerrar_sesion));
-        dialog.setIndeterminate(false);
-        dialog.setCancelable(false);
-        dialog.show();
-    }
-
-    @Override
-    protected Void doInBackground(Void... params) {
-        //editor = preferencias.edit();
-        //editor.clear();
-        //editor.commit();
-        SystemClock.sleep(2000);
+    
+    protected Void doInBackground(Void[] paramArrayOfVoid) {
+        this.editor = this.preferencias.edit();
+        this.editor.clear();
+        this.editor.commit();
+        SystemClock.sleep(2000L);
         return null;
     }
 
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-        dialog.dismiss();
-        activity.startActivity(new Intent(activity, VistasInicialesActivity.class));
-        activity.finish();
+    protected void onPostExecute(Void paramVoid) {
+        super.onPostExecute(paramVoid);
+        this.dialog.dismiss();
+        this.activity.startActivity(new Intent(this.activity, VistasInicialesActivity.class));
+        this.activity.finish();
+    }
+
+    protected void onPreExecute() {
+        super.onPreExecute();
+        this.dialog = new ProgressDialog(this.activity);
+        this.dialog.setMessage(this.activity.getResources().getString(R.string.cerrar_sesion));
+        this.dialog.setIndeterminate(false);
+        this.dialog.setCancelable(false);
+        this.dialog.show();
     }
 }

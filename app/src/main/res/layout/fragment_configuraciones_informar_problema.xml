@@ -1,27 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp">
+    android:background="@color/blanco"
+    android:padding="10.0dip"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/configuracion_informar_problema"
+    <edu.ucla.fusa.android.modelo.FloatingHintEditText
+        android:id="@+id/et_informar_problema"
         android:background="@drawable/style_edit_text_azul"
-        android:layout_margin="5dp"
-        android:maxLength="200"
-        android:textSize="14sp"/>
-
-    <Button
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@drawable/style_button_background_white"
-        android:text="@string/configuracion_informar_problema_contenido_boton"
-        android:textSize="18sp"
-        android:textColor="@color/blanco"/>
+        android:layout_marginLeft="5.0dip"
+        android:layout_marginRight="5dp"
+        android:hint="@string/configuracion_informar_problema"
+        android:maxLength="200"
+        android:inputType="textLongMessage" />
 
+    <com.dd.CircularProgressButton
+        android:textSize="22.0sp"
+        android:textColor="@color/blanco"
+        android:gravity="center"
+        android:id="@+id/btn_informar_problema"
+        android:background="@drawable/style_button_background_white"
+        android:padding="10.0dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5.0dip"
+        app:cpb_textComplete="@string/configuracion_informar_problema_contenido_boton_enviado"
+        app:cpb_textIdle="@string/configuracion_informar_problema_contenido_boton_normal"
+        app:cpb_textError="@string/contenido_boton_error"
+        app:cpb_colorProgress="@color/blanco"
+        app:cpb_colorIndicator="@color/azul"
+        app:cpb_colorIndicatorBackground="@color/gris"
+        app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
+        app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
+        app:cpb_selectorIdle="@color/style_btn_circular_progress_azul" />
 </LinearLayout>

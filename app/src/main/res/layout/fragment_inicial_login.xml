@@ -1,74 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:orientation="vertical"
+    android:id="@+id/fragment_login"
+    android:background="@color/blanco"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/fragment_login">
+    xmlns:floatview="http://schemas.android.com/apk/lib/com.hardik.floatinglabel">
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@color/azul">
-
+        android:background="@color/azul"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip">
         <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/logo"/>
-
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@drawable/logo"
+            android:scaleType="fitCenter" />
     </LinearLayout>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:padding="10.0dip"
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:layout_weight="1.0">
 
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
+        <edu.ucla.fusa.android.modelo.FloatingHintEditText
+            android:enabled="true"
+            android:id="@+id/et_email_iniciar_sesion"
+            android:background="@drawable/style_edit_text_azul"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5.0dip"
             android:hint="@string/texto_contenido_edittex_correo_login"
-            android:layout_margin="5dp"
-            android:background="@drawable/style_edit_text_azul"/>
-
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
+            android:fontFamily="sans-serif"
+            android:inputType="textEmailAddress" />
+        <edu.ucla.fusa.android.modelo.FloatingHintEditText
+            android:enabled="true"
+            android:id="@+id/et_password_iniciar_sesion"
+            android:background="@drawable/style_edit_text_azul"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5.0dip"
             android:hint="@string/texto_contenido_edittex_clave_login"
-            android:layout_margin="5dp"
-            android:background="@drawable/style_edit_text_azul"/>
+            android:fontFamily="sans-serif"
+            android:inputType="textPassword" />
 
         <com.dd.CircularProgressButton
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/texto_boton_iniciar_sesion_login"
+            android:textSize="22.0sp"
             android:textColor="@color/blanco"
-            android:textSize="22sp"
+            android:id="@+id/btn_iniciar_sesion"
             android:background="@drawable/style_button_background_white"
-            android:layout_margin="10dp"
-            app:cpb_selectorIdle="@color/btn_idle_state_selector"
-            app:cpb_textIdle="@string/texto_boton_login_estado_normal"
+            android:padding="10.0dip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10.0dip"
+            android:layout_marginLeft="40.0dip"
+            android:layout_marginRight="40.0dip"
+            android:text="@string/texto_boton_iniciar_sesion_login"
+            app:cpb_textComplete="@string/texto_boton_procesado_iniciar_sesion"
+            app:cpb_textIdle="@string/texto_boton_iniciar_sesion_login"
+            app:cpb_textError="@string/texto_boton_error_iniciar_sesion"
+            app:cpb_colorProgress="@color/blanco"
             app:cpb_colorIndicator="@color/azul"
             app:cpb_colorIndicatorBackground="@color/gris"
-            app:cpb_textComplete="@string/texto_boton_login_estado_completado"
-            app:cpb_selectorComplete="@color/btn_complete_state_selector"
-            app:cpb_textError="@string/texto_boton_login_estado_error"
-            app:cpb_selectorError="@drawable/btn_error_state_selector"/>
+            app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
+            app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
+            app:cpb_selectorIdle="@color/style_btn_circular_progress_azul"
+            android:gravity="center"/>
 
         <TextView
-            android:id="@+id/tvOlvidarPassword"
-            android:layout_width="match_parent"
+            android:enabled="true"
+            android:textSize="14.0sp"
+            android:textColor="@color/style_link_background_blanco"
+            android:gravity="center"
+            android:id="@+id/tv_olvidar_password_iniciar_sesion"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/texto_olvidar_clave"
-            android:textSize="14sp"
-            android:textColor="@color/negro"
-            android:gravity="center"/>
+            android:text="@string/texto_olvidar_clave" />
     </LinearLayout>
 </LinearLayout>

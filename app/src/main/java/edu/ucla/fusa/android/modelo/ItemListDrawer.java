@@ -1,33 +1,28 @@
 package edu.ucla.fusa.android.modelo;
 
-/**
- * Created by juanlabrador on 19/10/14.
- *
- * Clase modelo que administra los elementos de la lista de navegación.
- */
 public class ItemListDrawer {
 
-    private String titulo;
     private int icono;
+    private String titulo;
 
-    public ItemListDrawer(String titulo, int icono) {
-        this.titulo = titulo;
-        this.icono = icono;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public ItemListDrawer(String paramString, int paramInt) {
+        this.titulo = paramString;
+        this.icono = paramInt;
     }
 
     public int getIcono() {
-        return icono;
+        return this.icono;
     }
 
-    public void setIcono(int icono) {
-        this.icono = icono;
+    public String getTitulo() {
+        return this.titulo;
+    }
+
+    public void setIcono(int paramInt) {
+        this.icono = paramInt;
+    }
+
+    public void setTitulo(String paramString) {
+        this.titulo = paramString;
     }
 }

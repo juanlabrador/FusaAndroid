@@ -1,134 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/fragment_registrar_postulaciones">
+    android:id="@+id/fragment_registrar_postulaciones"
+    android:background="@color/blanco"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@color/azul">
+        android:id="@+id/view_barra_superior_contrataciones"
+        android:background="@color/azul"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip">
 
         <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/logo"/>
-
+            android:paddingLeft="5.0dip"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:src="@drawable/logo"
+            android:scaleType="fitStart"
+            android:layout_weight="1.0" />
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="@string/contenido_titulo_inicial_estudiantes"
+            android:textSize="16.0dip"
             android:textColor="@color/blanco"
-            android:textSize="16sp"
-            android:gravity="center_vertical"/>
-
+            android:gravity="center_vertical"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:text="@string/titulo_action_bar_contrataciones"
+            android:layout_weight="2.0" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:background="@color/blanco"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp">
-
-        <EditText
-            android:id="@+id/etRifoCedulaContrataciones"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/texto_contenido_editext_rif_cedula_contrataciones"
-            android:background="@drawable/style_edit_text_azul"
-            android:layout_margin="5dp"/>
-
-        <EditText
-            android:id="@+id/etSolicitanteContrataciones"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/texto_contenido_editext_solicitante_contrataciones"
-            android:background="@drawable/style_edit_text_azul"
-            android:layout_margin="5dp"/>
-
-        <EditText
-            android:id="@+id/etCorreoContrataciones"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/texto_contenido_edittext_correo_contrataciones"
-            android:background="@drawable/style_edit_text_azul"
-            android:layout_margin="5dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/texto_contenido_datos_evento_contrataciones"
-            android:textColor="@color/azul_oscuro"
-            android:textSize="18sp"
-            android:layout_marginTop="10dp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/azul"/>
-
-        <EditText
-            android:id="@+id/etTemaEventoContrataciones"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/texto_contenido_edittext_tema_contrataciones"
-            android:background="@drawable/style_edit_text_azul"
-            android:layout_margin="5dp"/>
-
-        <EditText
-            android:id="@+id/etLugarEventoContrataciones"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/texto_contenido_edittext_lugar_contrataciones"
-            android:background="@drawable/style_edit_text_azul"
-            android:layout_margin="5dp"/>
-
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
-
-            <EditText
-                android:id="@+id/etFechaEventoContrataciones"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/texto_contenido_edittext_fecha_contrataciones"
+            android:orientation="vertical"
+            android:padding="5dip"
+            android:layout_width="fill_parent"
+            android:layout_height="0.0dip"
+            android:layout_weight="1.0">
+            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+                android:id="@+id/et_cedula_contrataciones"
                 android:background="@drawable/style_edit_text_azul"
-                android:layout_margin="2dp"/>
-
-            <EditText
-                android:id="@+id/etHoraEventoContrataciones"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/texto_contenido_edittext_hora_contrataciones"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:hint="@string/texto_contenido_editext_rif_cedula_contrataciones"
+                android:inputType="text" />
+            <TextView
+                android:textColor="@color/gris_oscuro"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip"
+                android:textSize="12sp"
+                android:text="@string/ejemplo_type_ced" />
+            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+                android:id="@+id/et_solicitante_contrataciones"
                 android:background="@drawable/style_edit_text_azul"
-                android:layout_margin="2dp"/>
-
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:hint="@string/texto_contenido_editext_solicitante_contrataciones"
+                android:inputType="text" />
+            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+                android:id="@+id/et_email_contrataciones"
+                android:background="@drawable/style_edit_text_azul"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:hint="@string/texto_contenido_edittext_correo_contrataciones"
+                android:inputType="textEmailAddress" />
+            <TextView
+                android:textSize="18.0sp"
+                android:textColor="@color/azul_oscuro"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5.0dip"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:text="@string/texto_contenido_datos_evento_contrataciones" />
+            <View
+                android:background="@color/azul"
+                android:layout_width="fill_parent"
+                android:layout_height="2.0dip"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:layout_marginBottom="5.0dip" />
+            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+                android:id="@+id/et_nombre_evento_contrataciones"
+                android:background="@drawable/style_edit_text_azul"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:hint="@string/texto_contenido_edittext_tema_contrataciones"
+                android:inputType="text" />
+            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+                android:id="@+id/et_lugar_evento_contrataciones"
+                android:background="@drawable/style_edit_text_azul"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:hint="@string/texto_contenido_edittext_lugar_contrataciones"
+                android:inputType="text" />
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <edu.ucla.fusa.android.modelo.FloatingHintEditText
+                    android:id="@+id/et_fecha_evento_contrataciones"
+                    android:background="@drawable/style_edit_text_azul"
+                    android:focusable="false"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_marginRight="1.0dip"
+                    android:hint="@string/texto_contenido_edittext_fecha_contrataciones"
+                    android:layout_weight="1.0"
+                    android:inputType="none" />
+                <edu.ucla.fusa.android.modelo.FloatingHintEditText
+                    android:id="@+id/et_hora_evento_contrataciones"
+                    android:background="@drawable/style_edit_text_azul"
+                    android:focusable="false"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1.0dip"
+                    android:layout_marginRight="5.0dip"
+                    android:hint="@string/texto_contenido_edittext_hora_contrataciones"
+                    android:layout_weight="1.0"
+                    android:inputType="none" />
+            </LinearLayout>
+            <com.dd.CircularProgressButton
+                android:textSize="22.0sp"
+                android:textColor="@color/blanco"
+                android:gravity="center"
+                android:id="@+id/btn_enviar_solicitud_contrataciones"
+                android:background="@drawable/style_button_background_white"
+                android:padding="10.0dip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginTop="10.0dip"
+                android:layout_marginRight="10.0dip"
+                app:cpb_textComplete="@string/contenido_boton_enviado"
+                app:cpb_textIdle="@string/contenido_boton_normal"
+                app:cpb_textError="@string/contenido_boton_error"
+                app:cpb_colorProgress="@color/blanco"
+                app:cpb_colorIndicator="@color/azul"
+                app:cpb_colorIndicatorBackground="@color/gris"
+                app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
+                app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
+                app:cpb_selectorIdle="@color/style_btn_circular_progress_azul" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btnEnviarSolicitud"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/blanco"
-            android:background="@drawable/style_button_background_white"
-            android:layout_marginTop="20dp"
-            android:textSize="22sp"
-            android:padding="10dp"
-            android:gravity="center"
-            android:text="@string/texto_boton_crear_cuenta_datos_alumno"/>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

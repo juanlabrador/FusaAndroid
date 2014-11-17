@@ -8,76 +8,54 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.modelo.ItemListAplications;
-import edu.ucla.fusa.android.modelo.ItemListDrawer;
+import java.util.ArrayList;
 
-/**
- * Created by juanlabrador on 19/10/14.
- *
- * Clase adaptadora que se utiliza para personalizar el contenido de la lista de
- * aplicación ubicada en configuraciones.
- *
- * Contiene la implementación de un icono, texto asociado y una imagen que funciona como
- * checkbox que se activa o no al hacer click sobre un item de la lista.
- *
- */
 public class ListAplicationsAdapter extends BaseAdapter {
 
     private Activity activity;
     private ArrayList<ItemListAplications> arrayItems;
 
-    public ListAplicationsAdapter(Activity activity, ArrayList<ItemListAplications> arrayItems) {
-        this.activity = activity;
-        this.arrayItems = arrayItems;
+    public ListAplicationsAdapter(Activity paramActivity, ArrayList<ItemListAplications> paramArrayList) {
+        this.activity = paramActivity;
+        this.arrayItems = paramArrayList;
     }
 
-    @Override
-    public Object getItem(int position) {
-        return arrayItems.get(position);
-    }
-
-    @Override
     public int getCount() {
         return arrayItems.size();
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
+    public Object getItem(int paramInt) {
+        return arrayItems.get(paramInt);
     }
 
-    /** Creamos una clase de los componentes de la lista */
-    public static class Fila {
-        TextView titulo;
-        ImageView icono;
+    public long getItemId(int paramInt) {
+        return paramInt;
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
+        LayoutInflater layoutInflater = activity.getLayoutInflater();
         Fila fila;
-        LayoutInflater inflator = activity.getLayoutInflater();
 
-        /** Si no hay contenido en la lista, los crea */
-        if (convertView == null) {
+        if (paramView == null) {
             fila = new Fila();
-
-            ItemListAplications item = arrayItems.get(position);
-            convertView = inflator.inflate(R.layout.custom_item_list_aplicaciones, null);
-
-            fila.titulo = (TextView) convertView.findViewById(R.id.tvTituloApp);
+            ItemListAplications item = arrayItems.get(paramInt);
+            View view = layoutInflater.inflate(R.layout.custom_item_list_aplicaciones, null);
+            fila.titulo = (TextView) view.findViewById(R.id.tvTituloApp);
             fila.titulo.setText(item.getTitulo());
-
-            fila.icono = (ImageView) convertView.findViewById(R.id.ivIconoApp);
+            fila.icono = (ImageView) view.findViewById(R.id.ivIconoApp);
             fila.icono.setImageResource(item.getIcono());
-
-            convertView.setTag(fila);
+            view.setTag(fila);
+            return view;
         } else {
-            fila = (Fila) convertView.getTag();
+            fila = (Fila) paramView.getTag();
         }
+        return paramView;
+    }
 
-        return convertView;
+    public static class Fila {
+        ImageView icono;
+        TextView titulo;
     }
 }

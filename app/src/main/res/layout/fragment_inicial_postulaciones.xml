@@ -1,114 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/fragment_registrar_postulaciones">
+    android:id="@id/fragment_registrar_postulaciones"
+    android:background="@color/blanco"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@color/azul">
+        android:id="@+id/view_barra_superior_postulaciones"
+        android:background="@color/azul"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/logo"/>
-
+        <ImageView android:paddingLeft="5.0dip"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:src="@drawable/logo"
+            android:scaleType="fitStart"
+            android:layout_weight="1.0" />
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:textSize="16.0dip"
+            android:textColor="@color/blanco"
+            android:gravity="center_vertical"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
             android:text="@string/titulo_action_bar_postularse"
-            android:textColor="@color/blanco"
-            android:textSize="16sp"
-            android:gravity="center_vertical"/>
-
+            android:layout_weight="2.0" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:background="@color/blanco"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-
-        <EditText
-            android:id="@+id/etNombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/texto_contenido_editext_nombre_postularse"
-            android:background="@drawable/style_edit_text_azul"
-            android:layout_margin="5dp"/>
-
-        <EditText
-            android:id="@+id/etApellido"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/texto_contenido_editext_apellido_postularse"
-            android:background="@drawable/style_edit_text_azul"
-            android:layout_margin="5dp"/>
-
-        <EditText
-            android:id="@+id/etFechaNacimiento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/texto_contenido_edittext_fecha_nacimiento_postularse"
-            android:background="@drawable/style_edit_text_azul"
-            android:layout_margin="5dp"/>
-
-
-        <CheckBox
-            android:id="@+id/cbInstrumentoPropio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_contenido_checkbox_posee_instrumento_postularse"
-            android:button="@drawable/style_btn_check_azul"/>
-
-        <CheckBox
-            android:id="@+id/cbConservatorio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_contenido_checkbox_participa_conservatorio_postularse"
-            android:button="@drawable/style_btn_check_azul"/>
-
-        <CheckBox
-            android:id="@+id/cbCoro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_contenido_checkbox_participa_coro_postularse"
-            android:button="@drawable/style_btn_check_azul"/>
-
-        <CheckBox
-            android:id="@+id/cbBeca"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_contenido_checkbox_posee_beca_postularse"
-            android:button="@drawable/style_btn_check_azul"/>
-
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/texto_contenido_edittext_correo_postularse"
-            android:background="@drawable/style_edit_text_azul"
-            android:layout_margin="5dp"/>
-
-        <Button
-            android:id="@+id/btnEnviarSolicitud"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/blanco"
-            android:background="@drawable/style_button_background_white"
-            android:layout_margin="5dp"
-            android:textSize="18sp"
-            android:padding="15dp"
-            android:gravity="center"
-            android:text="@string/texto_boton_crear_cuenta_datos_alumno"/>
-    </LinearLayout>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="10.0dip"
+            android:layout_width="fill_parent"
+            android:layout_height="0.0dip"
+            android:layout_weight="1.0">
+            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+                android:id="@+id/et_nombre_aspirante"
+                android:background="@drawable/style_edit_text_azul"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:hint="@string/texto_contenido_editext_nombre_postularse"
+                android:inputType="text" />
+            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+                android:id="@+id/et_apellido_aspirante"
+                android:background="@drawable/style_edit_text_azul"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:hint="@string/texto_contenido_editext_apellido_postularse"
+                android:inputType="text" />
+            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+                android:id="@+id/et_fecha_nacimiento_aspirante"
+                android:background="@drawable/style_edit_text_azul"
+                android:focusable="false"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:hint="@string/texto_contenido_edittext_fecha_nacimiento_postularse"
+                android:inputType="none" />
+            <CheckBox
+                android:id="@+id/cb_instrumento_propio_aspirante"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/style_btn_check_azul"
+                android:text="@string/text_contenido_checkbox_posee_instrumento_postularse" />
+            <CheckBox
+                android:id="@+id/cb_conservatorio_aspirante"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/style_btn_check_azul"
+                android:text="@string/text_contenido_checkbox_participa_conservatorio_postularse" />
+            <CheckBox
+                android:id="@+id/cb_coro_aspirante"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/style_btn_check_azul"
+                android:text="@string/text_contenido_checkbox_participa_coro_postularse" />
+            <CheckBox
+                android:id="@+id/cb_beca_aspirante"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/style_btn_check_azul"
+                android:text="@string/text_contenido_checkbox_posee_beca_postularse" />
+            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+                android:id="@+id/et_email_aspirante"
+                android:background="@drawable/style_edit_text_azul"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:hint="@string/texto_contenido_edittext_correo_postularse"
+                android:inputType="textEmailAddress" />
+            <com.dd.CircularProgressButton
+                android:textSize="22.0sp"
+                android:textColor="@color/blanco"
+                android:gravity="center"
+                android:id="@+id/btn_enviar_solicitud_aspirante"
+                android:background="@drawable/style_button_background_white"
+                android:padding="10.0dip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginTop="10.0dip"
+                android:layout_marginRight="10.0dip"
+                app:cpb_textComplete="@string/contenido_boton_enviado"
+                app:cpb_textIdle="@string/contenido_boton_normal"
+                app:cpb_textError="@string/contenido_boton_error"
+                app:cpb_colorProgress="@color/blanco"
+                app:cpb_colorIndicator="@color/azul"
+                app:cpb_colorIndicatorBackground="@color/gris"
+                app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
+                app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
+                app:cpb_selectorIdle="@color/style_btn_circular_progress_azul" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

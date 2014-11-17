@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="icons_app">
+        <item>@drawable/ic_facebook_disable</item>
+        <item>@drawable/ic_google_disable</item>
+        <item>@drawable/ic_instagram_disable</item>
+        <item>@drawable/ic_twitter_disable</item>
+    </array>
+    <array name="icons_contacto">
+        <item>@drawable/ic_datos</item>
+        <item>@drawable/ic_ubicacion</item>
+    </array>
+    <array name="icons_eventos">
+        <item>@drawable/ic_datos</item>
+        <item>@drawable/ic_ubicacion</item>
+        <item>@drawable/ic_participantes</item>
+        <item>@drawable/ic_comentarios</item>
+    </array>
+    <string-array name="nav_funciones_user">
+        <item>Home</item>
+        <item>Mis clases</item>
+        <item>Mis eventos</item>
+        <item>Calendario</item>
+        <item>Solicitud de prestamo</item>
+        <item>Configuración</item>
+    </string-array>
+    <array name="nav_icons_inicial">
+        <item>@drawable/ic_iniciar_sesion</item>
+        <item>@drawable/ic_estudiantes</item>
+        <item>@drawable/ic_profesores</item>
+        <item>@drawable/ic_instrumentos</item>
+        <item>@drawable/ic_eventos</item>
+        <item>@drawable/ic_contacto</item>
+    </array>
+    <array name="nav_icons_user">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_mis_clases</item>
+        <item>@drawable/ic_mis_eventos</item>
+        <item>@drawable/ic_calendario</item>
+        <item>@drawable/ic_solicitud_prestamo</item>
+        <item>@drawable/ic_configuracion</item>
+    </array>
+    <string-array name="participantes_evento">
+        <item>Orquesta Juvenil Simón Bolívar</item>
+        <item>Orquesta Infantil Niños Larenses</item>
+        <item>Orquesta Juvenil La Barquisimetana</item>
+    </string-array>
+    <string-array name="redes_app">
+        <item>Facebook</item>
+        <item>Google+</item>
+        <item>Instagram</item>
+        <item>Twitter</item>
+    </string-array>
+</resources>

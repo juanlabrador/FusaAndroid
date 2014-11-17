@@ -1,78 +1,65 @@
 package edu.ucla.fusa.android.fragmentos;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import java.util.Calendar;
+import com.dd.CircularProgressButton;
 
 import edu.ucla.fusa.android.R;
-import edu.ucla.fusa.android.VistasInicialesActivity;
+import edu.ucla.fusa.android.modelo.FloatingHintEditText;
 import edu.ucla.fusa.android.validadores.ValidadorEmails;
+import java.util.Calendar;
 
-/**
- * Created by juanlabrador on 18/10/14.
- *
- * Clase que se encarga de admnistrar los datos ingresados para una postulación de un aspirante.
- *
- */
-public class InicialPostulacionesFragment extends Fragment implements View.OnClickListener, View.OnKeyListener {
+public class InicialPostulacionesFragment extends Fragment implements View.OnClickListener {
 
-    private View view;
-    private Button enviarPostulacion;
-    private EditText nombre;
-    private EditText apellido;
-    private EditText fechaNacimiento;
-    private EditText email;
-    private CheckBox poseeInstrumento;
-    private CheckBox poseeBeca;
+    private FloatingHintEditText apellido;
+    private Bundle arguments;
+    private LinearLayout barraSuperior;
+    private Calendar calendar;
+    int contador = 0;
+    private int day;
+    private FloatingHintEditText email;
+    private CircularProgressButton enviar;
+    private FloatingHintEditText fechaNacimiento;
+    private Handler handler = new Handler();
+    private int month;
+    private FloatingHintEditText nombre;
     private CheckBox participaConservatorio;
     private CheckBox participaCoro;
-    private Calendar calendar;
-    private int day;
-    private int month;
+    private CheckBox poseeBeca;
+    private CheckBox poseeInstrumento;
+    private View view;
     private int year;
-    private Bundle arguments;
-
-
 
     public static InicialPostulacionesFragment newInstance() {
-        InicialPostulacionesFragment activity = new InicialPostulacionesFragment();
-        activity.setRetainInstance(true);
-        return activity;
+        InicialPostulacionesFragment fragment = new InicialPostulacionesFragment();
+        fragment.setRetainInstance(true);
+        return fragment;
     }
 
-    public InicialPostulacionesFragment() {}
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        view = inflater.inflate(R.layout.fragment_inicial_postulaciones, container, false);
-
-        enviarPostulacion = (Button) view.findViewById(R.id.btnEnviarSolicitud);
-        enviarPostulacion.setOnClickListener(this);
-
-        nombre = (EditText) view.findViewById(R.id.etNombre);
-        apellido = (EditText) view.findViewById(R.id.etApellido);
-        fechaNacimiento = (EditText) view.findViewById(R.id.etFechaNacimiento);
-        email = (EditText) view.findViewById(R.id.etEmail);
-
-        poseeInstrumento = (CheckBox) view.findViewById(R.id.cbInstrumentoPropio);
-        poseeInstrumento = (CheckBox) view.findViewById(R.id.cbInstrumentoPropio);
-        poseeInstrumento = (CheckBox) view.findViewById(R.id.cbInstrumentoPropio);
-        poseeInstrumento = (CheckBox) view.findViewById(R.id.cbInstrumentoPropio);
-
+    public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
+        super.onCreateView(paramLayoutInflater, paramViewGroup, paramBundle);
+        view = paramLayoutInflater.inflate(R.layout.fragment_inicial_postulaciones, paramViewGroup, false);
+        barraSuperior = (LinearLayout) view.findViewById(R.id.view_barra_superior_postulaciones);
+        enviar = ((CircularProgressButton) view.findViewById(R.id.btn_enviar_solicitud_aspirante));
+        enviar.setOnClickListener(this);
+        nombre = ((FloatingHintEditText) view.findViewById(R.id.et_nombre_aspirante));
+        apellido = ((FloatingHintEditText) view.findViewById(R.id.et_apellido_aspirante));
+        fechaNacimiento = ((FloatingHintEditText) view.findViewById(R.id.et_fecha_nacimiento_aspirante));
+        email = ((FloatingHintEditText) view.findViewById(R.id.et_email_aspirante));
+        poseeInstrumento = ((CheckBox) view.findViewById(R.id.cb_instrumento_propio_aspirante));
+        participaConservatorio = ((CheckBox) view.findViewById(R.id.cb_conservatorio_aspirante));
+        poseeBeca = ((CheckBox) view.findViewById(R.id.cb_beca_aspirante));
+        participaCoro = ((CheckBox) view.findViewById(R.id.cb_coro_aspirante));
         fechaNacimiento.setOnClickListener(this);
 
         calendar = Calendar.getInstance();
@@ -80,58 +67,66 @@ public class InicialPostulacionesFragment extends Fragment implements View.OnCli
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
 
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(this);
-
+        if (getActivity().getActionBar().isShowing() != false) {
+            getActivity().getActionBar().setTitle(R.string.titulo_action_bar_postularse);
+            getActivity().getActionBar().setIcon(R.drawable.ic_estudiantes_blanco);
+            barraSuperior.setVisibility(View.GONE);
+        } else {
+            barraSuperior.setVisibility(View.VISIBLE);
+        }
         return view;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnEnviarSolicitud:
-                boolean validar = ValidadorEmails.validarEmail(email.getText().toString());
-                if (validar != true) {
+    public void onClick(View paramView) {
+        switch (paramView.getId()) {
+            case R.id.btn_enviar_solicitud_aspirante:
+                if (ValidadorEmails.validarEmail(this.email.getText().toString()) != true) {
                     Toast.makeText(getActivity(), R.string.mensaje_correo_invalido, Toast.LENGTH_SHORT).show();
                 }
-            break;
-            case R.id.etFechaNacimiento:
-                mostrarDatePicker().show();
-            break;
+                new Thread(new Runnable() {
+                    public void run() {
+                        while (contador < 100) {
+                            contador = (1 + contador);
+                            handler.post(new Runnable() {
+                                public void run() {
+                                    enviar.setIndeterminateProgressMode(true);
+                                    enviar.setProgress(InicialPostulacionesFragment.this.contador);
+                                }
+                            });
+                            try {
+                                Thread.sleep(50L);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }).start();
+                break;
+            case R.id.et_fecha_nacimiento_aspirante:
+                new DatePickerDialog(getActivity(), datePickerListener, year, month, day).show();
+                break;
         }
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getActivity().getActionBar().show();
-        getActivity().getActionBar().setIcon(android.R.color.transparent);
-        getActivity().getActionBar().setTitle(R.string.titulo_action_bar_postularse);
+    public void onCreate(Bundle paramBundle) {
+        super.onCreate(paramBundle);
+
     }
 
-    /** Mostramos un dialogo incluyendo un DatePicker */
-    public Dialog mostrarDatePicker() {
-        return new DatePickerDialog(getActivity(), datePickerListener, year, month, day);
+    public void onResume() {
+        super.onResume();
+        if (getActivity().getActionBar().isShowing() != false) {
+            getActivity().getActionBar().setTitle(R.string.titulo_action_bar_postularse);
+            getActivity().getActionBar().setIcon(R.drawable.ic_estudiantes_blanco);
+            barraSuperior.setVisibility(View.GONE);
+        } else {
+            barraSuperior.setVisibility(View.VISIBLE);
+        }
     }
 
-    /** Evento de la clase DatePickerDialog que captura la fecha indicada por el usuario */
     private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            fechaNacimiento.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year );
+        public void onDateSet(DatePicker paramAnonymousDatePicker, int year, int month, int day) {
+            fechaNacimiento.setText(day + "/" + (month + 1) + "/" + year);
         }
     };
-
-    @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                startActivity(new Intent(getActivity(), VistasInicialesActivity.class).putExtra("position", 1));
-                getActivity().finish();
-                return true;
-            }
-        }
-        return false;
-    }
 }

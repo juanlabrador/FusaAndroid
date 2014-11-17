@@ -1,271 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Fusa</string>
-    <string name="pagina_web">http://www.fundamusical.org.ve</string>
-    <string name="fundacion">Fundamusical Nucleo Barquisimeto</string>
-
-    <!-- Botones de acción en menu -->
-    <string name="configuracion">Configuración</string>
-
-    <!-- Mensajes de toast -->
-    <string name="mensaje_correo_invalido">Ingrese una cuenta de correo válida</string>
-
-    <!-- Elementos de las vistas curiosas -->
-    <string name="descripcion_logotipo">fusa</string>
-    <string name="texto_bienvenida">¡Queremos darte la \nbienvenida!</string>
-    <string name="texto_informativo">Desliza el dedo para obtener \ninformación acerca de \nFundamusical</string>
-    <string name="texto_pregunta_cuenta">¿Ya tienes una cuenta?</string>
-    <string name="texto_iniciar_sesion">Inicia sesión</string>
-    <string name="texto_postularse">Postulate</string>
-    <string name="texto_participa">Participa</string>
-    <string name="texto_contribuye">Contribuye</string>
-    <string name="texto_presentaciones">Asiste</string>
-    <string name="texto_contrataciones">Contrata</string>
-    <string name="texto_contacto">Contactanos</string>
-
-    <string name="contenido_titulo_inicial_estudiantes">Postulate para aprender</string>
-    <string name="contenido_titulo_inicial_profesores">Participa en enseñar</string>
-    <string name="contenido_titulo_inicial_instrumentos">Dona algún instrumento</string>
-    <string name="contenido_titulo_inicial_eventos">Apoya a las orquestas</string>
-    <string name="contenido_titulo_inicial_contacto">Contactanos</string>
-
-    <string name="contenido_vista_inicial_estudiantes">Bebés, niños y jovenes tienen la oportunidad de desenvolverse en el área musical</string>
-    <string name="contenido_vista_inicial_profesores">Profesores o estudiantes avanzados tienen la oportunidad de enseñar</string>
-    <string name="contenido_vista_inicial_instrumentos">El estudiante se va familiarizando con una variada gama de instrumentos musicales para posterior elección</string>
-    <string name="contenido_vista_inicial_eventos">Los estudiantes tienen la oportunidad de desarrollarse en orquestas pre-infantiles, infantiles y juveniles</string>
-    <string name="contenido_vista_inicial_contacto">Con nosotros, el proceso de enseñanza en forma continua logrará de su trabajo un aprendizaje constante y significativo</string>
-
-    <!-- Elementos de la vista Login -->
-    <string name="titulo_action_bar_login">Iniciar sesión en Fundamusical</string>
-    <string name="texto_boton_iniciar_sesion_login">Iniciar sesión</string>
-    <string name="texto_contenido_edittex_correo_login">Correo electrónico</string>
-    <string name="texto_contenido_edittex_clave_login">Contraseña</string>
-    <string name="texto_olvidar_clave">¿Has olvidado tu contraseña?</string>
-    <string name="texto_boton_login_estado_normal">Iniciar sesión</string>
-    <string name="texto_boton_login_estado_error">¡Ups! Error</string>
-    <string name="texto_boton_login_estado_completado">Bienvenido</string>
-
-
-    <!-- Elementos de la vista restaurar contraseña -->
-    <string name="titulo_action_bar_restaurar">¿Olvidaste tu contraseña?</string>
-    <string name="texto_contenido_restaurar">¿No tienes una contraseña? No hay problema. Te enviaremos instrucciones para restaurar tu contraseña.</string>
-    <string name="texto_contenito_edittex_correo_restaurar">Correo electrónico</string>
-    <string name="texto_boton_restaurar">Restaurar contraseña</string>
-
-    <!-- Elementos de la vista registrar postulaciones -->
-    <string name="titulo_action_bar_postularse">Registrate como aspirante</string>
-    <string name="texto_contenido_editext_nombre_postularse">Nombre</string>
-    <string name="texto_contenido_editext_apellido_postularse">Apellido</string>
-    <string name="texto_contenido_edittext_correo_postularse">Correo electrónico</string>
-    <string name="texto_contenido_edittext_fecha_nacimiento_postularse">Fecha de nacimiento</string>
-    <string name="text_contenido_checkbox_participa_conservatorio_postularse">¿Esta inscrito en el conservatorio?</string>
-    <string name="text_contenido_checkbox_participa_coro_postularse">¿Esta inscrito en el coro?</string>
-    <string name="text_contenido_checkbox_posee_instrumento_postularse">¿Posee instrumento propio?</string>
-    <string name="text_contenido_checkbox_posee_beca_postularse">¿Posee una beca?</string>
-    <string name="texto_boton_crear_cuenta_datos_alumno">Enviar solicitud</string>
-
-    <!-- Elementos de la vista registrar contrataciones -->
-    <string name="titulo_action_bar_contrataciones">Solicitud de evento</string>
-    <string name="texto_contenido_editext_rif_cedula_contrataciones">Rif o cédula</string>
-    <string name="texto_contenido_editext_solicitante_contrataciones">Solicitante</string>
-    <string name="texto_contenido_edittext_correo_contrataciones">Correo electrónico</string>
-    <string name="texto_contenido_datos_evento_contrataciones">Datos del evento</string>
-    <string name="texto_contenido_edittext_tema_contrataciones">Tema</string>
-    <string name="texto_contenido_edittext_lugar_contrataciones">Lugar</string>
-    <string name="texto_contenido_edittext_fecha_contrataciones">Fecha</string>
-    <string name="texto_contenido_edittext_hora_contrataciones">Hora</string>
-    <string name="texto_boton_enviar_solicitud_contrataciones">Enviar solicitud</string>
-
-    <!-- Elementos de la vista de contacto -->
-    <string name="texto_contenido_titulo_direccion_contacto">Dirección:</string>
-    <string name="texto_contenido_titulo_telefono_contacto">Teléfonos:</string>
-    <string name="texto_contenido_titulo_correo_contacto">Correo electrónico:</string>
-    <string name="texto_contenido_titulo_director_contacto">Director:</string>
-    <string name="texto_contenido_titulo_coordinador_contacto">Coordinador:</string>
-    <string name="texto_contenido_direccion_contacto">Av. Madrid con calle Capanaparo, Urb. Santa Elena. Conservatorio de música Vicente Emilio Sojo, sede del Fundamusical del Estado Lara.</string>
-    <string name="texto_contenido_email_contacto">crlara@fundamusical.org.ve</string>
-    <string name="texto_contenido_telefono1_contacto">0251-2676646</string>
-    <string name="texto_contenido_telefono2_contacto">0251-2532556</string>
-    <string name="texto_contenido_director_contacto">Alfredo D\' Addona, adaddonna@fundamusical.org.ve</string>
-    <string name="texto_contenido_coordinador_contacto">Coromoto de Giménez, msosadgimenez@hotmail.com</string>
-    <string name="error_llamada">¡Llamada fallida!</string>
-    <string name="error_enviar_correo">¡No posee un cliente de correo instalado!</string>
-    <string name="mensaje_elegir_cliente_correo">Elija un cliente de correo electrónico</string>
-    <string name="titulo_correo_contacto">Consulta</string>
-    <string name="titulo_tab_datos_contacto">Información</string>
-    <string name="titulo_tab_ubicacion_contacto">Ubicación</string>
-    <string name="titulo_action_bar_contacto">Contactanos</string>
-
-    <!-- Elementos de la vista de contacto mapa -->
-    <string name="mensaje_error_crear_mapa">¡Lo sentimos! Imposible crear el mapa</string>
-
-    <!-- Ejemplo elementos Navigation Drawer-->
-
-    <string name="drawer_open">Menú principal</string>
-    <string name="drawer_close">Fusa</string>
-
-    <string-array name="nav_funciones_user">
-        <item>Home</item>
-        <item>Mis clases</item>
-        <item>Mis eventos</item>
-        <item>Calendario</item>
-        <item>Prestamos de instrumento</item>
-    </string-array>
-
-    <string-array name="nav_icons_user">
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_mis_clases</item>
-        <item>@drawable/ic_mis_eventos</item>
-        <item>@drawable/ic_calendario</item>
-        <item>@drawable/ic_prestamos_instrumento</item>
-    </string-array>
-
-    <string-array name="nav_funciones_app">
-        <item>Configuración</item>
-    </string-array>
-
-    <string-array name="nav_icons_app">
-        <item>@drawable/ic_configuracion</item>
-    </string-array>
-
-    <!-- Elementos de cerrar sesión -->
+    <string name="cantidad_contenido_password_caracteres">Minimo 6 caracteres y máximo 20 caracteres.</string>
+    <string name="cantidad_contenido_password_letras_mayuscula">Al menos una letra en mayuscula.</string>
+    <string name="cantidad_contenido_password_letras_minuscula">Al menos una letra en minuscula.</string>
+    <string name="cantidad_contenido_password_numero">Al menos un digito entre 0 - 9.</string>
+    <string name="cantidad_contenido_password_simbolos">Al menos un caracter especial (@#$%).</string>
     <string name="cerrar_sesion">Cerrando sesión...</string>
 
-    <!-- Elementos de la ventana de configuraciones -->
+    <string name="configuracion">Configuración</string>
+    <string name="configuracion_acerca_nosotros_contenido">"Somos un grupo de estudiante de la Universidad Centroccidental Lisandro Alvarado (UCLA), cual desarrollamos esta aplicación para la Fundación Musical Simón Bolívar (Fundamusical) como asignación de la materia Sistemas de Información. \nSomos mejor conocidos como ENERGY TEAM."</string>
+    <string name="configuracion_acerca_nosotros_titulo">Acerca de nosotros</string>
+    <string name="configuracion_acerca_version_contenido">"Fusa for Android. \nCopyright © 2014 ENERGY TEAM. \nTodos los derechos reservados. \nFusa for Android es construido usando Open Source Software."</string>
+    <string name="configuracion_acerca_version_titulo">Acerca de la versión 1.0</string>
+    <string name="configuracion_aplicaciones">Aplicaciones</string>
+    <string name="configuracion_aplicaciones_cuentas_enlazadas">Cuentas enlazadas</string>
+    <string name="configuracion_ayuda">Ayuda</string>
+    <string name="configuracion_ayuda_problema">Informar de un problema</string>
+    <string name="configuracion_ayuda_sugerencia">Enviar una sugerencia</string>
+    <string name="configuracion_cambiar_password_antigua_contraseña">Antigua contraseña</string>
+    <string name="configuracion_cambiar_password_contenido_boton_enviado">Cambio exitoso</string>
+    <string name="configuracion_cambiar_password_contenido_boton_error">¡Ups! Error</string>
+    <string name="configuracion_cambiar_password_contenido_boton_normal">Cambiar contraseña</string>
+    <string name="configuracion_cambiar_password_contraseña">Nueva contraseña</string>
+    <string name="configuracion_cambiar_password_repita_contraseña">Repita su nueva contraseña</string>
     <string name="configuracion_cuenta">Cuenta</string>
     <string name="configuracion_cuenta_cambiar_password">Cambiar contraseña</string>
     <string name="configuracion_cuenta_cerrar_sesion">Cerrar sesión</string>
-
-    <string name="configuracion_aplicaciones">Aplicaciones</string>
-    <string name="configuracion_aplicaciones_cuentas_enlazadas">Cuentas enlazadas</string>
-
-    <string-array name="redes_app">
-        <item>Facebook</item>
-        <item>Google+</item>
-        <item>Instagram</item>
-        <item>Twitter</item>
-    </string-array>
-
-    <string-array name="icons_app">
-        <item>@drawable/ic_facebook_disable</item>
-        <item>@drawable/ic_google_disable</item>
-        <item>@drawable/ic_instagram_disable</item>
-        <item>@drawable/ic_twitter_disable</item>
-    </string-array>
-
+    <string name="configuracion_cuenta_contratar">¿Cómo contratar una orquesta?</string>
+    <string name="configuracion_cuenta_contribuir">¿Cómo donar un instrumento?</string>
+    <string name="configuracion_cuenta_participar">¿Te gustaría enseñar?</string>
+    <string name="configuracion_cuenta_postularse">¿Cómo postular a un niño?</string>
     <string name="configuracion_informacion">Información</string>
-    <string name="configuracion_informacion_version">Acerca de esta versión</string>
     <string name="configuracion_informacion_nosotros">Acerca de nosotros</string>
+    <string name="configuracion_informacion_version">Acerca de esta versión</string>
     <string name="configuracion_informacion_web">Visita Fundamusical</string>
-
-    <string name="configuracion_ayuda">Ayuda</string>
-    <string name="configuracion_ayuda_problema">Informar de un problema</string>
-
-    <!-- Elementos de la ventana de configuraciones - cambiar password -->
-    <string name="configuracion_cambiar_password_antigua_contraseña">Antigua contraseña</string>
-    <string name="configuracion_cambiar_password_contraseña">Nueva contraseña</string>
-    <string name="configuracion_cambiar_password_repita_contraseña">Repita su nueva contraseña</string>
-    <string name="configuracion_cambiar_password_contenido_boton">Cambiar contraseña</string>
-    <string name="nivel_dificulad_contraseña_muy_debil">Muy débil</string>
-    <string name="nivel_dificulad_contraseña_debil">Débil</string>
-    <string name="nivel_dificulad_contraseña_normal">Más o menos</string>
-    <string name="nivel_dificulad_contraseña_fuerte">Mejor</string>
-    <string name="nivel_dificulad_contraseña_muy_fuerte">¡Excelente!</string>
-
-    <string name="cantidad_contenido_password_numero">Al menos un digito entre 0 - 9.</string>
-    <string name="cantidad_contenido_password_letras_mayuscula">Al menos una letra en mayuscula.</string>
-    <string name="cantidad_contenido_password_letras_minuscula">Al menos una letra en minuscula.</string>
-    <string name="cantidad_contenido_password_simbolos">Al menos un caracter especial (@#$%).</string>
-    <string name="cantidad_contenido_password_caracteres">Minimo 6 caracteres y máximo 20 caracteres.</string>
-
-    <!-- Elementos de la ventana de configuraciones - informar problema -->
     <string name="configuracion_informar_problema">¿Qué desea que mejoremos?</string>
-    <string name="configuracion_informar_problema_contenido_boton">Enviar sugerencia</string>
-
-    <!-- Elementos de la ventana de configuraciones - acerca de la versión -->
-    <string name="configuracion_acerca_version_titulo">Acerca de la versión 1.0</string>
-    <string name="configuracion_acerca_version_contenido">Fusa for Android. \n \nCopyright © 2014 ENERGY TEAM. \nTodos los derechos reservados. \n \nFusa for Android es construido usando Open Source Software.</string>
-
-    <!-- Elementos de la ventana de configuraciones - acerca de la versión -->
-    <string name="configuracion_acerca_nosotros_titulo">Acerca de nosotros</string>
-    <string name="configuracion_acerca_nosotros_contenido">Somos un grupo de estudiante de la Universidad Centroccidental Lisandro Alvarado (UCLA), cual desarrollamos esta aplicación para la Fundación Musical Simón Bolívar (Fundamusical) como asignación de la materia Sistemas de Información. \nSomos mejor conocidos como ENERGY TEAM.</string>
-
-    <!-- Elementos de la vista de perfil -->
-    <string name="contenido_perfil_action_bar_titulo">Perfil de usuario</string>
+    <string name="configuracion_informar_problema_contenido_boton_enviado">¡Gracias!</string>
+    <string name="configuracion_informar_problema_contenido_boton_normal">Informar problema</string>
+    <string name="configuracion_sugerencia">¿Qué desea que mejoremos?</string>
+    <string name="configuracion_sugerencia_contenido_boton_enviado">¡Gracias!</string>
+    <string name="configuracion_sugerencia_contenido_boton_normal">Enviar sugerencia</string>
+    <string name="contendio_noticia_detalle_action_bar_titulo">Noticia</string>
     <string name="contenido_barra_progreso_estudiante">Progreso Acádemico</string>
     <string name="contenido_barra_progreso_nivel_1">Debes empezar a prácticar</string>
     <string name="contenido_barra_progreso_nivel_2">Estas progresando, sigue así</string>
     <string name="contenido_barra_progreso_nivel_3">Vas muy bien, no detengas el ritmo</string>
     <string name="contenido_barra_progreso_nivel_4">Sigue así, la práctica hace al maestro</string>
     <string name="contenido_barra_progreso_nivel_5">¡Bravo! Tu progreso ha sido excelente</string>
-
-    <string name="contenido_perfil_instrumento">Instrumento actual: </string>
-    <string name="contenido_perfil_catedra">Catedra actual: </string>
-    <string name="contenido_perfil_orquesta">Orquesta participante: </string>
-    <string name="contenido_perfil_fecha_ingreso">Fecha de ingreso: </string>
-    <string name="contenido_perfil_fecha_nacimiento">Fecha de nacimiento: </string>
-    <string name="contenido_perfil_edad">Edad: </string>
-    <string name="contenido_perfil_cedula">Cédula: </string>
-
-    <!-- Elementos de la vista de calendario -->
+    <string name="contenido_boton_enviado">Enviado</string>
+    <string name="contenido_boton_error">Error</string>
+    <string name="contenido_boton_normal">Enviar solicitud</string>
     <string name="contenido_calendario_action_bar_titulo">Calendario</string>
-
-    <!-- Elementos de los item de la lista de noticias -->
-    <string name="contenido_noticia_ver_mas">Ver más...</string>
-    <string name="contenido_noticia_fecha_publicacion">Publicado el día </string>
-    <string name="contenido_noticia_action_bar_titulo">Noticias</string>
-
-    <!-- Elemenos de la vista de prestamo de instrumentos -->
-    <string name="contenido_prestamo_instrumento_action_bar_titulo">Prestamo de instrumento</string>
-    <string name="contenido_prestamo_instrumento_codigo">Prestamo actual:</string>
-    <string name="contenido_prestamo_instrumento_tipo">Tipo de instrumento:</string>
-    <string name="contenido_prestamo_instrumento_fecha_vencimiento">Fecha de vencimiento:</string>
-    <string name="contenido_prestamo_instrumento_cuenta_regresiva">Cuenta regresiva:</string>
-
-    <!-- Elementos de la vista de toda la informacion de un evento -->
+    <string name="contenido_comentario_evento_empezar">Califica este evento</string>
     <string name="contenido_evento_action_bar_titulo">Evento</string>
-    <string name="contenido_evento_informacion_tab_titulo">Información</string>
-    <string name="contenido_evento_ubicacion_tab_titulo">Ubicación</string>
-    <string name="contenido_evento_participantes_tab_titulo">Participantes</string>
     <string name="contenido_evento_comentarios_tab_titulo">Comentarios</string>
-
-    <string name="contenido_informacion_evento_titulo">Titulo:</string>
+    <string name="contenido_evento_informacion_tab_titulo">Información</string>
+    <string name="contenido_evento_participantes_tab_titulo">Participantes</string>
+    <string name="contenido_evento_ubicacion_tab_titulo">Ubicación</string>
     <string name="contenido_informacion_evento_descripcion">Descripción:</string>
-    <string name="contenido_información_evento_fecha">Fecha:</string>
-    <string name="contenido_informacion_evento_hora">Hora:</string>
-    <string name="contenido_informacion_evento_lugar">Lugar:</string>
-    <string name="contenido_informacion_evento_repertorio">Repertorio:</string>
-
-    <string name="contenido_informacion_evento_titulo_prueba">110vo Aniversario Empresas Polar</string>
     <string name="contenido_informacion_evento_descripcion_prueba">Empresas Polar por su grande trayectoria, los invita a participar en su aniversario Nro 110, con música clásica. Niños y jovenes de Fundamusical prestarán un espectaculo sin igual. Te esperamos...</string>
     <string name="contenido_informacion_evento_fecha_prueba">31 de octubre del 2014</string>
+    <string name="contenido_informacion_evento_hora">Hora:</string>
     <string name="contenido_informacion_evento_hora_prueba">6:00 pm</string>
+    <string name="contenido_informacion_evento_lugar">Lugar:</string>
     <string name="contenido_informacion_evento_lugar_prueba">Teatro Juarez</string>
-
-    <string-array name="participantes_evento">
-        <item>Orquesta Juvenil Simón Bolívar</item>
-        <item>Orquesta Infantil Niños Larenses</item>
-        <item>Orquesta Juvenil La Barquisimetana</item>
-    </string-array>
-
-    <!-- Elementos de la ventana de comentarios -->
-    <string name="contenido_comentario_evento_empezar">Califica este evento</string>
-
-    <string name="contenido_titulo_tab_eventos_informacion">Información</string>
-    <string name="contenido_titulo_tab_eventos_ubicacion">Ubicación</string>
-    <string name="contenido_titulo_tab_eventos_participantes">Participantes</string>
+    <string name="contenido_informacion_evento_repertorio">Repertorio:</string>
+    <string name="contenido_informacion_evento_titulo">Titulo:</string>
+    <string name="contenido_informacion_evento_titulo_prueba">110vo Aniversario Empresas Polar</string>
+    <string name="contenido_información_evento_fecha">Fecha:</string>
+    <string name="contenido_noticia_action_bar_titulo">Ultimas Noticias</string>
+    <string name="contenido_noticia_fecha_publicacion">Publicado el día</string>
+    <string name="contenido_noticia_ver_mas">Ver más...</string>
+    <string name="contenido_perfil_action_bar_titulo">Perfil de usuario</string>
+    <string name="contenido_perfil_catedra">Catedra actual:</string>
+    <string name="contenido_perfil_cedula">Cédula:</string>
+    <string name="contenido_perfil_edad">Edad:</string>
+    <string name="contenido_perfil_fecha_ingreso">Fecha de ingreso:</string>
+    <string name="contenido_perfil_fecha_nacimiento">Fecha de nacimiento:</string>
+    <string name="contenido_perfil_instrumento">Instrumento actual:</string>
+    <string name="contenido_perfil_orquesta">Orquesta participante:</string>
+    <string name="contenido_prestamo_instrumento_action_bar_titulo">Solicitud de Prestamo</string>
+    <string name="contenido_prestamo_instrumento_boton">Enviar solicitud</string>
+    <string name="contenido_prestamo_instrumento_fecha_emision">Desde la fecha</string>
+    <string name="contenido_prestamo_instrumento_fecha_vencimiento">Hasta la fecha</string>
+    <string name="contenido_prestamo_instrumento_periodo_fin_semana">Fin de semana</string>
+    <string name="contenido_prestamo_instrumento_periodo_vacacional">Vacacional</string>
+    <string name="contenido_prestamo_instrumento_tipo">Tipo de instrumento:</string>
+    <string name="contenido_prestamo_instrumento_titulo_periodo">Periodo</string>
     <string name="contenido_titulo_tab_eventos_comentarios">Comentarios</string>
-
+    <string name="contenido_titulo_tab_eventos_informacion">Información</string>
+    <string name="contenido_titulo_tab_eventos_participantes">Participantes</string>
+    <string name="contenido_titulo_tab_eventos_ubicacion">Ubicación</string>
+    <string name="contenido_vista_inicial_contacto">Con nosotros, el proceso de enseñanza en forma continua logrará de su trabajo un aprendizaje constante y significativo</string>
+    <string name="contenido_vista_inicial_estudiantes">Bebés, niños y jovenes tienen la oportunidad de desenvolverse en el área musical</string>
+    <string name="contenido_vista_inicial_eventos">Los estudiantes tienen la oportunidad de desarrollarse en orquestas pre-infantiles, infantiles y juveniles</string>
+    <string name="contenido_vista_inicial_instrumentos">El estudiante se va familiarizando con una variada gama de instrumentos musicales para posterior elección</string>
+    <string name="contenido_vista_inicial_profesores">Profesores o estudiantes avanzados tienen la oportunidad de enseñar</string>
+    <string name="descripcion_logotipo">fusa</string>
+    <string name="drawer_close">Fusa</string>
+    <string name="drawer_open">Menú principal</string>
+    <string name="ejemplo_type_ced">Ejemplo: V-12345678 ó J-12345678-9</string>
+    <string name="error_enviar_correo">¡No posee un cliente de correo instalado!</string>
+    <string name="error_llamada">¡Llamada fallida!</string>
+    <string name="error_no_data_avalaible">No hay datos disponibles</string>
+    <string name="fundacion">Fundamusical Nucleo Barquisimeto</string>
+    <string name="item_imagen">position</string>
+    <string name="lista_back_top">Volver al inicio</string>
+    <string name="lista_pull">Desliza para refrescar...</string>
+    <string name="lista_refresh">Cargando...</string>
+    <string name="lista_release">Suelta para refrescar...</string>
+    <string name="mensaje_cedula_rif_invalido">Ingrese un rif o cédula válida</string>
+    <string name="mensaje_correo_invalido">Ingrese una cuenta de correo válida</string>
+    <string name="mensaje_elegir_cliente_correo">Elija un cliente de correo electrónico</string>
+    <string name="mensaje_error_crear_mapa">¡Lo sentimos! Imposible crear el mapa</string>
+    <string name="mensaje_error_iniciar_sesion">Su dirección de correo o contraseña no son válidos</string>
     <string name="nivel_calificacion_evento_1">No me gustó en lo absoluto</string>
     <string name="nivel_calificacion_evento_2">No me gustó</string>
     <string name="nivel_calificacion_evento_3">Está bien</string>
     <string name="nivel_calificacion_evento_4">Me gustó</string>
     <string name="nivel_calificacion_evento_5">Me encantó</string>
-
+    <string name="nivel_dificulad_contraseña_debil">Débil</string>
+    <string name="nivel_dificulad_contraseña_fuerte">Mejor</string>
+    <string name="nivel_dificulad_contraseña_muy_debil">Muy débil</string>
+    <string name="nivel_dificulad_contraseña_muy_fuerte">¡Excelente!</string>
+    <string name="nivel_dificulad_contraseña_normal">Más o menos</string>
+    <string name="opcion_multimedia_camara">Toma una foto</string>
+    <string name="opcion_multimedia_galeria">Selecciona desde galeria</string>
     <string name="p1">Juan Labrador</string>
     <string name="p2">5</string>
     <string name="p3">31/10/2014</string>
     <string name="p4">Excelente concierto, bravo por esos niños.</string>
-
+    <string name="pagina_web">http://www.fundamusical.org.ve</string>
+    <string name="text_contenido_checkbox_participa_conservatorio_postularse">¿Esta inscrito en el conservatorio?</string>
+    <string name="text_contenido_checkbox_participa_coro_postularse">¿Esta inscrito en el coro?</string>
+    <string name="text_contenido_checkbox_posee_beca_postularse">¿Posee una beca?</string>
+    <string name="text_contenido_checkbox_posee_instrumento_postularse">¿Posee instrumento propio?</string>
+    <string name="texto_bienvenida">"¡Queremos darte la \nbienvenida!"</string>
+    <string name="texto_boton_crear_cuenta_datos_alumno">Enviar solicitud</string>
+    <string name="texto_boton_enviar_solicitud_contrataciones">Enviar solicitud</string>
+    <string name="texto_boton_error_iniciar_sesion">¡Ups! Error</string>
+    <string name="texto_boton_iniciar_sesion_login">Iniciar sesión</string>
+    <string name="texto_boton_procesado_iniciar_sesion">Bienvenido</string>
+    <string name="texto_boton_restaurar">Restaurar contraseña</string>
+    <string name="texto_contacto">Contactanos</string>
+    <string name="texto_contenido_coordinador_contacto">Coromoto de Giménez, msosadgimenez@hotmail.com</string>
+    <string name="texto_contenido_datos_evento_contrataciones">Datos del evento</string>
+    <string name="texto_contenido_direccion_contacto">Av. Madrid con calle Capanaparo, Urb. Santa Elena. Conservatorio de música Vicente Emilio Sojo, sede del Fundamusical del Estado Lara.</string>
+    <string name="texto_contenido_director_contacto">"Alfredo D' Addona, adaddonna@fundamusical.org.ve"</string>
+    <string name="texto_contenido_editext_apellido_postularse">Apellido</string>
+    <string name="texto_contenido_editext_nombre_postularse">Nombre</string>
+    <string name="texto_contenido_editext_rif_cedula_contrataciones">Rif o cédula</string>
+    <string name="texto_contenido_editext_solicitante_contrataciones">Solicitante</string>
+    <string name="texto_contenido_edittex_clave_login">Contraseña</string>
+    <string name="texto_contenido_edittex_correo_login">Correo electrónico</string>
+    <string name="texto_contenido_edittext_correo_contrataciones">Correo electrónico</string>
+    <string name="texto_contenido_edittext_correo_postularse">Correo electrónico</string>
+    <string name="texto_contenido_edittext_fecha_contrataciones">Fecha</string>
+    <string name="texto_contenido_edittext_fecha_nacimiento_postularse">Fecha de nacimiento</string>
+    <string name="texto_contenido_edittext_hora_contrataciones">Hora</string>
+    <string name="texto_contenido_edittext_lugar_contrataciones">Lugar</string>
+    <string name="texto_contenido_edittext_tema_contrataciones">Tema</string>
+    <string name="texto_contenido_email_contacto">crlara@fundamusical.org.ve</string>
+    <string name="texto_contenido_restaurar">¿No tienes una contraseña? No hay problema. Te enviaremos instrucciones para restaurar tu contraseña.</string>
+    <string name="texto_contenido_telefono1_contacto">0251-2676646</string>
+    <string name="texto_contenido_telefono2_contacto">0251-2532556</string>
+    <string name="texto_contenido_titulo_coordinador_contacto">Coordinador:</string>
+    <string name="texto_contenido_titulo_correo_contacto">Correo electrónico:</string>
+    <string name="texto_contenido_titulo_direccion_contacto">Dirección:</string>
+    <string name="texto_contenido_titulo_director_contacto">Director:</string>
+    <string name="texto_contenido_titulo_telefono_contacto">Teléfonos:</string>
+    <string name="texto_contenito_edittex_correo_restaurar">Correo electrónico</string>
+    <string name="texto_contrataciones">Contrata</string>
+    <string name="texto_contribuye">Contribuye</string>
+    <string name="texto_informativo">"Desliza el dedo para obtener \ninformación acerca de \nFundamusical"</string>
+    <string name="texto_iniciar_sesion">Inicia sesión</string>
+    <string name="texto_olvidar_clave">¿Has olvidado tu contraseña?</string>
+    <string name="texto_participa">Participa</string>
+    <string name="texto_postularse">Postulate</string>
+    <string name="texto_pregunta_cuenta">¿Ya tienes una cuenta?</string>
+    <string name="texto_presentaciones">Asiste</string>
+    <string name="titulo_action_bar_contacto">Contactanos</string>
+    <string name="titulo_action_bar_contrataciones">Solicitud de evento</string>
+    <string name="titulo_action_bar_estudiantes">Postulate para aprender</string>
+    <string name="titulo_action_bar_eventos">Apoya a las orquestas</string>
+    <string name="titulo_action_bar_instrumentos">Dona algún instrumento</string>
+    <string name="titulo_action_bar_login">Iniciar sesión en Fundamusical</string>
+    <string name="titulo_action_bar_postularse">Registrate como aspirante</string>
+    <string name="titulo_action_bar_profesores">Participa en enseñar</string>
+    <string name="titulo_action_bar_restaurar">¿Olvidaste tu contraseña?</string>
+    <string name="titulo_correo_contacto">Consulta</string>
+    <string name="titulo_tab_datos_contacto">Información</string>
+    <string name="titulo_tab_ubicacion_contacto">Ubicación</string>
+    <string name="contenido_edittext_comentario">Comentario</string>
 </resources>

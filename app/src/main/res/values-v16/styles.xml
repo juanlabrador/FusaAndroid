@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ActionBar.Solid.Style_fusa_blue" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
+        <item name="android:progressBarStyle">@style/ProgressBar.Style_fusa_blue</item>
+        <item name="android:background">@drawable/ab_solid_style_fusa_blue</item>
+        <item name="android:titleTextStyle">@style/OriginActionBarStyle</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_style_fusa_blue</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_style_fusa_blue</item>
+    </style>
+    <style name="ActionBar.Transparent.Style_fusa_blue" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:progressBarStyle">@style/ProgressBar.Style_fusa_blue</item>
+        <item name="android:background">@drawable/ab_transparent_style_fusa_blue</item>
+    </style>
+    <style name="ActionBarTabStyle.Fusa_blue.TitleColor" parent="@android:style/Widget.Holo.Light.ActionBar.TabText">
+        <item name="android:textColor">@color/azul_oscuro</item>
+    </style>
+    <style name="ActionBarTabStyle.Style_fusa_blue" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/style_tab_indicator</item>
+        <item name="android:titleTextStyle">@style/ActionBarTabStyle.Fusa_blue.TitleColor</item>
+    </style>
+    <style name="ActionButton.CloseMode.Style_fusa_blue" parent="@android:style/Widget.Holo.Light.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_style_fusa_blue</item>
+    </style>
+    <style name="ButtonFusa_blue" parent="@android:style/Widget.Holo.Light.Button">
+        <item name="android:background">@drawable/fusa_blue_btn_default_holo_light</item>
+    </style>
+    <style name="CustomTabPageIndicator" parent="@style/Widget.TabPageIndicator">
+        <item name="android:textAppearance">@style/TextAppearance.TabPageIndicator</item>
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textColor">@color/negro</item>
+        <item name="android:background">@drawable/style_tab_indicator</item>
+        <item name="android:paddingLeft">10.0dip</item>
+        <item name="android:paddingRight">10.0dip</item>
+        <item name="android:divider">@color/gris_oscuro</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:animateOnClick">true</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:dividerPadding">10.0dip</item>
+    </style>
+    <style name="DropDownListView.Style_fusa_blue" parent="@android:style/Widget.Holo.Light.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_style_fusa_blue</item>
+    </style>
+    <style name="DropDownNav.Style_fusa_blue" parent="@android:style/Widget.Holo.Light.Spinner">
+        <item name="android:background">@drawable/spinner_background_ab_style_fusa_blue</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_style_fusa_blue</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_style_fusa_blue</item>
+    </style>
+    <style name="ImageButtonFusa_blue" parent="@android:style/Widget.Holo.Light.ImageButton">
+        <item name="android:background">@drawable/fusa_blue_btn_default_holo_light</item>
+    </style>
+    <style name="PopupMenu.Style_fusa_blue" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_style_fusa_blue</item>
+    </style>
+    <style name="ProgressBar.Style_fusa_blue" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_style_fusa_blue</item>
+    </style>
+    <style name="ProgressBarFusa_blue" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
+        <item name="android:indeterminateDrawable">@drawable/fusa_blue_progress_indeterminate_horizontal_holo_light</item>
+        <item name="android:progressDrawable">@drawable/fusa_blue_progress_horizontal_holo_light</item>
+    </style>
+    <style name="RatingBarBigfusa_blue" parent="@android:style/Widget.Holo.Light.RatingBar.Indicator">
+        <item name="android:indeterminateDrawable">@drawable/style_rating_bar_big_azul</item>
+        <item name="android:progressDrawable">@drawable/style_rating_bar_big_azul</item>
+    </style>
+    <style name="RatingBarSmallfusa_blue" parent="@android:style/Widget.Holo.Light.RatingBar.Small">
+        <item name="android:indeterminateDrawable">@drawable/style_rating_bar_small_azul</item>
+        <item name="android:progressDrawable">@drawable/style_rating_bar_small_azul</item>
+    </style>
+    <style name="RatingBarfusa_blue" parent="@android:style/Widget.Holo.Light.RatingBar">
+        <item name="android:indeterminateDrawable">@drawable/fusa_blue_ratingbar_full_holo_light</item>
+        <item name="android:progressDrawable">@drawable/fusa_blue_ratingbar_full_holo_light</item>
+    </style>
+    <style name="Spinnerfusa_blue" parent="@android:style/Widget.Holo.Light.Spinner">
+        <item name="android:background">@drawable/style_spinner_azul</item>
+        <item name="android:dropDownSelector">@drawable/fusa_blue_list_selector_holo_light</item>
+    </style>
+    <style name="Theme.Style_fusa_blue" parent="@android:style/Theme.Holo.Light">
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Style_fusa_blue</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Style_fusa_blue</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Style_fusa_blue</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_style_fusa_blue</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Style_fusa_blue</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Style_fusa_blue</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Style_fusa_blue</item>
+        <item name="android:actionMenuTextColor">@color/blanco</item>
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_style_fusa_blue</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_style_fusa_blue</item>
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+        <item name="floatingHintEditTextStyle">@style/Widget.FloatingHintEditText</item>
+    </style>
+    <style name="Theme.Style_fusa_blue.Widget" parent="@android:style/Theme.Holo">
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Style_fusa_blue</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Style_fusa_blue</item>
+    </style>
+    <style name="OriginActionBarStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textColor">@color/blanco</item>
+    </style>
+    <style name="Widget.FloatingHintEditText" parent="@android:style/Widget.EditText">
+        <item name="android:paddingTop">0dp</item>
+    </style>
+</resources>

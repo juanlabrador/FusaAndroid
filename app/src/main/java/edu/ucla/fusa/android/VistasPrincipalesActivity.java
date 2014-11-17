@@ -1,6 +1,5 @@
 package edu.ucla.fusa.android;
 
-import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -14,188 +13,158 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
-import java.util.ArrayList;
-
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
-import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
 import edu.ucla.fusa.android.fragmentos.ConfiguracionListadoFragment;
-import edu.ucla.fusa.android.fragmentos.ListadoNoticiasFragment;
+import edu.ucla.fusa.android.fragmentos.EventoCalendarioFragment;
+import edu.ucla.fusa.android.fragmentos.NoticiasListadoFragment;
 import edu.ucla.fusa.android.fragmentos.PerfilFragment;
-import edu.ucla.fusa.android.fragmentos.PrestamoInstrumentoFragment;
+import edu.ucla.fusa.android.fragmentos.SolicitudPrestamoFragment;
 import edu.ucla.fusa.android.modelo.ItemListDrawer;
-
-/**
- * Created by juanlabrador on 16/10/14.
- *
- * Esta clase administra el contenido de la aplicación a traves de fragmentos.
- *
- */
+import java.util.ArrayList;
 
 public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
 
+    private FragmentManager fragmentManager;
+    private View header;
+    private TypedArray iconos;
+    private ArrayList<ItemListDrawer> items;
+    private ActionBarDrawerToggle mDrawerToogle;
+    private NavigationAdapter navigationAdapter;
     private DrawerLayout navigationDrawer;
     private ListView navigationList;
-    private View header;
     private String[] titulos;
-    private ArrayList<ItemListDrawer> items;
-    private NavigationAdapter navigationAdapter;
-    private TypedArray navigationsIcons;
-    private ActionBarDrawerToggle mDrawerToogle;
-    private FragmentManager fragmentManager;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onBackPressed() {
+        if (this.navigationDrawer.isDrawerOpen(this.navigationList)) {
+            this.navigationDrawer.closeDrawer(this.navigationList);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public void onConfigurationChanged(Configuration paramConfiguration) {
+        super.onConfigurationChanged(paramConfiguration);
+        this.mDrawerToogle.onConfigurationChanged(paramConfiguration);
+    }
+
+    protected void onCreate(Bundle paramBundle) {
+        super.onCreate(paramBundle);
         setContentView(R.layout.activity_principal);
-
-        /** Creamos el menu deslizable */
-        navigationDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationDrawer = ((DrawerLayout) findViewById(R.id.drawer_layout));
         navigationDrawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-
-        navigationList = (ListView) findViewById(R.id.listaFunciones);
-
+        navigationList = ((ListView)findViewById(R.id.lista_funciones));
         header = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
-
-        navigationsIcons = getResources().obtainTypedArray(R.array.nav_icons_user);
-        navigationList.addHeaderView(header);
-
+        iconos = getResources().obtainTypedArray(R.array.nav_icons_user);
+        navigationList.addHeaderView(this.header);
         titulos = getResources().getStringArray(R.array.nav_funciones_user);
+        items = new ArrayList();
+        items.add(new ItemListDrawer(
+                this.titulos[0],
+                this.iconos.getResourceId(0, -1)));
+        items.add(new ItemListDrawer(
+                this.titulos[1],
+                this.iconos.getResourceId(1, -1)));
+        items.add(new ItemListDrawer(
+                this.titulos[2],
+                this.iconos.getResourceId(2, -1)));
+        items.add(new ItemListDrawer(
+                this.titulos[3],
+                this.iconos.getResourceId(3, -1)));
+        items.add(new ItemListDrawer(
+                this.titulos[4],
+                this.iconos.getResourceId(4, -1)));
+        items.add(new ItemListDrawer(
+                this.titulos[5],
+                this.iconos.getResourceId(5, -1)));
 
-        items = new ArrayList<ItemListDrawer>();
-
-        items.add(new ItemListDrawer(titulos[0], navigationsIcons.getResourceId(0, -1)));
-        items.add(new ItemListDrawer(titulos[1], navigationsIcons.getResourceId(1, -1)));
-        items.add(new ItemListDrawer(titulos[2], navigationsIcons.getResourceId(2, -1)));
-        items.add(new ItemListDrawer(titulos[3], navigationsIcons.getResourceId(3, -1)));
-        items.add(new ItemListDrawer(titulos[4], navigationsIcons.getResourceId(4, -1)));
-
-        navigationsIcons = getResources().obtainTypedArray(R.array.nav_icons_app);
-        titulos = getResources().getStringArray(R.array.nav_funciones_app);
-
-
-        items.add(new ItemListDrawer(titulos[0], navigationsIcons.getResourceId(0, -1)));
-
-        navigationAdapter = new NavigationAdapter(this, items);
-        navigationList.setAdapter(navigationAdapter);
+        navigationAdapter = new NavigationAdapter(this, this.items);
+        navigationList.setAdapter(this.navigationAdapter);
         navigationList.setOnItemClickListener(this);
 
-        /** Agregamos el icono de navegación en la esquina superior izquierda al lado del logo */
         mDrawerToogle = new ActionBarDrawerToggle(this, navigationDrawer,
                 R.drawable.ic_navigation_drawer,
-                R.string.drawer_open, R.string.drawer_close) {
+                R.string.drawer_open,
+                R.string.drawer_close) {
 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
+            public void onDrawerClosed(View paramAnonymousView) {
+                super.onDrawerClosed(paramAnonymousView);
             }
 
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
+            public void onDrawerOpened(View paramAnonymousView) {
+                super.onDrawerOpened(paramAnonymousView);
             }
         };
 
         navigationDrawer.setDrawerListener(mDrawerToogle);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-
-        getFragmentManager().beginTransaction()
-                .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_container, NoticiasListadoFragment.newInstance())
                 .commit();
     }
 
+    private void showFragment(int position) {
+        getSupportFragmentManager().popBackStack();
+        switch (position) {
+            case 0:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, PerfilFragment.newInstance())
+                        .commit();
+                break;
+            case 1:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, NoticiasListadoFragment.newInstance())
+                        .commit();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, EventoCalendarioFragment.newInstance())
+                        .commit();
+                break;
+            case 5:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, SolicitudPrestamoFragment.newInstance())
+                        .commit();
+                break;
+            case 6:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, ConfiguracionListadoFragment.newInstance())
+                        .commit();
+                break;
+        }
+        this.navigationList.setItemChecked(position, true);
+        this.navigationList.setSelection(position);
+        this.navigationDrawer.closeDrawer(this.navigationList);
+    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-       // getMenuInflater().inflate(R.menu.principal, menu);
+    public boolean onCreateOptionsMenu(Menu paramMenu) {
+        //getMenuInflater().inflate(R.menu.principal, menu);
         return true;
     }
 
-    @Override
+    public void onItemClick(AdapterView<?> paramAdapterView, View paramView, int position, long paramLong) {
+        showFragment(position);
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToogle.onOptionsItemSelected(item)) {
+        if (this.mDrawerToogle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToogle.syncState();
+    protected void onPostCreate(Bundle paramBundle) {
+        super.onPostCreate(paramBundle);
+        this.mDrawerToogle.syncState();
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToogle.onConfigurationChanged(newConfig);
-    }
-
-    /** Deacuerdo a su posición instanciamos el fragmento llamado desde el menú de navegación */
-    private void showFragment(int position) {
-
-        switch (position) {
-            case 0:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, PerfilFragment.newInstance())
-                        //.addToBackStack(null)
-                        .commit();
-                break;
-            case 1:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
-                                //.addToBackStack(null)
-                        .commit();
-                break;
-            case 4:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, CalendarioFragment.newInstance())
-                        //.addToBackStack(null)
-                        .commit();
-                break;
-            case 5:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, PrestamoInstrumentoFragment.newInstance())
-                                //.addToBackStack(null)
-                        .commit();
-                break;
-            case 6:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, ConfiguracionListadoFragment.newInstance())
-                        //.addToBackStack(null)
-                        .commit();
-                break;
-        }
-
-        navigationList.setItemChecked(position, true);
-        navigationList.setSelection(position);
-
-        navigationDrawer.closeDrawer(navigationList);
-    }
-
-    /** Evento referente al presionar el botón back del teléfono */
-    @Override
-    public void onBackPressed() {
-        if (navigationDrawer.isDrawerOpen(navigationList)) {
-            navigationDrawer.closeDrawer(navigationList);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    /** Evento que ignora los iconos del menú de action bar al desplegar el menú de navegación */
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        boolean drawerOpen = navigationDrawer.isDrawerOpen(navigationList);
+    public boolean onPrepareOptionsMenu(Menu paramMenu) {
+        boolean drawerOpen = navigationDrawer.isDrawerOpen(this.navigationList);
         //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    /** Evento onClickItem referente a la lista de navegación */
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        showFragment(position);
+        return super.onPrepareOptionsMenu(paramMenu);
     }
 }

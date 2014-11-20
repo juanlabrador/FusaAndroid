@@ -1,6 +1,5 @@
 package edu.ucla.fusa.android.fragmentos;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -8,17 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.dd.CircularProgressButton;
+import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
+import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
 import edu.ucla.fusa.android.validadores.ValidadorEmails;
 import java.util.Calendar;
 
-public class InicialPostulacionesFragment extends Fragment implements View.OnClickListener {
+public class InicialPostulacionesFragment extends Fragment implements View.OnClickListener, DatePickerDialogFragment.DatePickerDialogHandler {
 
     private FloatingHintEditText apellido;
     private Bundle arguments;
@@ -102,7 +102,12 @@ public class InicialPostulacionesFragment extends Fragment implements View.OnCli
                 }).start();
                 break;
             case R.id.et_fecha_nacimiento_aspirante:
-                new DatePickerDialog(getActivity(), datePickerListener, year, month, day).show();
+                new DatePickerBuilder()
+                        .setFragmentManager(getChildFragmentManager())
+                        .setStyleResId(R.style.BetterPickersDialogFragment_Light)
+                        .setTargetFragment(InicialPostulacionesFragment.this)
+                        .show();
+                //new DatePickerDialog(getActivity(), datePickerListener, year, month, day).show();
                 break;
         }
     }
@@ -123,9 +128,16 @@ public class InicialPostulacionesFragment extends Fragment implements View.OnCli
         }
     }
 
-    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker paramAnonymousDatePicker, int year, int month, int day) {
+    /*private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
             fechaNacimiento.setText(day + "/" + (month + 1) + "/" + year);
+
         }
-    };
+    };*/
+
+    @Override
+    public void onDialogDateSet(int reference, int year, int month, int day) {
+        fechaNacimiento.setText(day + "/" + (month + 1) + "/" + year);
+    }
 }

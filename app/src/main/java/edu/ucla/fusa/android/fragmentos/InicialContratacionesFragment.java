@@ -14,14 +14,23 @@ import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
+import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
+import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
+import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
+import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
+
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
 import edu.ucla.fusa.android.modelo.herramientas.TimePickerDialogs;
 import edu.ucla.fusa.android.validadores.ValidadorCedularRif;
 import edu.ucla.fusa.android.validadores.ValidadorEmails;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class InicialContratacionesFragment extends Fragment implements View.OnClickListener {
+public class InicialContratacionesFragment extends Fragment implements View.OnClickListener, TimePickerDialogFragment.TimePickerDialogHandler,
+        DatePickerDialogFragment.DatePickerDialogHandler {
 
     private LinearLayout barraSuperior;
     private Calendar calendar;
@@ -90,10 +99,18 @@ public class InicialContratacionesFragment extends Fragment implements View.OnCl
                 }
                 break;
             case R.id.et_fecha_evento_contrataciones:
-                mostrarDatePicker().show();
+                new DatePickerBuilder()
+                        .setFragmentManager(getChildFragmentManager())
+                        .setStyleResId(R.style.BetterPickersDialogFragment_Light)
+                        .setTargetFragment(InicialContratacionesFragment.this)
+                        .show();
                 break;
             case R.id.et_hora_evento_contrataciones:
-                mostrarTimePicker().show();
+                new TimePickerBuilder()
+                        .setFragmentManager(getChildFragmentManager())
+                        .setStyleResId(R.style.BetterPickersDialogFragment_Light)
+                        .setTargetFragment(InicialContratacionesFragment.this)
+                        .show();
                 break;
         }
     }
@@ -117,19 +134,23 @@ public class InicialContratacionesFragment extends Fragment implements View.OnCl
         return new DatePickerDialog(getActivity(), this.datePickerListener, this.year, this.month, this.day);
     }
 
-    public Dialog mostrarTimePicker() {
-        return new TimePickerDialogs(getActivity(), this.timePickerListener, this.hour, this.minute, true);
-    }
-
-    private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
-        public void onTimeSet(TimePicker paramAnonymousTimePicker, int hour, int minute) {
-            hora.setText(hour + ":" + minute);
-        }
-    };
-
     private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker paramAnonymousDatePicker, int year, int month, int day) {
-            fecha.setText(day + "/" + (month + 1) + "/" + year);
+
         }
     };
+
+    @Override
+    public void onDialogTimeSet(int reference, int hour, int minute) {
+        if (minute < 10) {
+            hora.setText(hour + ":0" + minute);
+        } else {
+            hora.setText(hour + ":" + minute);
+        }
+    }
+
+    @Override
+    public void onDialogDateSet(int reference, int year, int month, int day) {
+        fecha.setText(day + "/" + (month + 1) + "/" + year);
+    }
 }

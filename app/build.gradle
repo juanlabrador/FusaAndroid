@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 16
+    compileSdkVersion 17
     buildToolsVersion "20.0.0"
 
     defaultConfig {
         applicationId "edu.ucla.fusa.android"
         minSdkVersion 14
-        targetSdkVersion 16
+        targetSdkVersion 17
         versionCode 1
         versionName "1.0"
     }
@@ -30,5 +30,6 @@ dependencies {
     compile files('libs/activation.jar')
     compile files('libs/additionnal.jar')
     compile files('libs/mail.jar')
-    compile 'com.wrapp.floatlabelededittext:library:0.0.5'
+    //compile 'com.doomonafireball.betterpickers:library:1.5.2'
+    compile project(':libraryBetterPickers')
 }

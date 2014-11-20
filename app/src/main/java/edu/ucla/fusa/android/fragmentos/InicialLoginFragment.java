@@ -41,7 +41,7 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
     private FloatingHintEditText password;
     private TextView restaurarPassword;
     private View view;
-    private JSONParser jsonParser = new JSONParser();
+    private JSONParser jsonParser;
     private UserTable db;
 
     public static InicialLoginFragment newInstance() {
@@ -96,6 +96,7 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        jsonParser = new JSONParser();
         db = new UserTable(getActivity());
     }
 

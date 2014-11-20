@@ -39,7 +39,7 @@
             android:layout_width="fill_parent"
             android:layout_height="0.0dip"
             android:layout_weight="1.0">
-            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
                 android:id="@+id/et_nombre_aspirante"
                 android:background="@drawable/style_edit_text_azul"
                 android:layout_width="fill_parent"
@@ -48,7 +48,7 @@
                 android:layout_marginRight="5.0dip"
                 android:hint="@string/texto_contenido_editext_nombre_postularse"
                 android:inputType="text" />
-            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
                 android:id="@+id/et_apellido_aspirante"
                 android:background="@drawable/style_edit_text_azul"
                 android:layout_width="fill_parent"
@@ -57,7 +57,7 @@
                 android:layout_marginRight="5.0dip"
                 android:hint="@string/texto_contenido_editext_apellido_postularse"
                 android:inputType="text" />
-            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
                 android:id="@+id/et_fecha_nacimiento_aspirante"
                 android:background="@drawable/style_edit_text_azul"
                 android:focusable="false"
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:button="@drawable/style_btn_check_azul"
                 android:text="@string/text_contenido_checkbox_posee_beca_postularse" />
-            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
                 android:id="@+id/et_email_aspirante"
                 android:background="@drawable/style_edit_text_azul"
                 android:layout_width="fill_parent"

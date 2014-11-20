@@ -28,7 +28,7 @@
         android:layout_height="0.0dip"
         android:layout_weight="1.0">
 
-        <edu.ucla.fusa.android.modelo.FloatingHintEditText
+        <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
             android:enabled="true"
             android:id="@+id/et_email_iniciar_sesion"
             android:background="@drawable/style_edit_text_azul"
@@ -38,7 +38,7 @@
             android:hint="@string/texto_contenido_edittex_correo_login"
             android:fontFamily="sans-serif"
             android:inputType="textEmailAddress" />
-        <edu.ucla.fusa.android.modelo.FloatingHintEditText
+        <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
             android:enabled="true"
             android:id="@+id/et_password_iniciar_sesion"
             android:background="@drawable/style_edit_text_azul"
@@ -47,7 +47,7 @@
             android:layout_margin="5.0dip"
             android:hint="@string/texto_contenido_edittex_clave_login"
             android:fontFamily="sans-serif"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"/>
 
         <com.dd.CircularProgressButton
             android:textSize="22.0sp"

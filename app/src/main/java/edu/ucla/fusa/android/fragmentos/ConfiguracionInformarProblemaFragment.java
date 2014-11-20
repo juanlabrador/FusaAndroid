@@ -7,12 +7,12 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+
 import com.dd.CircularProgressButton;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.asynctask.EnviarEmailAsyncTaks;
-import edu.ucla.fusa.android.modelo.FloatingHintEditText;
+import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;

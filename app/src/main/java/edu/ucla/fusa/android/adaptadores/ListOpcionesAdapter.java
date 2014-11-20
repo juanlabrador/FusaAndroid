@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import edu.ucla.fusa.android.modelo.ItemListOpcionesMultimedia;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListOpcionesMultimedia;
 import java.util.ArrayList;
 
 public class ListOpcionesAdapter extends ArrayAdapter<ItemListOpcionesMultimedia>

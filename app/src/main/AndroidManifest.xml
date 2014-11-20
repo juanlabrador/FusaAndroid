@@ -39,6 +39,8 @@
         android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission
         android:name="edu.ucla.fusa.android.permission.MAPS_RECEIVE" />
+    <uses-permission
+        android:name="android.permission.VIBRATE" />
 
     <uses-feature
         android:glEsVersion="0x20000"

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import edu.ucla.fusa.android.modelo.CropOption;
+import edu.ucla.fusa.android.modelo.herramientas.CropOption;
 import java.util.ArrayList;
 
 public class CropOptionAdapter extends ArrayAdapter<CropOption>

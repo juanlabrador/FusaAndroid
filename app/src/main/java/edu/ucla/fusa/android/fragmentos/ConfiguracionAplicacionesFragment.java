@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.ListAplicationsAdapter;
-import edu.ucla.fusa.android.modelo.ItemListAplications;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListAplications;
 import java.util.ArrayList;
 
 public class ConfiguracionAplicacionesFragment extends Fragment implements AdapterView.OnItemClickListener {

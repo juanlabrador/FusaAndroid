@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +15,8 @@ import android.widget.Button;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.ListOpcionesAdapter;
-import edu.ucla.fusa.android.modelo.ItemListOpcionesMultimedia;
-import java.io.File;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListOpcionesMultimedia;
+
 import java.util.ArrayList;
 
 public class PerfilFragment extends Fragment implements View.OnClickListener {

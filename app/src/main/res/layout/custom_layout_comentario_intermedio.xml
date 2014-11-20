@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5.0dip" />
 
-        <edu.ucla.fusa.android.modelo.FloatingHintEditText
+        <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
             android:id="@+id/et_comentario_final"
             android:background="@drawable/style_edit_text_azul"
             android:layout_width="fill_parent"

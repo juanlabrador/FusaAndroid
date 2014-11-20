@@ -19,7 +19,7 @@ import edu.ucla.fusa.android.fragmentos.EventoCalendarioFragment;
 import edu.ucla.fusa.android.fragmentos.NoticiasListadoFragment;
 import edu.ucla.fusa.android.fragmentos.PerfilFragment;
 import edu.ucla.fusa.android.fragmentos.SolicitudPrestamoFragment;
-import edu.ucla.fusa.android.modelo.ItemListDrawer;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
 import java.util.ArrayList;
 
 public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener {

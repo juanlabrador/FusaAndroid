@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.ucla.fusa.android.R;
-import edu.ucla.fusa.android.modelo.ItemListDrawer;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
 import java.util.ArrayList;
 
 public class NavigationAdapter extends BaseAdapter {

@@ -13,7 +13,7 @@ import android.widget.RatingBar;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.ListComentariosAdapter;
-import edu.ucla.fusa.android.modelo.ItemListComentario;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListComentario;
 import java.util.ArrayList;
 import java.util.Calendar;
 

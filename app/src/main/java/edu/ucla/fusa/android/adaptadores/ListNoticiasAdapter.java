@@ -1,7 +1,6 @@
 package edu.ucla.fusa.android.adaptadores;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.ucla.fusa.android.R;
-import edu.ucla.fusa.android.modelo.ItemListNoticia;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
 import java.util.ArrayList;
 
 public class ListNoticiasAdapter extends BaseAdapter implements View.OnClickListener {

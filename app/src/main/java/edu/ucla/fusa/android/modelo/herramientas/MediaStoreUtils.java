@@ -1,4 +1,4 @@
-package edu.ucla.fusa.android.modelo;
+package edu.ucla.fusa.android.modelo.herramientas;
 
 import android.content.Context;
 import android.content.Intent;

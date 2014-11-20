@@ -1,9 +1,12 @@
 package edu.ucla.fusa.android.fragmentos;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -12,12 +15,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import edu.ucla.fusa.android.DB.DataBaseHelper;
 import edu.ucla.fusa.android.R;
+import edu.ucla.fusa.android.VistasInicialesActivity;
 import edu.ucla.fusa.android.adaptadores.ListConfiguracionAdapter;
-import edu.ucla.fusa.android.asynctask.CerrarSesionAsyncTaks;
 import edu.ucla.fusa.android.interfaces.Item;
-import edu.ucla.fusa.android.modelo.HeaderListConfiguracion;
-import edu.ucla.fusa.android.modelo.ItemListConfiguration;
+import edu.ucla.fusa.android.modelo.herramientas.HeaderListConfiguracion;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListConfiguration;
 import java.util.ArrayList;
 
 public class ConfiguracionListadoFragment extends Fragment implements AdapterView.OnItemClickListener {
@@ -122,8 +126,7 @@ public class ConfiguracionListadoFragment extends Fragment implements AdapterVie
                 break;
             case 2:
                 preferencias = getActivity().getSharedPreferences("index", 0);
-                asyncTaks = new CerrarSesionAsyncTaks(getActivity(), preferencias);
-                asyncTaks.execute();
+                new CerrarSesionAsyncTaks().execute();
                 break;
             case 3:
                 getFragmentManager().beginTransaction()
@@ -171,6 +174,37 @@ public class ConfiguracionListadoFragment extends Fragment implements AdapterVie
                         .addToBackStack(null)
                         .commit();
                 break;
+        }
+    }
+
+    private class CerrarSesionAsyncTaks extends AsyncTask<Void, Void, Void> {
+
+        private ProgressDialog dialog;
+        private SharedPreferences.Editor editor;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(getActivity());
+            dialog.setMessage(getResources().getString(R.string.cerrar_sesion));
+            dialog.setIndeterminate(false);
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+        protected Void doInBackground(Void[] paramArrayOfVoid) {
+            editor = preferencias.edit();
+            editor.clear();
+            editor.commit();
+            SystemClock.sleep(2000L);
+            getActivity().deleteDatabase(DataBaseHelper.NAME);
+            return null;
+        }
+
+        protected void onPostExecute(Void paramVoid) {
+            super.onPostExecute(paramVoid);
+            dialog.dismiss();
+            startActivity(new Intent(getActivity(), VistasInicialesActivity.class));
+            getActivity().finish();
         }
     }
 }

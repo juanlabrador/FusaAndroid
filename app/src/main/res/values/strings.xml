@@ -115,6 +115,8 @@
     <string name="mensaje_elegir_cliente_correo">Elija un cliente de correo electrónico</string>
     <string name="mensaje_error_crear_mapa">¡Lo sentimos! Imposible crear el mapa</string>
     <string name="mensaje_error_iniciar_sesion">Su dirección de correo o contraseña no son válidos</string>
+    <string name="mensaje_error_conexion">¡Ups, no esta conectado a Internet! Por favor, conectese a una red.</string>
+    <string name="mensaje_error_servidor">¡Ups, estamos presentando problemas con el servidor! Por favor, intente más tarde.</string>
     <string name="nivel_calificacion_evento_1">No me gustó en lo absoluto</string>
     <string name="nivel_calificacion_evento_2">No me gustó</string>
     <string name="nivel_calificacion_evento_3">Está bien</string>

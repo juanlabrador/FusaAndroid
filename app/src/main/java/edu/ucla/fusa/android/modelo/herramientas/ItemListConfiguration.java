@@ -1,11 +1,13 @@
-package edu.ucla.fusa.android.modelo;
+package edu.ucla.fusa.android.modelo.herramientas;
 
-public class ItemListOpcionesMultimedia {
+import edu.ucla.fusa.android.interfaces.Item;
+
+public class ItemListConfiguration implements Item {
 
     public int icono;
     public final String title;
 
-    public ItemListOpcionesMultimedia(String paramString, int paramInt) {
+    public ItemListConfiguration(String paramString, int paramInt) {
         this.title = paramString;
         this.icono = paramInt;
     }
@@ -16,6 +18,10 @@ public class ItemListOpcionesMultimedia {
 
     public String getTitle() {
         return this.title;
+    }
+
+    public boolean isSection() {
+        return false;
     }
 
     public void setIcono(int paramInt) {

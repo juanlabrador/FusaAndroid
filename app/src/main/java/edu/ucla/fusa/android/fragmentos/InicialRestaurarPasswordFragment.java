@@ -5,12 +5,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 import com.dd.CircularProgressButton;
 
 import edu.ucla.fusa.android.R;
-import edu.ucla.fusa.android.modelo.FloatingHintEditText;
+import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
 import edu.ucla.fusa.android.validadores.ValidadorEmails;
 
 public class InicialRestaurarPasswordFragment extends Fragment implements View.OnClickListener {

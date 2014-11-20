@@ -10,14 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import edu.ucla.fusa.android.R;
-import edu.ucla.fusa.android.modelo.FloatingHintEditText;
-import edu.ucla.fusa.android.modelo.TimePickerDialogs;
+import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
+import edu.ucla.fusa.android.modelo.herramientas.TimePickerDialogs;
 import edu.ucla.fusa.android.validadores.ValidadorCedularRif;
 import edu.ucla.fusa.android.validadores.ValidadorEmails;
 import java.util.Calendar;

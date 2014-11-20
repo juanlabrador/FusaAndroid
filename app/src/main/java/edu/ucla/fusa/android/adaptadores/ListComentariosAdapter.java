@@ -9,7 +9,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.ucla.fusa.android.R;
-import edu.ucla.fusa.android.modelo.ItemListComentario;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListComentario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;

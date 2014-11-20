@@ -9,13 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.dd.CircularProgressButton;
 
 import edu.ucla.fusa.android.R;
-import edu.ucla.fusa.android.modelo.FloatingHintEditText;
+import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
 import edu.ucla.fusa.android.validadores.ValidadorEmails;
 import java.util.Calendar;
 

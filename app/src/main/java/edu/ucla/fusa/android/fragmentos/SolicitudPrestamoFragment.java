@@ -6,16 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 
 import com.dd.CircularProgressButton;
 
 import java.util.Calendar;
 
 import edu.ucla.fusa.android.R;
-import edu.ucla.fusa.android.modelo.FloatingHintEditText;
+import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
 
 public class SolicitudPrestamoFragment extends Fragment implements View.OnClickListener {
 

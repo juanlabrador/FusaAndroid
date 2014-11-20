@@ -1,6 +1,5 @@
 package edu.ucla.fusa.android.fragmentos;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,7 +15,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.ListNoticiasAdapter;
-import edu.ucla.fusa.android.modelo.ItemListNoticia;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
 import java.util.ArrayList;
 
 public class NoticiasListadoFragment extends ListFragment implements AdapterView.OnItemClickListener, PullToRefreshBase.OnRefreshListener<ListView>, View.OnClickListener {

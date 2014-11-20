@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.interfaces.Item;
-import edu.ucla.fusa.android.modelo.HeaderListConfiguracion;
-import edu.ucla.fusa.android.modelo.ItemListConfiguration;
+import edu.ucla.fusa.android.modelo.herramientas.HeaderListConfiguracion;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListConfiguration;
 import java.util.ArrayList;
 
 public class ListConfiguracionAdapter extends ArrayAdapter<Item> {

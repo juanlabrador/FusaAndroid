@@ -1,11 +1,13 @@
-package edu.ucla.fusa.android.modelo;
+package edu.ucla.fusa.android.modelo.herramientas;
 
-public class ItemListDrawer {
+import edu.ucla.fusa.android.interfaces.Item;
+
+public class HeaderListConfiguracion implements Item {
 
     private int icono;
     private String titulo;
 
-    public ItemListDrawer(String paramString, int paramInt) {
+    public HeaderListConfiguracion(String paramString, int paramInt) {
         this.titulo = paramString;
         this.icono = paramInt;
     }
@@ -16,6 +18,10 @@ public class ItemListDrawer {
 
     public String getTitulo() {
         return this.titulo;
+    }
+
+    public boolean isSection() {
+        return true;
     }
 
     public void setIcono(int paramInt) {

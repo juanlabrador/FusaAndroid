@@ -40,7 +40,7 @@
             android:layout_width="fill_parent"
             android:layout_height="0.0dip"
             android:layout_weight="1.0">
-            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
                 android:id="@+id/et_cedula_contrataciones"
                 android:background="@drawable/style_edit_text_azul"
                 android:layout_width="fill_parent"
@@ -56,7 +56,7 @@
                 android:layout_marginLeft="10.0dip"
                 android:textSize="12sp"
                 android:text="@string/ejemplo_type_ced" />
-            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
                 android:id="@+id/et_solicitante_contrataciones"
                 android:background="@drawable/style_edit_text_azul"
                 android:layout_width="fill_parent"
@@ -65,7 +65,7 @@
                 android:layout_marginRight="5.0dip"
                 android:hint="@string/texto_contenido_editext_solicitante_contrataciones"
                 android:inputType="text" />
-            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
                 android:id="@+id/et_email_contrataciones"
                 android:background="@drawable/style_edit_text_azul"
                 android:layout_width="fill_parent"
@@ -90,7 +90,7 @@
                 android:layout_marginLeft="5.0dip"
                 android:layout_marginRight="5.0dip"
                 android:layout_marginBottom="5.0dip" />
-            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
                 android:id="@+id/et_nombre_evento_contrataciones"
                 android:background="@drawable/style_edit_text_azul"
                 android:layout_width="fill_parent"
@@ -99,7 +99,7 @@
                 android:layout_marginRight="5.0dip"
                 android:hint="@string/texto_contenido_edittext_tema_contrataciones"
                 android:inputType="text" />
-            <edu.ucla.fusa.android.modelo.FloatingHintEditText
+            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
                 android:id="@+id/et_lugar_evento_contrataciones"
                 android:background="@drawable/style_edit_text_azul"
                 android:layout_width="fill_parent"
@@ -113,7 +113,7 @@
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
-                <edu.ucla.fusa.android.modelo.FloatingHintEditText
+                <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
                     android:id="@+id/et_fecha_evento_contrataciones"
                     android:background="@drawable/style_edit_text_azul"
                     android:focusable="false"
@@ -124,7 +124,7 @@
                     android:hint="@string/texto_contenido_edittext_fecha_contrataciones"
                     android:layout_weight="1.0"
                     android:inputType="none" />
-                <edu.ucla.fusa.android.modelo.FloatingHintEditText
+                <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
                     android:id="@+id/et_hora_evento_contrataciones"
                     android:background="@drawable/style_edit_text_azul"
                     android:focusable="false"

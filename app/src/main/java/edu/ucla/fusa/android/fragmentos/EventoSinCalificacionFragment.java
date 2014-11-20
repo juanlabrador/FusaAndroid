@@ -7,12 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import edu.ucla.fusa.android.R;
-import edu.ucla.fusa.android.modelo.FloatingHintEditText;
+import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
 
 public class EventoSinCalificacionFragment extends Fragment implements RatingBar.OnRatingBarChangeListener, DialogInterface.OnClickListener {
     private Bundle arguments;

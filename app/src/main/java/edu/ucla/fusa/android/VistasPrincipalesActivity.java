@@ -144,12 +144,12 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                         .replace(R.id.frame_container, SolicitudPrestamoFragment.newInstance())
                         .commit();
                 break;
-            case 5:
+            case 6:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame_container, EventoCalendarioFragment.newInstance())
                         .commit();
                 break;
-            case 6:
+            case 7:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame_container, ConfiguracionListadoFragment.newInstance())
                         .commit();

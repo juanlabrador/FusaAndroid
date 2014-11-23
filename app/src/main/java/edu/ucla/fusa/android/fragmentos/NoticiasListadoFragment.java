@@ -160,15 +160,15 @@ public class NoticiasListadoFragment extends ListFragment implements AdapterView
             super.onPostExecute(paramVoid);
             list.onRefreshComplete();
             adapter = new ListNoticiasAdapter(getActivity(), NoticiasListadoFragment.this, items);
-            getListView().addFooterView(NoticiasListadoFragment.this.backToTop);
-            setListAdapter(NoticiasListadoFragment.this.adapter);
-            getListView().removeFooterView(NoticiasListadoFragment.this.backToTop);
+            getListView().addFooterView(backToTop);
+            setListAdapter(adapter);
+            getListView().removeFooterView(backToTop);
             getListView().post(new Runnable() {
                 public void run() {
                     int i = NoticiasListadoFragment.this.getListView().getLastVisiblePosition();
                     int j = NoticiasListadoFragment.this.getListAdapter().getCount();
                     if (i + 1 < j)
-                        getListView().addFooterView(NoticiasListadoFragment.this.backToTop);
+                        getListView().addFooterView(backToTop);
                     }
                 });
             if ("error" == null) {

@@ -1,19 +1,26 @@
 apply plugin: 'com.android.library'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'FusaAndroid'
+            keyPassword '123456'
+            storeFile file('/home/juanlabrador/Documentos/llave_fusa.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 19
     buildToolsVersion "19.1.0"
-
     defaultConfig {
         applicationId "com.doomonafireball.betterpickers"
         minSdkVersion 9
         targetSdkVersion 9
     }
-
     buildTypes {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.config
         }
     }
 }

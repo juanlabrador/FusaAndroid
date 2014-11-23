@@ -41,23 +41,23 @@ public class ListNoticiasAdapter extends BaseAdapter implements View.OnClickList
     }
 
     public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
-        LayoutInflater layoutInflater = this.activity.getLayoutInflater();
+        LayoutInflater layoutInflater = activity.getLayoutInflater();
         if (paramView == null) {
-          this.fila = new Fila();
+          fila = new Fila();
           paramView = layoutInflater.inflate(R.layout.custom_item_list_noticias, null);
-          this.fila.titulo = ((TextView) paramView.findViewById(R.id.tv_titulo_noticia));
-          this.fila.fecha = ((TextView) paramView.findViewById(R.id.tv_fecha_publicacion_noticia));
-          this.fila.imagen = ((ImageView) paramView.findViewById(R.id.iv_foto_noticia));
-          this.fila.imagen.setOnClickListener(this);
-          this.fila.boton = ((ImageView) paramView.findViewById(R.id.btn_compartir_noticia));
-          this.fila.boton.setOnClickListener(this);
-          paramView.setTag(this.fila);
+          fila.titulo = ((TextView) paramView.findViewById(R.id.tv_titulo_noticia));
+          fila.fecha = ((TextView) paramView.findViewById(R.id.tv_fecha_publicacion_noticia));
+          fila.imagen = ((ImageView) paramView.findViewById(R.id.iv_foto_noticia));
+          fila.imagen.setOnClickListener(this);
+          fila.boton = ((ImageView) paramView.findViewById(R.id.btn_compartir_noticia));
+          fila.boton.setOnClickListener(this);
+          paramView.setTag(fila);
         } else {
-            this.fila = ((Fila) paramView.getTag());
-            this.item = this.arrayItems.get(paramInt);
-            this.fila.titulo.setText(this.item.getTitulo());
-            this.fila.fecha.setText(this.item.getFecha());
-            this.fila.imagen.setImageResource(this.item.getImagen());
+            fila = ((Fila) paramView.getTag());
+            item = arrayItems.get(paramInt);
+            fila.titulo.setText(item.getTitulo());
+            fila.fecha.setText(item.getFecha());
+            fila.imagen.setImageResource(item.getImagen());
         }
         return paramView;
     }

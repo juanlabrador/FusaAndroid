@@ -35,22 +35,26 @@ public class NavigationAdapter extends BaseAdapter {
     }
 
     public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
-        LayoutInflater layoutInflater = this.activity.getLayoutInflater();
+        LayoutInflater layoutInflater = activity.getLayoutInflater();
         Fila fila;
+        View view;
         if (paramView == null) {
             fila = new Fila();
-            ItemListDrawer item = this.arrayItems.get(paramInt);
-            View view = layoutInflater.inflate(R.layout.custom_item_list_drawer, null);
-            fila.titulo = ((TextView) view.findViewById(R.id.tv_funcionalidad_drawer));
-            fila.titulo.setText(item.getTitulo());
-            fila.icono = ((ImageView) view.findViewById(R.id.iv_icono_drawer));
-            fila.icono.setImageResource(item.getIcono());
-            view.setTag(fila);
-            return view;
+            ItemListDrawer item = arrayItems.get(paramInt);
+            if (item.getIcono() != -1) {
+                view = layoutInflater.inflate(R.layout.custom_item_list_drawer, null);
+                fila.titulo = ((TextView) view.findViewById(R.id.tv_funcionalidad_drawer));
+                fila.titulo.setText(item.getTitulo());
+                fila.icono = ((ImageView) view.findViewById(R.id.iv_icono_drawer));
+                fila.icono.setImageResource(item.getIcono());
+                view.setTag(fila);
+            } else { //Es una sección
+                view = layoutInflater.inflate(R.layout.custom_separator_list_view, null);
+            }
         } else {
-            fila = (Fila) paramView.getTag();
+            view = paramView;
         }
-        return paramView;
+        return view;
     }
 
     public static class Fila {

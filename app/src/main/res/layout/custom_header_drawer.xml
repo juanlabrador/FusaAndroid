@@ -2,9 +2,13 @@
 <LinearLayout
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="5.0dip"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="@color/azul"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 

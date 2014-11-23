@@ -22,7 +22,7 @@ public class EventoCalendarioFragment extends Fragment implements CalendarView.O
 
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
-        getActivity().getActionBar().setIcon(R.drawable.ic_calendario);
+        getActivity().getActionBar().setIcon(R.drawable.ic_calendario_blanco);
         getActivity().getActionBar().setTitle(R.string.contenido_calendario_action_bar_titulo);
     }
 
@@ -36,7 +36,7 @@ public class EventoCalendarioFragment extends Fragment implements CalendarView.O
 
     public void onResume() {
         super.onResume();
-        getActivity().getActionBar().setIcon(R.drawable.ic_calendario);
+        getActivity().getActionBar().setIcon(R.drawable.ic_calendario_blanco);
         getActivity().getActionBar().setTitle(R.string.contenido_calendario_action_bar_titulo);
     }
 

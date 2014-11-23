@@ -16,14 +16,44 @@
         <item>@drawable/ic_participantes</item>
         <item>@drawable/ic_comentarios</item>
     </array>
-    <string-array name="nav_funciones_user">
-        <item>Home</item>
+    <string-array name="nav_funciones_estudiante">
+        <item>Noticias</item>
         <item>Mis clases</item>
         <item>Mis eventos</item>
-        <item>Calendario</item>
         <item>Solicitud de prestamo</item>
+    </string-array>
+
+    <array name="nav_icons_estudiante">
+        <item>@drawable/ic_noticias</item>
+        <item>@drawable/ic_mis_clases</item>
+        <item>@drawable/ic_eventos</item>
+        <item>@drawable/ic_solicitud_prestamo</item>
+    </array>
+
+    <string-array name="nav_funciones_instructor">
+        <item>Noticias</item>
+        <item>Mis clases</item>
+        <item>Mis eventos</item>
+        <item>Postular un comodato</item>
+    </string-array>
+
+    <array name="nav_icons_instructor">
+        <item>@drawable/ic_noticias</item>
+        <item>@drawable/ic_mis_clases</item>
+        <item>@drawable/ic_eventos</item>
+        <item>@drawable/ic_postular_comodato</item>
+    </array>
+
+    <string-array name="nav_funciones_general">
+        <item>Calendario</item>
         <item>Configuración</item>
     </string-array>
+
+    <array name="nav_icons_general">
+        <item>@drawable/ic_calendario</item>
+        <item>@drawable/ic_configuracion</item>
+    </array>
+
     <array name="nav_icons_inicial">
         <item>@drawable/ic_iniciar_sesion</item>
         <item>@drawable/ic_estudiantes</item>
@@ -32,14 +62,7 @@
         <item>@drawable/ic_eventos</item>
         <item>@drawable/ic_contacto</item>
     </array>
-    <array name="nav_icons_user">
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_mis_clases</item>
-        <item>@drawable/ic_mis_eventos</item>
-        <item>@drawable/ic_calendario</item>
-        <item>@drawable/ic_solicitud_prestamo</item>
-        <item>@drawable/ic_configuracion</item>
-    </array>
+
     <string-array name="participantes_evento">
         <item>Orquesta Juvenil Simón Bolívar</item>
         <item>Orquesta Infantil Niños Larenses</item>
@@ -50,5 +73,20 @@
         <item>Google+</item>
         <item>Instagram</item>
         <item>Twitter</item>
+    </string-array>
+
+    <string-array name="tipos_instrumentos">
+        <item>Viento</item>
+        <item>Cuerda</item>
+        <item>Percusión</item>
+    </string-array>
+
+    <string-array name="instrumentos">
+        <item>Flauta</item>
+        <item>Tuba</item>
+        <item>Guitarra</item>
+        <item>Cuatro</item>
+        <item>Bongues</item>
+        <item>Bombo</item>
     </string-array>
 </resources>

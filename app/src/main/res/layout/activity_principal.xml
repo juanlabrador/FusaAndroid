@@ -17,7 +17,6 @@
         android:layout_width="280.0dip"
         android:layout_height="fill_parent"
         android:listSelector="@drawable/style_list_selector"
-        android:divider="@drawable/style_list_divider"
-        android:dividerHeight="0.5dip"
+        android:divider="@android:color/transparent"
         android:choiceMode="singleChoice" />
 </android.support.v4.widget.DrawerLayout>

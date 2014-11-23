@@ -45,7 +45,7 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
 
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
-        getActivity().getActionBar().setIcon(R.drawable.ic_solicitud_prestamo);
+        getActivity().getActionBar().setIcon(R.drawable.ic_solicitud_prestamo_blanco);
         getActivity().getActionBar().setTitle(R.string.contenido_prestamo_instrumento_action_bar_titulo);
     }
 

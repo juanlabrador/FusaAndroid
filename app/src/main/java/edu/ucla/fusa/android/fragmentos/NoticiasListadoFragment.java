@@ -47,7 +47,7 @@ public class NoticiasListadoFragment extends ListFragment implements AdapterView
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         getActivity().getActionBar().setTitle(R.string.contenido_noticia_action_bar_titulo);
-        getActivity().getActionBar().setIcon(R.drawable.ic_noticias);
+        getActivity().getActionBar().setIcon(R.drawable.ic_noticias_blanco);
         backToTop = ((LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_back_to_top_list_view, null, false);
         backToTop.setOnClickListener(this);
     }
@@ -62,11 +62,11 @@ public class NoticiasListadoFragment extends ListFragment implements AdapterView
 
     public void onItemClick(AdapterView<?> paramAdapterView, View paramView, int paramInt, long paramLong) {
         ItemListNoticia item = (ItemListNoticia) paramAdapterView.getItemAtPosition(paramInt);
-        this.arguments = new Bundle();
-        this.arguments.putString("titulo_noticia", item.getTitulo());
-        this.arguments.putString("fecha_noticia", item.getFecha());
-        this.arguments.putInt("imagen_noticia", item.getImagen());
-        this.arguments.putString("descripcion_noticia", item.getDescripcion());
+        arguments = new Bundle();
+        arguments.putString("titulo_noticia", item.getTitulo());
+        arguments.putString("fecha_noticia", item.getFecha());
+        arguments.putInt("imagen_noticia", item.getImagen());
+        arguments.putString("descripcion_noticia", item.getDescripcion());
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, NoticiasDetalleFragment.newInstance(this.arguments))
                 .addToBackStack(null)
@@ -85,7 +85,7 @@ public class NoticiasListadoFragment extends ListFragment implements AdapterView
     public void onResume() {
         super.onResume();
         getActivity().getActionBar().setTitle(R.string.contenido_noticia_action_bar_titulo);
-        getActivity().getActionBar().setIcon(R.drawable.ic_noticias);
+        getActivity().getActionBar().setIcon(R.drawable.ic_noticias_blanco);
         setListAdapter(adapter);
         if (index != -1) {
             getListView().setSelectionFromTop(index, 0);

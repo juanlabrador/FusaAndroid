@@ -5,6 +5,7 @@
     <eat-comment />
 
     <string name="day_c">DIA</string>
+    <string name="done_label">Listo</string>
     <string name="hms_picker_hours_label">H</string>
     <string name="hms_picker_minutes_label">M</string>
     <string name="hms_picker_seconds_label">S</string>
@@ -19,6 +20,7 @@
     <string name="number_picker_seperator">.</string>
     <string name="picker_cancel">Cancelar</string>
     <string name="picker_set">Aceptar</string>
+    <string name="save_label">Listo</string>
     <string name="seconds_label">s</string>
     <string name="seconds_label_description">segundos</string>
     <string name="time_picker_00_label">:00</string>

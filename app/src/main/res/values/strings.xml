@@ -195,4 +195,28 @@
     <string name="titulo_tab_datos_contacto">Información</string>
     <string name="titulo_tab_ubicacion_contacto">Ubicación</string>
     <string name="contenido_edittext_comentario">Comentario</string>
+
+    <!-- Elementos de la ventana de donaciones -->
+    <string name="donaciones_titulo_superior">Dona algún instrumento</string>
+    <string name="donaciones_edit_text_cedula">Rif o cédula</string>
+    <string name="donaciones_edit_text_nombre">Nombre o razón social</string>
+    <string name="donaciones_edit_text_correo">Correo electrónico</string>
+    <string name="donaciones_edit_text_telefono">Teléfono</string>
+    <string name="donaciones_text_view_tipo_instrumentos">Posibles instrumentos a donar</string>
+
+    <!-- Elementos de la clase adapter de instrumentos -->
+    <string name="intrumentos_adapter_tag_view_section">Section</string>
+    <string name="instrumentos_adapter_tag_view_fila">Fila</string>
+    <string name="intrumentos_adapter_tag_contenido_section">Titulo</string>
+    <string name="instrumentos_adapter_tag_contenido_fila">Contenido</string>
+
+    <!-- Elementos de la ventana de donaciones -->
+    <string name="participa_titulo_superior">Participa en enseñar</string>
+    <string name="participa_edit_text_cedula">Cédula</string>
+    <string name="participa_edit_text_nombre">Nombre</string>
+    <string name="participa_edit_text_apellido">Apellido</string>
+    <string name="participa_edit_text_correo">Correo electrónico</string>
+    <string name="participa_edit_text_telefono">Teléfono</string>
+    <string name="participa_text_view_especialidad">Especialidad: </string>
+    <string name="participa_edit_text_fecha_nacimiento">Fecha nacimiento</string>
 </resources>

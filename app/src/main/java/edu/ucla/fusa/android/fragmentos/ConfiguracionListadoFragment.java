@@ -45,14 +45,14 @@ public class ConfiguracionListadoFragment extends Fragment implements AdapterVie
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         getActivity().getActionBar().setTitle(R.string.configuracion);
-        getActivity().getActionBar().setIcon(R.drawable.ic_configuracion);
+        getActivity().getActionBar().setIcon(R.drawable.ic_configuracion_blanco);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         getActivity().getActionBar().setTitle(R.string.configuracion);
-        getActivity().getActionBar().setIcon(R.drawable.ic_configuracion);
+        getActivity().getActionBar().setIcon(R.drawable.ic_configuracion_blanco);
     }
 
     public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
@@ -61,7 +61,7 @@ public class ConfiguracionListadoFragment extends Fragment implements AdapterVie
         list = ((ListView) view.findViewById(R.id.list_view_configuraciones));
         items.clear();
         items.add(new HeaderListConfiguracion(
-                getResources().getString(R.string.configuracion_cuenta), 0));
+                getResources().getString(R.string.configuracion_cuenta), R.drawable.ic_usuario));
         items.add(new ItemListConfiguration(
                 getResources().getString(R.string.configuracion_cuenta_cambiar_password),
                 R.drawable.ic_cambiar_password));
@@ -81,7 +81,7 @@ public class ConfiguracionListadoFragment extends Fragment implements AdapterVie
                 getResources().getString(R.string.configuracion_cuenta_contratar),
                 R.drawable.ic_eventos));
         items.add(new HeaderListConfiguracion(
-                getResources().getString(R.string.configuracion_aplicaciones), 0));
+                getResources().getString(R.string.configuracion_aplicaciones), R.drawable.ic_aplicaciones));
         items.add(new ItemListConfiguration(
                 getResources().getString(R.string.configuracion_aplicaciones_cuentas_enlazadas),
                 R.drawable.ic_cuentas_enlazadas));
@@ -97,7 +97,7 @@ public class ConfiguracionListadoFragment extends Fragment implements AdapterVie
                 getResources().getString(R.string.configuracion_informacion_web),
                 R.drawable.ic_informacion_web));
         items.add(new HeaderListConfiguracion(
-                getResources().getString(R.string.configuracion_ayuda), 0));
+                getResources().getString(R.string.configuracion_ayuda), R.drawable.ic_ayuda));
         items.add(new ItemListConfiguration(
                 getResources().getString(R.string.configuracion_informar_problema),
                 R.drawable.ic_informacion_problema));

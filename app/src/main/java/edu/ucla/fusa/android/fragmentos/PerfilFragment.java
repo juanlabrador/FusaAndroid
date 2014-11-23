@@ -108,7 +108,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
 
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
-        getActivity().getActionBar().setIcon(R.drawable.ic_perfil);
+        getActivity().getActionBar().setIcon(R.drawable.ic_usuario_blanco);
         getActivity().getActionBar().setTitle(R.string.contenido_perfil_action_bar_titulo);
     }
 

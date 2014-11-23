@@ -26,7 +26,10 @@ public class InicialEstudiantesFragment extends Fragment
   }
 
   public void onClick(View paramView) {
-    getFragmentManager().beginTransaction().replace(android.R.id.content, InicialPostulacionesFragment.newInstance()).addToBackStack(null).commit();
+    getFragmentManager().beginTransaction()
+            .replace(android.R.id.content, InicialPostulacionesFragment.newInstance())
+            .addToBackStack(null)
+            .commit();
   }
 
   public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {

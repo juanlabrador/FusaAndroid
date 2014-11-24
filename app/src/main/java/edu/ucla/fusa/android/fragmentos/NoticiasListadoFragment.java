@@ -106,11 +106,17 @@ public class NoticiasListadoFragment extends ListFragment implements AdapterView
 
         protected void onPostExecute(Void paramVoid) {
             super.onPostExecute(paramVoid);
-            NoticiasListadoFragment.this.list.onRefreshComplete();
+            list.onRefreshComplete();
         }
     }
 
     private class LoadingNoticiasTaks extends AsyncTask<Void, Void, Void> {
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            items.clear();
+            getListView().setEmptyView(getView().findViewById(R.id.progress_bar));
+        }
 
         protected Void doInBackground(Void[] paramArrayOfVoid) {
             SystemClock.sleep(2000L);
@@ -174,12 +180,6 @@ public class NoticiasListadoFragment extends ListFragment implements AdapterView
             if ("error" == null) {
                 getListView().setEmptyView(getView().findViewById(R.id.tv_empty_text));
             }
-        }
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            items.clear();
-            getListView().setEmptyView(getView().findViewById(R.id.progress_bar));
         }
 
         protected void onProgressUpdate(Void[] paramArrayOfVoid) {

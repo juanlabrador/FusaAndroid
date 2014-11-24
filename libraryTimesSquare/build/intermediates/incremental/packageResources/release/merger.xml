@@ -121,7 +121,7 @@ center
                 </color>
                 <color name="calendar_text_selected" >#ffffffff
                 </color>
-                <color name="calendar_highlighted_day_bg" >#ccffcc
+                <color name="calendar_highlighted_day_bg" >#FF8000
                 </color>
                 <color name="calendar_text_inactive" >#40778088
                 </color>

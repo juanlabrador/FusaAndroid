@@ -179,7 +179,7 @@ public class CalendarPickerView extends ListView {
     monthNameFormat =
         new SimpleDateFormat(getContext().getString(R.string.month_name_format), locale);
     for (MonthDescriptor month : months) {
-      month.setLabel(monthNameFormat.format(month.getDate()));
+      month.setLabel(monthNameFormat.format(month.getDate()).toUpperCase());
     }
     weekdayNameFormat =
         new SimpleDateFormat(getContext().getString(R.string.day_name_format), locale);
@@ -215,7 +215,7 @@ public class CalendarPickerView extends ListView {
       Date date = monthCounter.getTime();
       MonthDescriptor month =
           new MonthDescriptor(monthCounter.get(MONTH), monthCounter.get(YEAR), date,
-              monthNameFormat.format(date));
+              monthNameFormat.format(date).toUpperCase());
       cells.add(getMonthCells(month, monthCounter));
       Logr.d("Adding month %s", month);
       months.add(month);
@@ -873,7 +873,7 @@ public class CalendarPickerView extends ListView {
       String errMessage =
           getResources().getString(R.string.invalid_date, fullDateFormat.format(minCal.getTime()),
               fullDateFormat.format(maxCal.getTime()));
-      Toast.makeText(getContext(), errMessage, Toast.LENGTH_SHORT).show();
+      //Toast.makeText(getContext(), errMessage, Toast.LENGTH_SHORT).show();
     }
   }
 }

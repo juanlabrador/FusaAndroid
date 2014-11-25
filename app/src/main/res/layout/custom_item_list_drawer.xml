@@ -10,16 +10,16 @@
 
     <ImageView
         android:id="@+id/iv_icono_drawer"
-        android:layout_width="0.0dip"
-        android:layout_height="35dip"
-        android:layout_weight="1.0" />
+        android:layout_width="30dip"
+        android:layout_height="30dip" />
 
     <TextView
         android:textSize="16.0sp"
         android:id="@+id/tv_funcionalidad_drawer"
-        android:layout_width="0.0dip"
-        android:layout_height="wrap_content"
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
         android:singleLine="true"
-        android:layout_weight="5.0"
-        android:layout_marginLeft="10dp"/>
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp"/>
 </LinearLayout>

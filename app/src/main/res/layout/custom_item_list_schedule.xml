@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/contenido_bg">
+
+    <View
+        android:id="@+id/barra_tipo_horario"
+        android:layout_marginLeft="5dp"
+        android:layout_width="20dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10.0dip"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/bg_parent_rounded_corner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_grupo"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:textSize="14.0sp"
+                android:id="@+id/tv_actividad_schedule"
+                android:paddingLeft="5dp"
+                android:paddingRight="10.0dip"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Flauta"
+                android:gravity="center_vertical"/>
+            </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_instructor"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/tv_instructor_schedule"
+                android:textSize="14.0sp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="10.0dip"
+                android:text="Daddy Yankee"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="30.0dip"
+                android:src="@drawable/ic_horario"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/tv_horario_schedule"
+                android:textSize="14.0sp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="10.0dip"
+                android:text="9:00 am - 10:00 am"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="30.0dip"
+                android:src="@drawable/ic_lugar"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/tv_lugar_schedule"
+                android:textSize="14.0sp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Cerca del baño"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:paddingRight="10.0dip"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

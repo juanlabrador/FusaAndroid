@@ -57,7 +57,7 @@
                 <dimen name="calendar_month_topmargin" >16dp
                 </dimen>
 
-                <color name="calendar_highlighted_day_bg" >#ccffcc
+                <color name="calendar_highlighted_day_bg" >#ffFF8000
                 </color>
                 <color name="calendar_text_inactive" >#40778088
                 </color>

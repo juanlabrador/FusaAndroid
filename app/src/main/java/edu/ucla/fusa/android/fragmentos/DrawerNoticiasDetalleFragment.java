@@ -11,7 +11,7 @@ import android.widget.TextView;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.asynctask.CargarDetalleNoticiaTaks;
 
-public class NoticiasDetalleFragment extends Fragment implements View.OnClickListener {
+public class DrawerNoticiasDetalleFragment extends Fragment implements View.OnClickListener {
 
     private Bundle arguments;
     private ImageView compartir;
@@ -21,8 +21,8 @@ public class NoticiasDetalleFragment extends Fragment implements View.OnClickLis
     private TextView titulo;
     private View view;
 
-    public static NoticiasDetalleFragment newInstance(Bundle paramBundle) {
-        NoticiasDetalleFragment fragment = new NoticiasDetalleFragment();
+    public static DrawerNoticiasDetalleFragment newInstance(Bundle paramBundle) {
+        DrawerNoticiasDetalleFragment fragment = new DrawerNoticiasDetalleFragment();
         fragment.setRetainInstance(true);
         if (paramBundle != null)
             fragment.setArguments(paramBundle);

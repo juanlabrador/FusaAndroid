@@ -19,7 +19,7 @@ import edu.ucla.fusa.android.modelo.herramientas.ItemListOpcionesMultimedia;
 
 import java.util.ArrayList;
 
-public class PerfilFragment extends Fragment implements View.OnClickListener {
+public class DrawerPerfilFragment extends Fragment implements View.OnClickListener {
 
     private static final int CROP_FROM_CAMERA = 2;
     private static final int PICK_FROM_CAMERA = 1;
@@ -42,8 +42,8 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
                 .putExtra("return-data", true), 2);
     }
 
-    public static PerfilFragment newInstance() {
-        PerfilFragment fragment = new PerfilFragment();
+    public static DrawerPerfilFragment newInstance() {
+        DrawerPerfilFragment fragment = new DrawerPerfilFragment();
         fragment.setRetainInstance(true);
         return fragment;
     }
@@ -69,7 +69,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
                     Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction("android.intent.action.GET_CONTENT");
-                    PerfilFragment.this.startActivityForResult(Intent.createChooser(intent, "Completa la acción usando..."), 3);
+                    DrawerPerfilFragment.this.startActivityForResult(Intent.createChooser(intent, "Completa la acción usando..."), 3);
                 }
             }
         }).create().show();

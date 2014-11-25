@@ -14,10 +14,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
 import edu.ucla.fusa.android.fragmentos.ConfiguracionListadoFragment;
+import edu.ucla.fusa.android.fragmentos.DrawerHorarioFragment;
 import edu.ucla.fusa.android.fragmentos.EventoCalendarioFragment;
-import edu.ucla.fusa.android.fragmentos.NoticiasListadoFragment;
-import edu.ucla.fusa.android.fragmentos.PerfilFragment;
-import edu.ucla.fusa.android.fragmentos.SolicitudPrestamoFragment;
+import edu.ucla.fusa.android.fragmentos.DrawerNoticiasListadoFragment;
+import edu.ucla.fusa.android.fragmentos.DrawerPerfilFragment;
+import edu.ucla.fusa.android.fragmentos.DrawerSolicitudPrestamoFragment;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
 import java.util.ArrayList;
 
@@ -58,7 +59,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_container, NoticiasListadoFragment.newInstance())
+                .replace(R.id.frame_container, DrawerNoticiasListadoFragment.newInstance())
                 .commit();
     }
 
@@ -104,9 +105,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         items.add(new ItemListDrawer(
                 titulos[2],
                 iconos.getResourceId(2, -1)));
-        items.add(new ItemListDrawer(
-                titulos[3],
-                iconos.getResourceId(3, -1)));
+
         items.add(new ItemListDrawer(null, -1));
         iconos = getResources().obtainTypedArray(R.array.nav_icons_general);
         titulos = getResources().getStringArray(R.array.nav_funciones_general);
@@ -116,6 +115,9 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         items.add(new ItemListDrawer(
                 titulos[1],
                 iconos.getResourceId(1, -1)));
+        items.add(new ItemListDrawer(
+                titulos[2],
+                iconos.getResourceId(2, -1)));
 
         navigationAdapter = new NavigationAdapter(this, this.items);
         navigationList.setAdapter(this.navigationAdapter);
@@ -127,21 +129,24 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         switch (position) {
             case 0:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, PerfilFragment.newInstance())
+                        .replace(R.id.frame_container, DrawerPerfilFragment.newInstance())
                         .commit();
                 break;
             case 1:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, NoticiasListadoFragment.newInstance())
+                        .replace(R.id.frame_container, DrawerHorarioFragment.newInstance())
                         .commit();
                 break;
             case 2:
                 break;
             case 3:
-                break;
-            case 4:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, SolicitudPrestamoFragment.newInstance())
+                        .replace(R.id.frame_container, DrawerSolicitudPrestamoFragment.newInstance())
+                        .commit();
+                break;
+            case 5:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, DrawerNoticiasListadoFragment.newInstance())
                         .commit();
                 break;
             case 6:
@@ -195,12 +200,12 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         switch (position) {
             case 0:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, PerfilFragment.newInstance())
+                        .replace(R.id.frame_container, DrawerPerfilFragment.newInstance())
                         .commit();
                 break;
             case 1:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, NoticiasListadoFragment.newInstance())
+                        .replace(R.id.frame_container, DrawerNoticiasListadoFragment.newInstance())
                         .commit();
                 break;
             case 2:

@@ -18,7 +18,7 @@ import edu.ucla.fusa.android.adaptadores.ListNoticiasAdapter;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
 import java.util.ArrayList;
 
-public class NoticiasListadoFragment extends ListFragment implements AdapterView.OnItemClickListener, PullToRefreshBase.OnRefreshListener<ListView>, View.OnClickListener {
+public class DrawerNoticiasListadoFragment extends ListFragment implements AdapterView.OnItemClickListener, PullToRefreshBase.OnRefreshListener<ListView>, View.OnClickListener {
 
     private ListNoticiasAdapter adapter;
     private Bundle arguments;
@@ -28,8 +28,8 @@ public class NoticiasListadoFragment extends ListFragment implements AdapterView
     private PullToRefreshListView list;
     private View view;
 
-    public static NoticiasListadoFragment newInstance() {
-        NoticiasListadoFragment fragment = new NoticiasListadoFragment();
+    public static DrawerNoticiasListadoFragment newInstance() {
+        DrawerNoticiasListadoFragment fragment = new DrawerNoticiasListadoFragment();
         fragment.setRetainInstance(true);
         return fragment;
     }
@@ -68,7 +68,7 @@ public class NoticiasListadoFragment extends ListFragment implements AdapterView
         arguments.putInt("imagen_noticia", item.getImagen());
         arguments.putString("descripcion_noticia", item.getDescripcion());
         getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, NoticiasDetalleFragment.newInstance(this.arguments))
+                .replace(android.R.id.content, DrawerNoticiasDetalleFragment.newInstance(this.arguments))
                 .addToBackStack(null)
                 .commit();
     }
@@ -165,14 +165,14 @@ public class NoticiasListadoFragment extends ListFragment implements AdapterView
         protected void onPostExecute(Void paramVoid) {
             super.onPostExecute(paramVoid);
             list.onRefreshComplete();
-            adapter = new ListNoticiasAdapter(getActivity(), NoticiasListadoFragment.this, items);
+            adapter = new ListNoticiasAdapter(getActivity(), DrawerNoticiasListadoFragment.this, items);
             getListView().addFooterView(backToTop);
             setListAdapter(adapter);
             getListView().removeFooterView(backToTop);
             getListView().post(new Runnable() {
                 public void run() {
-                    int i = NoticiasListadoFragment.this.getListView().getLastVisiblePosition();
-                    int j = NoticiasListadoFragment.this.getListAdapter().getCount();
+                    int i = DrawerNoticiasListadoFragment.this.getListView().getLastVisiblePosition();
+                    int j = DrawerNoticiasListadoFragment.this.getListAdapter().getCount();
                     if (i + 1 < j)
                         getListView().addFooterView(backToTop);
                     }

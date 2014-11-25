@@ -9,6 +9,9 @@
     <color name="gris">#ffd6d6d6</color>
     <color name="gris_oscuro">#ff747474</color>
 
+    <color name="clase_particular">#ff379bff</color>
+    <color name="clase_agrupacion">#ffFF8000</color>
+
 
 
     <color name="contenido_bg">#ffd6d6d6</color>

@@ -31,6 +31,7 @@ import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.VistasPrincipalesActivity;
 import edu.ucla.fusa.android.modelo.JSONParser;
+import edu.ucla.fusa.android.modelo.academico.Estudiante;
 import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
 import edu.ucla.fusa.android.validadores.ValidadorEmails;
 
@@ -156,32 +157,28 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
             parametros.add(new BasicNameValuePair("correo", params[0]));
             parametros.add(new BasicNameValuePair("clave", params[1]));
 
-            /** Mandamos los parametros via GET y esperemos una respuesta del servidor */
-            jsonObject = jsonParser.validarUsuario("GET", parametros);
-            try {
-                if (jsonObject != null) { /** Si la consulta se realizo */
-                    Log.i("JSON", Integer.toString(jsonObject.getInt("id")));
-                    if (jsonObject.getInt("id") != -1) { /** Si el usuario existe */
-                        /** Guardamos sus datos internamente para que no se loguee de nuevo */
+            /** Mandamos los parametros y esperemos una respuesta del servidor */
+            Estudiante estudiante = jsonParser.validarUsuario(parametros);
+            if (estudiante != null) {
+                Log.i("ID", String.valueOf(estudiante.getId()));
+                if (estudiante.getId() != -1) { /** Si el usuario existe */
+                    /** Guardamos sus datos internamente para que no se loguee de nuevo */
 
-                        db.insertData(jsonObject.getJSONObject("usuario").getInt("id"),
-                                jsonObject.getJSONObject("usuario").getString("nombre"),
-                                jsonObject.getJSONObject("usuario").getString("clave"),
-                                null,
-                                jsonObject.getInt("id"),
-                                jsonObject.getString("cedula"),
-                                jsonObject.getString("nombre"),
-                                jsonObject.getString("apellido"));
-                        Log.i("CEDULA", jsonObject.getString("cedula"));
-                        response = 100;
-                    } else { /** Si el usuario no existe */
-                        response = -1;
-                    }
-                } else { /** Hubo problemas con el servidor o lentitud de la red */
-                    response = 0;
+                    db.insertData(estudiante.getUsuario().getId(),
+                            estudiante.getUsuario().getNombre(),
+                            estudiante.getUsuario().getClave(),
+                            null,
+                            estudiante.getId(),
+                            estudiante.getCedula(),
+                            estudiante.getNombre(),
+                            estudiante.getApellido());
+                    Log.i("Cédula", estudiante.getCedula());
+                    response = 100;
+                } else { /** Si el usuario no existe */
+                    response = -1;
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+            } else { /** Hubo problemas con el servidor o lentitud de la red */
+                response = 0;
             }
             return response;
         }

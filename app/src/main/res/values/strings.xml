@@ -219,4 +219,7 @@
     <string name="participa_edit_text_telefono">Teléfono</string>
     <string name="participa_text_view_especialidad">Especialidad: </string>
     <string name="participa_edit_text_fecha_nacimiento">Fecha nacimiento</string>
+
+    <!-- Elementos de la ventana de mis clases -->
+    <string name="mis_clases_action_bar">Mis clases</string>
 </resources>

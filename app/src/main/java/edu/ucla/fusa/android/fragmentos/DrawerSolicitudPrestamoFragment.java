@@ -15,7 +15,7 @@ import java.util.Calendar;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
 
-public class SolicitudPrestamoFragment extends Fragment implements View.OnClickListener {
+public class DrawerSolicitudPrestamoFragment extends Fragment implements View.OnClickListener {
 
     private Calendar calendar;
     private int day;
@@ -26,8 +26,8 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
     private View view;
     private int year;
 
-    public static SolicitudPrestamoFragment newInstance() {
-        SolicitudPrestamoFragment fragment = new SolicitudPrestamoFragment();
+    public static DrawerSolicitudPrestamoFragment newInstance() {
+        DrawerSolicitudPrestamoFragment fragment = new DrawerSolicitudPrestamoFragment();
         fragment.setRetainInstance(true);
         return fragment;
     }
@@ -67,13 +67,13 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
 
     private DatePickerDialog.OnDateSetListener datePickerListenerDesde = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker paramAnonymousDatePicker, int year, int month, int day) {
-            SolicitudPrestamoFragment.this.desde.setText(day + "/" + (month + 1) + "/" + year);
+            DrawerSolicitudPrestamoFragment.this.desde.setText(day + "/" + (month + 1) + "/" + year);
         }
     };
 
     private DatePickerDialog.OnDateSetListener datePickerListenerHasta = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker paramAnonymousDatePicker, int year, int month, int day) {
-            SolicitudPrestamoFragment.this.hasta.setText(day + "/" + (month + 1) + "/" + year);
+            DrawerSolicitudPrestamoFragment.this.hasta.setText(day + "/" + (month + 1) + "/" + year);
         }
     };
 }

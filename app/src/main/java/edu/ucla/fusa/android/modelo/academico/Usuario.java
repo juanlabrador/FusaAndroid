@@ -5,7 +5,7 @@ package edu.ucla.fusa.android.modelo.academico;
  */
 public class Usuario {
 
-    private transient int id_u;
+    private transient int id;
     private String nombre;
     private String clave;
     private byte[] foto;
@@ -16,18 +16,18 @@ public class Usuario {
 
     public Usuario(int id, String nombre, String clave, byte[] foto) {
         super();
-        this.id_u = id;
+        this.id = id;
         this.nombre = nombre;
         this.clave = clave;
         this.foto = foto;
     }
 
-    public int getIdU() {
-        return id_u;
+    public int getId() {
+        return id;
     }
 
-    public void setIdU(int id) {
-        this.id_u = id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {

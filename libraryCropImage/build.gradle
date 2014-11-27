@@ -1,0 +1,41 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.13.2'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion 17
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 17
+    }
+}
+
+//
+// Publishing
+//
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file://repo")
+            pom.groupId = 'me.villani.lorenzo.android'
+            pom.artifactId = 'android-cropimage'
+            pom.version = '1.0.1'
+        }
+    }
+}

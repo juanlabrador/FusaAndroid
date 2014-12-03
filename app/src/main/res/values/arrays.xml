@@ -29,7 +29,6 @@
     </array>
 
     <string-array name="nav_funciones_instructor">
-        <item>Noticias</item>
         <item>Mis clases</item>
         <item>Mis eventos</item>
         <item>Postular un comodato</item>

@@ -7,14 +7,19 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
 import edu.ucla.fusa.android.fragmentos.ConfiguracionListadoFragment;
 import edu.ucla.fusa.android.fragmentos.DrawerHorarioFragment;
+import edu.ucla.fusa.android.fragmentos.DrawerPostulacionComodatoFragment;
 import edu.ucla.fusa.android.fragmentos.EventoCalendarioFragment;
 import edu.ucla.fusa.android.fragmentos.DrawerNoticiasListadoFragment;
 import edu.ucla.fusa.android.fragmentos.DrawerPerfilFragment;
@@ -40,7 +45,13 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         navigationDrawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         navigationList = ((ListView)findViewById(R.id.lista_funciones));
 
-        cargarMenuEstudiante();
+        Log.i("USUARIO", String.valueOf(getIntent().getIntExtra("user", -1)));
+        if (getIntent().getIntExtra("user", -1) == 1) {
+            cargarMenuEstudiante();
+        } else if (getIntent().getIntExtra("user", -1) == 2) {
+            cargarMenuInstructor();
+        }
+
         mDrawerToogle = new ActionBarDrawerToggle(this, navigationDrawer,
                 R.drawable.ic_navigation_drawer,
                 R.string.drawer_open,
@@ -69,7 +80,12 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     }
 
     public void onItemClick(AdapterView<?> paramAdapterView, View paramView, int position, long paramLong) {
-        showFragmentEstudiante(position);
+        if (getIntent().getIntExtra("user", -1) == 1) {
+            showFragmentEstudiante(position);
+        } else if (getIntent().getIntExtra("user", -1) == 2) {
+            showFragmentInstructor(position);
+        }
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -92,8 +108,14 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
 
     public void cargarMenuEstudiante() {
         header = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
+        CircleImageView foto = (CircleImageView) header.findViewById(R.id.iv_foto_perfil_drawer);
+        TextView nombre = (TextView) header.findViewById(R.id.etNombreDrawer);
+        TextView correo = (TextView) header.findViewById(R.id.etEmailDrawer);
+        foto.setImageResource(R.drawable.foto_perfil);
+        nombre.setText("Juan Labrador");
+        correo.setText("juan@example.com");
         iconos = getResources().obtainTypedArray(R.array.nav_icons_estudiante);
-        navigationList.addHeaderView(this.header);
+        navigationList.addHeaderView(header);
         titulos = getResources().getStringArray(R.array.nav_funciones_estudiante);
         items = new ArrayList();
         items.add(new ItemListDrawer(
@@ -119,8 +141,8 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 titulos[2],
                 iconos.getResourceId(2, -1)));
 
-        navigationAdapter = new NavigationAdapter(this, this.items);
-        navigationList.setAdapter(this.navigationAdapter);
+        navigationAdapter = new NavigationAdapter(this, items);
+        navigationList.setAdapter(navigationAdapter);
         navigationList.setOnItemClickListener(this);
     }
 
@@ -162,13 +184,19 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         }
         navigationList.setItemChecked(position, true);
         navigationList.setSelection(position);
-        navigationDrawer.closeDrawer(this.navigationList);
+        navigationDrawer.closeDrawer(navigationList);
     }
 
     public void cargarMenuInstructor() {
         header = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
+        CircleImageView foto = (CircleImageView) header.findViewById(R.id.iv_foto_perfil_drawer);
+        TextView nombre = (TextView) header.findViewById(R.id.etNombreDrawer);
+        TextView correo = (TextView) header.findViewById(R.id.etEmailDrawer);
+        foto.setImageResource(R.drawable.foto_instructor);
+        nombre.setText("Rafael \"Pollo\" Brito");
+        correo.setText("profesor@example.com");
         iconos = getResources().obtainTypedArray(R.array.nav_icons_instructor);
-        navigationList.addHeaderView(this.header);
+        navigationList.addHeaderView(header);
         titulos = getResources().getStringArray(R.array.nav_funciones_instructor);
         items = new ArrayList();
         items.add(new ItemListDrawer(
@@ -189,9 +217,12 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         items.add(new ItemListDrawer(
                 titulos[1],
                 iconos.getResourceId(1, -1)));
+        items.add(new ItemListDrawer(
+                titulos[2],
+                iconos.getResourceId(2, -1)));
 
-        navigationAdapter = new NavigationAdapter(this, this.items);
-        navigationList.setAdapter(this.navigationAdapter);
+        navigationAdapter = new NavigationAdapter(this, items);
+        navigationList.setAdapter(navigationAdapter);
         navigationList.setOnItemClickListener(this);
     }
 
@@ -204,15 +235,19 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                         .commit();
                 break;
             case 1:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, DrawerNoticiasListadoFragment.newInstance())
-                        .commit();
+
                 break;
             case 2:
                 break;
             case 3:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, DrawerPostulacionComodatoFragment.newInstance())
+                        .commit();
                 break;
             case 4:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, DrawerNoticiasListadoFragment.newInstance())
+                        .commit();
                 break;
             case 5:
                 getSupportFragmentManager().beginTransaction()

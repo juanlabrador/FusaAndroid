@@ -16,7 +16,6 @@
         android:id="@+id/iv_foto_perfil_drawer"
         android:layout_width="80.0dip"
         android:layout_height="80.0dip"
-        android:src="@drawable/foto_perfil"
         app:border_width="2.0dip"
         app:border_color="@color/blanco" />
 

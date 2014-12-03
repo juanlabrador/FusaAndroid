@@ -140,7 +140,8 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
 
     private class LoginTaks extends AsyncTask<String, Void, Integer> {
 
-        private JSONObject jsonObject;
+        private int user;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -163,7 +164,7 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
                 Log.i("ID", String.valueOf(estudiante.getId()));
                 if (estudiante.getId() != -1) { /** Si el usuario existe */
                     /** Guardamos sus datos internamente para que no se loguee de nuevo */
-
+                    user = estudiante.getUsuario().getId();
                     db.insertData(estudiante.getUsuario().getId(),
                             estudiante.getUsuario().getNombre(),
                             estudiante.getUsuario().getClave(),
@@ -194,7 +195,7 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
                     public void run() {
                         SystemClock.sleep(2000);
                         Log.i("Login", "Felicidades, te logueaste");
-                        startActivity(new Intent(getActivity(), VistasPrincipalesActivity.class));
+                        startActivity(new Intent(getActivity(), VistasPrincipalesActivity.class).putExtra("user", user));
                         getActivity().finish();
                     }
                 }).start();

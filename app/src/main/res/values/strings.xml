@@ -222,4 +222,7 @@
 
     <!-- Elementos de la ventana de mis clases -->
     <string name="mis_clases_action_bar">Mis clases</string>
+
+    <!-- Elementos de la ventana de postular a un comodato -->
+    <string name="comodato_action_bar">Solicitud de comodato</string>
 </resources>

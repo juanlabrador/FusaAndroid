@@ -21,7 +21,7 @@ import edu.ucla.fusa.android.modelo.academico.HorarioPorGrupo;
 /**
  * Created by juanlabrador on 25/11/14.
  */
-public class ExpandibleListAdapter extends BaseExpandableListAdapter {
+public class ExpandibleListHorarioAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
     private List<String> group; // header titles
@@ -32,8 +32,8 @@ public class ExpandibleListAdapter extends BaseExpandableListAdapter {
     private Calendar horaInicio = Calendar.getInstance();
     private Calendar horaFin = Calendar.getInstance();
 
-    public ExpandibleListAdapter(Context context, List<String> group,
-                                 HashMap<String, List<HorarioPorGrupo>> contenido) {
+    public ExpandibleListHorarioAdapter(Context context, List<String> group,
+                                        HashMap<String, List<HorarioPorGrupo>> contenido) {
         this._context = context;
         this.group = group;
         this.contenido = contenido;

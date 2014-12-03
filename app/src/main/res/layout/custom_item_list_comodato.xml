@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:background="@color/contenido_bg"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/bg_parent_rounded_corner"
+        android:paddingBottom="10.0dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginTop="10.0dip"
+        android:layout_marginRight="10.0dip">
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10.0dip"
+            android:paddingTop="10.0dip"
+            android:paddingRight="10.0dip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_foto_perfil_estudiante_comodato"
+                    android:layout_width="50dip"
+                    android:layout_height="50dip"
+                    android:src="@drawable/foto_perfil"
+                    app:border_width="1.0dip"
+                    app:border_color="@color/negro"
+                    android:layout_gravity="start"
+                    android:layout_marginBottom="15dp"/>
+
+                <ImageView
+                    android:id="@+id/btn_postular_estudiante_comodato"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_postular_estudiante_comodato"
+                    android:layout_gravity="bottom"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:padding="5dp">
+
+                <TextView
+                    android:textSize="16.0sp"
+                    android:id="@+id/tv_nombre_estudiante_comodato"
+                    android:paddingBottom="3.0dip"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/p1"
+                    android:singleLine="true"/>
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="3.0dip">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edad:"
+                        android:textColor="@color/azul_oscuro"/>
+
+                    <TextView
+                        android:id="@+id/tv_edad_estudiante_comodato"
+                        android:layout_width="0.0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10.0dip"
+                        android:text="13 años"
+                        android:layout_weight="1.0" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="3.0dip">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Instrumento:"
+                        android:textColor="@color/azul_oscuro"/>
+
+                    <TextView
+                        android:id="@+id/tv_instrumento_estudiante_comodato"
+                        android:layout_width="0.0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10.0dip"
+                        android:text="Guitarra"
+                        android:layout_weight="1.0"
+                        android:singleLine="true"/>
+                </LinearLayout>
+
+
+                <TextView
+                    android:textSize="14.0sp"
+                    android:textColor="@color/azul_oscuro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5.0dip"
+                    android:text="@string/contenido_barra_progreso_estudiante"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:id="@+id/barraNivel1"
+                        android:background="@color/nivel_2"
+                        android:layout_width="0.0dip"
+                        android:layout_height="5.0dip"
+                        android:layout_margin="2.0dip"
+                        android:layout_weight="1.0" />
+                    <View
+                        android:id="@+id/barraNivel2"
+                        android:background="@color/nivel_2"
+                        android:layout_width="0.0dip"
+                        android:layout_height="5.0dip"
+                        android:layout_margin="2.0dip"
+                        android:layout_weight="1.0" />
+                    <View
+                        android:id="@+id/barraNivel3"
+                        android:background="@android:color/darker_gray"
+                        android:layout_width="0.0dip"
+                        android:layout_height="5.0dip"
+                        android:layout_margin="2.0dip"
+                        android:layout_weight="1.0" />
+                    <View
+                        android:id="@+id/barraNivel4"
+                        android:background="@android:color/darker_gray"
+                        android:layout_width="0.0dip"
+                        android:layout_height="5.0dip"
+                        android:layout_margin="2.0dip"
+                        android:layout_weight="1.0" />
+                    <View
+                        android:id="@+id/barraNivel5"
+                        android:background="@android:color/darker_gray"
+                        android:layout_width="0.0dip"
+                        android:layout_height="5.0dip"
+                        android:layout_margin="2.0dip"
+                        android:layout_weight="1.0" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

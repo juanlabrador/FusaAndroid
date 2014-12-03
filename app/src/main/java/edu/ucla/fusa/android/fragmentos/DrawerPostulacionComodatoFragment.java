@@ -14,26 +14,32 @@ import java.util.List;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.ExpandibleListHorarioAdapter;
-import edu.ucla.fusa.android.modelo.academico.Grupo;
+import edu.ucla.fusa.android.adaptadores.ExpandibleListPostulacionComodatoAdapter;
 import edu.ucla.fusa.android.modelo.academico.AreaEstudio;
 import edu.ucla.fusa.android.modelo.academico.Dia;
+import edu.ucla.fusa.android.modelo.academico.Estudiante;
+import edu.ucla.fusa.android.modelo.academico.Grupo;
 import edu.ucla.fusa.android.modelo.academico.Horario;
 import edu.ucla.fusa.android.modelo.academico.HorarioPorGrupo;
 import edu.ucla.fusa.android.modelo.academico.Instructor;
+import edu.ucla.fusa.android.modelo.academico.Usuario;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListEstudiantesComodato;
+import edu.ucla.fusa.android.modelo.instrumentos.Instrumento;
+import edu.ucla.fusa.android.modelo.instrumentos.PostulacionComodato;
 
 /**
  * Created by juanlabrador on 24/11/14.
  */
-public class DrawerHorarioFragment extends Fragment {
+public class DrawerPostulacionComodatoFragment extends Fragment {
 
     private View view;
-    private ExpandibleListHorarioAdapter adapter;
+    private ExpandibleListPostulacionComodatoAdapter adapter;
     private ExpandableListView expandableListView;
     private List<String> grupo;
-    private HashMap<String, List<HorarioPorGrupo>> contenido;
+    private HashMap<String, List<ItemListEstudiantesComodato>> contenido;
 
-    public static DrawerHorarioFragment newInstance() {
-        DrawerHorarioFragment fragment = new DrawerHorarioFragment();
+    public static DrawerPostulacionComodatoFragment newInstance() {
+        DrawerPostulacionComodatoFragment fragment = new DrawerPostulacionComodatoFragment();
         fragment.setRetainInstance(true);
         return fragment;
     }
@@ -41,13 +47,13 @@ public class DrawerHorarioFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        view = inflater.inflate(R.layout.fragment_drawer_schedule, container, false);
+        view = inflater.inflate(R.layout.fragment_drawer_postulacion_comodato, container, false);
 
-        expandableListView = (ExpandableListView) view.findViewById(R.id.list_view_horario);
+        expandableListView = (ExpandableListView) view.findViewById(R.id.list_view_estudiantes_comodato);
 
         prepareListData();
 
-        adapter = new ExpandibleListHorarioAdapter(getActivity(), grupo, contenido);
+        adapter = new ExpandibleListPostulacionComodatoAdapter(getActivity(), grupo, contenido);
 
         expandableListView.setAdapter(adapter);
 
@@ -96,69 +102,45 @@ public class DrawerHorarioFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().getActionBar().setIcon(R.drawable.ic_mis_clases_blanco);
-        getActivity().getActionBar().setTitle(R.string.mis_clases_action_bar);
+        getActivity().getActionBar().setIcon(R.drawable.ic_postular_comodato_blanco);
+        getActivity().getActionBar().setTitle(R.string.comodato_action_bar);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().getActionBar().setIcon(R.drawable.ic_mis_clases_blanco);
-        getActivity().getActionBar().setTitle(R.string.mis_clases_action_bar);
+        getActivity().getActionBar().setIcon(R.drawable.ic_postular_comodato_blanco);
+        getActivity().getActionBar().setTitle(R.string.comodato_action_bar);
     }
 
     private void prepareListData() {
         grupo = new ArrayList<String>();
-        contenido = new HashMap<String, List<HorarioPorGrupo>>();
+        contenido = new HashMap<String, List<ItemListEstudiantesComodato>>();
 
         // Adding child data
-        grupo.add("Lunes");
-        grupo.add("Martes");
-        grupo.add("Miercoles");
-        grupo.add("Jueves");
-        grupo.add("Viernes");
-        grupo.add("Sábado");
-
+        grupo.add("Grupo - Edad 7");
+        grupo.add("Grupo - Edad 11");
 
 
 
         // Adding child data
-        List<HorarioPorGrupo> lunes = new ArrayList<HorarioPorGrupo>();
-        lunes.add(new HorarioPorGrupo(1,
-                new AreaEstudio(1, "Cerca del baño"),
-                new Horario(1, new Dia(1, "Lunes"), Calendar.getInstance(), Calendar.getInstance()),
-                new Grupo(1, "Orquesta Larense Juvenil", new Instructor(1, "Francisco Andrade"), 2)));
+        List<ItemListEstudiantesComodato> nive7 = new ArrayList<ItemListEstudiantesComodato>();
+        nive7.add(new ItemListEstudiantesComodato(R.drawable.foto_perfil, "Juan Labrador", 7, "Guitarra", 3));
+        nive7.add(new ItemListEstudiantesComodato(R.drawable.comentario8, "Jaime Daza", 7, "Guitarra", 2));
+        nive7.add(new ItemListEstudiantesComodato(R.drawable.comentario6, "Ana Ure", 7, "Guitarra", 4));
+        nive7.add(new ItemListEstudiantesComodato(R.drawable.comentario3, "Jorge Aponte", 7, "Guitarra", 1));
 
-        List<HorarioPorGrupo> martes = new ArrayList<HorarioPorGrupo>();
-
-        List<HorarioPorGrupo> miercoles = new ArrayList<HorarioPorGrupo>();
-        miercoles.add(new HorarioPorGrupo(1,
-                new AreaEstudio(1, "Cerca del baño"),
-                new Horario(1, new Dia(3, "Miercoles"), Calendar.getInstance(), Calendar.getInstance()),
-                new Grupo(1, "Orquesta Larense Juvenil", new Instructor(1, "Francisco Andrade"), 2)));
-        miercoles.add(new HorarioPorGrupo(1,
-                new AreaEstudio(1, "ET-09"),
-                new Horario(1, new Dia(3, "Miercoles"), Calendar.getInstance(), Calendar.getInstance()),
-                new Grupo(2, "Guitarra", new Instructor(2, "Axel Fernando"), 1)));
 
         // Adding child data
-        List<HorarioPorGrupo> jueves = new ArrayList<HorarioPorGrupo>();
+        List<ItemListEstudiantesComodato> nive11 = new ArrayList<ItemListEstudiantesComodato>();
+        nive11.add(new ItemListEstudiantesComodato(R.drawable.comentario2, "Miguel Nesterovsky", 11, "Guitarra", 4));
+        nive11.add(new ItemListEstudiantesComodato(R.drawable.comentario5, "Xioang Sanguino", 11, "Guitarra", 3));
+        nive11.add(new ItemListEstudiantesComodato(R.drawable.comentario10, "Angelica Morales", 11, "Guitarra", 3));
+        nive11.add(new ItemListEstudiantesComodato(R.drawable.comentario9, "Alexis Colina", 11, "Guitarra", 2));
 
-        List<HorarioPorGrupo> viernes = new ArrayList<HorarioPorGrupo>();
-        viernes.add(new HorarioPorGrupo(1,
-                new AreaEstudio(1, "ET-09"),
-                new Horario(1, new Dia(3, "Viernes"), Calendar.getInstance(), Calendar.getInstance()),
-                new Grupo(2, "Guitarra", new Instructor(2, "Axel Fernando"), 1)));
 
-        List<HorarioPorGrupo> sabado = new ArrayList<HorarioPorGrupo>();
+        contenido.put(grupo.get(0), nive7);
+        contenido.put(grupo.get(1), nive11);
 
-        contenido.put(grupo.get(0), lunes);
-        contenido.put(grupo.get(1), martes);
-        contenido.put(grupo.get(2), miercoles);
-        contenido.put(grupo.get(3), jueves);
-        contenido.put(grupo.get(4), viernes);
-        contenido.put(grupo.get(5), sabado);
     }
-
-
 }

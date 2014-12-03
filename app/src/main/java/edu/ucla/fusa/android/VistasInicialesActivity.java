@@ -72,7 +72,7 @@ public class VistasInicialesActivity extends FragmentActivity implements ViewPag
         estudiante = db.searchUser();
         if (estudiante != null)
             if (estudiante.getUsuario().getNombre() != null && estudiante.getUsuario().getClave() != null) {
-                startActivity(new Intent(this, VistasPrincipalesActivity.class));
+                startActivity(new Intent(this, VistasPrincipalesActivity.class).putExtra("user", estudiante.getUsuario().getId()));
                 finish();
             }
     }

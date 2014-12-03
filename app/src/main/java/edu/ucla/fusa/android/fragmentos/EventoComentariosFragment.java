@@ -71,7 +71,7 @@ public class EventoComentariosFragment extends Fragment implements View.OnClickL
     private class CargarComentariosTask extends AsyncTask<Void, Void, Void> {
 
         protected Void doInBackground(Void[] paramArrayOfVoid) {
-            list.addHeaderView(EventoComentariosFragment.this.header);
+            list.addHeaderView(header);
             items.add(new ItemListComentario(R.drawable.comentario1,
                     "Silvana Dorantes", 5,
                     calendar.getTime(),

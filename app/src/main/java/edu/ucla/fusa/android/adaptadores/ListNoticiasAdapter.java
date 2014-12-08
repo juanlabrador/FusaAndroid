@@ -1,6 +1,8 @@
 package edu.ucla.fusa.android.adaptadores;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,8 @@ import android.widget.Toast;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ListNoticiasAdapter extends BaseAdapter implements View.OnClickListener {
@@ -19,13 +23,12 @@ public class ListNoticiasAdapter extends BaseAdapter implements View.OnClickList
     private Activity activity;
     private ArrayList<ItemListNoticia> arrayItems;
     private Fila fila;
-    private ListFragment fragment;
     private ItemListNoticia item;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy");
 
-    public ListNoticiasAdapter(Activity paramActivity, ListFragment paramListFragment, ArrayList<ItemListNoticia> paramArrayList) {
+    public ListNoticiasAdapter(Activity paramActivity, ArrayList<ItemListNoticia> paramArrayList) {
         this.activity = paramActivity;
         this.arrayItems = paramArrayList;
-        this.fragment = paramListFragment;
     }
 
     public int getCount() {
@@ -38,6 +41,13 @@ public class ListNoticiasAdapter extends BaseAdapter implements View.OnClickList
 
     public long getItemId(int paramInt) {
         return paramInt;
+    }
+
+    public static class Fila {
+        ImageView boton;
+        TextView fecha;
+        ImageView imagen;
+        TextView titulo;
     }
 
     public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
@@ -56,8 +66,15 @@ public class ListNoticiasAdapter extends BaseAdapter implements View.OnClickList
             fila = ((Fila) paramView.getTag());
             item = arrayItems.get(paramInt);
             fila.titulo.setText(item.getTitulo());
-            fila.fecha.setText(item.getFecha());
-            fila.imagen.setImageResource(item.getImagen());
+            fila.fecha.setText(dateFormat.format(item.getFecha()));
+            if (item.getImagen() != null) {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 8;
+                Bitmap bmp = BitmapFactory.decodeByteArray(item.getImagen(), 0, item.getImagen().length, options);
+                fila.imagen.setImageBitmap(bmp);
+            } else {
+                fila.imagen.setVisibility(View.GONE);
+            }
         }
         return paramView;
     }
@@ -70,10 +87,4 @@ public class ListNoticiasAdapter extends BaseAdapter implements View.OnClickList
         }
     }
 
-    public static class Fila {
-        ImageView boton;
-        TextView fecha;
-        ImageView imagen;
-        TextView titulo;
-    }
 }

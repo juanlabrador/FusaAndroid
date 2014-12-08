@@ -1,6 +1,7 @@
 package edu.ucla.fusa.android.adaptadores;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,22 +41,36 @@ public class ListAplicationsAdapter extends BaseAdapter {
 
         if (paramView == null) {
             fila = new Fila();
-            ItemListAplications item = arrayItems.get(paramInt);
             View view = layoutInflater.inflate(R.layout.custom_item_list_aplicaciones, null);
             fila.titulo = (TextView) view.findViewById(R.id.tvTituloApp);
-            fila.titulo.setText(item.getTitulo());
             fila.icono = (ImageView) view.findViewById(R.id.ivIconoApp);
-            fila.icono.setImageResource(item.getIcono());
+            fila.check = (ImageView) view.findViewById(R.id.ivIconoActivacionApp);
+
+            Log.i("NUMERO", String.valueOf(paramInt));
+            ItemListAplications item = arrayItems.get(paramInt);
+            fila.titulo.setText(item.getApp());
+            fila.icono.setImageResource(item.getIcon());
+            if (item.isConnected()) {
+                fila.check.setVisibility(View.VISIBLE);
+                fila.titulo.setTextColor(activity.getResources().getColor(android.R.color.holo_blue_light));
+            } else {
+                fila.check.setVisibility(View.INVISIBLE);
+                fila.titulo.setTextColor(activity.getResources().getColor(R.color.gris_oscuro));
+            }
+
             view.setTag(fila);
             return view;
         } else {
             fila = (Fila) paramView.getTag();
         }
+
+
         return paramView;
     }
 
     public static class Fila {
         ImageView icono;
         TextView titulo;
+        ImageView check;
     }
 }

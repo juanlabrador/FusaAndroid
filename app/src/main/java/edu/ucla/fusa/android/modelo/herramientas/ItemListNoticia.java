@@ -1,33 +1,37 @@
 package edu.ucla.fusa.android.modelo.herramientas;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class ItemListNoticia {
+
     public String descripcion;
-    public String fecha;
-    public int id;
-    public int imagen;
+    public Date fecha;
+    public long id;
+    public byte[] imagen;
     public String titulo;
 
-    public ItemListNoticia(int paramInt1, String paramString1, String paramString2, int paramInt2, String paramString3) {
-        this.id = paramInt1;
-        this.titulo = paramString1;
-        this.fecha = paramString2;
-        this.imagen = paramInt2;
-        this.descripcion = paramString3;
+    public ItemListNoticia(long id, String titulo, Date fecha, byte[] imagen, String descripcion) {
+        this.id = id;
+        this.titulo = titulo;
+        this.fecha = fecha;
+        this.imagen = imagen;
+        this.descripcion = descripcion;
     }
 
     public String getDescripcion() {
         return this.descripcion;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return this.fecha;
     }
 
-    public int getId() {
+    public long getId() {
         return this.id;
     }
 
-    public int getImagen() {
+    public byte[] getImagen() {
         return this.imagen;
     }
 
@@ -35,23 +39,23 @@ public class ItemListNoticia {
         return this.titulo;
     }
 
-    public void setDescripcion(String paramString) {
-        this.descripcion = paramString;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public void setFecha(String paramString) {
-        this.fecha = paramString;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public void setId(int paramInt) {
         this.id = paramInt;
     }
 
-    public void setImagen(int paramInt) {
-        this.imagen = paramInt;
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
 
-    public void setTitulo(String paramString) {
-        this.titulo = paramString;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 }

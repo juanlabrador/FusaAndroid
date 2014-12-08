@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 android {
     compileSdkVersion 17
-    buildToolsVersion "20.0.0"
+    buildToolsVersion '21.1.1'
 
     defaultConfig {
         applicationId "edu.ucla.fusa.android"
@@ -44,4 +44,7 @@ dependencies {
     compile project(':libraryTimesSquare')
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
+    compile('com.github.androidsocialnetworks:library:0.3.7@aar') {
+        transitive = true
+    }
 }

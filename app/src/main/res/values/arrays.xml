@@ -3,9 +3,15 @@
     <array name="icons_app">
         <item>@drawable/ic_facebook_disable</item>
         <item>@drawable/ic_google_disable</item>
-        <item>@drawable/ic_instagram_disable</item>
         <item>@drawable/ic_twitter_disable</item>
     </array>
+
+    <array name="icons_app_activado">
+        <item>@drawable/ic_facebook_enable</item>
+        <item>@drawable/ic_google_enable</item>
+        <item>@drawable/ic_twitter_enable</item>
+    </array>
+
     <array name="icons_contacto">
         <item>@drawable/ic_datos</item>
         <item>@drawable/ic_ubicacion</item>
@@ -69,7 +75,6 @@
     <string-array name="redes_app">
         <item>Facebook</item>
         <item>Google+</item>
-        <item>Instagram</item>
         <item>Twitter</item>
     </string-array>
 

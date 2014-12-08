@@ -2,27 +2,37 @@ package edu.ucla.fusa.android.modelo.herramientas;
 
 public class ItemListAplications {
 
-    private int icono;
-    private String titulo;
+    private int icon;
+    private String app;
+    private boolean connected;
 
-    public ItemListAplications(String paramString, int paramInt) {
-        this.titulo = paramString;
-        this.icono = paramInt;
+    public ItemListAplications(String app, int icon, boolean connected) {
+        this.app = app;
+        this.icon = icon;
+        this.connected = connected;
     }
 
-    public int getIcono() {
-        return this.icono;
+    public int getIcon() {
+        return icon;
     }
 
-    public String getTitulo() {
-        return this.titulo;
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 
-    public void setIcono(int paramInt) {
-        this.icono = paramInt;
+    public String getApp() {
+        return app;
     }
 
-    public void setTitulo(String paramString) {
-        this.titulo = paramString;
+    public void setApp(String app) {
+        this.app = app;
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
     }
 }

@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
@@ -22,15 +21,13 @@ import com.dd.CircularProgressButton;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.VistasPrincipalesActivity;
-import edu.ucla.fusa.android.modelo.JSONParser;
+import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
 import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
 import edu.ucla.fusa.android.validadores.ValidadorEmails;

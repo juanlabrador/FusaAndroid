@@ -225,4 +225,8 @@
 
     <!-- Elementos de la ventana de postular a un comodato -->
     <string name="comodato_action_bar">Solicitud de comodato</string>
+
+
+    <string name="TAG_TITULO_NOTICIA">"Titulo"</string>
+    <string name="TAG_IMAGEN_NOTICIA">"Imagen"</string>
 </resources>

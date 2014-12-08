@@ -158,7 +158,8 @@ public class ConfiguracionAplicacionesFragment extends Fragment implements Adapt
         // let's reset buttons, we need to disable buttons
         onSocialNetworkManagerInitialized();
         hideProgress();
-        handleSuccess("onLoginSuccess", "Now you can try other API Demos.");
+        //handleSuccess("onLoginSuccess", "Now you can try other API Demos.");
+        handleSuccess("Logueado correctamente", "Ahora puedes compartir noticias.");
 
         items.clear();
         items.add(new ItemListAplications(
@@ -185,7 +186,8 @@ public class ConfiguracionAplicacionesFragment extends Fragment implements Adapt
     @Override
     public void onError(int socialNetworkID, String requestID, String errorMessage, Object data) {
         hideProgress();
-        handleError(errorMessage);
+        //handleError(errorMessage);
+        handleError("Cancelado...");
 
         items.clear();
         items.add(new ItemListAplications(

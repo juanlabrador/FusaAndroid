@@ -92,7 +92,7 @@ public class DrawerNoticiasListadoFragment extends ListFragment implements Adapt
         items = db.searchNews();
         if (items != null) {
             Log.i("CANTIDAD", String.valueOf(items.size()));
-            adapter = new ListNoticiasAdapter(getActivity(), items);
+            adapter = new ListNoticiasAdapter(getActivity(), items, this);
             setListAdapter(adapter);
             //if (index != -1) {
                 //getListView().setSelectionFromTop(index, 0);
@@ -160,7 +160,7 @@ public class DrawerNoticiasListadoFragment extends ListFragment implements Adapt
             super.onPostExecute(response);
             list.onRefreshComplete();
             if (response == 100) {
-                adapter = new ListNoticiasAdapter(getActivity(), items);
+                adapter = new ListNoticiasAdapter(getActivity(), items, DrawerNoticiasListadoFragment.this);
                 getListView().addFooterView(backToTop);
                 setListAdapter(adapter);
                 getListView().removeFooterView(backToTop);

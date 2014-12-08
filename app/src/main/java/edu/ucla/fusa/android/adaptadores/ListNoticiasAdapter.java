@@ -173,7 +173,7 @@ public class ListNoticiasAdapter extends BaseAdapter implements View.OnClickList
                                         }
                                         if (file != null) {
                                             showProgress("Compartiendo en Twitter...");
-                                            socialNetworkManager.getTwitterSocialNetwork().requestPostPhoto(file, titulo);
+                                            socialNetworkManager.getTwitterSocialNetwork().requestPostPhoto(file, titulo,
                                                     new NoticiaOnPostingCompleteListener(null));
                                         } else {
                                             showProgress("Compartiendo en Twitter...");

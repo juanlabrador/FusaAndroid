@@ -41,6 +41,7 @@ import edu.ucla.fusa.android.modelo.academico.Estudiante;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
@@ -61,6 +62,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private TextView correo;
     private ProgressBar progress;
     private TextView descripcionProgress;
+    private Estudiante estudiante;
 
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
@@ -75,7 +77,21 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
 
         Log.i("USUARIO", String.valueOf(getIntent().getIntExtra("tipoUser", -1)));
         if (getIntent().getIntExtra("tipoUser", -1) == 1) {
-            new BuscarEstudiante().execute(getIntent().getStringExtra("user"));
+            try {
+                estudiante = db.searchUser();
+                if (estudiante != null) {
+                    Log.i(TAG, "Entra en los datos guardados");
+                    cargarMenuEstudiante(estudiante.getNombre(), estudiante.getCorreo(), estudiante.getImagen());
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frame_container, DrawerNoticiasListadoFragment.newInstance())
+                            .commit();
+                } else {
+                    Log.i(TAG, "Busca datos en el servidor");
+                    new BuscarEstudiante().execute(getIntent().getStringExtra("user"));
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         } else if (getIntent().getIntExtra("tipoUser", -1) == 2) {
             cargarMenuInstructor();
         }
@@ -174,6 +190,10 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         navigationAdapter = new NavigationAdapter(this, items);
         navigationList.setAdapter(navigationAdapter);
         navigationList.setOnItemClickListener(this);
+
+        getActionBar().show();
+        progress.setVisibility(View.GONE);
+        descripcionProgress.setVisibility(View.GONE);
     }
 
     private void showFragmentEstudiante(int position) {
@@ -313,6 +333,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         private String nombre;
         private String correo;
         private byte[] foto;
+        private Estudiante estudiante;
 
         @Override
         protected void onPreExecute() {
@@ -328,7 +349,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             parametros.add(new BasicNameValuePair("username", params[0]));
 
             /** Mandamos los parametros y esperemos una respuesta del servidor */
-            Estudiante estudiante = jsonParser.serviceEstudiante(parametros);
+            estudiante = jsonParser.serviceEstudiante(parametros);
             if (estudiante != null) {
                 if (estudiante.getId() != -1) { /** Si el estudiante existe */
 

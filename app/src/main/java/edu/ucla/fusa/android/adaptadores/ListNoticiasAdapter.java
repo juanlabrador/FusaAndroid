@@ -1,10 +1,7 @@
 package edu.ucla.fusa.android.adaptadores;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
@@ -15,13 +12,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.androidsocialnetworks.lib.SocialNetworkManager;
-import com.androidsocialnetworks.lib.impl.FacebookSocialNetwork;
 import com.androidsocialnetworks.lib.impl.TwitterSocialNetwork;
 import com.androidsocialnetworks.lib.listener.OnLoginCompleteListener;
 import com.androidsocialnetworks.lib.listener.OnPostingCompleteListener;
+import com.squareup.picasso.Picasso;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.modelo.herramientas.AlertDialogFragment;
@@ -48,6 +44,7 @@ public class ListNoticiasAdapter extends BaseAdapter implements View.OnClickList
     private ArrayList<ItemListOpcionesMultimedia> items = new ArrayList();
     private SocialNetworkManager socialNetworkManager;
     protected boolean socialNetworkManagerInitialized = false;
+    private static String URL = "http://10.0.3.2:8080/fusa.frontend/webservices/rest/uploads/";
 
     public ListNoticiasAdapter(FragmentActivity activity, ArrayList<ItemListNoticia> paramArrayList, ListFragment fragment) {
         this.activity = activity;
@@ -122,6 +119,13 @@ public class ListNoticiasAdapter extends BaseAdapter implements View.OnClickList
           paramView.setTag(fila);
           fila.boton.setTag(R.string.TAG_TITULO_NOTICIA, arrayItems.get(paramInt).getTitulo());
           fila.boton.setTag(R.string.TAG_IMAGEN_NOTICIA, arrayItems.get(paramInt).getImagen());
+
+            item = arrayItems.get(paramInt);
+            fila.titulo.setText(item.getTitulo());
+            fila.fecha.setText(dateFormat.format(item.getFecha()));
+            Log.i(TAG, "RUTA IMAGEN: " +URL + item.getId());
+            Picasso.with(activity).load(URL + item.getId()).into(fila.imagen);
+            fila.boton.setOnClickListener(this);
         } else {
             fila = ((Fila) paramView.getTag());
             fila.boton.setTag(R.string.TAG_TITULO_NOTICIA, arrayItems.get(paramInt).getTitulo());
@@ -129,14 +133,18 @@ public class ListNoticiasAdapter extends BaseAdapter implements View.OnClickList
             item = arrayItems.get(paramInt);
             fila.titulo.setText(item.getTitulo());
             fila.fecha.setText(dateFormat.format(item.getFecha()));
-            if (item.getImagen() != null) {
+            Log.i(TAG, "RUTA IMAGEN: " +URL + item.getId());
+            Picasso.with(activity)
+                    .load(URL + item.getId())
+                    .into(fila.imagen);
+            /*if (item.getImagen() != null) {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 8;
                 Bitmap bmp = BitmapFactory.decodeByteArray(item.getImagen(), 0, item.getImagen().length, options);
                 fila.imagen.setImageBitmap(bmp);
             } else {
                 fila.imagen.setVisibility(View.GONE);
-            }
+            }*/
             fila.boton.setOnClickListener(this);
         }
         return paramView;

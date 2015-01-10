@@ -17,7 +17,7 @@ import edu.ucla.fusa.android.modelo.academico.Usuario;
  */
 public class EstudianteTable {
 
-    private static String TABLE_NAME = "estudiante";
+    public static String TABLE_NAME = "estudiante";
     private static String COLUMN_ID = "id";
     private static String COLUMN_NOMBRE = "nombre";
     private static String COLUMN_APELLIDO = "apellido";
@@ -108,17 +108,18 @@ public class EstudianteTable {
             estudiante.setNombre(cursor.getString(1));
             estudiante.setApellido(cursor.getString(2));
             estudiante.setCedula(cursor.getString(3));
-            estudiante.setDireccion(cursor.getString(4));
-            estudiante.setEdad(cursor.getInt(5));
-            estudiante.setFechanac(dateFormat.parse(cursor.getString(6)));
-            estudiante.setSexo(cursor.getString(7));
-            estudiante.setTelefonoFijo(cursor.getString(8));
-            estudiante.setTelefonoMovil(cursor.getString(9));
-            estudiante.setImagen(cursor.getBlob(10));
-            estudiante.setBecado(cursor.getString(11));
-            estudiante.setInscritoConservatorio(cursor.getString(12));
-            estudiante.setInscritoCoro(cursor.getString(13));
-            estudiante.setInstrumentoPropio(cursor.getString(14));
+            estudiante.setCorreo(cursor.getString(4));
+            estudiante.setDireccion(cursor.getString(5));
+            estudiante.setEdad(cursor.getInt(6));
+            estudiante.setFechanac(dateFormat.parse(cursor.getString(7)));
+            estudiante.setSexo(cursor.getString(8));
+            estudiante.setTelefonoFijo(cursor.getString(9));
+            estudiante.setTelefonoMovil(cursor.getString(10));
+            estudiante.setImagen(cursor.getBlob(11));
+            estudiante.setBecado(cursor.getString(12));
+            estudiante.setInscritoConservatorio(cursor.getString(13));
+            estudiante.setInscritoCoro(cursor.getString(14));
+            estudiante.setInstrumentoPropio(cursor.getString(15));
 
         } else {
             estudiante = null;

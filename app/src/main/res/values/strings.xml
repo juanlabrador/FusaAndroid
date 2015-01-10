@@ -119,6 +119,7 @@
     <string name="mensaje_error_conexion">¡Ups, no esta conectado a Internet! Por favor, conectese a una red.</string>
     <string name="mensaje_error_servidor">¡Ups, estamos presentando problemas con el servidor! Por favor, intente más tarde.</string>
     <string name="mensaje_error_busqueda">¡Ups, hubo un error al cargar, intente más tarde!</string>
+    <string name="mensaje_busqueda_vacio_noticias">Las noticias estan actualizadas.</string>
     <string name="nivel_calificacion_evento_1">No me gustó en lo absoluto</string>
     <string name="nivel_calificacion_evento_2">No me gustó</string>
     <string name="nivel_calificacion_evento_3">Está bien</string>

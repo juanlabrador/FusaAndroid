@@ -11,8 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import edu.ucla.fusa.android.DB.NoticiasTable;
 import edu.ucla.fusa.android.R;
@@ -34,6 +39,7 @@ public class DrawerNoticiasListadoFragment extends ListFragment implements Adapt
     private View view;
     private JSONParser jsonParser = new JSONParser();
     private NoticiasTable db;
+    private static String TAG = "DrawerNoticiasListadoFragment";
 
     public static DrawerNoticiasListadoFragment newInstance() {
         DrawerNoticiasListadoFragment fragment = new DrawerNoticiasListadoFragment();
@@ -90,9 +96,10 @@ public class DrawerNoticiasListadoFragment extends ListFragment implements Adapt
         getActivity().getActionBar().setTitle(R.string.contenido_noticia_action_bar_titulo);
         getActivity().getActionBar().setIcon(R.drawable.ic_noticias_blanco);
         items = db.searchNews();
-        if (items != null) {
+        if (items.size() != 0) {
             Log.i("CANTIDAD", String.valueOf(items.size()));
             adapter = new ListNoticiasAdapter(getActivity(), items, this);
+            adapter.notifyDataSetChanged();
             setListAdapter(adapter);
             //if (index != -1) {
                 //getListView().setSelectionFromTop(index, 0);
@@ -110,8 +117,9 @@ public class DrawerNoticiasListadoFragment extends ListFragment implements Adapt
     private class GetDataTask extends AsyncTask<Void, Void, Void> {
 
         protected Void doInBackground(Void[] paramArrayOfVoid) {
-            SystemClock.sleep(2000L);
-            jsonParser.listadoNoticias();
+            SystemClock.sleep(2000);
+            ItemListNoticia item = (ItemListNoticia) adapter.getItem(0);
+            new LoadingNewsNoticiasTaks().execute(String.valueOf(item.getId()));
             return null;
         }
 
@@ -132,12 +140,74 @@ public class DrawerNoticiasListadoFragment extends ListFragment implements Adapt
         }
 
         protected Integer doInBackground(Void[] paramArrayOfVoid) {
-            SystemClock.sleep(2000L);
-            ArrayList<Noticia> noticias = jsonParser.listadoNoticias();
+            SystemClock.sleep(2000);
+            ArrayList<Noticia> noticias = jsonParser.serviceLoadingNoticias();
             if (noticias != null) {
                 for (Noticia noticia : noticias) {
                     //Agregamos a la lista de noticias
-                    items.add(new ItemListNoticia(
+                    items.add(0, new ItemListNoticia(
+                            noticia.getId(),
+                            noticia.getTitulo(),
+                            noticia.getFechapublicacion().getTime(),
+                            noticia.getImagen(),
+                            noticia.getDescripcion()));
+                    //Guardamos en la base de datos
+                    db.insertData(noticia.getTitulo(),
+                            noticia.getDescripcion(),
+                            noticia.getFechapublicacion().getTime(),
+                            noticia.getImagen(),
+                            noticia.getId());
+                }
+                return 100;
+            } else {
+                return 0;
+            }
+        }
+
+        protected void onPostExecute(Integer response) {
+            super.onPostExecute(response);
+            if (response == 100) {
+                adapter = new ListNoticiasAdapter(getActivity(), items, DrawerNoticiasListadoFragment.this);
+                getListView().addFooterView(backToTop);
+                setListAdapter(adapter);
+                getListView().removeFooterView(backToTop);
+                getListView().post(new Runnable() {
+                    public void run() {
+                        int i = DrawerNoticiasListadoFragment.this.getListView().getLastVisiblePosition();
+                        int j = DrawerNoticiasListadoFragment.this.getListAdapter().getCount();
+                        if (i + 1 < j)
+                            getListView().addFooterView(backToTop);
+                    }
+                });
+            } else {
+                getView().findViewById(R.id.progress_bar).setVisibility(View.GONE);
+                getListView().setEmptyView(getView().findViewById(R.id.tv_empty_text));
+            }
+        }
+
+    }
+
+    private class LoadingNewsNoticiasTaks extends AsyncTask<String, Void, Integer> {
+
+        private ArrayList<ItemListNoticia> items = new ArrayList();
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            items.clear();
+        }
+
+        protected Integer doInBackground(String... params) {
+            SystemClock.sleep(2000);
+            /** Cargamos los parametros que enviaremos por URL */
+            ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
+            parametros.add(new BasicNameValuePair("ultimaNoticia", params[0]));
+            Log.i(TAG, "Ultimo de la lista " + params[0]);
+            ArrayList<Noticia> noticias = jsonParser.serviceRefreshNoticias(parametros);
+            Log.i(TAG, "Tamaño de la lista " + noticias.size());
+            if (noticias.size() != 0) {
+                for (Noticia noticia : noticias) {
+                    //Agregamos a la lista de noticias
+                    items.add(0, new ItemListNoticia(
                             noticia.getId(),
                             noticia.getTitulo(),
                             noticia.getFechapublicacion().getTime(),
@@ -163,6 +233,7 @@ public class DrawerNoticiasListadoFragment extends ListFragment implements Adapt
                 adapter = new ListNoticiasAdapter(getActivity(), items, DrawerNoticiasListadoFragment.this);
                 getListView().addFooterView(backToTop);
                 setListAdapter(adapter);
+                adapter.notifyDataSetChanged();
                 getListView().removeFooterView(backToTop);
                 getListView().post(new Runnable() {
                     public void run() {
@@ -173,7 +244,7 @@ public class DrawerNoticiasListadoFragment extends ListFragment implements Adapt
                     }
                 });
             } else {
-                getListView().setEmptyView(getView().findViewById(R.id.tv_empty_text));
+                Toast.makeText(getActivity(), R.string.mensaje_busqueda_vacio_noticias, Toast.LENGTH_SHORT).show();
             }
         }
 

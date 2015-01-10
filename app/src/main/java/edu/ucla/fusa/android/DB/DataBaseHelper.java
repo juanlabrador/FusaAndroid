@@ -19,12 +19,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(UserTable.CREATE_TABLE);
+        db.execSQL(EstudianteTable.CREATE_TABLE);
         db.execSQL(NoticiasTable.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i2) {
         db.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + EstudianteTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + NoticiasTable.TABLE_NAME);
         onCreate(db);
     }

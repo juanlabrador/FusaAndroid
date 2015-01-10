@@ -48,13 +48,25 @@ public class JSONParser {
         return null;
     }
 
-    public ArrayList<Noticia> listadoNoticias() {
+    public ArrayList<Noticia> serviceLoadingNoticias() {
         try {
             restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            ResponseEntity<Noticia[]> responseEntity = restTemplate.getForEntity(URL + "noticias", Noticia[].class);
-            ArrayList<Noticia> noticias = new ArrayList<Noticia>(Arrays.asList(responseEntity.getBody()));
-            return noticias;
+            ResponseEntity<Noticia[]> responseEntity = restTemplate.getForEntity(URL + "ServiceNoticias", Noticia[].class);
+            return new ArrayList<Noticia>(Arrays.asList(responseEntity.getBody()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<Noticia> serviceRefreshNoticias(ArrayList<NameValuePair> params) {
+        try {
+            restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            parametros = "ServiceNewNoticias/" + params.get(0).getValue();
+            ResponseEntity<Noticia[]> responseEntity = restTemplate.getForEntity(URL + parametros, Noticia[].class);
+            return new ArrayList<Noticia>(Arrays.asList(responseEntity.getBody()));
         } catch (Exception e) {
             e.printStackTrace();
         }

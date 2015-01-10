@@ -9,7 +9,8 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
-import edu.ucla.fusa.android.modelo.eventos.Noticia;
+import edu.ucla.fusa.android.modelo.academico.Usuario;
+import edu.ucla.fusa.android.modelo.fundacion.Noticia;
 
 /**
  * Created by juanlabrador on 17/11/14.
@@ -17,20 +18,30 @@ import edu.ucla.fusa.android.modelo.eventos.Noticia;
 
 public class JSONParser {
 
-    private static String URL2 = "http://10.0.3.2:8080/miserviciorest/";
     private static String URL = "http://10.0.3.2:8080/fusa.frontend/webservices/rest/";
     private String parametros;
     private RestTemplate restTemplate;
 
     public JSONParser() {}
 
-    public Estudiante validarUsuario(ArrayList<NameValuePair> params) {
+    public Usuario serviceLogin(ArrayList<NameValuePair> params) {
         try {
             restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            parametros = "usuario?correo=" + params.get(0).getValue() + "&clave=" + params.get(1).getValue();
-            Estudiante estudiante = restTemplate.getForObject(URL2 + parametros, Estudiante.class);
-            return estudiante;
+            parametros = "ServiceLogin/" + params.get(0).getValue() + "/" + params.get(1).getValue();
+            return restTemplate.getForObject(URL + parametros, Usuario.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Estudiante serviceEstudiante(ArrayList<NameValuePair> params) {
+        try {
+            restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            parametros = "ServiceEstudiante/" + params.get(0).getValue();
+            return restTemplate.getForObject(URL + parametros, Estudiante.class);
         } catch (Exception e) {
             e.printStackTrace();
         }

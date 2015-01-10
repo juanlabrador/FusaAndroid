@@ -17,7 +17,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import edu.ucla.fusa.android.DB.NoticiasTable;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.ListNoticiasAdapter;
-import edu.ucla.fusa.android.modelo.eventos.Noticia;
+import edu.ucla.fusa.android.modelo.fundacion.Noticia;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 

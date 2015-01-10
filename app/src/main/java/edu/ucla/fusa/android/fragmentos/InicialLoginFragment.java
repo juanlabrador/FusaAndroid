@@ -27,13 +27,13 @@ import java.util.ArrayList;
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.VistasPrincipalesActivity;
+import edu.ucla.fusa.android.modelo.academico.Usuario;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
-import edu.ucla.fusa.android.modelo.academico.Estudiante;
 import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
-import edu.ucla.fusa.android.validadores.ValidadorEmails;
 
 public class InicialLoginFragment extends Fragment implements View.OnClickListener, TextWatcher {
 
+    private static String TAG = "InicialLoginFragment";
     private FloatingHintEditText email;
     private CircularProgressButton iniciarSesion;
     private FloatingHintEditText password;
@@ -57,12 +57,7 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
             case R.id.btn_iniciar_sesion:
                 if (exiteConexionInternet() != false) {
                     deshabilitarElementos();
-                    if (ValidadorEmails.validarEmail(this.email.getText().toString()) != true) {
-                        Toast.makeText(getActivity(), R.string.mensaje_correo_invalido, Toast.LENGTH_SHORT).show();
-                        habilitarElementos();
-                    } else {
-                        new LoginTaks().execute(email.getText().toString(), password.getText().toString());
-                    }
+                    new LoginTaks().execute(email.getText().toString(), password.getText().toString());
                 } else {
                     errorConexionInternet();
                 }
@@ -137,7 +132,8 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
 
     private class LoginTaks extends AsyncTask<String, Void, Integer> {
 
-        private int user;
+        private int tipoUser;
+        private String user;
 
         @Override
         protected void onPreExecute() {
@@ -156,21 +152,19 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
             parametros.add(new BasicNameValuePair("clave", params[1]));
 
             /** Mandamos los parametros y esperemos una respuesta del servidor */
-            Estudiante estudiante = jsonParser.validarUsuario(parametros);
-            if (estudiante != null) {
-                Log.i("ID", String.valueOf(estudiante.getId()));
-                if (estudiante.getId() != -1) { /** Si el usuario existe */
+            Usuario usuario = jsonParser.serviceLogin(parametros);
+            if (usuario != null) {
+
+                if (usuario.getId() != -1) { /** Si el usuario existe */
+
                     /** Guardamos sus datos internamente para que no se loguee de nuevo */
-                    user = estudiante.getUsuario().getId();
-                    db.insertData(estudiante.getUsuario().getId(),
-                            estudiante.getUsuario().getNombre(),
-                            estudiante.getUsuario().getClave(),
-                            null,
-                            estudiante.getId(),
-                            estudiante.getCedula(),
-                            estudiante.getNombre(),
-                            estudiante.getApellido());
-                    Log.i("Cédula", estudiante.getCedula());
+                    tipoUser = usuario.getTipoUsuario().getId();
+                    user = usuario.getNombre();
+                    db.insertData(
+                            usuario.getNombre(),
+                            usuario.getPassword(),
+                            usuario.getFoto(),
+                            usuario.getTipoUsuario().getId());
                     response = 100;
                 } else { /** Si el usuario no existe */
                     response = -1;
@@ -184,7 +178,6 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
         @Override
         protected void onPostExecute(Integer i) {
             super.onPostExecute(i);
-            Log.i("RESPONSE", Integer.toString(i));
             iniciarSesion.setProgress(i);
             if (i == 100) {
                 new Thread(new Runnable() {
@@ -192,7 +185,9 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
                     public void run() {
                         SystemClock.sleep(2000);
                         Log.i("Login", "Felicidades, te logueaste");
-                        startActivity(new Intent(getActivity(), VistasPrincipalesActivity.class).putExtra("user", user));
+                        startActivity(new Intent(getActivity(), VistasPrincipalesActivity.class)
+                                .putExtra("tipoUser", tipoUser)
+                                .putExtra("user", user));
                         getActivity().finish();
                     }
                 }).start();

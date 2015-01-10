@@ -1,30 +1,30 @@
-package edu.ucla.fusa.android.modelo.eventos;
-
-import java.util.ArrayList;
-import java.util.List;
+package edu.ucla.fusa.android.modelo.fundacion;
 
 /**
- * Created by juanlabrador on 05/12/14.
+ * Created by juanlabrador on 10/01/15.
  */
-public class TipoNoticia {
+public class Ciudad {
 
-    private long id;
+    private int id;
     private String descripcion;
+    private Municipio municipio;
     private String estatus;
 
-    public TipoNoticia(long id, String descripcion, String estatus) {
+    public Ciudad() {
+    }
+
+    public Ciudad(int id, String descripcion, Municipio municipio, String estatus) {
         this.id = id;
         this.descripcion = descripcion;
+        this.municipio = municipio;
         this.estatus = estatus;
     }
 
-    public TipoNoticia() {}
-
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -34,6 +34,14 @@ public class TipoNoticia {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
     }
 
     public String getEstatus() {

@@ -35,7 +35,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5.0dip"
-            android:hint="@string/texto_contenido_edittex_correo_login"
+            android:hint="@string/texto_contenido_edittex_username_login"
             android:fontFamily="sans-serif"
             android:inputType="textEmailAddress" />
         <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText

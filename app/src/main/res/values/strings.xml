@@ -7,6 +7,7 @@
     <string name="cantidad_contenido_password_numero">Al menos un digito entre 0 - 9.</string>
     <string name="cantidad_contenido_password_simbolos">Al menos un caracter especial (@#$%).</string>
     <string name="cerrar_sesion">Cerrando sesión...</string>
+    <string name="cargando">Cargando...</string>
 
     <string name="configuracion">Configuración</string>
     <string name="configuracion_acerca_nosotros_contenido">"Somos un grupo de estudiante de la Universidad Centroccidental Lisandro Alvarado (UCLA), cual desarrollamos esta aplicación para la Fundación Musical Simón Bolívar (Fundamusical) como asignación de la materia Sistemas de Información. \nSomos mejor conocidos como ENERGY TEAM."</string>
@@ -117,6 +118,7 @@
     <string name="mensaje_error_iniciar_sesion">Su dirección de correo o contraseña no son válidos</string>
     <string name="mensaje_error_conexion">¡Ups, no esta conectado a Internet! Por favor, conectese a una red.</string>
     <string name="mensaje_error_servidor">¡Ups, estamos presentando problemas con el servidor! Por favor, intente más tarde.</string>
+    <string name="mensaje_error_busqueda">¡Ups, hubo un error al cargar, intente más tarde!</string>
     <string name="nivel_calificacion_evento_1">No me gustó en lo absoluto</string>
     <string name="nivel_calificacion_evento_2">No me gustó</string>
     <string name="nivel_calificacion_evento_3">Está bien</string>
@@ -155,7 +157,7 @@
     <string name="texto_contenido_editext_rif_cedula_contrataciones">Rif o cédula</string>
     <string name="texto_contenido_editext_solicitante_contrataciones">Solicitante</string>
     <string name="texto_contenido_edittex_clave_login">Contraseña</string>
-    <string name="texto_contenido_edittex_correo_login">Correo electrónico</string>
+    <string name="texto_contenido_edittex_username_login">Usuario</string>
     <string name="texto_contenido_edittext_correo_contrataciones">Correo electrónico</string>
     <string name="texto_contenido_edittext_correo_postularse">Correo electrónico</string>
     <string name="texto_contenido_edittext_fecha_contrataciones">Fecha</string>

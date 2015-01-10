@@ -1,9 +1,6 @@
-package edu.ucla.fusa.android.modelo.eventos;
+package edu.ucla.fusa.android.modelo.fundacion;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by juanlabrador on 05/12/14.

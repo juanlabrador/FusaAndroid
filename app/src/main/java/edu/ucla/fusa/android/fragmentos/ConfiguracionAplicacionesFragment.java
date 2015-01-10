@@ -59,7 +59,7 @@ public class ConfiguracionAplicacionesFragment extends Fragment implements Adapt
         if (socialNetworkManager == null) {
             socialNetworkManager = SocialNetworkManager.Builder.from(getActivity())
                     .twitter("yVdvpAPRFsLfQa1Sgqlu2Kb26", "9XLmtFSSMuDSz4r2bZKuiAZDRBsmH2Uz6cdLIg4lSfeqheMHHV")
-                    //.facebook()
+                    .facebook()
                     .build();
             getFragmentManager().beginTransaction()
                     .add(socialNetworkManager, SOCIAL_NETWORK_TAG)
@@ -111,16 +111,21 @@ public class ConfiguracionAplicacionesFragment extends Fragment implements Adapt
         checkApp = ((ImageView) paramView.findViewById(R.id.ivIconoActivacionApp));
         switch (paramInt) {
             case 0:
-                socialNetworkManager.getFacebookSocialNetwork().requestLogin();
-                if (checkApp.getVisibility() == View.INVISIBLE) {
-                    checkApp.setVisibility(View.VISIBLE);
-                    iconoApp.setImageResource(R.drawable.ic_facebook_enable);
-                    tituloApp.setTextColor(getResources().getColor(android.R.color.holo_blue_light));
-                    break;
+                if (socialNetworkManager.getFacebookSocialNetwork().isConnected()) {
+                    socialNetworkManager.getFacebookSocialNetwork().logout();
+                    if (!socialNetworkManager.getFacebookSocialNetwork().isConnected()) {
+                        checkApp.setVisibility(View.INVISIBLE);
+                        iconoApp.setImageResource(R.drawable.ic_facebook_disable);
+                        tituloApp.setTextColor(getResources().getColor(R.color.gris_oscuro));
+                    }
+                } else { //Si no esta conectado, me logueo
+                    showProgress("Autenticando... Facebook");
+                    socialNetworkManager.getFacebookSocialNetwork().requestLogin();
+                    //checkApp.setVisibility(View.VISIBLE);
+                    //iconoApp.setImageResource(R.drawable.ic_twitter_enable);
+                    //tituloApp.setTextColor(getResources().getColor(android.R.color.holo_blue_light));
+
                 }
-                checkApp.setVisibility(View.INVISIBLE);
-                iconoApp.setImageResource(R.drawable.ic_facebook_disable);
-                tituloApp.setTextColor(getResources().getColor(R.color.gris_oscuro));
                 break;
             case 1:
                 if (checkApp.getVisibility() == View.INVISIBLE) {
@@ -187,7 +192,7 @@ public class ConfiguracionAplicacionesFragment extends Fragment implements Adapt
     public void onError(int socialNetworkID, String requestID, String errorMessage, Object data) {
         hideProgress();
         //handleError(errorMessage);
-        handleError("Cancelado...");
+        handleError("Cancelado");
 
         items.clear();
         items.add(new ItemListAplications(

@@ -8,10 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
-import edu.ucla.fusa.android.modelo.eventos.Noticia;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
 
 /**

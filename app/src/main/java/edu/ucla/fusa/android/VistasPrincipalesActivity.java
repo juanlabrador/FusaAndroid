@@ -1,8 +1,15 @@
 package edu.ucla.fusa.android;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.os.Vibrator;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
@@ -13,9 +20,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import edu.ucla.fusa.android.DB.EstudianteTable;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
 import edu.ucla.fusa.android.fragmentos.ConfiguracionListadoFragment;
 import edu.ucla.fusa.android.fragmentos.DrawerHorarioFragment;
@@ -24,11 +37,15 @@ import edu.ucla.fusa.android.fragmentos.EventoCalendarioFragment;
 import edu.ucla.fusa.android.fragmentos.DrawerNoticiasListadoFragment;
 import edu.ucla.fusa.android.fragmentos.DrawerPerfilFragment;
 import edu.ucla.fusa.android.fragmentos.DrawerSolicitudPrestamoFragment;
+import edu.ucla.fusa.android.modelo.academico.Estudiante;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
+import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
+
 import java.util.ArrayList;
 
 public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
 
+    private static String TAG = "VistasPrincipalesActivity";
     private View header;
     private TypedArray iconos;
     private ArrayList<ItemListDrawer> items;
@@ -37,18 +54,29 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private DrawerLayout navigationDrawer;
     private ListView navigationList;
     private String[] titulos;
+    private JSONParser jsonParser = new JSONParser();
+    private EstudianteTable db;
+    private CircleImageView foto;
+    private TextView nombre;
+    private TextView correo;
+    private ProgressBar progress;
+    private TextView descripcionProgress;
 
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         setContentView(R.layout.activity_principal);
+        db = new EstudianteTable(this);
+        getActionBar().hide();
+        progress = (ProgressBar) findViewById(R.id.pb_cargando);
+        descripcionProgress = (TextView) findViewById(R.id.text_cargando);
         navigationDrawer = ((DrawerLayout) findViewById(R.id.drawer_layout));
         navigationDrawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         navigationList = ((ListView)findViewById(R.id.lista_funciones));
 
-        Log.i("USUARIO", String.valueOf(getIntent().getIntExtra("user", -1)));
-        if (getIntent().getIntExtra("user", -1) == 1) {
-            cargarMenuEstudiante();
-        } else if (getIntent().getIntExtra("user", -1) == 2) {
+        Log.i("USUARIO", String.valueOf(getIntent().getIntExtra("tipoUser", -1)));
+        if (getIntent().getIntExtra("tipoUser", -1) == 1) {
+            new BuscarEstudiante().execute(getIntent().getStringExtra("user"));
+        } else if (getIntent().getIntExtra("tipoUser", -1) == 2) {
             cargarMenuInstructor();
         }
 
@@ -69,9 +97,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         navigationDrawer.setDrawerListener(mDrawerToogle);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_container, DrawerNoticiasListadoFragment.newInstance())
-                .commit();
+
     }
 
     public boolean onCreateOptionsMenu(Menu paramMenu) {
@@ -80,9 +106,9 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     }
 
     public void onItemClick(AdapterView<?> paramAdapterView, View paramView, int position, long paramLong) {
-        if (getIntent().getIntExtra("user", -1) == 1) {
+        if (getIntent().getIntExtra("tipoUser", -1) == 1) {
             showFragmentEstudiante(position);
-        } else if (getIntent().getIntExtra("user", -1) == 2) {
+        } else if (getIntent().getIntExtra("tipoUser", -1) == 2) {
             showFragmentInstructor(position);
         }
 
@@ -106,14 +132,18 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         return super.onPrepareOptionsMenu(paramMenu);
     }
 
-    public void cargarMenuEstudiante() {
+    private Bitmap convertByteToImage(byte[] data) {
+        return BitmapFactory.decodeByteArray(data, 0, data.length);
+    }
+
+    public void cargarMenuEstudiante(String n, String c, byte[] f) {
         header = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
-        CircleImageView foto = (CircleImageView) header.findViewById(R.id.iv_foto_perfil_drawer);
-        TextView nombre = (TextView) header.findViewById(R.id.etNombreDrawer);
-        TextView correo = (TextView) header.findViewById(R.id.etEmailDrawer);
-        foto.setImageResource(R.drawable.foto_perfil);
-        nombre.setText("Juan Labrador");
-        correo.setText("juan@example.com");
+        foto = (CircleImageView) header.findViewById(R.id.iv_foto_perfil_drawer);
+        nombre = (TextView) header.findViewById(R.id.etNombreDrawer);
+        correo = (TextView) header.findViewById(R.id.etEmailDrawer);
+        foto.setImageBitmap(convertByteToImage(f));
+        nombre.setText(n);
+        correo.setText(c);
         iconos = getResources().obtainTypedArray(R.array.nav_icons_estudiante);
         navigationList.addHeaderView(header);
         titulos = getResources().getStringArray(R.array.nav_funciones_estudiante);
@@ -189,9 +219,9 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
 
     public void cargarMenuInstructor() {
         header = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
-        CircleImageView foto = (CircleImageView) header.findViewById(R.id.iv_foto_perfil_drawer);
-        TextView nombre = (TextView) header.findViewById(R.id.etNombreDrawer);
-        TextView correo = (TextView) header.findViewById(R.id.etEmailDrawer);
+        foto = (CircleImageView) header.findViewById(R.id.iv_foto_perfil_drawer);
+        nombre = (TextView) header.findViewById(R.id.etNombreDrawer);
+        correo = (TextView) header.findViewById(R.id.etEmailDrawer);
         foto.setImageResource(R.drawable.foto_instructor);
         nombre.setText("Rafael \"Pollo\" Brito");
         correo.setText("profesor@example.com");
@@ -276,5 +306,95 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     public void onConfigurationChanged(Configuration paramConfiguration) {
         super.onConfigurationChanged(paramConfiguration);
         mDrawerToogle.onConfigurationChanged(paramConfiguration);
+    }
+
+    private class BuscarEstudiante extends AsyncTask<String, Void, Integer> {
+
+        private String nombre;
+        private String correo;
+        private byte[] foto;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Integer doInBackground(String... params) {
+            SystemClock.sleep(3000);
+            int response = -1;
+            /** Cargamos los parametros que enviaremos por URL */
+            ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
+            parametros.add(new BasicNameValuePair("username", params[0]));
+
+            /** Mandamos los parametros y esperemos una respuesta del servidor */
+            Estudiante estudiante = jsonParser.serviceEstudiante(parametros);
+            if (estudiante != null) {
+                if (estudiante.getId() != -1) { /** Si el estudiante existe */
+
+                    nombre = estudiante.getNombreApellido();
+                    correo = estudiante.getCorreo();
+                    foto = estudiante.getImagen();
+                    /** Guardamos sus datos internamente para que no se loguee de nuevo */
+                    db.insertData(
+                        estudiante.getNombre(),
+                        estudiante.getApellido(),
+                        estudiante.getCedula(),
+                        estudiante.getCorreo(),
+                        estudiante.getDireccion(),
+                        estudiante.getEdad(),
+                        estudiante.getFechanac(),
+                        estudiante.getSexo(),
+                        estudiante.getTelefonoFijo(),
+                        estudiante.getTelefonoMovil(),
+                        estudiante.getImagen(),
+                        estudiante.getBecado(),
+                        estudiante.getInscritoConservatorio(),
+                        estudiante.getInscritoCoro(),
+                        estudiante.getInstrumentoPropio());
+                    response = 100;
+                } else { /** Si el estudiante no existe */
+                    response = -1;
+                }
+            } else { /** Hubo problemas con el servidor o lentitud de la red */
+                response = 0;
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(Integer i) {
+            super.onPostExecute(i);
+            if (i == 100) {
+                cargarMenuEstudiante(nombre, correo, foto);
+                SystemClock.sleep(2000);
+                Log.i(TAG, "Felicidades, existe el estudiante");
+                progress.setVisibility(View.GONE);
+                descripcionProgress.setVisibility(View.GONE);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, DrawerNoticiasListadoFragment.newInstance())
+                        .commit();
+
+            } else if (i == -1) {
+                Log.i(TAG, "Error, no existe el estudiante");
+                errorBusqueda();
+            } else {
+                Log.i(TAG, "Problemas con conectividad");
+                errorServidor();
+            }
+            getActionBar().show();
+        }
+    }
+
+    public void errorBusqueda(){
+        Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(200);
+        Toast.makeText(this, R.string.mensaje_error_busqueda, Toast.LENGTH_SHORT).show();
+    }
+
+    public void errorServidor(){
+        Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(200);
+        Toast.makeText(this,R.string.mensaje_error_servidor, Toast.LENGTH_SHORT).show();;
     }
 }

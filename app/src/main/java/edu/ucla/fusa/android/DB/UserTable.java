@@ -10,6 +10,7 @@ import java.sql.SQLDataException;
 import java.sql.SQLException;
 
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
+import edu.ucla.fusa.android.modelo.academico.TipoUsuario;
 import edu.ucla.fusa.android.modelo.academico.Usuario;
 
 /**
@@ -19,74 +20,60 @@ public class UserTable {
 
     public static final String TABLE_NAME = "usuario";
     private static final String COLUMN_ID_USER = "id_usuario";
-    private static final String COLUMN_EMAIL = "correo";
-    private static final String COLUMN_PASSWORD = "clave";
+    private static final String COLUMN_USERNAME = "username";
+    private static final String COLUMN_PASSWORD = "password";
     private static final String COLUMN_PHOTO = "foto";
-    private static final String COLUMN_CEDULA = "cedula";
-    private static final String COLUMN_FIRST_NAME = "nombre";
-    private static final String COLUMN_LAST_NAME = "apellido";
-    private static final String COLUMN_ID_STUDENT = "id_estudiante";
+    private static final String COLUMN_TIPO_USER = "tipo_usuario";
 
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
-                    + COLUMN_ID_USER + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + COLUMN_EMAIL + " TEXT,"
-                    + COLUMN_PASSWORD + " TEXT,"
-                    + COLUMN_PHOTO + " BLOB,"
-                    + COLUMN_ID_STUDENT + " INTEGER,"
-                    + COLUMN_CEDULA + " TEXT, "
-                    + COLUMN_FIRST_NAME + " TEXT,"
-                    + COLUMN_LAST_NAME + " TEXT);";
+                    + COLUMN_ID_USER + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + COLUMN_USERNAME + " TEXT, "
+                    + COLUMN_PASSWORD + " TEXT, "
+                    + COLUMN_PHOTO + " BLOB, "
+                    + COLUMN_TIPO_USER + " INTEGER);";
 
     private DataBaseHelper helper;
     private SQLiteDatabase db;
     private Cursor cursor;
-    private Estudiante estudiante = new Estudiante();
+    private Usuario usuario = new Usuario();
 
     public UserTable(Context context) {
         helper = new DataBaseHelper(context);
         db = helper.getWritableDatabase();
     }
 
-    private ContentValues generarValores (int idUsuario, String correo, String clave, byte[] foto,
-                                          int idEstudiante, String cedula, String nombre, String apellido) {
+    private ContentValues generarValores (String username, String password, byte[] foto, int tipoUsuario) {
 
         ContentValues valores = new ContentValues();
-        valores.put(COLUMN_ID_USER, idUsuario);
-        valores.put(COLUMN_EMAIL, correo);
-        valores.put(COLUMN_PASSWORD, clave);
+        valores.put(COLUMN_USERNAME, username);
+        valores.put(COLUMN_PASSWORD, password);
         valores.put(COLUMN_PHOTO, foto);
-        valores.put(COLUMN_ID_STUDENT, idEstudiante);
-        valores.put(COLUMN_CEDULA, cedula);
-        valores.put(COLUMN_FIRST_NAME, nombre);
-        valores.put(COLUMN_LAST_NAME, apellido);
+        valores.put(COLUMN_TIPO_USER, tipoUsuario);
 
         return valores;
     }
 
-    public void insertData(int idUsuario, String correo, String clave, byte[] foto,
-                        int idEstudiante, String cedula, String nombre, String apellido) {
+    public void insertData(String username, String password, byte[] foto, int tipoUsuario) {
         //db = helper.getWritableDatabase();
-        db.insert(TABLE_NAME, null, generarValores(idUsuario, correo, clave, foto, idEstudiante, cedula, nombre, apellido));
+        db.insert(TABLE_NAME, null, generarValores(username, password, foto, tipoUsuario));
     }
 
-    public Estudiante searchUser() {
+    public Usuario searchUser() {
         String tiraSQL = "SELECT * FROM " + TABLE_NAME;
         //db = helper.getReadableDatabase();
         cursor = db.rawQuery(tiraSQL, null);
         if (cursor.moveToFirst()) {
-            estudiante.setId(cursor.getInt(4));
-            estudiante.setCedula(cursor.getString(5));
-            estudiante.setNombre(cursor.getString(6));
-            estudiante.setApellido(cursor.getString(7));
-            estudiante.setUsuario(new Usuario(cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getBlob(3)));
+            usuario.setId(cursor.getInt(0));
+            usuario.setNombre(cursor.getString(1));
+            usuario.setPassword(cursor.getString(2));
+            usuario.setFoto(cursor.getBlob(3));
+            usuario.setTipoUsuario(
+                    new TipoUsuario(cursor.getInt(4), "", ""));
         } else {
-            estudiante = null;
+            usuario = null;
         }
 
-        return estudiante;
+        return usuario;
     }
 
     public void destroyTable() {

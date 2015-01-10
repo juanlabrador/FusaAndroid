@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout
     android:id="@+id/drawer_layout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/frame_container"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pb_cargando"
+            android:interpolator="@android:interpolator/cycle"/>
+
+        <TextView
+            android:id="@+id/text_cargando"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cargando"/>
+    </LinearLayout>
 
     <ListView android:textColor="@color/blanco"
         android:layout_gravity="start"
         android:id="@+id/lista_funciones"
         android:background="@drawable/style_list_azul"
-        android:layout_width="280.0dip"
-        android:layout_height="fill_parent"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
         android:listSelector="@drawable/style_list_selector"
         android:divider="@android:color/transparent"
         android:choiceMode="singleChoice" />

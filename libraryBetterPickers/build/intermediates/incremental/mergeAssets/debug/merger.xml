@@ -1,27 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="2" >
-
-    <dataSet config="main" >
-        <source path="/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/main/assets" >
-            <file
-                name="fonts/AndroidClockMono-Thin.ttf"
-                path="/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/main/assets/fonts/AndroidClockMono-Thin.ttf" />
-            <file
-                name="fonts/Roboto-Light.ttf"
-                path="/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/main/assets/fonts/Roboto-Light.ttf" />
-            <file
-                name="fonts/Roboto-Bold.ttf"
-                path="/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/main/assets/fonts/Roboto-Bold.ttf" />
-            <file
-                name="backward"
-                path="/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/main/assets/backward" />
-            <file
-                name="zone.tab"
-                path="/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/main/assets/zone.tab" />
-        </source>
-    </dataSet>
-    <dataSet config="debug" >
-        <source path="/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/debug/assets" />
-    </dataSet>
-
-</merger>
+<merger version="3"><dataSet config="main"><source path="/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/main/assets"><file name="fonts/AndroidClockMono-Thin.ttf" path="/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/main/assets/fonts/AndroidClockMono-Thin.ttf"/><file name="fonts/Roboto-Light.ttf" path="/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/main/assets/fonts/Roboto-Light.ttf"/><file name="fonts/Roboto-Bold.ttf" path="/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/main/assets/fonts/Roboto-Bold.ttf"/><file name="backward" path="/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/main/assets/backward"/><file name="zone.tab" path="/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/main/assets/zone.tab"/></source></dataSet><dataSet config="debug"><source path="/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/debug/assets"/></dataSet></merger>

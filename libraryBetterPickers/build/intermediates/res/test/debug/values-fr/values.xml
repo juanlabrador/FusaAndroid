@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-
     <!-- From: file:/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/build/intermediates/bundles/debug/res/values-fr/values.xml -->
-    <eat-comment />
-
+    <eat-comment/>
     <plurals name="daily">
         <item quantity="one">Quotidien</item>
         <item quantity="other">Tous les <ns1:g id="number">%d</ns1:g> jours</item>
@@ -17,28 +15,24 @@
         <item quantity="other">Pour <ns1:g id="event_count">%d</ns1:g> événements</item>
     </plurals>
     <plurals name="recurrence_interval_daily">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Tous les <ns1:g id="count">%d</ns1:g> jour</item>
         <!-- Plural form [CHAR LIMIT=30] -->
         <item quantity="other">Tous les <ns1:g id="count">%d</ns1:g> jours</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Tous les <ns1:g id="count">%d</ns1:g> mois</item>
         <!-- Plural form [CHAR LIMIT=30] -->
         <item quantity="other">Tous les <ns1:g id="count">%d</ns1:g> mois</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Toutes les <ns1:g id="count">%d</ns1:g> semaine</item>
         <!-- Plural form [CHAR LIMIT=30] -->
         <item quantity="other">Toutes les <ns1:g id="count">%d</ns1:g> semaines</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Toutes les <ns1:g id="count">%d</ns1:g> année</item>
         <!-- Plural form [CHAR LIMIT=30] -->
@@ -48,7 +42,6 @@
         <item quantity="one">Hebdomadaire le <ns1:g id="days_of_week">%2$s</ns1:g></item>
         <item quantity="other">Toutes les <ns1:g id="number">%1$d</ns1:g> semaines le <ns1:g id="days_of_week">%2$s</ns1:g></item>
     </plurals>
-
     <string name="acessibility_recurrence_choose_end_date_description">modifier la date de fin</string>
     <string name="day_c">JOUR</string>
     <string name="day_of_week_label_typeface">sans-serif</string>
@@ -109,5 +102,4 @@
     <string name="year_c">ANNÉE</string>
     <string name="year_picker_description">Liste des années</string>
     <string name="yearly_plain">Annuel</string>
-
 </resources>

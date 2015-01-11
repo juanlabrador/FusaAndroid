@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-
     <!-- From: file:/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/build/intermediates/bundles/debug/res/values-pl/values.xml -->
-    <eat-comment />
-
+    <eat-comment/>
     <plurals name="daily">
         <item quantity="one">Raz dziennie</item>
         <item quantity="other">Co <ns1:g id="number">%d</ns1:g> dni</item>
@@ -17,28 +15,24 @@
         <item quantity="other">Co <ns1:g id="event_count">%d</ns1:g> wystapień</item>
     </plurals>
     <plurals name="recurrence_interval_daily">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Co <ns1:g id="count">%d</ns1:g> dzień</item>
         <!-- Plural form [CHAR LIMIT=30] -->
         <item quantity="other">Co <ns1:g id="count">%d</ns1:g> dni</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Co <ns1:g id="count">%d</ns1:g> miesiąc</item>
         <!-- Plural form [CHAR LIMIT=30] -->
         <item quantity="other">Co <ns1:g id="count">%d</ns1:g> miesięcy</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Co <ns1:g id="count">%d</ns1:g> tydzień</item>
         <!-- Plural form [CHAR LIMIT=30] -->
         <item quantity="other">Co <ns1:g id="count">%d</ns1:g> tygodni</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Co <ns1:g id="count">%d</ns1:g> rok</item>
         <!-- Plural form [CHAR LIMIT=30] -->
@@ -48,7 +42,6 @@
         <item quantity="one">Co tydzień w <ns1:g id="days_of_week">%2$s</ns1:g></item>
         <item quantity="other">Co <ns1:g id="number">%1$d</ns1:g> tygodni w <ns1:g id="days_of_week">%2$s</ns1:g></item>
     </plurals>
-
     <string name="acessibility_recurrence_choose_end_date_description">zmień datę końcową</string>
     <string name="day_c">DZIEŃ</string>
     <string name="day_of_week_label_typeface">sans-serif</string>
@@ -109,5 +102,4 @@
     <string name="year_c">ROK</string>
     <string name="year_picker_description">Lista lat</string>
     <string name="yearly_plain">Rocznie</string>
-
 </resources>

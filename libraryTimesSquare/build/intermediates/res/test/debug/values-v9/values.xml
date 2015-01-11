@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- From: file:/home/juanlabrador/android-projects/fusaandroid/libraryTimesSquare/build/intermediates/bundles/debug/res/values-v9/values.xml -->
-    <eat-comment />
-
+    <eat-comment/>
     <string name="month_name_format">LLLL yyyy</string>
-
 </resources>

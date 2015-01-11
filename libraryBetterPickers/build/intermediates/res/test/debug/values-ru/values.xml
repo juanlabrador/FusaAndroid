@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-
     <!-- From: file:/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/build/intermediates/bundles/debug/res/values-ru/values.xml -->
-    <eat-comment />
-
+    <eat-comment/>
     <plurals name="daily">
         <item quantity="one">Ежедневно</item>
         <item quantity="other">Каждые <ns1:g id="number">%d</ns1:g> дн.</item>
@@ -17,28 +15,24 @@
         <item quantity="other">Для <ns1:g id="event_count">%d</ns1:g> событий</item>
     </plurals>
     <plurals name="recurrence_interval_daily">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Каждый <ns1:g id="count">%d</ns1:g> день</item>
         <!-- Plural form [CHAR LIMIT=30] -->
         <item quantity="other">Каждые <ns1:g id="count">%d</ns1:g> дн.</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Каждый <ns1:g id="count">%d</ns1:g> месяц</item>
         <!-- Plural form [CHAR LIMIT=30] -->
         <item quantity="other">Каждые <ns1:g id="count">%d</ns1:g> мес.</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Каждую <ns1:g id="count">%d</ns1:g> неделю</item>
         <!-- Plural form [CHAR LIMIT=30] -->
         <item quantity="other">Каждые <ns1:g id="count">%d</ns1:g> нед.</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Каждый <ns1:g id="count">%d</ns1:g> год</item>
         <!-- Plural form [CHAR LIMIT=30] -->
@@ -48,7 +42,6 @@
         <item quantity="one">Еженедельно в <ns1:g id="days_of_week">%2$s</ns1:g></item>
         <item quantity="other">Каждые <ns1:g id="number">%1$d</ns1:g> недель в <ns1:g id="days_of_week">%2$s</ns1:g></item>
     </plurals>
-
     <string name="acessibility_recurrence_choose_end_date_description">изменить конечную дату</string>
     <string name="day_c">ДЕНЬ</string>
     <string name="day_of_week_label_typeface">sans-serif</string>
@@ -109,5 +102,4 @@
     <string name="year_c">ГОД</string>
     <string name="year_picker_description">Список годов</string>
     <string name="yearly_plain">Ежегодно</string>
-
 </resources>

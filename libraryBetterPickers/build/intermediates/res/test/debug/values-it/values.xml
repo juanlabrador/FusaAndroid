@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- From: file:/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/build/intermediates/bundles/debug/res/values-it/values.xml -->
-    <eat-comment />
-
+    <eat-comment/>
     <string name="day_c">GIORNO</string>
     <string name="day_of_week_label_typeface">sans-serif</string>
     <string name="day_picker_description">Griglia mensile dei giorni</string>
@@ -47,5 +45,4 @@
     <string name="timer_delete">Elimina</string>
     <string name="year_c">ANNO</string>
     <string name="year_picker_description">Lista Anno</string>
-
 </resources>

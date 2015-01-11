@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-
     <!-- From: file:/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/build/intermediates/bundles/debug/res/values/values.xml -->
-    <eat-comment />
-
+    <eat-comment/>
     <string-array name="backup_country_codes" translatable="false">
         <item>"SX"</item>
         <item>"BQ"</item>
@@ -166,7 +164,6 @@
         <!-- Non DST version of Brasilia Standard Time -->
         <item>"Brasilia - Pará"</item>
     </string-array>
-
     <color name="ampm_text_color">#8c8c8c</color>
     <color name="blue">#33b5e5</color>
     <color name="blue_focused">#c1e8f7</color>
@@ -206,60 +203,10 @@
     <color name="transparent">#00000000</color>
     <color name="transparent_black">#7f000000</color>
     <color name="white">#ffffff</color>
-
-    <declare-styleable name="Android">
-
-        <!-- Text color. -->
-        <attr name="android:textColor" />
-        <!-- Size of the text. Recommended dimension type for text is "sp" for scaled-pixels (example: 15sp). -->
-        <attr name="android:textSize" />
-        <!-- Style (bold, italic, bolditalic) for the text. -->
-        <attr name="android:textStyle" />
-        <!-- Typeface (normal, sans, serif, monospace) for the text. -->
-        <attr name="android:typeface" />
-        <!-- Color of the text selection highlight. -->
-        <attr name="android:textColorHighlight" />
-        <!-- Color of the hint text. -->
-        <attr name="android:textColorHint" />
-        <!-- Color of the links. -->
-        <attr name="android:textColorLink" />
-    </declare-styleable>
-    <declare-styleable name="BetterPickersDialogFragment">
-        <attr name="bpTextColor" format="reference" />
-        <attr name="bpTitleColor" format="reference" />
-        <attr name="bpDeleteIcon" format="reference" />
-        <attr name="bpCheckIcon" format="reference" />
-        <attr name="bpKeyBackground" format="reference" />
-        <attr name="bpButtonBackground" format="reference" />
-        <attr name="bpTitleDividerColor" format="color" />
-        <attr name="bpDividerColor" format="color" />
-        <attr name="bpKeyboardIndicatorColor" format="color" />
-        <attr name="bpDialogBackground" format="reference" />
-    </declare-styleable>
-    <declare-styleable name="BetterPickersSwitchTheme">
-        <attr name="switchStyle" format="reference" />
-        <attr name="switchPreferenceStyle" format="reference" />
-    </declare-styleable>
-    <declare-styleable name="Switch">
-
-        <!-- Drawable to use as the "thumb" that switches back and forth. -->
-        <attr name="thumb" format="reference" />
-        <!-- Drawable to use as the "track" that the switch thumb slides within. -->
-        <attr name="track" format="reference" />
-        <!-- Text to use when the switch is in the checked/"on" state. -->
-        <attr name="textOn" format="reference" />
-        <!-- Text to use when the switch is in the unchecked/"off" state. -->
-        <attr name="textOff" format="reference" />
-        <!-- Amount of padding on either side of text within the switch thumb. -->
-        <attr name="thumbTextPadding" format="dimension" />
-        <!-- TextAppearance style for text displayed on the switch thumb. -->
-        <attr name="switchTextAppearance" format="reference" />
-        <!-- Minimum width for the switch component -->
-        <attr name="switchMinWidth" format="dimension" />
-        <!-- Minimum space between the switch and caption text -->
-        <attr name="switchPadding" format="dimension" />
-    </declare-styleable>
-
+    <declare-styleable name="Android"><attr name="android:textColor"/><attr name="android:textSize"/><attr name="android:textStyle"/><attr name="android:typeface"/><attr name="android:textColorHighlight"/><attr name="android:textColorHint"/><attr name="android:textColorLink"/></declare-styleable>
+    <declare-styleable name="BetterPickersDialogFragment"><attr format="reference" name="bpTextColor"/><attr format="reference" name="bpTitleColor"/><attr format="reference" name="bpDeleteIcon"/><attr format="reference" name="bpCheckIcon"/><attr format="reference" name="bpKeyBackground"/><attr format="reference" name="bpButtonBackground"/><attr format="color" name="bpTitleDividerColor"/><attr format="color" name="bpDividerColor"/><attr format="color" name="bpKeyboardIndicatorColor"/><attr format="reference" name="bpDialogBackground"/></declare-styleable>
+    <declare-styleable name="BetterPickersSwitchTheme"><attr format="reference" name="switchStyle"/><attr format="reference" name="switchPreferenceStyle"/></declare-styleable>
+    <declare-styleable name="Switch"><attr format="reference" name="thumb"/><attr format="reference" name="track"/><attr format="reference" name="textOn"/><attr format="reference" name="textOff"/><attr format="dimension" name="thumbTextPadding"/><attr format="reference" name="switchTextAppearance"/><attr format="dimension" name="switchMinWidth"/><attr format="dimension" name="switchPadding"/></declare-styleable>
     <dimen name="ampm_label_size">16sp</dimen>
     <dimen name="ampm_left_padding">6dip</dimen>
     <dimen name="body_font_padding">4dp</dimen>
@@ -305,11 +252,9 @@
     <dimen name="timer_padding_left">16dip</dimen>
     <dimen name="year_label_height">64dp</dimen>
     <dimen name="year_label_text_size">22dp</dimen>
-
     <item name="date_keyboard" type="id"/>
     <item name="date_month_int" type="id"/>
     <item name="numbers_key" type="id"/>
-
     <plurals name="daily">
         <item quantity="one">Daily</item>
         <item quantity="other">Every <ns1:g id="number">%d</ns1:g> days</item>
@@ -323,28 +268,24 @@
         <item quantity="other">For <ns1:g id="event_count">%d</ns1:g> events</item>
     </plurals>
     <plurals name="recurrence_interval_daily">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Every <ns1:g id="count">%d</ns1:g> day</item>
         <!-- Plural form [CHAR LIMIT=30] -->
         <item quantity="other">Every <ns1:g id="count">%d</ns1:g> days</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Every <ns1:g id="count">%d</ns1:g> month</item>
         <!-- Plural form [CHAR LIMIT=30] -->
         <item quantity="other">Every <ns1:g id="count">%d</ns1:g> months</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Every <ns1:g id="count">%d</ns1:g> week</item>
         <!-- Plural form [CHAR LIMIT=30] -->
         <item quantity="other">Every <ns1:g id="count">%d</ns1:g> weeks</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-
         <!-- Singular form [CHAR LIMIT=30] -->
         <item quantity="one">Every <ns1:g id="count">%d</ns1:g> year</item>
         <!-- Plural form [CHAR LIMIT=30] -->
@@ -354,13 +295,10 @@
         <item quantity="one">Weekly on <ns1:g id="days_of_week">%2$s</ns1:g></item>
         <item quantity="other">Every <ns1:g id="number">%1$d</ns1:g> weeks on <ns1:g id="days_of_week">%2$s</ns1:g></item>
     </plurals>
-
     <string name="acessibility_recurrence_choose_end_date_description">change end date</string>
-
-    <item name="ampm_circle_radius_multiplier" format="float" type="string">0.19</item>
-    <item name="circle_radius_multiplier" format="float" type="string">0.82</item>
-    <item name="circle_radius_multiplier_24HourMode" format="float" type="string">0.85</item>
-
+    <item format="float" name="ampm_circle_radius_multiplier" type="string">0.19</item>
+    <item format="float" name="circle_radius_multiplier" type="string">0.82</item>
+    <item format="float" name="circle_radius_multiplier_24HourMode" type="string">0.85</item>
     <string name="day_c">DAY</string>
     <string name="day_of_week_label_typeface">sans-serif</string>
     <string name="day_picker_description">Month grid of days</string>
@@ -390,11 +328,9 @@
     <string name="number_picker_minus_label">—</string>
     <string name="number_picker_plus_minus">+/-</string>
     <string name="number_picker_seperator">.</string>
-
-    <item name="numbers_radius_multiplier_inner" format="float" type="string">0.60</item>
-    <item name="numbers_radius_multiplier_normal" format="float" type="string">0.81</item>
-    <item name="numbers_radius_multiplier_outer" format="float" type="string">0.83</item>
-
+    <item format="float" name="numbers_radius_multiplier_inner" type="string">0.60</item>
+    <item format="float" name="numbers_radius_multiplier_normal" type="string">0.81</item>
+    <item format="float" name="numbers_radius_multiplier_outer" type="string">0.83</item>
     <string name="palestine_display_name">Palestine</string>
     <string name="picker_cancel">Cancel</string>
     <string name="picker_set">OK</string>
@@ -413,16 +349,12 @@
     <string name="select_hours">Select hours</string>
     <string name="select_minutes">Select minutes</string>
     <string name="select_year">Select year</string>
-
-    <item name="selection_radius_multiplier" format="float" type="string">0.16</item>
-
+    <item format="float" name="selection_radius_multiplier" type="string">0.16</item>
     <string name="switch_off">OFF</string>
     <string name="switch_on">ON</string>
-
-    <item name="text_size_multiplier_inner" format="float" type="string">0.14</item>
-    <item name="text_size_multiplier_normal" format="float" type="string">0.17</item>
-    <item name="text_size_multiplier_outer" format="float" type="string">0.11</item>
-
+    <item format="float" name="text_size_multiplier_inner" type="string">0.14</item>
+    <item format="float" name="text_size_multiplier_normal" type="string">0.17</item>
+    <item format="float" name="text_size_multiplier_outer" type="string">0.11</item>
     <string name="time_picker_00_label">:00</string>
     <string name="time_picker_30_label">:30</string>
     <string name="time_picker_ampm_label">--</string>
@@ -433,7 +365,6 @@
     <string name="year_c">YEAR</string>
     <string name="year_picker_description">Year list</string>
     <string name="yearly_plain">Yearly</string>
-
     <style name="BetterPickersDialogFragment">
         <item name="bpDialogBackground">@drawable/dialog_full_holo_dark</item>
         <item name="bpTitleColor">@color/dialog_text_color_holo_dark</item>
@@ -446,7 +377,6 @@
         <item name="bpDividerColor">@color/default_divider_color_dark</item>
         <item name="bpKeyboardIndicatorColor">@color/default_keyboard_indicator_color_dark</item>
     </style>
-
     <style name="BetterPickersDialogFragment.Light">
         <item name="bpDialogBackground">@drawable/dialog_full_holo_light</item>
         <item name="bpTitleColor">@color/dialog_text_color_holo_light</item>
@@ -459,7 +389,6 @@
         <item name="bpDividerColor">@color/default_divider_color_light</item>
         <item name="bpKeyboardIndicatorColor">@color/default_keyboard_indicator_color_light</item>
     </style>
-
     <style name="RecurrenceDayOfWeekStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -479,30 +408,24 @@
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
     </style>
-
     <style name="TextAppearance.EditEvent_Spinner" parent="@android:style/Widget.Holo.Light.Spinner">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#FF333333</item>
         <item name="android:layout_marginRight">12dp</item>
         <item name="android:layout_marginLeft">12dp</item>
     </style>
-
     <style name="TextAppearance.EditEvent_SpinnerButton" parent="TextAppearance.EditEvent_Spinner">
         <item name="android:paddingLeft">12dp</item>
         <item name="android:paddingRight">12dp</item>
     </style>
-
     <style name="TextAppearance.Holo.Light.Widget.Switch" parent="android:TextAppearance.Small">
-
         <!-- Switch thumb asset presents a dark background. -->
         <item name="android:textColor">@color/white</item>
     </style>
-
     <style name="TextAppearance.RecurrencePickerStyle" parent="@android:style/TextAppearance">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/dialog_text_color_holo_light</item>
     </style>
-
     <style name="Widget.Holo.Light.CompoundButton.Switch" parent="android:Widget.CompoundButton">
         <item name="track">@drawable/switch_track_holo_light</item>
         <item name="thumb">@drawable/switch_thumb</item>
@@ -513,90 +436,72 @@
         <item name="switchMinWidth">96dip</item>
         <item name="switchPadding">16dip</item>
     </style>
-
     <style name="aosp_ampm_label">
         <item name="android:textSize">@dimen/ampm_label_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/ampm_text_color</item>
         <item name="android:textStyle">bold</item>
     </style>
-
-    <style name="aosp_day_of_week_label_condensed" />
-
+    <style name="aosp_day_of_week_label_condensed"/>
     <style name="aosp_time_label">
         <item name="android:textSize">@dimen/time_label_size</item>
         <item name="android:textColor">@color/numbers_text_color</item>
     </style>
-
     <style name="dialog_button">
         <item name="android:textSize">@dimen/dialog_button_font_size</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:minHeight">48dp</item>
     </style>
-
     <style name="dialpad">
         <item name="android:textSize">@dimen/dialpad_font_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
-
     <style name="dialpad_text" parent="dialpad">
         <item name="android:textSize">@dimen/dialpad_font_size_ampm</item>
     </style>
-
     <style name="label">
         <item name="android:textSize">@dimen/label_font_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
-
     <style name="medium_bold">
         <item name="android:textSize">@dimen/medium_font_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
-
     <style name="medium_bold_date" parent="@style/medium_bold">
         <item name="android:textSize">@dimen/medium_date_font_size</item>
     </style>
-
     <style name="medium_bold_hms" parent="medium_bold">
         <item name="android:textSize">@dimen/medium_font_size_hms</item>
     </style>
-
     <style name="medium_light">
         <item name="android:textSize">@dimen/medium_font_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
-
     <style name="medium_light_date" parent="@style/medium_bold">
         <item name="android:textSize">@dimen/medium_date_font_size</item>
     </style>
-
     <style name="medium_light_expiration">
         <item name="android:textSize">@dimen/medium_expiration_font_size</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
-
     <style name="medium_light_header" parent="medium_light">
         <item name="android:textSize">@dimen/medium_font_size_header</item>
     </style>
-
     <style name="medium_light_hms" parent="medium_light">
         <item name="android:textSize">@dimen/medium_font_size_hms</item>
     </style>
-
     <style name="tablet_dialpad">
         <item name="android:textSize">@dimen/tablet_dialpad_font_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
-
     <style name="tablet_dialpad_text">
         <item name="android:textSize">@dimen/tablet_dialpad_font_size_ampm</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
-
 </resources>

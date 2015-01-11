@@ -189,7 +189,7 @@ containing a value of this type.
           attribute's value can be found in the {@link #CalendarPickerView} array.
           @attr name android:background
         */
-        public static final int CalendarPickerView_android_background = 0;
+        public static int CalendarPickerView_android_background = 0;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#dayBackground}
           attribute's value can be found in the {@link #CalendarPickerView} array.
@@ -199,7 +199,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.squareup.timessquare:dayBackground
         */
-        public static final int CalendarPickerView_dayBackground = 2;
+        public static int CalendarPickerView_dayBackground = 2;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#dayTextColor}
           attribute's value can be found in the {@link #CalendarPickerView} array.
@@ -214,7 +214,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:dayTextColor
         */
-        public static final int CalendarPickerView_dayTextColor = 3;
+        public static int CalendarPickerView_dayTextColor = 3;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#displayHeader}
           attribute's value can be found in the {@link #CalendarPickerView} array.
@@ -228,7 +228,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:displayHeader
         */
-        public static final int CalendarPickerView_displayHeader = 5;
+        public static int CalendarPickerView_displayHeader = 5;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#dividerColor}
           attribute's value can be found in the {@link #CalendarPickerView} array.
@@ -243,7 +243,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:dividerColor
         */
-        public static final int CalendarPickerView_dividerColor = 1;
+        public static int CalendarPickerView_dividerColor = 1;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#headerTextColor}
           attribute's value can be found in the {@link #CalendarPickerView} array.
@@ -258,7 +258,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:headerTextColor
         */
-        public static final int CalendarPickerView_headerTextColor = 6;
+        public static int CalendarPickerView_headerTextColor = 6;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#titleTextColor}
           attribute's value can be found in the {@link #CalendarPickerView} array.
@@ -273,7 +273,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:titleTextColor
         */
-        public static final int CalendarPickerView_titleTextColor = 4;
+        public static int CalendarPickerView_titleTextColor = 4;
         /** Attributes that can be used with a calendar_cell.
            <p>Includes the following attributes:</p>
            <table>
@@ -313,7 +313,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:state_current_month
         */
-        public static final int calendar_cell_state_current_month = 1;
+        public static int calendar_cell_state_current_month = 1;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#state_highlighted}
           attribute's value can be found in the {@link #calendar_cell} array.
@@ -327,7 +327,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:state_highlighted
         */
-        public static final int calendar_cell_state_highlighted = 6;
+        public static int calendar_cell_state_highlighted = 6;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#state_range_first}
           attribute's value can be found in the {@link #calendar_cell} array.
@@ -341,7 +341,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:state_range_first
         */
-        public static final int calendar_cell_state_range_first = 3;
+        public static int calendar_cell_state_range_first = 3;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#state_range_last}
           attribute's value can be found in the {@link #calendar_cell} array.
@@ -355,7 +355,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:state_range_last
         */
-        public static final int calendar_cell_state_range_last = 5;
+        public static int calendar_cell_state_range_last = 5;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#state_range_middle}
           attribute's value can be found in the {@link #calendar_cell} array.
@@ -369,7 +369,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:state_range_middle
         */
-        public static final int calendar_cell_state_range_middle = 4;
+        public static int calendar_cell_state_range_middle = 4;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#state_selectable}
           attribute's value can be found in the {@link #calendar_cell} array.
@@ -383,7 +383,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:state_selectable
         */
-        public static final int calendar_cell_state_selectable = 0;
+        public static int calendar_cell_state_selectable = 0;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#state_today}
           attribute's value can be found in the {@link #calendar_cell} array.
@@ -397,6 +397,6 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:state_today
         */
-        public static final int calendar_cell_state_today = 2;
+        public static int calendar_cell_state_today = 2;
     };
 }

@@ -78,8 +78,7 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static int bpTitleDividerColor=0x7f010006;
-        /**  Minimum width for the switch component 
-         <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
 <p>This may also be a reference to a resource (in the form
@@ -89,8 +88,7 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static int switchMinWidth=0x7f010012;
-        /**  Minimum space between the switch and caption text 
-         <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
 <p>This may also be a reference to a resource (in the form
@@ -108,28 +106,23 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static int switchStyle=0x7f01000a;
-        /**  TextAppearance style for text displayed on the switch thumb. 
-         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static int switchTextAppearance=0x7f010011;
-        /**  Text to use when the switch is in the unchecked/"off" state. 
-         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static int textOff=0x7f01000f;
-        /**  Text to use when the switch is in the checked/"on" state. 
-         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static int textOn=0x7f01000e;
-        /**  Drawable to use as the "thumb" that switches back and forth. 
-         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static int thumb=0x7f01000c;
-        /**  Amount of padding on either side of text within the switch thumb. 
-         <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
 <p>This may also be a reference to a resource (in the form
@@ -139,8 +132,7 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static int thumbTextPadding=0x7f010010;
-        /**  Drawable to use as the "track" that the switch thumb slides within. 
-         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static int track=0x7f01000d;
@@ -554,13 +546,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #Android_android_textColor android:textColor}</code></td><td> Text color.</td></tr>
-           <tr><td><code>{@link #Android_android_textColorHighlight android:textColorHighlight}</code></td><td> Color of the text selection highlight.</td></tr>
-           <tr><td><code>{@link #Android_android_textColorHint android:textColorHint}</code></td><td> Color of the hint text.</td></tr>
-           <tr><td><code>{@link #Android_android_textColorLink android:textColorLink}</code></td><td> Color of the links.</td></tr>
-           <tr><td><code>{@link #Android_android_textSize android:textSize}</code></td><td> Size of the text.</td></tr>
-           <tr><td><code>{@link #Android_android_textStyle android:textStyle}</code></td><td> Style (bold, italic, bolditalic) for the text.</td></tr>
-           <tr><td><code>{@link #Android_android_typeface android:typeface}</code></td><td> Typeface (normal, sans, serif, monospace) for the text.</td></tr>
+           <tr><td><code>{@link #Android_android_textColor android:textColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #Android_android_textColorHighlight android:textColorHighlight}</code></td><td></td></tr>
+           <tr><td><code>{@link #Android_android_textColorHint android:textColorHint}</code></td><td></td></tr>
+           <tr><td><code>{@link #Android_android_textColorLink android:textColorLink}</code></td><td></td></tr>
+           <tr><td><code>{@link #Android_android_textSize android:textSize}</code></td><td></td></tr>
+           <tr><td><code>{@link #Android_android_textStyle android:textStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #Android_android_typeface android:typeface}</code></td><td></td></tr>
            </table>
            @see #Android_android_textColor
            @see #Android_android_textColorHighlight
@@ -575,68 +567,47 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             0x01010099, 0x0101009a, 0x0101009b
         };
         /**
-          <p>
-          @attr description
-           Text color. 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#textColor}.
+          <p>This symbol is the offset where the {@link android.R.attr#textColor}
+          attribute's value can be found in the {@link #Android} array.
           @attr name android:textColor
         */
-        public static final int Android_android_textColor = 3;
+        public static int Android_android_textColor = 3;
         /**
-          <p>
-          @attr description
-           Color of the text selection highlight. 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#textColorHighlight}.
+          <p>This symbol is the offset where the {@link android.R.attr#textColorHighlight}
+          attribute's value can be found in the {@link #Android} array.
           @attr name android:textColorHighlight
         */
-        public static final int Android_android_textColorHighlight = 4;
+        public static int Android_android_textColorHighlight = 4;
         /**
-          <p>
-          @attr description
-           Color of the hint text. 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#textColorHint}.
+          <p>This symbol is the offset where the {@link android.R.attr#textColorHint}
+          attribute's value can be found in the {@link #Android} array.
           @attr name android:textColorHint
         */
-        public static final int Android_android_textColorHint = 5;
+        public static int Android_android_textColorHint = 5;
         /**
-          <p>
-          @attr description
-           Color of the links. 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#textColorLink}.
+          <p>This symbol is the offset where the {@link android.R.attr#textColorLink}
+          attribute's value can be found in the {@link #Android} array.
           @attr name android:textColorLink
         */
-        public static final int Android_android_textColorLink = 6;
+        public static int Android_android_textColorLink = 6;
         /**
-          <p>
-          @attr description
-           Size of the text. Recommended dimension type for text is "sp" for scaled-pixels (example: 15sp). 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#textSize}.
+          <p>This symbol is the offset where the {@link android.R.attr#textSize}
+          attribute's value can be found in the {@link #Android} array.
           @attr name android:textSize
         */
-        public static final int Android_android_textSize = 0;
+        public static int Android_android_textSize = 0;
         /**
-          <p>
-          @attr description
-           Style (bold, italic, bolditalic) for the text. 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#textStyle}.
+          <p>This symbol is the offset where the {@link android.R.attr#textStyle}
+          attribute's value can be found in the {@link #Android} array.
           @attr name android:textStyle
         */
-        public static final int Android_android_textStyle = 2;
+        public static int Android_android_textStyle = 2;
         /**
-          <p>
-          @attr description
-           Typeface (normal, sans, serif, monospace) for the text. 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#typeface}.
+          <p>This symbol is the offset where the {@link android.R.attr#typeface}
+          attribute's value can be found in the {@link #Android} array.
           @attr name android:typeface
         */
-        public static final int Android_android_typeface = 1;
+        public static int Android_android_typeface = 1;
         /** Attributes that can be used with a BetterPickersDialogFragment.
            <p>Includes the following attributes:</p>
            <table>
@@ -679,7 +650,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.doomonafireball.betterpickers:bpButtonBackground
         */
-        public static final int BetterPickersDialogFragment_bpButtonBackground = 5;
+        public static int BetterPickersDialogFragment_bpButtonBackground = 5;
         /**
           <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#bpCheckIcon}
           attribute's value can be found in the {@link #BetterPickersDialogFragment} array.
@@ -689,7 +660,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.doomonafireball.betterpickers:bpCheckIcon
         */
-        public static final int BetterPickersDialogFragment_bpCheckIcon = 3;
+        public static int BetterPickersDialogFragment_bpCheckIcon = 3;
         /**
           <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#bpDeleteIcon}
           attribute's value can be found in the {@link #BetterPickersDialogFragment} array.
@@ -699,7 +670,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.doomonafireball.betterpickers:bpDeleteIcon
         */
-        public static final int BetterPickersDialogFragment_bpDeleteIcon = 2;
+        public static int BetterPickersDialogFragment_bpDeleteIcon = 2;
         /**
           <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#bpDialogBackground}
           attribute's value can be found in the {@link #BetterPickersDialogFragment} array.
@@ -709,7 +680,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.doomonafireball.betterpickers:bpDialogBackground
         */
-        public static final int BetterPickersDialogFragment_bpDialogBackground = 9;
+        public static int BetterPickersDialogFragment_bpDialogBackground = 9;
         /**
           <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#bpDividerColor}
           attribute's value can be found in the {@link #BetterPickersDialogFragment} array.
@@ -724,7 +695,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.doomonafireball.betterpickers:bpDividerColor
         */
-        public static final int BetterPickersDialogFragment_bpDividerColor = 7;
+        public static int BetterPickersDialogFragment_bpDividerColor = 7;
         /**
           <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#bpKeyBackground}
           attribute's value can be found in the {@link #BetterPickersDialogFragment} array.
@@ -734,7 +705,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.doomonafireball.betterpickers:bpKeyBackground
         */
-        public static final int BetterPickersDialogFragment_bpKeyBackground = 4;
+        public static int BetterPickersDialogFragment_bpKeyBackground = 4;
         /**
           <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#bpKeyboardIndicatorColor}
           attribute's value can be found in the {@link #BetterPickersDialogFragment} array.
@@ -749,7 +720,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.doomonafireball.betterpickers:bpKeyboardIndicatorColor
         */
-        public static final int BetterPickersDialogFragment_bpKeyboardIndicatorColor = 8;
+        public static int BetterPickersDialogFragment_bpKeyboardIndicatorColor = 8;
         /**
           <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#bpTextColor}
           attribute's value can be found in the {@link #BetterPickersDialogFragment} array.
@@ -759,7 +730,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.doomonafireball.betterpickers:bpTextColor
         */
-        public static final int BetterPickersDialogFragment_bpTextColor = 0;
+        public static int BetterPickersDialogFragment_bpTextColor = 0;
         /**
           <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#bpTitleColor}
           attribute's value can be found in the {@link #BetterPickersDialogFragment} array.
@@ -769,7 +740,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.doomonafireball.betterpickers:bpTitleColor
         */
-        public static final int BetterPickersDialogFragment_bpTitleColor = 1;
+        public static int BetterPickersDialogFragment_bpTitleColor = 1;
         /**
           <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#bpTitleDividerColor}
           attribute's value can be found in the {@link #BetterPickersDialogFragment} array.
@@ -784,7 +755,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.doomonafireball.betterpickers:bpTitleDividerColor
         */
-        public static final int BetterPickersDialogFragment_bpTitleDividerColor = 6;
+        public static int BetterPickersDialogFragment_bpTitleDividerColor = 6;
         /** Attributes that can be used with a BetterPickersSwitchTheme.
            <p>Includes the following attributes:</p>
            <table>
@@ -809,7 +780,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.doomonafireball.betterpickers:switchPreferenceStyle
         */
-        public static final int BetterPickersSwitchTheme_switchPreferenceStyle = 1;
+        public static int BetterPickersSwitchTheme_switchPreferenceStyle = 1;
         /**
           <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#switchStyle}
           attribute's value can be found in the {@link #BetterPickersSwitchTheme} array.
@@ -819,21 +790,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.doomonafireball.betterpickers:switchStyle
         */
-        public static final int BetterPickersSwitchTheme_switchStyle = 0;
+        public static int BetterPickersSwitchTheme_switchStyle = 0;
         /** Attributes that can be used with a Switch.
            <p>Includes the following attributes:</p>
            <table>
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #Switch_switchMinWidth com.doomonafireball.betterpickers:switchMinWidth}</code></td><td> Minimum width for the switch component </td></tr>
-           <tr><td><code>{@link #Switch_switchPadding com.doomonafireball.betterpickers:switchPadding}</code></td><td> Minimum space between the switch and caption text </td></tr>
-           <tr><td><code>{@link #Switch_switchTextAppearance com.doomonafireball.betterpickers:switchTextAppearance}</code></td><td> TextAppearance style for text displayed on the switch thumb.</td></tr>
-           <tr><td><code>{@link #Switch_textOff com.doomonafireball.betterpickers:textOff}</code></td><td> Text to use when the switch is in the unchecked/"off" state.</td></tr>
-           <tr><td><code>{@link #Switch_textOn com.doomonafireball.betterpickers:textOn}</code></td><td> Text to use when the switch is in the checked/"on" state.</td></tr>
-           <tr><td><code>{@link #Switch_thumb com.doomonafireball.betterpickers:thumb}</code></td><td> Drawable to use as the "thumb" that switches back and forth.</td></tr>
-           <tr><td><code>{@link #Switch_thumbTextPadding com.doomonafireball.betterpickers:thumbTextPadding}</code></td><td> Amount of padding on either side of text within the switch thumb.</td></tr>
-           <tr><td><code>{@link #Switch_track com.doomonafireball.betterpickers:track}</code></td><td> Drawable to use as the "track" that the switch thumb slides within.</td></tr>
+           <tr><td><code>{@link #Switch_switchMinWidth com.doomonafireball.betterpickers:switchMinWidth}</code></td><td></td></tr>
+           <tr><td><code>{@link #Switch_switchPadding com.doomonafireball.betterpickers:switchPadding}</code></td><td></td></tr>
+           <tr><td><code>{@link #Switch_switchTextAppearance com.doomonafireball.betterpickers:switchTextAppearance}</code></td><td></td></tr>
+           <tr><td><code>{@link #Switch_textOff com.doomonafireball.betterpickers:textOff}</code></td><td></td></tr>
+           <tr><td><code>{@link #Switch_textOn com.doomonafireball.betterpickers:textOn}</code></td><td></td></tr>
+           <tr><td><code>{@link #Switch_thumb com.doomonafireball.betterpickers:thumb}</code></td><td></td></tr>
+           <tr><td><code>{@link #Switch_thumbTextPadding com.doomonafireball.betterpickers:thumbTextPadding}</code></td><td></td></tr>
+           <tr><td><code>{@link #Switch_track com.doomonafireball.betterpickers:track}</code></td><td></td></tr>
            </table>
            @see #Switch_switchMinWidth
            @see #Switch_switchPadding
@@ -849,9 +820,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             0x7f010010, 0x7f010011, 0x7f010012, 0x7f010013
         };
         /**
-          <p>
-          @attr description
-           Minimum width for the switch component 
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#switchMinWidth}
+          attribute's value can be found in the {@link #Switch} array.
 
 
           <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
@@ -862,14 +832,12 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          <p>This is a private symbol.
           @attr name com.doomonafireball.betterpickers:switchMinWidth
         */
-        public static final int Switch_switchMinWidth = 6;
+        public static int Switch_switchMinWidth = 6;
         /**
-          <p>
-          @attr description
-           Minimum space between the switch and caption text 
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#switchPadding}
+          attribute's value can be found in the {@link #Switch} array.
 
 
           <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
@@ -880,62 +848,52 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          <p>This is a private symbol.
           @attr name com.doomonafireball.betterpickers:switchPadding
         */
-        public static final int Switch_switchPadding = 7;
+        public static int Switch_switchPadding = 7;
         /**
-          <p>
-          @attr description
-           TextAppearance style for text displayed on the switch thumb. 
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#switchTextAppearance}
+          attribute's value can be found in the {@link #Switch} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          <p>This is a private symbol.
           @attr name com.doomonafireball.betterpickers:switchTextAppearance
         */
-        public static final int Switch_switchTextAppearance = 5;
+        public static int Switch_switchTextAppearance = 5;
         /**
-          <p>
-          @attr description
-           Text to use when the switch is in the unchecked/"off" state. 
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#textOff}
+          attribute's value can be found in the {@link #Switch} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          <p>This is a private symbol.
           @attr name com.doomonafireball.betterpickers:textOff
         */
-        public static final int Switch_textOff = 3;
+        public static int Switch_textOff = 3;
         /**
-          <p>
-          @attr description
-           Text to use when the switch is in the checked/"on" state. 
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#textOn}
+          attribute's value can be found in the {@link #Switch} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          <p>This is a private symbol.
           @attr name com.doomonafireball.betterpickers:textOn
         */
-        public static final int Switch_textOn = 2;
+        public static int Switch_textOn = 2;
         /**
-          <p>
-          @attr description
-           Drawable to use as the "thumb" that switches back and forth. 
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#thumb}
+          attribute's value can be found in the {@link #Switch} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          <p>This is a private symbol.
           @attr name com.doomonafireball.betterpickers:thumb
         */
-        public static final int Switch_thumb = 0;
+        public static int Switch_thumb = 0;
         /**
-          <p>
-          @attr description
-           Amount of padding on either side of text within the switch thumb. 
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#thumbTextPadding}
+          attribute's value can be found in the {@link #Switch} array.
 
 
           <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
@@ -946,21 +904,18 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          <p>This is a private symbol.
           @attr name com.doomonafireball.betterpickers:thumbTextPadding
         */
-        public static final int Switch_thumbTextPadding = 4;
+        public static int Switch_thumbTextPadding = 4;
         /**
-          <p>
-          @attr description
-           Drawable to use as the "track" that the switch thumb slides within. 
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#track}
+          attribute's value can be found in the {@link #Switch} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          <p>This is a private symbol.
           @attr name com.doomonafireball.betterpickers:track
         */
-        public static final int Switch_track = 1;
+        public static int Switch_track = 1;
     };
 }

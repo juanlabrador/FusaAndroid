@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- From: file:/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/src/main/res/values-mdpi/dimens.xml -->
-    <eat-comment />
-
+    <eat-comment/>
     <dimen name="date_picker_component_width">270dp</dimen>
     <dimen name="date_picker_header_height">30dp</dimen>
     <dimen name="date_picker_header_text_size">14dp</dimen>
@@ -23,5 +21,4 @@
     <dimen name="selected_date_year_size">24dp</dimen>
     <dimen name="year_label_height">64dp</dimen>
     <dimen name="year_label_text_size">22dp</dimen>
-
 </resources>

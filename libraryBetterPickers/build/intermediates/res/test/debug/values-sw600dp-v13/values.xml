@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- From: file:/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/build/intermediates/bundles/debug/res/values-sw600dp-v13/values.xml -->
-    <eat-comment />
-
+    <eat-comment/>
     <dimen name="ampm_label_size">20sp</dimen>
     <dimen name="ampm_left_padding">8dip</dimen>
     <dimen name="body_font_padding">8dp</dimen>
@@ -41,5 +39,4 @@
     <dimen name="time_label_size">75sp</dimen>
     <dimen name="year_label_height">96dp</dimen>
     <dimen name="year_label_text_size">33dp</dimen>
-
 </resources>

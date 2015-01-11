@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- From: file:/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/build/intermediates/bundles/debug/res/values-es/values.xml -->
-    <eat-comment />
-
+    <eat-comment/>
     <string name="day_c">DIA</string>
     <string name="done_label">Listo</string>
     <string name="hms_picker_hours_label">H</string>
@@ -29,5 +27,4 @@
     <string name="time_picker_time_seperator">:</string>
     <string name="timer_delete">Borrar</string>
     <string name="year_c">AÑO</string>
-
 </resources>

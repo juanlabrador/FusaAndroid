@@ -57,7 +57,15 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
             case R.id.btn_iniciar_sesion:
                 if (exiteConexionInternet() != false) {
                     deshabilitarElementos();
-                    new LoginTaks().execute(email.getText().toString(), password.getText().toString());
+                    if (email.getText().toString().equals("") && password.getText().toString().equals("") ||
+                            !email.getText().toString().equals("") && password.getText().toString().equals("") ||
+                            email.getText().toString().equals("") && !password.getText().toString().equals("")) {
+                        habilitarElementos();
+                        errorIniciarSesion();
+                    } else {
+
+                        new LoginTaks().execute(email.getText().toString(), password.getText().toString());
+                    }
                 } else {
                     errorConexionInternet();
                 }
@@ -138,6 +146,7 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            iniciarSesion.setProgress(0);
             iniciarSesion.setIndeterminateProgressMode(true);
             iniciarSesion.setProgress(50);
         }

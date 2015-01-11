@@ -1,15 +1,29 @@
 package edu.ucla.fusa.android.modelo.herramientas;
 
+import android.util.Log;
+
+import java.io.EOFException;
+import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.apache.http.NameValuePair;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequest;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import edu.ucla.fusa.android.modelo.academico.Catedra;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
 import edu.ucla.fusa.android.modelo.academico.Usuario;
+import edu.ucla.fusa.android.modelo.fundacion.Aspirante;
 import edu.ucla.fusa.android.modelo.fundacion.Noticia;
 
 /**
@@ -18,11 +32,14 @@ import edu.ucla.fusa.android.modelo.fundacion.Noticia;
 
 public class JSONParser {
 
+    private static String TAG = "JsonParser";
     private static String URL = "http://10.0.3.2:8080/fusa.frontend/webservices/rest/";
     private String parametros;
     private RestTemplate restTemplate;
 
     public JSONParser() {}
+
+    // Usuario
 
     public Usuario serviceLogin(ArrayList<NameValuePair> params) {
         try {
@@ -36,6 +53,8 @@ public class JSONParser {
         return null;
     }
 
+    // Estudiante
+
     public Estudiante serviceEstudiante(ArrayList<NameValuePair> params) {
         try {
             restTemplate = new RestTemplate();
@@ -47,6 +66,8 @@ public class JSONParser {
         }
         return null;
     }
+
+    // Noticias
 
     public ArrayList<Noticia> serviceLoadingNoticias() {
         try {
@@ -72,4 +93,34 @@ public class JSONParser {
         }
         return null;
     }
+
+    // Catedras
+
+    public ArrayList<Catedra> serviceLoadingCatedras() {
+        try {
+            restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            ResponseEntity<Catedra[]> responseEntity = restTemplate.getForEntity(URL + "ServiceCatedras", Catedra[].class);
+            return new ArrayList<Catedra>(Arrays.asList(responseEntity.getBody()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // Postulación de un estudiante
+
+    public int uploadAspirante(Aspirante aspirante) throws Exception {
+        // Create a new RestTemplate instance
+        restTemplate = new RestTemplate(true);
+
+        System.setProperty("http.keepAlive", "false");
+        // Add the Jackson and String message converters
+        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+
+        // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
+        return restTemplate.postForObject(URL + "aspirante/upload", aspirante, Integer.class);
+    }
+
 }

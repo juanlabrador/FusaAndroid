@@ -44,7 +44,7 @@ public class ListNoticiasAdapter extends BaseAdapter implements View.OnClickList
     private ArrayList<ItemListOpcionesMultimedia> items = new ArrayList();
     private SocialNetworkManager socialNetworkManager;
     protected boolean socialNetworkManagerInitialized = false;
-    private static String URL = "http://10.0.3.2:8080/fusa.frontend/webservices/rest/uploads/";
+    private static String URL = "http://10.0.3.2:8080/fusa.frontend/webservices/rest/downloads/";
 
     public ListNoticiasAdapter(FragmentActivity activity, ArrayList<ItemListNoticia> paramArrayList, ListFragment fragment) {
         this.activity = activity;

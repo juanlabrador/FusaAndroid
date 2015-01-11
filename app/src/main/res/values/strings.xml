@@ -9,6 +9,9 @@
     <string name="cerrar_sesion">Cerrando sesión...</string>
     <string name="cargando">Cargando...</string>
 
+    <string name="sexo_masculino">Masculino</string>
+    <string name="sexo_femenino">Femenino</string>
+
     <string name="configuracion">Configuración</string>
     <string name="configuracion_acerca_nosotros_contenido">"Somos un grupo de estudiante de la Universidad Centroccidental Lisandro Alvarado (UCLA), cual desarrollamos esta aplicación para la Fundación Musical Simón Bolívar (Fundamusical) como asignación de la materia Sistemas de Información. \nSomos mejor conocidos como ENERGY TEAM."</string>
     <string name="configuracion_acerca_nosotros_titulo">Acerca de nosotros</string>
@@ -111,13 +114,16 @@
     <string name="lista_pull">Desliza para refrescar...</string>
     <string name="lista_refresh">Cargando...</string>
     <string name="lista_release">Suelta para refrescar...</string>
-    <string name="mensaje_cedula_rif_invalido">Ingrese un rif o cédula válida</string>
-    <string name="mensaje_correo_invalido">Ingrese una cuenta de correo válida</string>
-    <string name="mensaje_elegir_cliente_correo">Elija un cliente de correo electrónico</string>
+    <string name="mensaje_cedula_rif_invalido">Ingrese un rif o cédula válida.</string>
+    <string name="mensaje_correo_invalido">Ingrese una cuenta de correo válida.</string>
+    <string name="mensaje_complete_campos_aspirante">Por favor, complete el formulario.</string>
+    <string name="mensaje_elegir_cliente_correo">Elija un cliente de correo electrónico.</string>
     <string name="mensaje_error_crear_mapa">¡Lo sentimos! Imposible crear el mapa</string>
     <string name="mensaje_error_iniciar_sesion">Su dirección de correo o contraseña no son válidos</string>
     <string name="mensaje_error_conexion">¡Ups, no esta conectado a Internet! Por favor, conectese a una red.</string>
     <string name="mensaje_error_servidor">¡Ups, estamos presentando problemas con el servidor! Por favor, intente más tarde.</string>
+    <string name="mensaje_error_cargar_catedras">¡Ups, no hemos podido cargar la lista de catedras! Por favor, intente de nuevo más tarde.</string>
+    <string name="mensaje_error_enviar_postulacion">Ya postulo a esta persona</string>
     <string name="mensaje_error_busqueda">¡Ups, hubo un error al cargar, intente más tarde!</string>
     <string name="mensaje_busqueda_vacio_noticias">Las noticias estan actualizadas.</string>
     <string name="nivel_calificacion_evento_1">No me gustó en lo absoluto</string>
@@ -155,6 +161,10 @@
     <string name="texto_contenido_director_contacto">"Alfredo D' Addona, adaddonna@fundamusical.org.ve"</string>
     <string name="texto_contenido_editext_apellido_postularse">Apellido</string>
     <string name="texto_contenido_editext_nombre_postularse">Nombre</string>
+    <string name="texto_contenido_editext_cedula_postularse">Cédula de identidad</string>
+    <string name="texto_contenido_editext_sexo_postularse">Sexo</string>
+    <string name="texto_contenido_editext_catedra_postularse">Seleccione una catedra</string>
+    <string name="texto_contenido_editext_telefono_postularse">Teléfono</string>
     <string name="texto_contenido_editext_rif_cedula_contrataciones">Rif o cédula</string>
     <string name="texto_contenido_editext_solicitante_contrataciones">Solicitante</string>
     <string name="texto_contenido_edittex_clave_login">Contraseña</string>

@@ -32,11 +32,11 @@
     </style>
     <style name="CustomTabPageIndicator" parent="@style/Widget.TabPageIndicator">
         <item name="android:textAppearance">@style/TextAppearance.TabPageIndicator</item>
-        <item name="android:textSize">12.0sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/negro</item>
         <item name="android:background">@drawable/style_tab_indicator</item>
-        <item name="android:paddingLeft">10.0dip</item>
-        <item name="android:paddingRight">10.0dip</item>
+        <item name="android:paddingLeft">10dip</item>
+        <item name="android:paddingRight">10dip</item>
         <item name="android:fadingEdge">horizontal</item>
         <item name="android:fadingEdgeLength">6.0dip</item>
         <item name="android:divider">@color/azul</item>

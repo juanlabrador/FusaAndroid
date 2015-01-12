@@ -23,6 +23,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cargando"/>
+
+        <Button
+            android:id="@+id/btn_reintentar_conexion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_reintentar"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <ListView android:textColor="@color/blanco"

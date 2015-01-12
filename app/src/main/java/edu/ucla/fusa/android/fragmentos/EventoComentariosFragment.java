@@ -72,15 +72,15 @@ public class EventoComentariosFragment extends Fragment implements View.OnClickL
 
         protected Void doInBackground(Void[] paramArrayOfVoid) {
             list.addHeaderView(header);
-            items.add(new ItemListComentario(R.drawable.comentario1,
+            items.add(new ItemListComentario(R.drawable.no_avatar,
                     "Silvana Dorantes", 5,
                     calendar.getTime(),
                     "Excelente concierto, bravo por esos niños."));
-            items.add(new ItemListComentario(R.drawable.comentario3,
+            items.add(new ItemListComentario(R.drawable.no_avatar,
                     "Jorge Aponte", 3,
                     calendar.getTime(),
                     "Bueno, hubo una que otra desafinación, pero excelente esfuerzo."));
-            items.add(new ItemListComentario(R.drawable.comentario5,
+            items.add(new ItemListComentario(R.drawable.no_avatar,
                     "Xioang Sanguino", 5, calendar.getTime(),
                     "La orquesta infantil, dios mio, que bellos niños, con sus intrumentos."));
             return null;

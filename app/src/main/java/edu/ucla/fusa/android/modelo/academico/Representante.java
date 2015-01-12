@@ -3,6 +3,7 @@ package edu.ucla.fusa.android.modelo.academico;
 import java.util.Calendar;
 
 import edu.ucla.fusa.android.modelo.fundacion.Parroquia;
+import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 
 /**
  * Created by juanlabrador on 10/01/15.

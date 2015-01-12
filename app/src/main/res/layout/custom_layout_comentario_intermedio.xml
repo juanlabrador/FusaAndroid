@@ -19,7 +19,7 @@
             android:layout_width="60.0dip"
             android:layout_height="60.0dip"
             android:layout_marginTop="10.0dip"
-            android:src="@drawable/foto_perfil"
+            android:src="@drawable/no_avatar"
             app:border_width="1.0dip"
             app:border_color="@color/blanco" />
 

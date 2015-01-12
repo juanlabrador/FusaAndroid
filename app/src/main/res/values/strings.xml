@@ -8,6 +8,8 @@
     <string name="cantidad_contenido_password_simbolos">Al menos un caracter especial (@#$%).</string>
     <string name="cerrar_sesion">Cerrando sesión...</string>
     <string name="cargando">Cargando...</string>
+    <string name="mensaje_comprobar_conexion">Comprueba tu conexión y reinténtalo</string>
+    <string name="boton_reintentar">Intentar nuevamente</string>
 
     <string name="sexo_masculino">Masculino</string>
     <string name="sexo_femenino">Femenino</string>
@@ -164,6 +166,7 @@
     <string name="texto_contenido_editext_cedula_postularse">Cédula de identidad</string>
     <string name="texto_contenido_editext_sexo_postularse">Sexo</string>
     <string name="texto_contenido_editext_catedra_postularse">Seleccione una catedra</string>
+    <string name="texto_contenido_editext_catedra_participa">Seleccione su especialidad</string>
     <string name="texto_contenido_editext_telefono_postularse">Teléfono</string>
     <string name="texto_contenido_editext_rif_cedula_contrataciones">Rif o cédula</string>
     <string name="texto_contenido_editext_solicitante_contrataciones">Solicitante</string>
@@ -225,7 +228,7 @@
 
     <!-- Elementos de la ventana de donaciones -->
     <string name="participa_titulo_superior">Participa en enseñar</string>
-    <string name="participa_edit_text_cedula">Cédula</string>
+    <string name="participa_edit_text_cedula">Cédula de identidad</string>
     <string name="participa_edit_text_nombre">Nombre</string>
     <string name="participa_edit_text_apellido">Apellido</string>
     <string name="participa_edit_text_correo">Correo electrónico</string>

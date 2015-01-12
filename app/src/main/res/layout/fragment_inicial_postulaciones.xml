@@ -44,6 +44,17 @@
             android:layout_weight="1">
 
             <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
+                android:id="@+id/et_cedula_aspirante"
+                android:background="@drawable/style_edit_text_azul"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:hint="@string/texto_contenido_editext_cedula_postularse"
+                android:inputType="number"
+                android:maxLength="8"/>
+
+            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
                 android:id="@+id/et_nombre_aspirante"
                 android:background="@drawable/style_edit_text_azul"
                 android:layout_width="fill_parent"
@@ -62,17 +73,6 @@
                 android:layout_marginRight="5dp"
                 android:hint="@string/texto_contenido_editext_apellido_postularse"
                 android:inputType="text" />
-
-            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-                android:id="@+id/et_cedula_aspirante"
-                android:background="@drawable/style_edit_text_azul"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:hint="@string/texto_contenido_editext_cedula_postularse"
-                android:inputType="number"
-                android:maxLength="8"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                     android:layout_height="30dp"
                     android:src="@drawable/ic_add"/>
 
-        </LinearLayout>
+            </LinearLayout>
 
             <CheckBox
                 android:id="@+id/cb_instrumento_propio_aspirante"

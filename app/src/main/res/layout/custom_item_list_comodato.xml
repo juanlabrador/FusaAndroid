@@ -34,10 +34,10 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_foto_perfil_estudiante_comodato"
-                    android:layout_width="50dip"
-                    android:layout_height="50dip"
-                    android:src="@drawable/foto_perfil"
-                    app:border_width="1.0dip"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/no_avatar"
+                    app:border_width="1dp"
                     app:border_color="@color/negro"
                     android:layout_gravity="start"
                     android:layout_marginBottom="15dp"/>

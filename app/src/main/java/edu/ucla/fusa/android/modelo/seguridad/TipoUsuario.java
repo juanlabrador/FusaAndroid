@@ -1,4 +1,4 @@
-package edu.ucla.fusa.android.modelo.academico;
+package edu.ucla.fusa.android.modelo.seguridad;
 
 /**
  * Created by juanlabrador on 09/01/15.

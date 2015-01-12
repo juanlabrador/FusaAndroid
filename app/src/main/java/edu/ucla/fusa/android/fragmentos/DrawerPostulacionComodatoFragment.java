@@ -8,24 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import edu.ucla.fusa.android.R;
-import edu.ucla.fusa.android.adaptadores.ExpandibleListHorarioAdapter;
 import edu.ucla.fusa.android.adaptadores.ExpandibleListPostulacionComodatoAdapter;
-import edu.ucla.fusa.android.modelo.academico.AreaEstudio;
-import edu.ucla.fusa.android.modelo.academico.Dia;
-import edu.ucla.fusa.android.modelo.academico.Estudiante;
-import edu.ucla.fusa.android.modelo.academico.Grupo;
-import edu.ucla.fusa.android.modelo.academico.Horario;
-import edu.ucla.fusa.android.modelo.academico.HorarioPorGrupo;
-import edu.ucla.fusa.android.modelo.academico.Instructor;
-import edu.ucla.fusa.android.modelo.academico.Usuario;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListEstudiantesComodato;
-import edu.ucla.fusa.android.modelo.instrumentos.Instrumento;
-import edu.ucla.fusa.android.modelo.instrumentos.PostulacionComodato;
 
 /**
  * Created by juanlabrador on 24/11/14.
@@ -125,18 +113,18 @@ public class DrawerPostulacionComodatoFragment extends Fragment {
 
         // Adding child data
         List<ItemListEstudiantesComodato> nive7 = new ArrayList<ItemListEstudiantesComodato>();
-        nive7.add(new ItemListEstudiantesComodato(R.drawable.foto_perfil, "Juan Labrador", 7, "Guitarra", 3));
-        nive7.add(new ItemListEstudiantesComodato(R.drawable.comentario8, "Jaime Daza", 7, "Guitarra", 2));
-        nive7.add(new ItemListEstudiantesComodato(R.drawable.comentario6, "Ana Ure", 7, "Guitarra", 4));
-        nive7.add(new ItemListEstudiantesComodato(R.drawable.comentario3, "Jorge Aponte", 7, "Guitarra", 1));
+        nive7.add(new ItemListEstudiantesComodato(R.drawable.no_avatar, "Juan Labrador", 7, "Guitarra", 3));
+        nive7.add(new ItemListEstudiantesComodato(R.drawable.no_avatar, "Jaime Daza", 7, "Guitarra", 2));
+        nive7.add(new ItemListEstudiantesComodato(R.drawable.no_avatar, "Ana Ure", 7, "Guitarra", 4));
+        nive7.add(new ItemListEstudiantesComodato(R.drawable.no_avatar, "Jorge Aponte", 7, "Guitarra", 1));
 
 
         // Adding child data
         List<ItemListEstudiantesComodato> nive11 = new ArrayList<ItemListEstudiantesComodato>();
-        nive11.add(new ItemListEstudiantesComodato(R.drawable.comentario2, "Miguel Nesterovsky", 11, "Guitarra", 4));
-        nive11.add(new ItemListEstudiantesComodato(R.drawable.comentario5, "Xioang Sanguino", 11, "Guitarra", 3));
-        nive11.add(new ItemListEstudiantesComodato(R.drawable.comentario10, "Angelica Morales", 11, "Guitarra", 3));
-        nive11.add(new ItemListEstudiantesComodato(R.drawable.comentario9, "Alexis Colina", 11, "Guitarra", 2));
+        nive11.add(new ItemListEstudiantesComodato(R.drawable.no_avatar, "Miguel Nesterovsky", 11, "Guitarra", 4));
+        nive11.add(new ItemListEstudiantesComodato(R.drawable.no_avatar, "Xioang Sanguino", 11, "Guitarra", 3));
+        nive11.add(new ItemListEstudiantesComodato(R.drawable.no_avatar, "Angelica Morales", 11, "Guitarra", 3));
+        nive11.add(new ItemListEstudiantesComodato(R.drawable.no_avatar, "Alexis Colina", 11, "Guitarra", 2));
 
 
         contenido.put(grupo.get(0), nive7);

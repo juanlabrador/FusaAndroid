@@ -73,6 +73,7 @@ public class InicialPostulacionesFragment extends Fragment implements View.OnCli
     private List<Catedra> catedras = new ArrayList<Catedra>();
     private Catedra c = new Catedra();
     private Aspirante aspirante = new Aspirante();
+    private int age;
 
     public static InicialPostulacionesFragment newInstance() {
         InicialPostulacionesFragment fragment = new InicialPostulacionesFragment();
@@ -187,6 +188,7 @@ public class InicialPostulacionesFragment extends Fragment implements View.OnCli
         aspirante.setCedula(cedula.getText().toString());
         aspirante.setCorreo(email.getText().toString());
         aspirante.setTelefonoMovil(telefono.getText().toString());
+        aspirante.setEdad(age);
         aspirante.setSexo(sexo.getText().toString());
         if (poseeInstrumento.isChecked()) {
             aspirante.setInstrumentoPropio("Si");
@@ -211,7 +213,13 @@ public class InicialPostulacionesFragment extends Fragment implements View.OnCli
 
     @Override
     public void onDialogDateSet(int reference, int year, int month, int day) {
-        fechaNacimiento.setText(day + "-" + (month + 1) + "-" + year);
+        if (month < 9)
+            fechaNacimiento.setText(day + "-0" + (month + 1) + "-" + year);
+        else
+            fechaNacimiento.setText(day + "-" + (month + 1) + "-" + year);
+
+        Calendar calendar = Calendar.getInstance();
+        age = calendar.get(Calendar.YEAR) - year;
     }
 
     private void showMenuSexo() {

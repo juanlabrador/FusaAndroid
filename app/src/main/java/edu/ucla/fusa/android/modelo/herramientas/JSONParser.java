@@ -1,29 +1,19 @@
 package edu.ucla.fusa.android.modelo.herramientas;
 
-import android.util.Log;
-
-import java.io.EOFException;
-import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.apache.http.NameValuePair;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequest;
-import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import edu.ucla.fusa.android.modelo.academico.Catedra;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
-import edu.ucla.fusa.android.modelo.academico.Usuario;
+import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import edu.ucla.fusa.android.modelo.fundacion.Aspirante;
+import edu.ucla.fusa.android.modelo.fundacion.InstructorAspirante;
 import edu.ucla.fusa.android.modelo.fundacion.Noticia;
 
 /**
@@ -121,6 +111,21 @@ public class JSONParser {
 
         // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
         return restTemplate.postForObject(URL + "aspirante/upload", aspirante, Integer.class);
+    }
+
+    // Postulación de un instructor
+
+    public int uploadInstructorAspirante(InstructorAspirante aspirante) throws Exception {
+        // Create a new RestTemplate instance
+        restTemplate = new RestTemplate(true);
+
+        System.setProperty("http.keepAlive", "false");
+        // Add the Jackson and String message converters
+        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+
+        // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
+        return restTemplate.postForObject(URL + "instructorAspirante/upload", aspirante, Integer.class);
     }
 
 }

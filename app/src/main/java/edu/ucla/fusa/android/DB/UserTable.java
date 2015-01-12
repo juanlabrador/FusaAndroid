@@ -5,13 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.sql.SQLClientInfoException;
-import java.sql.SQLDataException;
-import java.sql.SQLException;
-
-import edu.ucla.fusa.android.modelo.academico.Estudiante;
-import edu.ucla.fusa.android.modelo.academico.TipoUsuario;
-import edu.ucla.fusa.android.modelo.academico.Usuario;
+import edu.ucla.fusa.android.modelo.seguridad.TipoUsuario;
+import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 
 /**
  * Created by juanlabrador on 19/11/14.
@@ -64,7 +59,7 @@ public class UserTable {
         cursor = db.rawQuery(tiraSQL, null);
         if (cursor.moveToFirst()) {
             usuario.setId(cursor.getInt(0));
-            usuario.setNombre(cursor.getString(1));
+            usuario.setUsername(cursor.getString(1));
             usuario.setPassword(cursor.getString(2));
             usuario.setFoto(cursor.getBlob(3));
             usuario.setTipoUsuario(

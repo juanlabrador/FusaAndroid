@@ -18,7 +18,7 @@ import edu.ucla.fusa.android.fragmentos.InicialEventosFragment;
 import edu.ucla.fusa.android.fragmentos.InicialInstrumentosFragment;
 import edu.ucla.fusa.android.fragmentos.InicialProfesoresFragment;
 import edu.ucla.fusa.android.fragmentos.InicialSplashScreenFragment;
-import edu.ucla.fusa.android.modelo.academico.Usuario;
+import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 
 public class VistasInicialesActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, ActionBar.TabListener {
 
@@ -71,10 +71,10 @@ public class VistasInicialesActivity extends FragmentActivity implements ViewPag
         super.onResume();
         usuario = db.searchUser();
         if (usuario != null)
-            if (!usuario.getNombre().equals("")) {
+            if (!usuario.getUsername().equals("")) {
                 startActivity(new Intent(this, VistasPrincipalesActivity.class)
                         .putExtra("tipoUser", usuario.getTipoUsuario().getId())
-                        .putExtra("user", usuario.getNombre()));
+                        .putExtra("user", usuario.getUsername()));
                 finish();
             }
     }

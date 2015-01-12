@@ -2,15 +2,15 @@
 <LinearLayout
     android:orientation="vertical"
     android:background="@color/contenido_bg"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ptr="http://schemas.android.com/apk/res-auto">
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/pull_to_refresh_list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:divider="@null"
         ptr:ptrPullLabel="@string/lista_pull"
         ptr:ptrRefreshLabel="@string/lista_refresh"
@@ -18,7 +18,7 @@
 
     <ProgressBar
         android:layout_gravity="center"
-        android:id="@+id/progress_bar"
+        android:id="@+id/progress_bar_noticias"
         android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -29,5 +29,14 @@
         android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/error_no_data_avalaible" />
+        android:textSize="20sp"
+        android:text="@string/mensaje_comprobar_conexion" />
+
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/btn_reintentar_conexion_noticias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/boton_reintentar"
+        android:visibility="gone"/>
 </LinearLayout>

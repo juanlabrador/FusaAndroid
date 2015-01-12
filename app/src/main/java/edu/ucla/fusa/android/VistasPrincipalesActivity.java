@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -63,6 +64,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private ProgressBar progress;
     private TextView descripcionProgress;
     private Estudiante estudiante;
+    private Button reintentar;
 
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
@@ -71,6 +73,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         getActionBar().hide();
         progress = (ProgressBar) findViewById(R.id.pb_cargando);
         descripcionProgress = (TextView) findViewById(R.id.text_cargando);
+        reintentar = (Button) findViewById(R.id.btn_reintentar_conexion);
         navigationDrawer = ((DrawerLayout) findViewById(R.id.drawer_layout));
         navigationDrawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         navigationList = ((ListView)findViewById(R.id.lista_funciones));
@@ -126,6 +129,8 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             showFragmentEstudiante(position);
         } else if (getIntent().getIntExtra("tipoUser", -1) == 2) {
             showFragmentInstructor(position);
+        } else {
+            showFragmentEstandar(position);
         }
 
     }
@@ -157,7 +162,13 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         foto = (CircleImageView) header.findViewById(R.id.iv_foto_perfil_drawer);
         nombre = (TextView) header.findViewById(R.id.etNombreDrawer);
         correo = (TextView) header.findViewById(R.id.etEmailDrawer);
-        foto.setImageBitmap(convertByteToImage(f));
+        foto.setVisibility(View.VISIBLE);
+        nombre.setVisibility(View.VISIBLE);
+        correo.setVisibility(View.VISIBLE);
+        if (f != null)
+            foto.setImageBitmap(convertByteToImage(f));
+        else
+            foto.setImageResource(R.drawable.no_avatar);
         nombre.setText(n);
         correo.setText(c);
         iconos = getResources().obtainTypedArray(R.array.nav_icons_estudiante);
@@ -194,6 +205,60 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         getActionBar().show();
         progress.setVisibility(View.GONE);
         descripcionProgress.setVisibility(View.GONE);
+    }
+
+    private void cargarMenuEstandar() {
+        header = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
+        foto = (CircleImageView) header.findViewById(R.id.iv_foto_perfil_drawer);
+        nombre = (TextView) header.findViewById(R.id.etNombreDrawer);
+        correo = (TextView) header.findViewById(R.id.etEmailDrawer);
+        foto.setVisibility(View.INVISIBLE);
+        nombre.setVisibility(View.INVISIBLE);
+        correo.setVisibility(View.INVISIBLE);
+
+        iconos = getResources().obtainTypedArray(R.array.nav_icons_estudiante);
+        navigationList.addHeaderView(header);
+        iconos = getResources().obtainTypedArray(R.array.nav_icons_general);
+        titulos = getResources().getStringArray(R.array.nav_funciones_general);
+        items = new ArrayList();
+        items.add(new ItemListDrawer(
+                titulos[0],
+                iconos.getResourceId(0, -1)));
+        items.add(new ItemListDrawer(
+                titulos[1],
+                iconos.getResourceId(1, -1)));
+        items.add(new ItemListDrawer(
+                titulos[2],
+                iconos.getResourceId(2, -1)));
+
+        navigationAdapter = new NavigationAdapter(this, items);
+        navigationList.setAdapter(navigationAdapter);
+        navigationList.setOnItemClickListener(this);
+
+        getActionBar().show();
+        reintentar.setVisibility(View.VISIBLE);
+        reintentar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new BuscarEstudiante().execute(getIntent().getStringExtra("user"));
+            }
+        });
+        descripcionProgress.setText(R.string.mensaje_comprobar_conexion);
+        progress.setVisibility(View.GONE);
+    }
+
+    private void showFragmentEstandar(int position) {
+        getSupportFragmentManager().popBackStack();
+        switch (position) {
+            case 1:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, ConfiguracionListadoFragment.newInstance())
+                        .commit();
+                break;
+        }
+        navigationList.setItemChecked(position, true);
+        navigationList.setSelection(position);
+        navigationDrawer.closeDrawer(navigationList);
     }
 
     private void showFragmentEstudiante(int position) {
@@ -242,6 +307,9 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         foto = (CircleImageView) header.findViewById(R.id.iv_foto_perfil_drawer);
         nombre = (TextView) header.findViewById(R.id.etNombreDrawer);
         correo = (TextView) header.findViewById(R.id.etEmailDrawer);
+        foto.setVisibility(View.VISIBLE);
+        nombre.setVisibility(View.VISIBLE);
+        correo.setVisibility(View.VISIBLE);
         foto.setImageResource(R.drawable.foto_instructor);
         nombre.setText("Rafael \"Pollo\" Brito");
         correo.setText("profesor@example.com");
@@ -338,6 +406,9 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progress.setVisibility(View.VISIBLE);
+            descripcionProgress.setText(R.string.cargando);
+            reintentar.setVisibility(View.GONE);
         }
 
         @Override
@@ -362,7 +433,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                         estudiante.getApellido(),
                         estudiante.getCedula(),
                         estudiante.getCorreo(),
-                        estudiante.getDireccion(),
                         estudiante.getEdad(),
                         estudiante.getFechanac(),
                         estudiante.getSexo(),
@@ -401,6 +471,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 errorBusqueda();
             } else {
                 Log.i(TAG, "Problemas con conectividad");
+                cargarMenuEstandar();
                 errorServidor();
             }
             getActionBar().show();

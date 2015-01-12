@@ -1,4 +1,4 @@
-package edu.ucla.fusa.android.modelo.academico;
+package edu.ucla.fusa.android.modelo.seguridad;
 
 import java.util.Calendar;
 
@@ -8,7 +8,7 @@ import java.util.Calendar;
 public class Usuario {
 
     private transient int id;
-    private String nombre;
+    private String username;
     private String password;
     private byte[] foto;
     private TipoUsuario tipoUsuario;
@@ -18,11 +18,11 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(int id, String nombre, String password, byte[] foto,
+    public Usuario(int id, String username, String password, byte[] foto,
                    TipoUsuario tipoUsuario, String estatus,
                    Calendar fechaCreacion, Calendar ultimoAcceso) {
         this.id = id;
-        this.nombre = nombre;
+        this.username = username;
         this.password = password;
         this.foto = foto;
         this.tipoUsuario = tipoUsuario;
@@ -39,12 +39,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

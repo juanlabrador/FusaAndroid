@@ -75,43 +75,43 @@ public class EventoComentariosTodosFragment extends ListFragment implements AbsL
 
         protected Void doInBackground(Void... paramArrayOfVoid) {
             getListView().addHeaderView(EventoComentariosTodosFragment.this.header);
-            items.add(new ItemListComentario(R.drawable.comentario1,
+            items.add(new ItemListComentario(R.drawable.no_avatar,
                     "Silvana Dorantes", 5,
                     calendar.getTime(),
                     "Excelente concierto, bravo por esos niños."));
-            items.add(new ItemListComentario(R.drawable.comentario2,
+            items.add(new ItemListComentario(R.drawable.no_avatar,
                     "Miguel Nesterovsky", 4,
                     calendar.getTime(),
                     "Me gusto venir."));
-            items.add(new ItemListComentario(R.drawable.comentario3,
+            items.add(new ItemListComentario(R.drawable.no_avatar,
                     "Jorge Aponte", 3,
                     calendar.getTime(),
                     "Bueno, hubo una que otra desafinación, pero excelente esfuerzo."));
-            items.add(new ItemListComentario(R.drawable.comentario4,
+            items.add(new ItemListComentario(R.drawable.no_avatar,
                     "Luis \"Negro\" Castillo", 5,
                     calendar.getTime(),
                     "Quisiera ser niño otra vez."));
-            items.add(new ItemListComentario(R.drawable.comentario5,
+            items.add(new ItemListComentario(R.drawable.no_avatar,
                     "Xioang Sanguino", 5,
                     calendar.getTime(),
                     "La orquesta infantil, dios mio, que bellos niños, con sus intrumentos."));
-            items.add(new ItemListComentario(R.drawable.comentario6,
+            items.add(new ItemListComentario(R.drawable.no_avatar,
                     "Ana Ure", 5,
                     calendar.getTime(),
                     "Por estas iniciativas, es que vale la pena ayudar a la sociedad."));
-            items.add(new ItemListComentario(R.drawable.comentario7,
+            items.add(new ItemListComentario(R.drawable.no_avatar,
                     "Winder Ojeda", 5,
                     calendar.getTime(),
                     "Pronto veré a mi hijo en un evento como este."));
-            items.add(new ItemListComentario(R.drawable.comentario8,
+            items.add(new ItemListComentario(R.drawable.no_avatar,
                     "Jaime Daza", 1,
                     calendar.getTime(),
                     "No se para que vine, no me gusta estar aquí."));
-            items.add(new ItemListComentario(R.drawable.comentario9,
+            items.add(new ItemListComentario(R.drawable.no_avatar,
                     "Alexis \"Pipo\" Colina", 3,
                     calendar.getTime(),
                     "Este tipo de música me desagrada, vine fue por mi novia."));
-            items.add(new ItemListComentario(R.drawable.comentario10,
+            items.add(new ItemListComentario(R.drawable.no_avatar,
                     "Angélica Morales", 5,
                     calendar.getTime(),
                     "Excelente TODO. Los niños, las canciones, quede fascinada."));

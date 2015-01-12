@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
-import edu.ucla.fusa.android.modelo.academico.Usuario;
 
 /**
  * Created by juanlabrador on 10/01/15.
@@ -41,7 +40,6 @@ public class EstudianteTable {
             + COLUMN_APELLIDO + " TEXT, "
             + COLUMN_CEDULA + " TEXT, "
             + COLUMN_CORREO + " TEXT, "
-            + COLUMN_DIRECCION + " TEXT, "
             + COLUMN_EDAD + " INTEGER, "
             + COLUMN_FECHA_NACIMIENTO + " DATE, "
             + COLUMN_SEXO + " TEXT, "
@@ -65,7 +63,7 @@ public class EstudianteTable {
     }
 
     private ContentValues generarValores (String nombre, String apellido, String cedula, String correo,
-                                          String direccion, int edad, Date fechaNac, String sexo,
+                                         int edad, Date fechaNac, String sexo,
                                           String telfFijo, String telfMovil, byte[] foto, String becado,
                                           String conservatorio, String coro, String instrumento) {
 
@@ -74,7 +72,6 @@ public class EstudianteTable {
         valores.put(COLUMN_APELLIDO, apellido);
         valores.put(COLUMN_CEDULA, cedula);
         valores.put(COLUMN_CORREO, correo);
-        valores.put(COLUMN_DIRECCION, direccion);
         valores.put(COLUMN_EDAD, edad);
         valores.put(COLUMN_FECHA_NACIMIENTO, dateFormat.format(fechaNac));
         valores.put(COLUMN_SEXO, sexo);
@@ -90,12 +87,12 @@ public class EstudianteTable {
     }
 
     public void insertData(String nombre, String apellido, String cedula, String correo,
-                           String direccion, int edad, Date fechaNac, String sexo,
+                           int edad, Date fechaNac, String sexo,
                            String telfFijo, String telfMovil, byte[] foto, String becado,
                            String conservatorio, String coro, String instrumento) {
         //db = helper.getWritableDatabase();
         db.insert(TABLE_NAME, null, generarValores(nombre, apellido, cedula, correo,
-                direccion, edad, fechaNac, sexo, telfFijo, telfMovil, foto, becado,
+                edad, fechaNac, sexo, telfFijo, telfMovil, foto, becado,
                 conservatorio, coro, instrumento));
     }
 
@@ -109,17 +106,16 @@ public class EstudianteTable {
             estudiante.setApellido(cursor.getString(2));
             estudiante.setCedula(cursor.getString(3));
             estudiante.setCorreo(cursor.getString(4));
-            estudiante.setDireccion(cursor.getString(5));
-            estudiante.setEdad(cursor.getInt(6));
-            estudiante.setFechanac(dateFormat.parse(cursor.getString(7)));
-            estudiante.setSexo(cursor.getString(8));
-            estudiante.setTelefonoFijo(cursor.getString(9));
-            estudiante.setTelefonoMovil(cursor.getString(10));
-            estudiante.setImagen(cursor.getBlob(11));
-            estudiante.setBecado(cursor.getString(12));
-            estudiante.setInscritoConservatorio(cursor.getString(13));
-            estudiante.setInscritoCoro(cursor.getString(14));
-            estudiante.setInstrumentoPropio(cursor.getString(15));
+            estudiante.setEdad(cursor.getInt(5));
+            estudiante.setFechanac(dateFormat.parse(cursor.getString(6)));
+            estudiante.setSexo(cursor.getString(7));
+            estudiante.setTelefonoFijo(cursor.getString(8));
+            estudiante.setTelefonoMovil(cursor.getString(9));
+            estudiante.setImagen(cursor.getBlob(10));
+            estudiante.setBecado(cursor.getString(11));
+            estudiante.setInscritoConservatorio(cursor.getString(12));
+            estudiante.setInscritoCoro(cursor.getString(13));
+            estudiante.setInstrumentoPropio(cursor.getString(14));
 
         } else {
             estudiante = null;

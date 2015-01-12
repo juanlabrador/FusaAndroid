@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.VistasPrincipalesActivity;
-import edu.ucla.fusa.android.modelo.academico.Usuario;
+import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
 
@@ -157,8 +157,8 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
             int response = -1;
             /** Cargamos los parametros que enviaremos por URL */
             ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
-            parametros.add(new BasicNameValuePair("correo", params[0]));
-            parametros.add(new BasicNameValuePair("clave", params[1]));
+            parametros.add(new BasicNameValuePair("username", params[0]));
+            parametros.add(new BasicNameValuePair("password", params[1]));
 
             /** Mandamos los parametros y esperemos una respuesta del servidor */
             Usuario usuario = jsonParser.serviceLogin(parametros);
@@ -168,9 +168,9 @@ public class InicialLoginFragment extends Fragment implements View.OnClickListen
 
                     /** Guardamos sus datos internamente para que no se loguee de nuevo */
                     tipoUser = usuario.getTipoUsuario().getId();
-                    user = usuario.getNombre();
+                    user = usuario.getUsername();
                     db.insertData(
-                            usuario.getNombre(),
+                            usuario.getUsername(),
                             usuario.getPassword(),
                             usuario.getFoto(),
                             usuario.getTipoUsuario().getId());

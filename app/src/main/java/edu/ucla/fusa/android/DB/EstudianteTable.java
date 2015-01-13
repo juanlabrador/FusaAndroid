@@ -35,7 +35,7 @@ public class EstudianteTable {
     private static String COLUMN_INSTRUMENTO = "instrumentoPropio";
 
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
-            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_ID + " INTEGER PRIMARY KEY, "
             + COLUMN_NOMBRE + " TEXT, "
             + COLUMN_APELLIDO + " TEXT, "
             + COLUMN_CEDULA + " TEXT, "
@@ -54,7 +54,7 @@ public class EstudianteTable {
     private DataBaseHelper helper;
     private SQLiteDatabase db;
     private Cursor cursor;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MMMM/yyyy");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private Estudiante estudiante = new Estudiante();
 
     public EstudianteTable(Context context) {
@@ -62,12 +62,13 @@ public class EstudianteTable {
         db = helper.getWritableDatabase();
     }
 
-    private ContentValues generarValores (String nombre, String apellido, String cedula, String correo,
+    private ContentValues generarValores (int id, String nombre, String apellido, String cedula, String correo,
                                          int edad, Date fechaNac, String sexo,
                                           String telfFijo, String telfMovil, byte[] foto, String becado,
                                           String conservatorio, String coro, String instrumento) {
 
         ContentValues valores = new ContentValues();
+        valores.put(COLUMN_ID, id);
         valores.put(COLUMN_NOMBRE, nombre);
         valores.put(COLUMN_APELLIDO, apellido);
         valores.put(COLUMN_CEDULA, cedula);
@@ -86,12 +87,12 @@ public class EstudianteTable {
         return valores;
     }
 
-    public void insertData(String nombre, String apellido, String cedula, String correo,
+    public void insertData(int id, String nombre, String apellido, String cedula, String correo,
                            int edad, Date fechaNac, String sexo,
                            String telfFijo, String telfMovil, byte[] foto, String becado,
                            String conservatorio, String coro, String instrumento) {
         //db = helper.getWritableDatabase();
-        db.insert(TABLE_NAME, null, generarValores(nombre, apellido, cedula, correo,
+        db.insert(TABLE_NAME, null, generarValores(id, nombre, apellido, cedula, correo,
                 edad, fechaNac, sexo, telfFijo, telfMovil, foto, becado,
                 conservatorio, coro, instrumento));
     }

@@ -429,6 +429,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                     foto = estudiante.getImagen();
                     /** Guardamos sus datos internamente para que no se loguee de nuevo */
                     db.insertData(
+                        estudiante.getId(),
                         estudiante.getNombre(),
                         estudiante.getApellido(),
                         estudiante.getCedula(),

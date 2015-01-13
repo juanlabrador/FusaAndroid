@@ -180,7 +180,7 @@
         android:background="@drawable/style_button_background_white"
         android:padding="10.0dip"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         app:cpb_textComplete="@string/contenido_boton_enviado"
         app:cpb_textIdle="@string/contenido_boton_normal"
         app:cpb_textError="@string/contenido_boton_error"

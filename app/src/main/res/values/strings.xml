@@ -92,8 +92,8 @@
     <string name="contenido_prestamo_instrumento_fecha_vencimiento">Hasta la fecha</string>
     <string name="contenido_prestamo_instrumento_periodo_fin_semana">Fin de semana</string>
     <string name="contenido_prestamo_instrumento_periodo_vacacional">Vacacional</string>
-    <string name="contenido_prestamo_instrumento_tipo">Tipo de instrumento:</string>
-    <string name="contenido_prestamo_instrumento_titulo_periodo">Periodo</string>
+    <string name="contenido_prestamo_instrumento_tipo">Tipo de instrumento</string>
+    <string name="contenido_prestamo_instrumento_titulo_periodo">Periodo de préstamo</string>
     <string name="contenido_titulo_tab_eventos_comentarios">Comentarios</string>
     <string name="contenido_titulo_tab_eventos_informacion">Información</string>
     <string name="contenido_titulo_tab_eventos_participantes">Participantes</string>
@@ -125,6 +125,8 @@
     <string name="mensaje_error_conexion">¡Ups, no esta conectado a Internet! Por favor, conectese a una red.</string>
     <string name="mensaje_error_servidor">¡Ups, estamos presentando problemas con el servidor! Por favor, intente más tarde.</string>
     <string name="mensaje_error_cargar_catedras">¡Ups, no hemos podido cargar la lista de catedras! Por favor, intente de nuevo más tarde.</string>
+    <string name="mensaje_error_cargar_tipo_prestamo">¡Ups, no hemos podido cargar los tipos de prestamos! Por favor, intente de nuevo más tarde.</string>
+    <string name="mensaje_error_cargar_tipo_instrumento">¡Ups, no hemos podido cargar los tipos de instrumentos! Por favor, intente de nuevo más tarde.</string>
     <string name="mensaje_error_enviar_postulacion">Ya postulo a esta persona</string>
     <string name="mensaje_error_busqueda">¡Ups, hubo un error al cargar, intente más tarde!</string>
     <string name="mensaje_busqueda_vacio_noticias">Las noticias estan actualizadas.</string>

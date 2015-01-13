@@ -1,94 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    android:paddingLeft="10.0dip"
-    android:paddingTop="10.0dip"
-    android:paddingRight="10.0dip"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
+        android:id="@+id/contenido_tipo_instrumento_prestamo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5.0dip">
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
-        <TextView
-            android:textSize="18.0sp"
-            android:textColor="@color/azul_oscuro"
-            android:layout_width="0.0dip"
+        <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
+            android:id="@+id/et_tipo_instrumento_prestamo"
+            android:background="@drawable/style_edit_text_azul"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/contenido_prestamo_instrumento_tipo"
-            android:layout_weight="2.0" />
+            android:layout_weight="1"
+            android:hint="@string/contenido_prestamo_instrumento_tipo"
+            android:inputType="none"
+            android:focusable="false"/>
 
-        <Spinner
-            android:id="@+id/sp_tipo_instrumento"
-            android:background="@drawable/style_spinner_azul"
-            android:layout_width="0.0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0" />
+        <ImageView
+            android:id="@+id/add_instrumento_prestamo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_add"/>
+
     </LinearLayout>
 
-    <TextView
-        android:textSize="18.0sp"
-        android:textColor="@color/azul_oscuro"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:id="@+id/contenido_tipo_prestamo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5.0dip"
-        android:text="@string/contenido_prestamo_instrumento_titulo_periodo" />
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/contenido_tipo_instrumento_prestamo">
 
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10.0dip">
-
-        <RadioButton
-            android:id="@+id/rd_btn_periodo_fin_semana"
-            android:layout_width="fill_parent"
+        <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
+            android:id="@+id/et_tipo_prestamo"
+            android:background="@drawable/style_edit_text_azul"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:button="@drawable/style_btn_radio_azul"
-            android:text="@string/contenido_prestamo_instrumento_periodo_fin_semana" />
-        <RadioButton
-            android:id="@+id/rd_btn_periodo_vacacional"
-            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:hint="@string/contenido_prestamo_instrumento_titulo_periodo"
+            android:inputType="none"
+            android:focusable="false"/>
+
+        <ImageView
+            android:id="@+id/add_prestamo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_add"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/contenido_fecha_emision_prestamo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/contenido_tipo_prestamo">
+
+        <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
+            android:id="@+id/et_desde"
+            android:background="@drawable/style_edit_text_azul"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:button="@drawable/style_btn_radio_azul"
-            android:text="@string/contenido_prestamo_instrumento_periodo_vacacional" />
-    </RadioGroup>
+            android:layout_weight="1"
+            android:hint="@string/contenido_prestamo_instrumento_fecha_emision"
+            android:inputType="none"
+            android:focusable="false"/>
 
-    <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-        android:id="@+id/et_desde"
-        android:background="@drawable/style_edit_text_azul"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5.0dip"
-        android:layout_marginRight="5dp"
-        android:focusable="false"
-        android:hint="@string/contenido_prestamo_instrumento_fecha_emision" />
+        <ImageView
+            android:id="@+id/add_fecha_emision_prestamo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_add"/>
 
-    <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-        android:id="@+id/et_hasta"
-        android:background="@drawable/style_edit_text_azul"
-        android:layout_width="fill_parent"
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/contenido_fecha_vencimiento_prestamo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5.0dip"
-        android:layout_marginRight="5dp"
-        android:focusable="false"
-        android:hint="@string/contenido_prestamo_instrumento_fecha_vencimiento" />
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/contenido_fecha_emision_prestamo">
+
+        <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
+            android:id="@+id/et_hasta"
+            android:background="@drawable/style_edit_text_azul"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/contenido_prestamo_instrumento_fecha_vencimiento"
+            android:inputType="none"
+            android:focusable="false"/>
+
+        <ImageView
+            android:id="@+id/add_fecha_vencimiento_prestamo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_add"/>
+
+    </LinearLayout>
+
 
     <com.dd.CircularProgressButton
-        android:textSize="22.0sp"
+        android:textSize="22sp"
         android:textColor="@color/blanco"
         android:gravity="center"
         android:id="@+id/btn_enviar_solicitud_prestamo"
         android:background="@drawable/style_button_background_white"
-        android:padding="10.0dip"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5.0dip"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:text="@string/contenido_prestamo_instrumento_boton"
         app:cpb_textComplete="@string/contenido_boton_enviado"
         app:cpb_textIdle="@string/contenido_boton_normal"
@@ -99,4 +137,4 @@
         app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
         app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
         app:cpb_selectorIdle="@color/style_btn_circular_progress_azul"/>
-</LinearLayout>
+</RelativeLayout>

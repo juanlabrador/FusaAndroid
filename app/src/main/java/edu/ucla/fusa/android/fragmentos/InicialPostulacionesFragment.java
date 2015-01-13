@@ -123,7 +123,8 @@ public class InicialPostulacionesFragment extends Fragment implements View.OnCli
         } else {
             barraSuperior.setVisibility(View.VISIBLE);
         }
-
+        catedra.setEnabled(false);
+        addCatedra.setEnabled(false);
         new LoadingCatedras().execute();
         return view;
     }
@@ -167,6 +168,7 @@ public class InicialPostulacionesFragment extends Fragment implements View.OnCli
 
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
+
 
     }
 
@@ -295,6 +297,9 @@ public class InicialPostulacionesFragment extends Fragment implements View.OnCli
 
             if (result == 0) {
                 Toast.makeText(getActivity(), R.string.mensaje_error_cargar_catedras, Toast.LENGTH_SHORT).show();
+            } else if (result == 100) {
+                catedra.setEnabled(true);
+                addCatedra.setEnabled(true);
             }
         }
     }

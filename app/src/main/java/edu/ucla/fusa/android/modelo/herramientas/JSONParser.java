@@ -11,6 +11,9 @@ import org.springframework.web.client.RestTemplate;
 
 import edu.ucla.fusa.android.modelo.academico.Catedra;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
+import edu.ucla.fusa.android.modelo.instrumentos.SolicitudPrestamo;
+import edu.ucla.fusa.android.modelo.instrumentos.TipoInstrumento;
+import edu.ucla.fusa.android.modelo.instrumentos.TipoPrestamo;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import edu.ucla.fusa.android.modelo.fundacion.Aspirante;
 import edu.ucla.fusa.android.modelo.fundacion.InstructorAspirante;
@@ -126,6 +129,49 @@ public class JSONParser {
 
         // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
         return restTemplate.postForObject(URL + "instructorAspirante/upload", aspirante, Integer.class);
+    }
+
+    // Solicitud de un prestamo
+
+    public int uploadSolicitudPrestamo(SolicitudPrestamo solicitud) throws Exception {
+        // Create a new RestTemplate instance
+        restTemplate = new RestTemplate(true);
+
+        System.setProperty("http.keepAlive", "false");
+        // Add the Jackson and String message converters
+        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+
+        // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
+        return restTemplate.postForObject(URL + "SolicitudPrestamo/upload", solicitud, Integer.class);
+    }
+
+    // Tipo de prestamo
+
+    public ArrayList<TipoPrestamo> serviceLoadingTipoPrestamo() {
+        try {
+            restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            ResponseEntity<TipoPrestamo[]> responseEntity = restTemplate.getForEntity(URL + "TipoPrestamos", TipoPrestamo[].class);
+            return new ArrayList<TipoPrestamo>(Arrays.asList(responseEntity.getBody()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // Tipo de instrumento
+
+    public ArrayList<TipoInstrumento> serviceLoadingTipoInstrumento() {
+        try {
+            restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            ResponseEntity<TipoInstrumento[]> responseEntity = restTemplate.getForEntity(URL + "TipoInstrumentos", TipoInstrumento[].class);
+            return new ArrayList<TipoInstrumento>(Arrays.asList(responseEntity.getBody()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

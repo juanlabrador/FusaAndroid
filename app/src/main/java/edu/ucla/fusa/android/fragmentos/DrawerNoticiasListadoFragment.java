@@ -28,6 +28,7 @@ import edu.ucla.fusa.android.adaptadores.ListNoticiasAdapter;
 import edu.ucla.fusa.android.modelo.fundacion.Noticia;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
+import edu.ucla.fusa.android.modelo.instrumentos.SolicitudPrestamo;
 
 import java.util.ArrayList;
 
@@ -189,8 +190,12 @@ public class DrawerNoticiasListadoFragment extends ListFragment implements Adapt
                 });
             } else {
                 Log.i(TAG, "Error al cargar noticias");
-                progress.setVisibility(View.GONE);
-                getListView().setEmptyView(reintentar);
+                try {
+                    progress.setVisibility(View.GONE);
+                    getListView().setEmptyView(reintentar);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -261,4 +266,5 @@ public class DrawerNoticiasListadoFragment extends ListFragment implements Adapt
             super.onProgressUpdate(paramArrayOfVoid);
         }
     }
+
 }

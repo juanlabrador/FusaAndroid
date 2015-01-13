@@ -189,7 +189,7 @@
         android:padding="10dp"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         app:cpb_textComplete="@string/contenido_boton_enviado"
         app:cpb_textIdle="@string/contenido_boton_normal"
         app:cpb_textError="@string/contenido_boton_error"

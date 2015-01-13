@@ -279,7 +279,9 @@ public class InicialPostulacionesFragment extends Fragment implements View.OnCli
             menuCatedra = new PopupMenu(getActivity(), addCatedra);
             menuCatedra.getMenu().clear();
             catedras = jsonParser.serviceLoadingCatedras();
-            if (catedras.size() != 0) {
+            if (catedras == null) {
+                return 0;
+            } else if (catedras.size() != 0) {
                 for (int i = 0; i < catedras.size(); i++) {
                     menuCatedra.getMenu().add(0, 0, i, catedras.get(i).getDescripcion());
                 }
@@ -316,7 +318,6 @@ public class InicialPostulacionesFragment extends Fragment implements View.OnCli
 
         @Override
         protected Integer doInBackground(Aspirante... aspirante) {
-            SystemClock.sleep(3000);
             int result = -1;
             try {
                 result = jsonParser.uploadAspirante(aspirante[0]);

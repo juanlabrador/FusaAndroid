@@ -19,22 +19,22 @@ public class Persona {
     private String telefonoMovil;
     private String telefonoFijo;
     private int edad;
-    private Parroquia parroquia;
+    //private Parroquia parroquia;
     private String nombreApellido;
     private byte[] imagen;
     private String nombreImagen;
-    private String direccion;
+    //private String direccion;
     private String estatus;
 
     public Persona(){}
 
-    public String getDireccion() {
+    /*public String getDireccion() {
         return direccion;
     }
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
+    }*/
 
     public String getEstatus() {
         return estatus;
@@ -124,13 +124,13 @@ public class Persona {
         this.edad = edad;
     }
 
-    public Parroquia getParroquia() {
+    /*public Parroquia getParroquia() {
         return parroquia;
     }
 
     public void setParroquia(Parroquia parroquia) {
         this.parroquia = parroquia;
-    }
+    }*/
 
     public String getNombreApellido() {
         return nombreApellido;

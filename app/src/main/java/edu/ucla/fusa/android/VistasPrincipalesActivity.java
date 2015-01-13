@@ -1,13 +1,20 @@
 package edu.ucla.fusa.android;
 
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -30,6 +37,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.ucla.fusa.android.DB.EstudianteTable;
+import edu.ucla.fusa.android.adaptadores.ListOpcionesAdapter;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
 import edu.ucla.fusa.android.fragmentos.ConfiguracionListadoFragment;
 import edu.ucla.fusa.android.fragmentos.DrawerHorarioFragment;
@@ -40,12 +48,16 @@ import edu.ucla.fusa.android.fragmentos.DrawerPerfilFragment;
 import edu.ucla.fusa.android.fragmentos.DrawerSolicitudPrestamoFragment;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListOpcionesMultimedia;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 
 public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
+
 
     private static String TAG = "VistasPrincipalesActivity";
     private View header;
@@ -89,8 +101,12 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                             .replace(R.id.frame_container, DrawerNoticiasListadoFragment.newInstance())
                             .commit();
                 } else {
-                    Log.i(TAG, "Busca datos en el servidor");
-                    new BuscarEstudiante().execute(getIntent().getStringExtra("user"));
+                    if (exiteConexionInternet()) {
+                        Log.i(TAG, "Busca datos en el servidor");
+                        new BuscarEstudiante().execute(getIntent().getStringExtra("user"));
+                    } else {
+                        cargarMenuEstandar();
+                    }
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -119,20 +135,39 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
 
     }
 
+    public boolean exiteConexionInternet() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        //State edge = cm.getNetworkInfo(0).getState();
+        NetworkInfo.State wifi = cm.getNetworkInfo(1).getState();
+        //NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        //if (edge == State.CONNECTED || edge == State.CONNECTING) {
+        //return true;
+        //}else
+        if (wifi == NetworkInfo.State.CONNECTED || wifi == NetworkInfo.State.CONNECTING) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean onCreateOptionsMenu(Menu paramMenu) {
         //getMenuInflater().inflate(R.menu.principal, menu);
         return true;
     }
 
     public void onItemClick(AdapterView<?> paramAdapterView, View paramView, int position, long paramLong) {
-        if (getIntent().getIntExtra("tipoUser", -1) == 1) {
-            showFragmentEstudiante(position);
-        } else if (getIntent().getIntExtra("tipoUser", -1) == 2) {
-            showFragmentInstructor(position);
+        if (exiteConexionInternet()) {
+            if (getIntent().getIntExtra("tipoUser", -1) == 1) {
+                showFragmentEstudiante(position);
+            } else if (getIntent().getIntExtra("tipoUser", -1) == 2) {
+                showFragmentInstructor(position);
+            }
         } else {
             showFragmentEstandar(position);
+            progress.setVisibility(View.GONE);
+            descripcionProgress.setVisibility(View.GONE);
+            reintentar.setVisibility(View.GONE);
         }
-
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -157,7 +192,15 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         return BitmapFactory.decodeByteArray(data, 0, data.length);
     }
 
+    private byte[] convertImageToByte(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+        return  stream.toByteArray();
+    }
+
     public void cargarMenuEstudiante(String n, String c, byte[] f) {
+        if (navigationAdapter != null)
+            navigationAdapter.clear();
         header = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
         foto = (CircleImageView) header.findViewById(R.id.iv_foto_perfil_drawer);
         nombre = (TextView) header.findViewById(R.id.etNombreDrawer);
@@ -208,25 +251,11 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     }
 
     private void cargarMenuEstandar() {
-        header = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
-        foto = (CircleImageView) header.findViewById(R.id.iv_foto_perfil_drawer);
-        nombre = (TextView) header.findViewById(R.id.etNombreDrawer);
-        correo = (TextView) header.findViewById(R.id.etEmailDrawer);
-        foto.setVisibility(View.INVISIBLE);
-        nombre.setVisibility(View.INVISIBLE);
-        correo.setVisibility(View.INVISIBLE);
-
-        iconos = getResources().obtainTypedArray(R.array.nav_icons_estudiante);
-        navigationList.addHeaderView(header);
+        if (navigationAdapter != null)
+            navigationAdapter.clear();
         iconos = getResources().obtainTypedArray(R.array.nav_icons_general);
         titulos = getResources().getStringArray(R.array.nav_funciones_general);
         items = new ArrayList();
-        items.add(new ItemListDrawer(
-                titulos[0],
-                iconos.getResourceId(0, -1)));
-        items.add(new ItemListDrawer(
-                titulos[1],
-                iconos.getResourceId(1, -1)));
         items.add(new ItemListDrawer(
                 titulos[2],
                 iconos.getResourceId(2, -1)));
@@ -250,7 +279,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private void showFragmentEstandar(int position) {
         getSupportFragmentManager().popBackStack();
         switch (position) {
-            case 1:
+            case 0:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame_container, ConfiguracionListadoFragment.newInstance())
                         .commit();
@@ -265,9 +294,10 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         getSupportFragmentManager().popBackStack();
         switch (position) {
             case 0:
-                getSupportFragmentManager().beginTransaction()
+                /*getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame_container, DrawerPerfilFragment.newInstance())
-                        .commit();
+                        .commit();*/
+
                 break;
             case 1:
                 getSupportFragmentManager().beginTransaction()
@@ -303,6 +333,8 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     }
 
     public void cargarMenuInstructor() {
+        if (navigationAdapter != null)
+            navigationAdapter.clear();
         header = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
         foto = (CircleImageView) header.findViewById(R.id.iv_foto_perfil_drawer);
         nombre = (TextView) header.findViewById(R.id.etNombreDrawer);
@@ -396,7 +428,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mDrawerToogle.onConfigurationChanged(paramConfiguration);
     }
 
-    private class BuscarEstudiante extends AsyncTask<String, Void, Integer> {
+    private class BuscarEstudiante extends AsyncTask<String, Integer, Integer> {
 
         private String nombre;
         private String correo;
@@ -490,4 +522,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         vibrator.vibrate(200);
         Toast.makeText(this,R.string.mensaje_error_servidor, Toast.LENGTH_SHORT).show();;
     }
+
+
 }

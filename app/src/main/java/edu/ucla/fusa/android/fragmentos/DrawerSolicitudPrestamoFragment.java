@@ -125,6 +125,12 @@ public class DrawerSolicitudPrestamoFragment extends Fragment implements View.On
         Log.i(TAG, estudiante.getNombre());
         Log.i(TAG, estudiante.getApellido());
         Log.i(TAG, "ID: " + estudiante.getId());
+        Log.i(TAG, estudiante.getNombre());
+        Log.i(TAG, estudiante.getApellido());
+        Log.i(TAG, "ID: " + estudiante.getId());
+        Log.i(TAG, estudiante.getNombre());
+        Log.i(TAG, estudiante.getApellido());
+        Log.i(TAG, "ID: " + estudiante.getId());
         return solicitud;
     }
 
@@ -161,7 +167,7 @@ public class DrawerSolicitudPrestamoFragment extends Fragment implements View.On
                         Toast.makeText(getActivity(), R.string.mensaje_complete_campos_aspirante, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getActivity(), R.string.mensaje_error_enviar_postulacion, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.mensaje_error_enviar_solicitud, Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -204,6 +210,11 @@ public class DrawerSolicitudPrestamoFragment extends Fragment implements View.On
     }
 
     private void showMenuTipoInstrumento(){
+        menuTipoInstrumento = new PopupMenu(getActivity(), addTipoInstrumento);
+        menuTipoInstrumento.getMenu().clear();
+        for (int i = 0; i < tipoInstrumentos.size(); i++) {
+            menuTipoInstrumento.getMenu().add(0, 0, i, tipoInstrumentos.get(i).getDescripcion());
+        }
         menuTipoInstrumento.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -242,7 +253,9 @@ public class DrawerSolicitudPrestamoFragment extends Fragment implements View.On
             menuTipoPrestamo = new PopupMenu(getActivity(), addTipoPrestamo);
             menuTipoPrestamo.getMenu().clear();
             tipoPrestamos = jsonParser.serviceLoadingTipoPrestamo();
-            if (tipoPrestamos.size() != 0 && tipoPrestamos != null) {
+            if (tipoPrestamos == null) {
+                return 0;
+            } else if (tipoPrestamos.size() != 0) {
                 for (int i = 0; i < tipoPrestamos.size(); i++) {
                     menuTipoPrestamo.getMenu().add(0, 0, i, tipoPrestamos.get(i).getDescripcion());
                 }
@@ -269,13 +282,10 @@ public class DrawerSolicitudPrestamoFragment extends Fragment implements View.On
 
         @Override
         protected Integer doInBackground(Void... voids) {
-            menuTipoInstrumento = new PopupMenu(getActivity(), addTipoInstrumento);
-            menuTipoInstrumento.getMenu().clear();
             tipoInstrumentos = jsonParser.serviceLoadingTipoInstrumento();
-            if (tipoInstrumentos.size() != 0 && tipoInstrumentos != null) {
-                for (int i = 0; i < tipoInstrumentos.size(); i++) {
-                    menuTipoInstrumento.getMenu().add(0, 0, i, tipoInstrumentos.get(i).getDescripcion());
-                }
+            if (tipoInstrumentos == null) {
+                return 0;
+            } else if (tipoInstrumentos.size() != 0) {
                 return 100;
             } else {
                 return 0;

@@ -22,6 +22,10 @@ public class NavigationAdapter extends BaseAdapter {
         this.arrayItems = paramArrayList;
     }
 
+    public void clear() {
+        arrayItems.clear();
+    }
+
     public int getCount() {
         return this.arrayItems.size();
     }

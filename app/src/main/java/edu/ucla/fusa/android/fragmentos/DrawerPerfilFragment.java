@@ -20,6 +20,7 @@ import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.ListOpcionesAdapter;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListOpcionesMultimedia;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -49,6 +50,12 @@ public class DrawerPerfilFragment extends Fragment implements View.OnClickListen
             showDialog();
             break;
         }
+    }
+
+    private byte[] convertImageToByte(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+        return  stream.toByteArray();
     }
 
     private void showDialog() {
@@ -93,7 +100,7 @@ public class DrawerPerfilFragment extends Fragment implements View.OnClickListen
                     Bundle b = data.getExtras();
                     if (b != null) {
                         Bitmap bitmap = b.getParcelable("data");
-                        foto.setImageBitmap(bitmap);
+                        //foto.setImageBitmap(bitmap);
                         ((CircleImageView) getActivity().findViewById(R.id.iv_foto_perfil_drawer)).setImageBitmap(bitmap);
                     }
                     file = new File(mFotoCaptureUri.getPath());

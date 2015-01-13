@@ -261,7 +261,9 @@ public class InicialParticipaFragment extends Fragment implements View.OnClickLi
             menuCatedra = new PopupMenu(getActivity(), addCatedra);
             menuCatedra.getMenu().clear();
             catedras = jsonParser.serviceLoadingCatedras();
-            if (catedras.size() != 0) {
+            if (catedras == null) {
+                return 0;
+            } else if (catedras.size() != 0) {
                 for (int i = 0; i < catedras.size(); i++) {
                     menuCatedra.getMenu().add(0, 0, i, catedras.get(i).getDescripcion());
                 }
@@ -295,7 +297,6 @@ public class InicialParticipaFragment extends Fragment implements View.OnClickLi
 
         @Override
         protected Integer doInBackground(InstructorAspirante... aspirante) {
-            SystemClock.sleep(3000);
             int result = -1;
             try {
                 result = jsonParser.uploadInstructorAspirante(aspirante[0]);

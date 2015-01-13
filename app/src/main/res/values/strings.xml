@@ -31,6 +31,7 @@
     <string name="configuracion_cambiar_password_contraseña">Nueva contraseña</string>
     <string name="configuracion_cambiar_password_repita_contraseña">Repita su nueva contraseña</string>
     <string name="configuracion_cuenta">Cuenta</string>
+    <string name="configuracion_cuenta_cambiar_foto">Cambiar foto de perfil</string>
     <string name="configuracion_cuenta_cambiar_password">Cambiar contraseña</string>
     <string name="configuracion_cuenta_cerrar_sesion">Cerrar sesión</string>
     <string name="configuracion_cuenta_contratar">¿Cómo contratar una orquesta?</string>
@@ -125,9 +126,11 @@
     <string name="mensaje_error_conexion">¡Ups, no esta conectado a Internet! Por favor, conectese a una red.</string>
     <string name="mensaje_error_servidor">¡Ups, estamos presentando problemas con el servidor! Por favor, intente más tarde.</string>
     <string name="mensaje_error_cargar_catedras">¡Ups, no hemos podido cargar la lista de catedras! Por favor, intente de nuevo más tarde.</string>
+    <string name="mensaje_error_cambiar_foto">¡Ups, no hemos podido cargar tu foto! Por favor, intenta más tarde.</string>
     <string name="mensaje_error_cargar_tipo_prestamo">¡Ups, no hemos podido cargar los tipos de prestamos! Por favor, intente de nuevo más tarde.</string>
     <string name="mensaje_error_cargar_tipo_instrumento">¡Ups, no hemos podido cargar los tipos de instrumentos! Por favor, intente de nuevo más tarde.</string>
     <string name="mensaje_error_enviar_postulacion">Ya postulo a esta persona</string>
+    <string name="mensaje_error_enviar_solicitud">Ya solicitud un prestamo, espere su aprobación</string>
     <string name="mensaje_error_busqueda">¡Ups, hubo un error al cargar, intente más tarde!</string>
     <string name="mensaje_busqueda_vacio_noticias">Las noticias estan actualizadas.</string>
     <string name="nivel_calificacion_evento_1">No me gustó en lo absoluto</string>

@@ -1,10 +1,14 @@
 package edu.ucla.fusa.android.modelo.herramientas;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.apache.http.NameValuePair;
+import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -29,14 +33,17 @@ public class JSONParser {
     private static String URL = "http://10.0.3.2:8080/fusa.frontend/webservices/rest/";
     private String parametros;
     private RestTemplate restTemplate;
-
-    public JSONParser() {}
+    private SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();;
+    public JSONParser() {
+        requestFactory.setConnectTimeout(3000);
+        requestFactory.setReadTimeout(4000);
+    }
 
     // Usuario
 
     public Usuario serviceLogin(ArrayList<NameValuePair> params) {
         try {
-            restTemplate = new RestTemplate();
+            restTemplate = new RestTemplate(requestFactory);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             parametros = "ServiceLogin/" + params.get(0).getValue() + "/" + params.get(1).getValue();
             return restTemplate.getForObject(URL + parametros, Usuario.class);
@@ -46,11 +53,23 @@ public class JSONParser {
         return null;
     }
 
+    public int serviceChangeFoto(ArrayList<NameValuePair> params) {
+        try {
+            restTemplate = new RestTemplate(requestFactory);
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            parametros = "changeFoto/" + params.get(0).getValue() + "/" + params.get(1).getValue();
+            return restTemplate.getForObject(URL + parametros, Integer.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     // Estudiante
 
     public Estudiante serviceEstudiante(ArrayList<NameValuePair> params) {
         try {
-            restTemplate = new RestTemplate();
+            restTemplate = new RestTemplate(requestFactory);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             parametros = "ServiceEstudiante/" + params.get(0).getValue();
             return restTemplate.getForObject(URL + parametros, Estudiante.class);
@@ -64,7 +83,7 @@ public class JSONParser {
 
     public ArrayList<Noticia> serviceLoadingNoticias() {
         try {
-            restTemplate = new RestTemplate();
+            restTemplate = new RestTemplate(requestFactory);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             ResponseEntity<Noticia[]> responseEntity = restTemplate.getForEntity(URL + "ServiceNoticias", Noticia[].class);
             return new ArrayList<Noticia>(Arrays.asList(responseEntity.getBody()));
@@ -76,7 +95,7 @@ public class JSONParser {
 
     public ArrayList<Noticia> serviceRefreshNoticias(ArrayList<NameValuePair> params) {
         try {
-            restTemplate = new RestTemplate();
+            restTemplate = new RestTemplate(requestFactory);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             parametros = "ServiceNewNoticias/" + params.get(0).getValue();
             ResponseEntity<Noticia[]> responseEntity = restTemplate.getForEntity(URL + parametros, Noticia[].class);
@@ -91,7 +110,7 @@ public class JSONParser {
 
     public ArrayList<Catedra> serviceLoadingCatedras() {
         try {
-            restTemplate = new RestTemplate();
+            restTemplate = new RestTemplate(requestFactory);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             ResponseEntity<Catedra[]> responseEntity = restTemplate.getForEntity(URL + "ServiceCatedras", Catedra[].class);
             return new ArrayList<Catedra>(Arrays.asList(responseEntity.getBody()));
@@ -105,7 +124,7 @@ public class JSONParser {
 
     public int uploadAspirante(Aspirante aspirante) throws Exception {
         // Create a new RestTemplate instance
-        restTemplate = new RestTemplate(true);
+        restTemplate = new RestTemplate(true, requestFactory);
 
         System.setProperty("http.keepAlive", "false");
         // Add the Jackson and String message converters
@@ -120,7 +139,7 @@ public class JSONParser {
 
     public int uploadInstructorAspirante(InstructorAspirante aspirante) throws Exception {
         // Create a new RestTemplate instance
-        restTemplate = new RestTemplate(true);
+        restTemplate = new RestTemplate(true, requestFactory);
 
         System.setProperty("http.keepAlive", "false");
         // Add the Jackson and String message converters
@@ -135,13 +154,21 @@ public class JSONParser {
 
     public int uploadSolicitudPrestamo(SolicitudPrestamo solicitud) throws Exception {
         // Create a new RestTemplate instance
-        restTemplate = new RestTemplate(true);
+        restTemplate = new RestTemplate(true, requestFactory);
 
         System.setProperty("http.keepAlive", "false");
         // Add the Jackson and String message converters
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
+        Log.i(TAG, "Emision: " + solicitud.getFechaEmision().getTime());
+        Log.i(TAG, "Vencimiento: " + solicitud.getFechaVencimiento().getTime());
+        Log.i(TAG, "Tipo Instrumento ID: " + solicitud.getTipoInstrumento().getId());
+        Log.i(TAG, "Tipo Instrumento: " + solicitud.getTipoInstrumento().getDescripcion());
+        Log.i(TAG, "Tipo Instrumento Estatus: " + solicitud.getTipoInstrumento().getEstatus());
+        Log.i(TAG, "Tipo Prestamo ID: " + solicitud.getTipoPrestamo().getId());
+        Log.i(TAG, "Tipo Prestamo: " + solicitud.getTipoPrestamo().getDescripcion());
+        Log.i(TAG, "Tipo Prestamo Estatus: " + solicitud.getTipoPrestamo().getEstatus());
         // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
         return restTemplate.postForObject(URL + "SolicitudPrestamo/upload", solicitud, Integer.class);
     }
@@ -150,7 +177,7 @@ public class JSONParser {
 
     public ArrayList<TipoPrestamo> serviceLoadingTipoPrestamo() {
         try {
-            restTemplate = new RestTemplate();
+            restTemplate = new RestTemplate(requestFactory);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             ResponseEntity<TipoPrestamo[]> responseEntity = restTemplate.getForEntity(URL + "TipoPrestamos", TipoPrestamo[].class);
             return new ArrayList<TipoPrestamo>(Arrays.asList(responseEntity.getBody()));
@@ -164,7 +191,7 @@ public class JSONParser {
 
     public ArrayList<TipoInstrumento> serviceLoadingTipoInstrumento() {
         try {
-            restTemplate = new RestTemplate();
+            restTemplate = new RestTemplate(requestFactory);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             ResponseEntity<TipoInstrumento[]> responseEntity = restTemplate.getForEntity(URL + "TipoInstrumentos", TipoInstrumento[].class);
             return new ArrayList<TipoInstrumento>(Arrays.asList(responseEntity.getBody()));

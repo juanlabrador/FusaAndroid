@@ -151,7 +151,9 @@ public class DrawerNoticiasListadoFragment extends ListFragment implements Adapt
             SystemClock.sleep(2000);
             Log.i(TAG, "Dentro del background");
             ArrayList<Noticia> noticias = jsonParser.serviceLoadingNoticias();
-            if (noticias.size() != 0 && noticias != null) {
+            if (noticias == null) {
+                return 0;
+            } else if (noticias.size() != 0) {
                 for (Noticia noticia : noticias) {
                     //Agregamos a la lista de noticias
                     items.add(0, new ItemListNoticia(
@@ -218,7 +220,9 @@ public class DrawerNoticiasListadoFragment extends ListFragment implements Adapt
             Log.i(TAG, "Ultimo de la lista " + params[0]);
             ArrayList<Noticia> noticias = jsonParser.serviceRefreshNoticias(parametros);
             Log.i(TAG, "Tamaño de la lista " + noticias.size());
-            if (noticias.size() != 0) {
+            if (noticias == null) {
+                return 0;
+            } else if (noticias.size() != 0) {
                 for (Noticia noticia : noticias) {
                     //Agregamos a la lista de noticias
                     items.add(0, new ItemListNoticia(

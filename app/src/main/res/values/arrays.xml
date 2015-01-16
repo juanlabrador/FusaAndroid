@@ -1,42 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="icons_app">
-        <item>@drawable/ic_facebook_disable</item>
-        <item>@drawable/ic_google_disable</item>
-        <item>@drawable/ic_twitter_disable</item>
-    </array>
-
-    <array name="icons_app_activado">
-        <item>@drawable/ic_facebook_enable</item>
-        <item>@drawable/ic_google_enable</item>
-        <item>@drawable/ic_twitter_enable</item>
-    </array>
-
     <array name="icons_contacto">
         <item>@drawable/ic_datos</item>
         <item>@drawable/ic_ubicacion</item>
     </array>
-    <array name="icons_eventos">
-        <item>@drawable/ic_datos</item>
-        <item>@drawable/ic_ubicacion</item>
-        <item>@drawable/ic_participantes</item>
-        <item>@drawable/ic_comentarios</item>
-    </array>
     <string-array name="nav_funciones_estudiante">
         <item>Mis clases</item>
-        <item>Mis eventos</item>
-        <item>Solicitud de prestamo</item>
+        <item>Solicitud de préstamo</item>
     </string-array>
 
     <array name="nav_icons_estudiante">
         <item>@drawable/ic_mis_clases</item>
-        <item>@drawable/ic_eventos</item>
         <item>@drawable/ic_solicitud_prestamo</item>
     </array>
 
     <string-array name="nav_funciones_instructor">
         <item>Mis clases</item>
-        <item>Mis eventos</item>
         <item>Postular un comodato</item>
     </string-array>
 
@@ -49,13 +28,15 @@
     <string-array name="nav_funciones_general">
         <item>Noticias</item>
         <item>Calendario</item>
-        <item>Configuración</item>
+        <item>Más opciones</item>
+        <item>Cerrar sesión</item>
     </string-array>
 
     <array name="nav_icons_general">
         <item>@drawable/ic_noticias</item>
         <item>@drawable/ic_calendario</item>
-        <item>@drawable/ic_configuracion</item>
+        <item>@drawable/ic_more_options</item>
+        <item>@drawable/ic_cerrar_sesion</item>
     </array>
 
     <array name="nav_icons_inicial">
@@ -66,30 +47,4 @@
         <item>@drawable/ic_eventos</item>
         <item>@drawable/ic_contacto</item>
     </array>
-
-    <string-array name="participantes_evento">
-        <item>Orquesta Juvenil Simón Bolívar</item>
-        <item>Orquesta Infantil Niños Larenses</item>
-        <item>Orquesta Juvenil La Barquisimetana</item>
-    </string-array>
-    <string-array name="redes_app">
-        <item>Facebook</item>
-        <item>Google+</item>
-        <item>Twitter</item>
-    </string-array>
-
-    <string-array name="tipos_instrumentos">
-        <item>Viento</item>
-        <item>Cuerda</item>
-        <item>Percusión</item>
-    </string-array>
-
-    <string-array name="instrumentos">
-        <item>Flauta</item>
-        <item>Tuba</item>
-        <item>Guitarra</item>
-        <item>Cuatro</item>
-        <item>Bongues</item>
-        <item>Bombo</item>
-    </string-array>
 </resources>

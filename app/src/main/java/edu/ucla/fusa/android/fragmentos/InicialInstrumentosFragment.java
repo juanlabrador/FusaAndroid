@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.dd.CircularProgressButton;
-
 import edu.ucla.fusa.android.R;
 
 public class InicialInstrumentosFragment extends Fragment implements View.OnClickListener {
@@ -38,7 +36,7 @@ public class InicialInstrumentosFragment extends Fragment implements View.OnClic
     public void onClick(View view) {
         getFragmentManager().beginTransaction()
                 .addToBackStack(null)
-                .replace(android.R.id.content, InicialDonacionesFragment.newInstance())
+                .replace(android.R.id.content, DonarInstrumentoFragment.newInstance())
                 .commit();
     }
 }

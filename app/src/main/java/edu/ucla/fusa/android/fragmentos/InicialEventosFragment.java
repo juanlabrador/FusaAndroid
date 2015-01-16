@@ -11,8 +11,7 @@ import edu.ucla.fusa.android.R;
 
 public class InicialEventosFragment extends Fragment implements View.OnClickListener {
 
-    public static String TAG = "Eventos";
-    private Button asistir;
+    public static String TAG = "InicialEventosFragment";
     private Button contratar;
     private View view;
 
@@ -26,7 +25,7 @@ public class InicialEventosFragment extends Fragment implements View.OnClickList
         switch (paramView.getId()) {
             case R.id.btn_contratar:
                 getFragmentManager().beginTransaction()
-                        .replace(android.R.id.content, InicialContratacionesFragment.newInstance())
+                        .replace(android.R.id.content, SolicitanteExternoFragment.newInstance())
                         .addToBackStack(null)
                         .commit();
                 break;
@@ -36,8 +35,6 @@ public class InicialEventosFragment extends Fragment implements View.OnClickList
     public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
         super.onCreateView(paramLayoutInflater, paramViewGroup, paramBundle);
         view = paramLayoutInflater.inflate(R.layout.fragment_inicial_eventos, paramViewGroup, false);
-        asistir = ((Button) view.findViewById(R.id.btn_asistir));
-        asistir.setOnClickListener(this);
         contratar = ((Button) view.findViewById(R.id.btn_contratar));
         contratar.setOnClickListener(this);
         return view;

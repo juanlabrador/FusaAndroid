@@ -3,7 +3,6 @@ package edu.ucla.fusa.android;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -17,39 +16,40 @@ import edu.ucla.fusa.android.fragmentos.InicialEstudiantesFragment;
 import edu.ucla.fusa.android.fragmentos.InicialEventosFragment;
 import edu.ucla.fusa.android.fragmentos.InicialInstrumentosFragment;
 import edu.ucla.fusa.android.fragmentos.InicialProfesoresFragment;
-import edu.ucla.fusa.android.fragmentos.InicialSplashScreenFragment;
+import edu.ucla.fusa.android.fragmentos.SplashScreenFragment;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 
 public class VistasInicialesActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, ActionBar.TabListener {
 
-    private FragmentViewPagerAdapter adapter;
-    private SharedPreferences.Editor editor;
-    private TypedArray iconos;
-    private SharedPreferences sharedPreferences;
-    private TabPageIndicator tabPageIndicator;
-    private ViewPager viewPager;
-    private UserTable db;
-    private Usuario usuario;
+    private FragmentViewPagerAdapter mViewPagerAdapter;
+    private TypedArray mIconsIndicator;
+    private TabPageIndicator mTabIndicator;
+    private ViewPager mViewPager;
+    private UserTable mUserTable;
+    private Usuario mUsuario;
 
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         setContentView(R.layout.activity_inicial);
         getActionBar().hide();
-        iconos = getResources().obtainTypedArray(R.array.nav_icons_inicial);
-        viewPager = ((ViewPager) findViewById(R.id.view_pager_iniciales));
-        adapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), iconos);
-        adapter.addFragment(InicialSplashScreenFragment.newInstance());
-        adapter.addFragment(InicialEstudiantesFragment.newInstance());
-        adapter.addFragment(InicialProfesoresFragment.newInstance());
-        adapter.addFragment(InicialInstrumentosFragment.newInstance());
-        adapter.addFragment(InicialEventosFragment.newInstance());
-        adapter.addFragment(InicialContactoFragment.newInstance());
-        viewPager.setAdapter(adapter);
-        tabPageIndicator = ((TabPageIndicator)findViewById(R.id.tab_iniciales));
-        tabPageIndicator.setViewPager(viewPager);
-        tabPageIndicator.setOnPageChangeListener(this);
+        mIconsIndicator = getResources().obtainTypedArray(R.array.nav_icons_inicial);
+        mViewPager = (ViewPager) findViewById(R.id.view_pager_iniciales);
+        
+        mViewPagerAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), mIconsIndicator);
+        mViewPagerAdapter.addFragment(SplashScreenFragment.newInstance());
+        mViewPagerAdapter.addFragment(InicialEstudiantesFragment.newInstance());
+        mViewPagerAdapter.addFragment(InicialProfesoresFragment.newInstance());
+        mViewPagerAdapter.addFragment(InicialInstrumentosFragment.newInstance());
+        mViewPagerAdapter.addFragment(InicialEventosFragment.newInstance());
+        mViewPagerAdapter.addFragment(InicialContactoFragment.newInstance());
+        
+        mViewPager.setAdapter(mViewPagerAdapter);
+        
+        mTabIndicator = (TabPageIndicator) findViewById(R.id.tab_iniciales);
+        mTabIndicator.setViewPager(mViewPager);
+        mTabIndicator.setOnPageChangeListener(this);
 
-        db = new UserTable(this);
+        mUserTable = new UserTable(this);
     }
 
     public void onPageScrollStateChanged(int paramInt) {}
@@ -63,19 +63,21 @@ public class VistasInicialesActivity extends FragmentActivity implements ViewPag
     public void onTabSelected(ActionBar.Tab paramTab, FragmentTransaction paramFragmentTransaction) {}
 
     public void onTabUnselected(ActionBar.Tab paramTab, FragmentTransaction paramFragmentTransaction) {
-        this.viewPager.setCurrentItem(paramTab.getPosition());
+        mViewPager.setCurrentItem(paramTab.getPosition());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        usuario = db.searchUser();
-        if (usuario != null)
-            if (!usuario.getUsername().equals("")) {
+        mUsuario = mUserTable.searchUser();
+        // Si hay datos, se redirige al home
+        if (mUsuario != null) {
+            if (!mUsuario.getUsername().equals("")) {
                 startActivity(new Intent(this, VistasPrincipalesActivity.class)
-                        .putExtra("tipoUser", usuario.getTipoUsuario().getId())
-                        .putExtra("user", usuario.getUsername()));
+                        .putExtra("TipoUsuario", mUsuario.getTipoUsuario().getId())
+                        .putExtra("NombreUsuario", mUsuario.getUsername()));
                 finish();
             }
+        }
     }
 }

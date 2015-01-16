@@ -16,63 +16,69 @@
         android:layout_marginRight="15dp">
 
         <TextView
-            android:textSize="18.0sp"
+            android:textSize="18sp"
             android:id="@+id/tv_titulo_noticia"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:paddingRight="10dp"
             android:paddingBottom="3dp"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:text="TITULO"/>
+        
         <LinearLayout
             android:id="@+id/fecha_noticia"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingBottom="2dp"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:layout_below="@+id/tv_titulo_noticia">
             <TextView
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
                 android:text="@string/contenido_noticia_fecha_publicacion"/>
             <TextView
-                android:textSize="14sp"
+                android:layout_marginLeft="5dp"
+                android:textSize="12sp"
                 android:textColor="@color/azul_oscuro"
                 android:id="@+id/tv_fecha_publicacion_noticia"
-                android:layout_width="0.0dip"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
                 android:layout_weight="1"
                 android:text="21/02/2015"/>
-
-            <ImageView
-                android:id="@+id/btn_compartir_noticia"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_compartir"
-                android:scaleType="fitCenter"/>
 
         </LinearLayout>
 
     </RelativeLayout>
 
-    <View
+    <LinearLayout
         android:id="@+id/view_down"
         android:background="@drawable/bg_parent_rounded_corner"
-        android:paddingBottom="15dip"
+        android:paddingBottom="8dip"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="-10dp"
-        android:layout_below="@+id/iv_foto_noticia"/>
+        android:layout_below="@+id/iv_foto_noticia">
+        
+        <TextView
+            android:text="ESto es una descripcion de una noticia sin mucha importancia para determinar su ubicacion"
+            android:textSize="14sp"
+            android:paddingLeft="10dp"
+            android:paddingTop="12dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:id="@+id/tv_descripcion_noticia"/>
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/iv_foto_noticia"
@@ -81,7 +87,7 @@
         android:layout_height="200dp"
         android:scaleType="centerCrop"
         android:layout_below="@+id/content_noticia"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="-12dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"/>
 

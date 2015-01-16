@@ -1,9 +1,7 @@
 package edu.ucla.fusa.android;
 
-import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -11,10 +9,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -36,86 +32,74 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import edu.ucla.fusa.android.DB.DataBaseHelper;
 import edu.ucla.fusa.android.DB.EstudianteTable;
-import edu.ucla.fusa.android.adaptadores.ListOpcionesAdapter;
+import edu.ucla.fusa.android.DB.NoticiasTable;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
-import edu.ucla.fusa.android.fragmentos.ConfiguracionListadoFragment;
-import edu.ucla.fusa.android.fragmentos.DrawerHorarioFragment;
-import edu.ucla.fusa.android.fragmentos.DrawerPostulacionComodatoFragment;
-import edu.ucla.fusa.android.fragmentos.EventoCalendarioFragment;
-import edu.ucla.fusa.android.fragmentos.DrawerNoticiasListadoFragment;
-import edu.ucla.fusa.android.fragmentos.DrawerPerfilFragment;
-import edu.ucla.fusa.android.fragmentos.DrawerSolicitudPrestamoFragment;
+import edu.ucla.fusa.android.fragmentos.CambiarPasswordFragment;
+import edu.ucla.fusa.android.fragmentos.ListadoOpcionesFragment;
+import edu.ucla.fusa.android.fragmentos.HorarioClasesFragment;
+import edu.ucla.fusa.android.fragmentos.PostulacionComodatoFragment;
+import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
+import edu.ucla.fusa.android.fragmentos.ListadoNoticiasFragment;
+import edu.ucla.fusa.android.fragmentos.SolicitudPrestamoFragment;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
+import edu.ucla.fusa.android.modelo.fundacion.Noticia;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
-import edu.ucla.fusa.android.modelo.herramientas.ItemListOpcionesMultimedia;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+@SuppressWarnings("deprecation")
 public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
 
 
     private static String TAG = "VistasPrincipalesActivity";
-    private View header;
-    private TypedArray iconos;
-    private ArrayList<ItemListDrawer> items;
+    private View mHeaderDrawer;
+    private TypedArray mIconsDrawer;
+    private ArrayList<ItemListDrawer> mItemsDrawer;
     private ActionBarDrawerToggle mDrawerToogle;
-    private NavigationAdapter navigationAdapter;
-    private DrawerLayout navigationDrawer;
-    private ListView navigationList;
-    private String[] titulos;
-    private JSONParser jsonParser = new JSONParser();
-    private EstudianteTable db;
-    private CircleImageView foto;
-    private TextView nombre;
-    private TextView correo;
-    private ProgressBar progress;
-    private TextView descripcionProgress;
-    private Estudiante estudiante;
-    private Button reintentar;
+    private NavigationAdapter mNavigationAdapter;
+    private DrawerLayout mNavigationDrawer;
+    private ListView mListDrawer;
+    private String[] mTextDrawer;
+    private JSONParser mJSONParser;
+    
+    private CircleImageView mFoto;
+    private TextView mNombre;
+    private TextView mCorreo;
+    private ProgressBar mLoading;
+    private TextView mTextLoading;
+    
+    private Button mRetryButton;
+    private int mTipoUsuario;
+    private String mUsername;
+
+    private ArrayList<Noticia> mNoticias;
+    private Estudiante mEstudiante;
+    private EstudianteTable mEstudianteTable;
+    private NoticiasTable mNoticiasTable;
+    
 
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
-        setContentView(R.layout.activity_principal);
-        db = new EstudianteTable(this);
         getActionBar().hide();
-        progress = (ProgressBar) findViewById(R.id.pb_cargando);
-        descripcionProgress = (TextView) findViewById(R.id.text_cargando);
-        reintentar = (Button) findViewById(R.id.btn_reintentar_conexion);
-        navigationDrawer = ((DrawerLayout) findViewById(R.id.drawer_layout));
-        navigationDrawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        navigationList = ((ListView)findViewById(R.id.lista_funciones));
+        setContentView(R.layout.activity_principal);
+        
+        mEstudianteTable = new EstudianteTable(this);
+        mNoticiasTable = new NoticiasTable(this);
+        mJSONParser = new JSONParser();
+        
+        mLoading = (ProgressBar) findViewById(R.id.pb_cargando);
+        mTextLoading = (TextView) findViewById(R.id.text_cargando);
+        mRetryButton = (Button) findViewById(R.id.btn_reintentar_conexion);
+        mNavigationDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mNavigationDrawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        mListDrawer = (ListView) findViewById(R.id.lista_funciones);
 
-        Log.i("USUARIO", String.valueOf(getIntent().getIntExtra("tipoUser", -1)));
-        if (getIntent().getIntExtra("tipoUser", -1) == 1) {
-            try {
-                estudiante = db.searchUser();
-                if (estudiante != null) {
-                    Log.i(TAG, "Entra en los datos guardados");
-                    cargarMenuEstudiante(estudiante.getNombre(), estudiante.getCorreo(), estudiante.getImagen());
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.frame_container, DrawerNoticiasListadoFragment.newInstance())
-                            .commit();
-                } else {
-                    if (exiteConexionInternet()) {
-                        Log.i(TAG, "Busca datos en el servidor");
-                        new BuscarEstudiante().execute(getIntent().getStringExtra("user"));
-                    } else {
-                        cargarMenuEstandar();
-                    }
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        } else if (getIntent().getIntExtra("tipoUser", -1) == 2) {
-            cargarMenuInstructor();
-        }
-
-        mDrawerToogle = new ActionBarDrawerToggle(this, navigationDrawer,
+        mDrawerToogle = new ActionBarDrawerToggle(this, mNavigationDrawer,
                 R.drawable.ic_navigation_drawer,
                 R.string.drawer_open,
                 R.string.drawer_close) {
@@ -129,10 +113,53 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             }
         };
 
-        navigationDrawer.setDrawerListener(mDrawerToogle);
+        mNavigationDrawer.setDrawerListener(mDrawerToogle);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+        
+        new LoadingNoticias().execute();
+        
+        // Leemos los datos del usuario
+        mTipoUsuario = getIntent().getIntExtra("TipoUsuario", -1);
+        mUsername = getIntent().getStringExtra("NombreUsuario");
+        cargarUsuario();
 
+    }
+    
+    // Usuario
+    
+    private void cargarUsuario() {
+        Log.i(TAG, "Tipo de usuario: " + mTipoUsuario);
+        switch (mTipoUsuario) {
+            case 1: // Es estudiante
+                try {
+                    mEstudiante = mEstudianteTable.searchUser();
+                    if (mEstudiante != null) {
+                        Log.i(TAG, "¡Busca al estudiante en la BD!");
+                        cargarMenuEstudiante();
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
+                                .commit();
+                    } else {
+                        if (exiteConexionInternet()) {
+                            Log.i(TAG, "¡Busca al estudiante en el servidor!");
+                            new BuscarEstudiante().execute(mUsername);
+                        } else {
+                            showOptionRetry();
+                        }
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 2: // Es instructor
+                cargarMenuInstructor();
+                break;
+            default:
+                showOptionRetry();
+                break;
+        }
     }
 
     public boolean exiteConexionInternet() {
@@ -150,23 +177,34 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         }
     }
 
+    public void errorBusqueda(){
+        Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(200);
+        Toast.makeText(this, R.string.mensaje_error_busqueda, Toast.LENGTH_SHORT).show();
+    }
+
+    public void errorServidor(){
+        Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(200);
+        Toast.makeText(this,R.string.mensaje_error_servidor, Toast.LENGTH_SHORT).show();;
+    }
+
     public boolean onCreateOptionsMenu(Menu paramMenu) {
         //getMenuInflater().inflate(R.menu.principal, menu);
         return true;
     }
 
     public void onItemClick(AdapterView<?> paramAdapterView, View paramView, int position, long paramLong) {
-        if (exiteConexionInternet()) {
-            if (getIntent().getIntExtra("tipoUser", -1) == 1) {
+        switch (mTipoUsuario) {
+            case 1:
                 showFragmentEstudiante(position);
-            } else if (getIntent().getIntExtra("tipoUser", -1) == 2) {
+                break;
+            case 2:
                 showFragmentInstructor(position);
-            }
-        } else {
-            showFragmentEstandar(position);
-            progress.setVisibility(View.GONE);
-            descripcionProgress.setVisibility(View.GONE);
-            reintentar.setVisibility(View.GONE);
+                break;
+            default:
+                showOptionRetry();
+                break;
         }
     }
 
@@ -183,7 +221,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     }
 
     public boolean onPrepareOptionsMenu(Menu paramMenu) {
-        boolean drawerOpen = navigationDrawer.isDrawerOpen(this.navigationList);
+        boolean drawerOpen = mNavigationDrawer.isDrawerOpen(mListDrawer);
         //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(paramMenu);
     }
@@ -198,226 +236,238 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         return  stream.toByteArray();
     }
 
-    public void cargarMenuEstudiante(String n, String c, byte[] f) {
-        if (navigationAdapter != null)
-            navigationAdapter.clear();
-        header = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
-        foto = (CircleImageView) header.findViewById(R.id.iv_foto_perfil_drawer);
-        nombre = (TextView) header.findViewById(R.id.etNombreDrawer);
-        correo = (TextView) header.findViewById(R.id.etEmailDrawer);
-        foto.setVisibility(View.VISIBLE);
-        nombre.setVisibility(View.VISIBLE);
-        correo.setVisibility(View.VISIBLE);
-        if (f != null)
-            foto.setImageBitmap(convertByteToImage(f));
-        else
-            foto.setImageResource(R.drawable.no_avatar);
-        nombre.setText(n);
-        correo.setText(c);
-        iconos = getResources().obtainTypedArray(R.array.nav_icons_estudiante);
-        navigationList.addHeaderView(header);
-        titulos = getResources().getStringArray(R.array.nav_funciones_estudiante);
-        items = new ArrayList();
-        items.add(new ItemListDrawer(
-                titulos[0],
-                iconos.getResourceId(0, -1)));
-        items.add(new ItemListDrawer(
-                titulos[1],
-                iconos.getResourceId(1, -1)));
-        items.add(new ItemListDrawer(
-                titulos[2],
-                iconos.getResourceId(2, -1)));
-
-        items.add(new ItemListDrawer(null, -1));
-        iconos = getResources().obtainTypedArray(R.array.nav_icons_general);
-        titulos = getResources().getStringArray(R.array.nav_funciones_general);
-        items.add(new ItemListDrawer(
-                titulos[0],
-                iconos.getResourceId(0, -1)));
-        items.add(new ItemListDrawer(
-                titulos[1],
-                iconos.getResourceId(1, -1)));
-        items.add(new ItemListDrawer(
-                titulos[2],
-                iconos.getResourceId(2, -1)));
-
-        navigationAdapter = new NavigationAdapter(this, items);
-        navigationList.setAdapter(navigationAdapter);
-        navigationList.setOnItemClickListener(this);
-
-        getActionBar().show();
-        progress.setVisibility(View.GONE);
-        descripcionProgress.setVisibility(View.GONE);
-    }
-
-    private void cargarMenuEstandar() {
-        if (navigationAdapter != null)
-            navigationAdapter.clear();
-        iconos = getResources().obtainTypedArray(R.array.nav_icons_general);
-        titulos = getResources().getStringArray(R.array.nav_funciones_general);
-        items = new ArrayList();
-        items.add(new ItemListDrawer(
-                titulos[2],
-                iconos.getResourceId(2, -1)));
-
-        navigationAdapter = new NavigationAdapter(this, items);
-        navigationList.setAdapter(navigationAdapter);
-        navigationList.setOnItemClickListener(this);
-
-        getActionBar().show();
-        reintentar.setVisibility(View.VISIBLE);
-        reintentar.setOnClickListener(new View.OnClickListener() {
+    private void showOptionRetry() {
+        mRetryButton.setVisibility(View.VISIBLE);
+        mRetryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new BuscarEstudiante().execute(getIntent().getStringExtra("user"));
+                switch (mTipoUsuario) {
+                    case 1:
+                        new BuscarEstudiante().execute(mUsername);
+                        break;
+                    case 2:
+                        break;
+                }
+                
             }
         });
-        descripcionProgress.setText(R.string.mensaje_comprobar_conexion);
-        progress.setVisibility(View.GONE);
+        mTextLoading.setText(R.string.mensaje_comprobar_conexion);
+        mLoading.setVisibility(View.GONE);
     }
 
-    private void showFragmentEstandar(int position) {
-        getSupportFragmentManager().popBackStack();
-        switch (position) {
-            case 0:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, ConfiguracionListadoFragment.newInstance())
-                        .commit();
-                break;
+    // Estudiante
+
+    private void cargarPerfilEstudiante(View mHeader) {
+        mFoto = (CircleImageView) mHeader.findViewById(R.id.iv_foto_perfil_drawer);
+        mNombre = (TextView) mHeader.findViewById(R.id.etNombreDrawer);
+        mCorreo = (TextView) mHeader.findViewById(R.id.etEmailDrawer);
+
+        mFoto.setVisibility(View.VISIBLE);
+        mNombre.setVisibility(View.VISIBLE);
+        mCorreo.setVisibility(View.VISIBLE);
+
+        if (mEstudiante.getImagen() != null) {
+            mFoto.setImageBitmap(convertByteToImage(mEstudiante.getImagen()));
+        } else {
+            mFoto.setImageResource(R.drawable.no_avatar);
         }
-        navigationList.setItemChecked(position, true);
-        navigationList.setSelection(position);
-        navigationDrawer.closeDrawer(navigationList);
-    }
 
+        mNombre.setText(mEstudiante.getNombre() + " " + mEstudiante.getApellido());
+        mCorreo.setText(mEstudiante.getCorreo());
+    }
+    
+    public void cargarMenuEstudiante() {
+        if (mNavigationAdapter != null) {
+            mNavigationAdapter.clear();
+        }
+        mHeaderDrawer = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
+        cargarPerfilEstudiante(mHeaderDrawer);
+        mIconsDrawer = getResources().obtainTypedArray(R.array.nav_icons_estudiante);
+        mListDrawer.addHeaderView(mHeaderDrawer);
+        mTextDrawer = getResources().getStringArray(R.array.nav_funciones_estudiante);
+        mItemsDrawer = new ArrayList();
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[0],
+                mIconsDrawer.getResourceId(0, -1)));
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[1],
+                mIconsDrawer.getResourceId(1, -1)));
+
+        mItemsDrawer.add(new ItemListDrawer(null, -1));
+
+        mIconsDrawer = getResources().obtainTypedArray(R.array.nav_icons_general);
+        mTextDrawer = getResources().getStringArray(R.array.nav_funciones_general);
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[0],
+                mIconsDrawer.getResourceId(0, -1)));
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[1],
+                mIconsDrawer.getResourceId(1, -1)));
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[2],
+                mIconsDrawer.getResourceId(2, -1)));
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[3],
+                mIconsDrawer.getResourceId(3, -1)));
+
+        mNavigationAdapter = new NavigationAdapter(this, mItemsDrawer);
+        mListDrawer.setAdapter(mNavigationAdapter);
+        mListDrawer.setOnItemClickListener(this);
+
+        getActionBar().show();
+        mLoading.setVisibility(View.GONE);
+        mTextLoading.setVisibility(View.GONE);
+    }
+    
     private void showFragmentEstudiante(int position) {
         getSupportFragmentManager().popBackStack();
         switch (position) {
             case 0:
-                /*getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, DrawerPerfilFragment.newInstance())
-                        .commit();*/
-
                 break;
             case 1:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, DrawerHorarioFragment.newInstance())
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frame_container, HorarioClasesFragment.newInstance())
                         .commit();
                 break;
             case 2:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frame_container, SolicitudPrestamoFragment.newInstance())
+                        .commit();
                 break;
-            case 3:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, DrawerSolicitudPrestamoFragment.newInstance())
+            case 4:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
                         .commit();
                 break;
             case 5:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, DrawerNoticiasListadoFragment.newInstance())
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frame_container, CalendarioFragment.newInstance())
                         .commit();
                 break;
             case 6:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, EventoCalendarioFragment.newInstance())
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frame_container, ListadoOpcionesFragment.newInstance())
                         .commit();
                 break;
             case 7:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, ConfiguracionListadoFragment.newInstance())
-                        .commit();
+                new Logout().execute();
                 break;
         }
-        navigationList.setItemChecked(position, true);
-        navigationList.setSelection(position);
-        navigationDrawer.closeDrawer(navigationList);
+        
+        mListDrawer.setItemChecked(position, true);
+        mListDrawer.setSelection(position);
+        mNavigationDrawer.closeDrawer(mListDrawer);
     }
 
-    public void cargarMenuInstructor() {
-        if (navigationAdapter != null)
-            navigationAdapter.clear();
-        header = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
-        foto = (CircleImageView) header.findViewById(R.id.iv_foto_perfil_drawer);
-        nombre = (TextView) header.findViewById(R.id.etNombreDrawer);
-        correo = (TextView) header.findViewById(R.id.etEmailDrawer);
-        foto.setVisibility(View.VISIBLE);
-        nombre.setVisibility(View.VISIBLE);
-        correo.setVisibility(View.VISIBLE);
-        foto.setImageResource(R.drawable.foto_instructor);
-        nombre.setText("Rafael \"Pollo\" Brito");
-        correo.setText("profesor@example.com");
-        iconos = getResources().obtainTypedArray(R.array.nav_icons_instructor);
-        navigationList.addHeaderView(header);
-        titulos = getResources().getStringArray(R.array.nav_funciones_instructor);
-        items = new ArrayList();
-        items.add(new ItemListDrawer(
-                this.titulos[0],
-                this.iconos.getResourceId(0, -1)));
-        items.add(new ItemListDrawer(
-                this.titulos[1],
-                this.iconos.getResourceId(1, -1)));
-        items.add(new ItemListDrawer(
-                this.titulos[2],
-                this.iconos.getResourceId(2, -1)));
-        items.add(new ItemListDrawer(null, -1));
-        iconos = getResources().obtainTypedArray(R.array.nav_icons_general);
-        titulos = getResources().getStringArray(R.array.nav_funciones_general);
-        items.add(new ItemListDrawer(
-                titulos[0],
-                iconos.getResourceId(0, -1)));
-        items.add(new ItemListDrawer(
-                titulos[1],
-                iconos.getResourceId(1, -1)));
-        items.add(new ItemListDrawer(
-                titulos[2],
-                iconos.getResourceId(2, -1)));
+    // Instructor
 
-        navigationAdapter = new NavigationAdapter(this, items);
-        navigationList.setAdapter(navigationAdapter);
-        navigationList.setOnItemClickListener(this);
+    private void cargarPerfilInstructor(View mHeader) {
+        mFoto = (CircleImageView) mHeader.findViewById(R.id.iv_foto_perfil_drawer);
+        mNombre = (TextView) mHeader.findViewById(R.id.etNombreDrawer);
+        mCorreo = (TextView) mHeader.findViewById(R.id.etEmailDrawer);
+
+        mFoto.setVisibility(View.VISIBLE);
+        mNombre.setVisibility(View.VISIBLE);
+        mCorreo.setVisibility(View.VISIBLE);
+
+        //if (mEstudiante.getImagen() != null) {
+            //mFoto.setImageBitmap(convertByteToImage(mEstudiante.getImagen()));
+        //} else {
+            mFoto.setImageResource(R.drawable.foto_instructor);
+        //}
+
+        mNombre.setText("Rafael \"Pollo\" Brito");
+        mCorreo.setText("profesor@example.com");
+    }
+    
+    public void cargarMenuInstructor() {
+        if (mNavigationAdapter != null) {
+            mNavigationAdapter.clear();
+        }
+        mHeaderDrawer = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
+        cargarPerfilInstructor(mHeaderDrawer);
+        mIconsDrawer = getResources().obtainTypedArray(R.array.nav_icons_instructor);
+        mListDrawer.addHeaderView(mHeaderDrawer);
+        mTextDrawer = getResources().getStringArray(R.array.nav_funciones_instructor);
+        mItemsDrawer = new ArrayList();
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[0],
+                mIconsDrawer.getResourceId(0, -1)));
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[1],
+                mIconsDrawer.getResourceId(1, -1)));
+        
+        mItemsDrawer.add(new ItemListDrawer(null, -1));
+        mIconsDrawer = getResources().obtainTypedArray(R.array.nav_icons_general);
+        mTextDrawer = getResources().getStringArray(R.array.nav_funciones_general);
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[0],
+                mIconsDrawer.getResourceId(0, -1)));
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[1],
+                mIconsDrawer.getResourceId(1, -1)));
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[2],
+                mIconsDrawer.getResourceId(2, -1)));
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[3],
+                mIconsDrawer.getResourceId(3, -1)));
+
+        mNavigationAdapter = new NavigationAdapter(this, mItemsDrawer);
+        mListDrawer.setAdapter(mNavigationAdapter);
+        mListDrawer.setOnItemClickListener(this);
     }
 
     private void showFragmentInstructor(int position) {
         getSupportFragmentManager().popBackStack();
         switch (position) {
             case 0:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, DrawerPerfilFragment.newInstance())
-                        .commit();
                 break;
             case 1:
-
                 break;
             case 2:
                 break;
             case 3:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, DrawerPostulacionComodatoFragment.newInstance())
+                        .replace(R.id.frame_container, PostulacionComodatoFragment.newInstance())
                         .commit();
                 break;
             case 4:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, DrawerNoticiasListadoFragment.newInstance())
+                        .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
                         .commit();
                 break;
             case 5:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, EventoCalendarioFragment.newInstance())
+                        .replace(R.id.frame_container, CalendarioFragment.newInstance())
                         .commit();
                 break;
             case 6:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, ConfiguracionListadoFragment.newInstance())
+                        .replace(R.id.frame_container, CambiarPasswordFragment.newInstance())
                         .commit();
                 break;
+            case 7:
+                new Logout().execute();
+                break;
         }
-        navigationList.setItemChecked(position, true);
-        navigationList.setSelection(position);
-        navigationDrawer.closeDrawer(this.navigationList);
+        mListDrawer.setItemChecked(position, true);
+        mListDrawer.setSelection(position);
+        mNavigationDrawer.closeDrawer(mListDrawer);
     }
 
     public void onBackPressed() {
-        if (navigationDrawer.isDrawerOpen(this.navigationList)) {
-            navigationDrawer.closeDrawer(this.navigationList);
+        if (mNavigationDrawer.isDrawerOpen(mListDrawer)) {
+            mNavigationDrawer.closeDrawer(mListDrawer);
         } else {
             super.onBackPressed();
         }
@@ -428,100 +478,157 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mDrawerToogle.onConfigurationChanged(paramConfiguration);
     }
 
-    private class BuscarEstudiante extends AsyncTask<String, Integer, Integer> {
-
-        private String nombre;
-        private String correo;
-        private byte[] foto;
-        private Estudiante estudiante;
+    private class BuscarEstudiante extends AsyncTask<String, Void, Integer> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progress.setVisibility(View.VISIBLE);
-            descripcionProgress.setText(R.string.cargando);
-            reintentar.setVisibility(View.GONE);
+            mLoading.setVisibility(View.VISIBLE);
+            mTextLoading.setText(R.string.cargando);
+            mRetryButton.setVisibility(View.GONE);
         }
 
         @Override
         protected Integer doInBackground(String... params) {
-            SystemClock.sleep(3000);
-            int response = -1;
-            /** Cargamos los parametros que enviaremos por URL */
+            int response;
+            
+            // Parametros via GET
             ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
             parametros.add(new BasicNameValuePair("username", params[0]));
 
-            /** Mandamos los parametros y esperemos una respuesta del servidor */
-            estudiante = jsonParser.serviceEstudiante(parametros);
-            if (estudiante != null) {
-                if (estudiante.getId() != -1) { /** Si el estudiante existe */
+            // Aplicamos el servicio
+            mEstudiante = mJSONParser.serviceEstudiante(parametros);
+            if (mEstudiante != null) {
+                if (mEstudiante.getId() != -1) { // Existe el estudiante
 
-                    nombre = estudiante.getNombreApellido();
-                    correo = estudiante.getCorreo();
-                    foto = estudiante.getImagen();
-                    /** Guardamos sus datos internamente para que no se loguee de nuevo */
-                    db.insertData(
-                        estudiante.getId(),
-                        estudiante.getNombre(),
-                        estudiante.getApellido(),
-                        estudiante.getCedula(),
-                        estudiante.getCorreo(),
-                        estudiante.getEdad(),
-                        estudiante.getFechanac(),
-                        estudiante.getSexo(),
-                        estudiante.getTelefonoFijo(),
-                        estudiante.getTelefonoMovil(),
-                        estudiante.getImagen(),
-                        estudiante.getBecado(),
-                        estudiante.getInscritoConservatorio(),
-                        estudiante.getInscritoCoro(),
-                        estudiante.getInstrumentoPropio());
+                    // Guardamos los datos internamente
+                    mEstudianteTable.insertData(
+                            mEstudiante.getId(),
+                            mEstudiante.getNombre(),
+                            mEstudiante.getApellido(),
+                            mEstudiante.getCedula(),
+                            mEstudiante.getCorreo(),
+                            mEstudiante.getEdad(),
+                            mEstudiante.getFechanac(),
+                            mEstudiante.getSexo(),
+                            mEstudiante.getTelefonoFijo(),
+                            mEstudiante.getTelefonoMovil(),
+                            mEstudiante.getImagen(),
+                            mEstudiante.getBecado(),
+                            mEstudiante.getInscritoConservatorio(),
+                            mEstudiante.getInscritoCoro(),
+                            mEstudiante.getInstrumentoPropio());
                     response = 100;
-                } else { /** Si el estudiante no existe */
+                } else { // No existe el estudiante
                     response = -1;
                 }
-            } else { /** Hubo problemas con el servidor o lentitud de la red */
+            } else { // Problemas con el servidor o conexión
                 response = 0;
             }
             return response;
         }
 
         @Override
-        protected void onPostExecute(Integer i) {
-            super.onPostExecute(i);
-            if (i == 100) {
-                cargarMenuEstudiante(nombre, correo, foto);
-                SystemClock.sleep(2000);
-                Log.i(TAG, "Felicidades, existe el estudiante");
-                progress.setVisibility(View.GONE);
-                descripcionProgress.setVisibility(View.GONE);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, DrawerNoticiasListadoFragment.newInstance())
-                        .commit();
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            switch (result) {
+                case 100:
+                    cargarMenuEstudiante();
+                    // Delay 2 sg
+                    SystemClock.sleep(2000);
 
-            } else if (i == -1) {
-                Log.i(TAG, "Error, no existe el estudiante");
-                errorBusqueda();
-            } else {
-                Log.i(TAG, "Problemas con conectividad");
-                cargarMenuEstandar();
-                errorServidor();
+                    Log.i(TAG, "¡Estudiante localizado!");
+                    mLoading.setVisibility(View.GONE);
+                    mTextLoading.setVisibility(View.GONE);
+                    getActionBar().show();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
+                            .commit();
+                    break;
+                case -1:
+                    Log.i(TAG, "¡No existe el estudiante!");
+                    showOptionRetry();
+                    errorBusqueda();
+                    break;
+                case 0:
+                    Log.i(TAG, "¡Problemas con el servidor o de conexion!");
+                    showOptionRetry();
+                    errorServidor();
+                    break;
             }
-            getActionBar().show();
         }
     }
+    
+    // Noticias 
 
-    public void errorBusqueda(){
-        Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(200);
-        Toast.makeText(this, R.string.mensaje_error_busqueda, Toast.LENGTH_SHORT).show();
+    private class LoadingNoticias extends AsyncTask<Void, Void, Integer> {
+
+        protected Integer doInBackground(Void[] voids) {
+            SystemClock.sleep(2000);
+            Log.i(TAG, "¡Buscando noticias!");
+            mNoticias = new ArrayList<Noticia>();
+            mNoticias = mJSONParser.serviceLoadingNoticias();
+            if (mNoticias == null) {
+                return 0;
+            } else if (mNoticias.size() != 0) {
+                for (Noticia noticia : mNoticias) {                   
+                    
+                    //Guardamos en la base de datos
+                    mNoticiasTable.insertData(noticia.getTitulo(),
+                            noticia.getDescripcion(),
+                            noticia.getFechapublicacion().getTime(),
+                            noticia.getImagen(),
+                            noticia.getId());
+                }
+                return 100;
+            } else {
+                return 0;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            switch (result) {
+                case 100:
+                    Log.i(TAG, "¡Noticias guardadas!");
+                    break;
+                case 0:
+                    Log.i(TAG, "¡Error al buscar las noticias!");
+                    break;
+            }
+            
+        }
     }
+    
+    // Cerrar sesión 
 
-    public void errorServidor(){
-        Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(200);
-        Toast.makeText(this,R.string.mensaje_error_servidor, Toast.LENGTH_SHORT).show();;
+    private class Logout extends AsyncTask<Void, Void, Void> {
+
+        private ProgressDialog dialog;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(VistasPrincipalesActivity.this);
+            dialog.setMessage(getResources().getString(R.string.cerrar_sesion));
+            dialog.setIndeterminate(false);
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+        protected Void doInBackground(Void[] params) {
+            SystemClock.sleep(2000);
+            deleteDatabase(DataBaseHelper.NAME);
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            dialog.dismiss();
+            startActivity(new Intent(getApplicationContext(), VistasInicialesActivity.class));
+            finish();
+        }
     }
-
-
+   
 }

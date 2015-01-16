@@ -44,40 +44,13 @@
         android:text="@string/contenido_vista_inicial_eventos"
         android:layout_weight="3" />
 
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp">
-        <Button
-            android:textSize="22sp"
-            android:textColor="@color/azul_oscuro"
-            android:gravity="center"
-            android:id="@+id/btn_asistir"
-            android:background="@drawable/style_button_background_azul"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="ASISTE"
-            android:layout_weight="1"
-            android:textStyle="bold"/>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/gris"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
-
-        <Button android:textSize="22sp"
+    <Button android:textSize="22sp"
             android:textColor="@color/azul_oscuro"
             android:gravity="center"
             android:id="@+id/btn_contratar"
             android:background="@drawable/style_button_background_azul"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:text="CONTRATA"
-            android:layout_weight="1"
             android:textStyle="bold"/>
-    </LinearLayout>
 </LinearLayout>

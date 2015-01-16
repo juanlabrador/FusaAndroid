@@ -17,7 +17,7 @@
     <declare-styleable name="calendar_cell"><attr format="boolean" name="state_selectable"/><attr format="boolean" name="state_current_month"/><attr format="boolean" name="state_today"/><attr format="boolean" name="state_range_first"/><attr format="boolean" name="state_range_middle"/><attr format="boolean" name="state_range_last"/><attr format="boolean" name="state_highlighted"/></declare-styleable>
     <dimen name="calendar_day_headers_paddingbottom">4dp</dimen>
     <dimen name="calendar_month_title_bottommargin">4dp</dimen>
-    <dimen name="calendar_month_topmargin">16dp</dimen>
+    <dimen name="calendar_month_topmargin">12dp</dimen>
     <dimen name="calendar_text_medium">18sp</dimen>
     <dimen name="calendar_text_small">14sp</dimen>
     <string name="day_name_format">EEE</string>

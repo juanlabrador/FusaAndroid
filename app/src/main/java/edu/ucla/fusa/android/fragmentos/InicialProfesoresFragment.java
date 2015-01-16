@@ -34,7 +34,7 @@ public class InicialProfesoresFragment extends Fragment implements View.OnClickL
     public void onClick(View view) {
         getFragmentManager().beginTransaction()
                 .addToBackStack(null)
-                .replace(android.R.id.content, InicialParticipaFragment.newInstance())
+                .replace(android.R.id.content, InstructorAspiranteFragment.newInstance())
                 .commit();
     }
 }

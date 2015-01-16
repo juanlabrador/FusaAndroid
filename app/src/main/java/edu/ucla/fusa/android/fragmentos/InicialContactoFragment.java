@@ -27,13 +27,13 @@ public class InicialContactoFragment extends Fragment implements View.OnClickLis
         switch (v.getId()) {
             case R.id.btn_contacto:
                 getFragmentManager().beginTransaction()
-                        .replace(android.R.id.content, InicialContactoFundacionFragment.newInstance())
+                        .replace(android.R.id.content, ContenedorContactoFragment.newInstance())
                         .addToBackStack(null)
                         .commit();
                 break;
             case R.id.tv_iniciar_sesion:
                 getFragmentManager().beginTransaction()
-                        .replace(android.R.id.content, InicialLoginFragment.newInstance())
+                        .replace(android.R.id.content, LoginFragment.newInstance())
                         .addToBackStack(null)
                         .commit();
                 break;

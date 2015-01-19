@@ -34,6 +34,8 @@ import org.apache.http.message.BasicNameValuePair;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.ucla.fusa.android.DB.DataBaseHelper;
 import edu.ucla.fusa.android.DB.EstudianteTable;
+import edu.ucla.fusa.android.DB.EventoTable;
+import edu.ucla.fusa.android.DB.LugarTable;
 import edu.ucla.fusa.android.DB.NoticiasTable;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
 import edu.ucla.fusa.android.fragmentos.CambiarPasswordFragment;
@@ -44,13 +46,18 @@ import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
 import edu.ucla.fusa.android.fragmentos.ListadoNoticiasFragment;
 import edu.ucla.fusa.android.fragmentos.SolicitudPrestamoFragment;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
+import edu.ucla.fusa.android.modelo.evento.Evento;
+import edu.ucla.fusa.android.modelo.evento.Lugar;
 import edu.ucla.fusa.android.modelo.fundacion.Noticia;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 @SuppressWarnings("deprecation")
 public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
@@ -81,7 +88,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private Estudiante mEstudiante;
     private EstudianteTable mEstudianteTable;
     private NoticiasTable mNoticiasTable;
-    
+
 
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
@@ -117,6 +124,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
         
+        new LoadingEventos().execute();
         new LoadingNoticias().execute();
         
         // Leemos los datos del usuario
@@ -478,7 +486,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mDrawerToogle.onConfigurationChanged(paramConfiguration);
     }
 
-    private class BuscarEstudiante extends AsyncTask<String, Void, Integer> {
+    public class BuscarEstudiante extends AsyncTask<String, Void, Integer> {
 
         @Override
         protected void onPreExecute() {
@@ -535,9 +543,63 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 case 100:
                     cargarMenuEstudiante();
                     // Delay 2 sg
-                    SystemClock.sleep(2000);
-
                     Log.i(TAG, "¡Estudiante localizado!");
+                    break;
+                case -1:
+                    Log.i(TAG, "¡No existe el estudiante!");
+                    
+                    break;
+                case 0:
+                    Log.i(TAG, "¡Problemas con el servidor o de conexion!");
+                    
+                    break;
+            }
+        }
+    }
+    
+    // Noticias 
+
+    public class LoadingNoticias extends AsyncTask<Void, Void, Integer> {
+
+        private ArrayList<ItemListNoticia> mItemsNoticias;
+
+        protected Integer doInBackground(Void[] voids) {
+            SystemClock.sleep(2000);
+            mItemsNoticias = mNoticiasTable.searchNews();
+            if (mItemsNoticias.size() == 0) {
+                Log.i(TAG, "¡Buscando noticias!");
+                mNoticias = new ArrayList<Noticia>();
+                mNoticias = mJSONParser.serviceLoadingNoticias();
+                if (mNoticias == null) {
+                    return 0;
+                } else if (mNoticias.size() != 0) {
+                    for (Noticia noticia : mNoticias) {
+
+                        //Guardamos en la base de datos
+                        mNoticiasTable.insertData(noticia.getTitulo(),
+                                noticia.getDescripcion(),
+                                noticia.getFechapublicacion().getTime(),
+                                noticia.getImagen(),
+                                noticia.getId());
+                    }
+                    return 100;
+                } else {
+                    return -1;
+                }
+            } else {
+                return 200;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            switch (result) {
+                case 200:
+                    Log.i(TAG, "¡Noticias por actualizar!");
+                    break;
+                case 100:
+                    Log.i(TAG, "¡Noticias guardadas!");
                     mLoading.setVisibility(View.GONE);
                     mTextLoading.setVisibility(View.GONE);
                     getActionBar().show();
@@ -547,43 +609,85 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                             .commit();
                     break;
                 case -1:
-                    Log.i(TAG, "¡No existe el estudiante!");
                     showOptionRetry();
                     errorBusqueda();
                     break;
                 case 0:
-                    Log.i(TAG, "¡Problemas con el servidor o de conexion!");
+                    Log.i(TAG, "¡Error al buscar las noticias!");
                     showOptionRetry();
                     errorServidor();
                     break;
             }
+            
         }
     }
     
-    // Noticias 
+    // Eventos
+    
+    public class LoadingEventos extends AsyncTask<Void, Void, Integer> {
+        
+        private String TAG = "LoadingEventos";
+        private Calendar mDesde;
+        private Calendar mHasta;
+        private SimpleDateFormat mDateFormat;
+        private ArrayList<Evento> mEventos;
+        private EventoTable mEventoTable;
+        private LugarTable mLugarTable;
+        private Lugar mLugar;
 
-    private class LoadingNoticias extends AsyncTask<Void, Void, Integer> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            mDesde = Calendar.getInstance();
+            mHasta = Calendar.getInstance();
+            // Sumamos un año
+            mHasta.set(mDesde.get(Calendar.YEAR) + 1, mDesde.get(Calendar.MONTH), mDesde.get(Calendar.DAY_OF_MONTH));
+            mLugar = new Lugar();
+            mEventoTable = new EventoTable(getApplicationContext());
+            mLugarTable = new LugarTable(getApplicationContext());
+            Log.i(TAG, mDateFormat.format(mDesde.getTime()));
+            Log.i(TAG, mDateFormat.format(mHasta.getTime()));
+        }
 
-        protected Integer doInBackground(Void[] voids) {
-            SystemClock.sleep(2000);
-            Log.i(TAG, "¡Buscando noticias!");
-            mNoticias = new ArrayList<Noticia>();
-            mNoticias = mJSONParser.serviceLoadingNoticias();
-            if (mNoticias == null) {
-                return 0;
-            } else if (mNoticias.size() != 0) {
-                for (Noticia noticia : mNoticias) {                   
-                    
-                    //Guardamos en la base de datos
-                    mNoticiasTable.insertData(noticia.getTitulo(),
-                            noticia.getDescripcion(),
-                            noticia.getFechapublicacion().getTime(),
-                            noticia.getImagen(),
-                            noticia.getId());
+        @Override
+        protected Integer doInBackground(Void... params) {
+            mEventos = mEventoTable.searchEventos(mDateFormat.format(mDesde.getTime()));
+            Log.i(TAG, "Cantidad de eventos: " + mEventos.size());
+            if (mEventos.size() == 0) {
+                /** Cargamos los parametros que enviaremos por URL */
+                ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
+                parametros.add(new BasicNameValuePair("desde", mDateFormat.format(mDesde.getTime())));
+                parametros.add(new BasicNameValuePair("hasta", mDateFormat.format(mHasta.getTime())));
+                mEventos = mJSONParser.serviceLoadingEventos(parametros);
+                if (mEventos == null) {
+                    return 0;
+                } else if (mEventos.size() != 0) {
+                    for (Evento evento : mEventos) {
+                        mEventoTable.insertData(
+                                evento.getId(),
+                                evento.getNombre(),
+                                evento.getLogistica(),
+                                evento.getFecha(),
+                                evento.getHora(),
+                                evento.getLugar().getId()
+                        );
+                        mLugar = mLugarTable.searchLugar(String.valueOf(evento.getLugar().getId()));
+                        if (mLugar == null) {
+                            Log.i(TAG, "¡No existe el lugar!");
+                            mLugarTable.insertData(
+                                    evento.getLugar().getId(),
+                                    evento.getLugar().getDescripcion(),
+                                    evento.getLugar().getDireccion()
+                            );
+                        }
+                    }
+                    return 100;
+                } else {
+                    return -1;
                 }
-                return 100;
             } else {
-                return 0;
+                return 200;
             }
         }
 
@@ -591,14 +695,19 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             switch (result) {
+                case 200:
+                    Log.i(TAG, "¡Eventos por actualizar!");
+                    break;
                 case 100:
-                    Log.i(TAG, "¡Noticias guardadas!");
+                    Log.i(TAG, "¡Eventos guardados!");
+                    break;
+                case -1:
+                    Log.i(TAG, "¡No hay eventos!");
                     break;
                 case 0:
-                    Log.i(TAG, "¡Error al buscar las noticias!");
+                    Log.i(TAG, "¡Problemas con el servidor!");
                     break;
             }
-            
         }
     }
     

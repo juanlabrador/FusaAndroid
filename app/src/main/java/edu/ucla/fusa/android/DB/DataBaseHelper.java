@@ -21,6 +21,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(UserTable.CREATE_TABLE);
         db.execSQL(EstudianteTable.CREATE_TABLE);
         db.execSQL(NoticiasTable.CREATE_TABLE);
+        db.execSQL(EventoTable.CREATE_TABLE);
+        db.execSQL(LugarTable.CREATE_TABLE);
     }
 
     @Override
@@ -28,6 +30,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + EstudianteTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + NoticiasTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + EventoTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + LugarTable.TABLE_NAME);
         onCreate(db);
     }
 }

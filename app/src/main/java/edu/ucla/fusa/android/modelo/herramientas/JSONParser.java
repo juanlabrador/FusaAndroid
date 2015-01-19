@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONObject;
@@ -15,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import edu.ucla.fusa.android.modelo.academico.Catedra;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
+import edu.ucla.fusa.android.modelo.evento.Evento;
 import edu.ucla.fusa.android.modelo.instrumentos.SolicitudPrestamo;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoInstrumento;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoPrestamo;
@@ -190,6 +192,21 @@ public class JSONParser {
             mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             ResponseEntity<TipoInstrumento[]> responseEntity = mRestTemplate.getForEntity(URL + "TipoInstrumentos", TipoInstrumento[].class);
             return new ArrayList<TipoInstrumento>(Arrays.asList(responseEntity.getBody()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    // Eventos
+    
+    public ArrayList<Evento> serviceLoadingEventos(ArrayList<NameValuePair> params) {
+        try {
+            mRestTemplate = new RestTemplate(mRequestFactory);
+            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            mParameters = "ServiceEventos/" + params.get(0).getValue() + "/" + params.get(1).getValue();
+            ResponseEntity<Evento[]> responseEntity = mRestTemplate.getForEntity(URL + mParameters, Evento[].class);
+            return new ArrayList<Evento>(Arrays.asList(responseEntity.getBody()));
         } catch (Exception e) {
             e.printStackTrace();
         }

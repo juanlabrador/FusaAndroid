@@ -110,6 +110,8 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
             mListAdapter = new ListNoticiasAdapter(getActivity(), mItemsNoticias, this);
             mListAdapter.notifyDataSetChanged();
             setListAdapter(mListAdapter);
+            mItemNoticia = (ItemListNoticia) mListAdapter.getItem(0);
+            new LoadingNewsNoticiasTaks().execute(String.valueOf(mItemNoticia.getId()));
             //if (index != -1) {
                 //getListView().setSelectionFromTop(index, 0);
            // }
@@ -250,7 +252,11 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
                     });
                     break;
                 case 0:
-                    Toast.makeText(getActivity(), R.string.mensaje_busqueda_vacio_noticias, Toast.LENGTH_SHORT).show();
+                    try {
+                        Toast.makeText(getActivity(), R.string.mensaje_busqueda_vacio_noticias, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
             }
         }

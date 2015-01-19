@@ -274,11 +274,11 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mNombre.setVisibility(View.VISIBLE);
         mCorreo.setVisibility(View.VISIBLE);
 
-        if (mEstudiante.getImagen() != null) {
-            mFoto.setImageBitmap(convertByteToImage(mEstudiante.getImagen()));
-        } else {
+        //if (mEstudiante.getImagen() != null) {
+        //    mFoto.setImageBitmap(convertByteToImage(mEstudiante.getImagen()));
+        //} else {
             mFoto.setImageResource(R.drawable.no_avatar);
-        }
+        //}
 
         mNombre.setText(mEstudiante.getNombre() + " " + mEstudiante.getApellido());
         mCorreo.setText(mEstudiante.getCorreo());

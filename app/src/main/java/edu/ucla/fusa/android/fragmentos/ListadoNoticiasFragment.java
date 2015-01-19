@@ -123,7 +123,7 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
 
     public void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
-        bundle.putInt("item_position", getListView().getSelectedItemPosition());
+        //bundle.putInt("item_position", getListView().getSelectedItemPosition());
     }
 
     private class LoadingNoticiasTaks extends AsyncTask<Void, Void, Integer> {

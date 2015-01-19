@@ -84,6 +84,18 @@ public class JSONParser {
         return null;
     }
 
+    public int serviceChangeFotoEstudiante(ArrayList<NameValuePair> params) {
+        try {
+            mRestTemplate = new RestTemplate(mRequestFactory);
+            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            mParameters = "changeFotoEstudiante/" + params.get(0).getValue() + "/" + params.get(1).getValue();
+            return mRestTemplate.getForObject(URL + mParameters, Integer.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     // Noticias
 
     public ArrayList<Noticia> serviceLoadingNoticias() {

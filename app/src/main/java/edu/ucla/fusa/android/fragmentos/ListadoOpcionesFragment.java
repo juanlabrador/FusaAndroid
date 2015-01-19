@@ -10,6 +10,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,7 @@ import java.util.ArrayList;
 
 public class ListadoOpcionesFragment extends Fragment implements AdapterView.OnItemClickListener {
 
+    private static String TAG = "ListadoOpcionesFragment";
     private static final int CROP_FROM_CAMERA = 2;
     private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_FILE = 3;
@@ -52,7 +55,7 @@ public class ListadoOpcionesFragment extends Fragment implements AdapterView.OnI
     private Usuario mUsuario;
 
     // Cambio de foto
-    private byte[] bytes;
+    private byte[] mPhoto;
     private Bitmap bitmap;
 
     public static ListadoOpcionesFragment newInstance() {
@@ -191,8 +194,9 @@ public class ListadoOpcionesFragment extends Fragment implements AdapterView.OnI
                     Bundle b = data.getExtras();
                     if (b != null) {
                         bitmap = b.getParcelable("data");
-                        bytes = convertImageToByte(bitmap);
-                        new UploadFoto().execute(mUsuario.getUsername(), bytes.toString());
+                        mPhoto = convertImageToByte(bitmap);
+                        new UploadFoto().execute(mUsuario.getUsername(), mPhoto.toString());
+                        new UploadFotoEstudiante().execute(mUsuario.getUsername(), mPhoto.toString());
                     }
                     file = new File(mFotoCaptureUri.getPath());
                     if (file.exists()) {
@@ -205,8 +209,8 @@ public class ListadoOpcionesFragment extends Fragment implements AdapterView.OnI
 
     private byte[] convertImageToByte(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
-        return  stream.toByteArray();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return Base64.encode(stream.toByteArray(), Base64.DEFAULT);
     }
 
     private void doCrop() {
@@ -238,9 +242,37 @@ public class ListadoOpcionesFragment extends Fragment implements AdapterView.OnI
             super.onPostExecute(result);
             switch (result) {
                 case 0:
+                    Log.i(TAG, "¡No se cargo la foto!");
+                    break;
+                case 1:
+                    Log.i(TAG, "¡Foto actualizada!");
+                    break;
+            }
+        }
+    }
+
+    private class UploadFotoEstudiante extends AsyncTask<String, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(String... params) {
+            /** Cargamos los parametros que enviaremos por URL */
+            ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
+            parametros.add(new BasicNameValuePair("username", params[0]));
+            parametros.add(new BasicNameValuePair("imagen", params[1]));
+
+            return mJSONParser.serviceChangeFotoEstudiante(parametros);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            switch (result) {
+                case 0:
+                    Log.i(TAG, "¡No se cargo la foto!");
                     Toast.makeText(getActivity(), R.string.mensaje_error_cambiar_foto, Toast.LENGTH_SHORT).show();
                     break;
                 case 1:
+                    Log.i(TAG, "¡Foto actualizada!");
                     ((CircleImageView) getActivity().findViewById(R.id.iv_foto_perfil_drawer)).setImageBitmap(bitmap);
                     break;
             }

@@ -2,7 +2,7 @@
 <RelativeLayout
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="120dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools=" http://schemas.android.com/tools"
@@ -10,25 +10,50 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="120dp"
         android:src="@drawable/fondo5"
         android:scaleType="centerCrop"/>
 
     <com.github.siyamed.shapeimageview.HexagonImageView
         android:id="@+id/iv_foto_perfil_drawer"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:src="@drawable/no_avatar"
         app:siBorderWidth="1dp"
-        android:layout_gravity="center"
         app:siBorderColor="@color/blanco"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"/>
-
+        android:layout_marginBottom="16dp"/>
 
     <TextView
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:textColor="@color/blanco"
+        android:id="@+id/etNombreDrawer"
+        android:layout_width="wrap_content"
+        android:gravity="right"
+        android:layout_height="wrap_content"
+        android:text="Juan Labrador"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="8dp"
+        fontPath="fonts/HelveticaNeue.ttf"/>
+
+    <TextView
+        android:textSize="14sp"
+        android:textColor="@color/blanco"
+        android:id="@+id/etCorreoDrawer"
+        android:layout_width="wrap_content"
+        android:gravity="right"
+        android:layout_height="wrap_content"
+        android:text="juan@example.com"
+        android:layout_below="@+id/etNombreDrawer"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp"/>
+
+    <!--<edu.ucla.fusa.android.modelo.herramientas.MagicTextView
+        xmlns:qwerjk="http://schemas.android.com/apk/res-auto"
+        android:textSize="24sp"
         android:textColor="@color/blanco"
         android:id="@+id/etNombreDrawer"
         android:layout_width="wrap_content"
@@ -38,6 +63,14 @@
         android:layout_below="@+id/iv_foto_perfil_drawer"
         android:layout_marginLeft="8dp"
         fontPath="fonts/HelveticaNeue.ttf"
-        android:background="@drawable/text_shadow"/>
+        qwerjk:innerShadowDy="12dp"
+        qwerjk:innerShadowColor="@color/negro"
+        qwerjk:innerShadowRadius="8dp"
+        qwerjk:outerShadowDy="6dp"
+        qwerjk:outerShadowColor="@color/negro"
+        qwerjk:outerShadowRadius="8dp"
+        qwerjk:strokeColor="@color/blanco"
+        qwerjk:strokeJoinStyle="miter"
+        qwerjk:strokeWidth="1dp"/>-->
 
 </RelativeLayout>

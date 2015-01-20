@@ -1,25 +1,29 @@
 package edu.ucla.fusa.android.fragmentos;
 
-import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import com.viewpagerindicator.TabPageIndicator;
+
+import com.astuetz.PagerSlidingTabStrip;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.FragmentViewPagerAdapter;
 
+
 public class ContenedorContactoFragment extends Fragment implements ViewPager.OnPageChangeListener {
 
-    private FragmentViewPagerAdapter adapter;
-    private TypedArray iconos;
-    private TabPageIndicator tabPageIndicator;
-    private View view;
-    private ViewPager viewPager;
+    private static String TAG = "ContenedorContactoFragment";
+    private FragmentViewPagerAdapter mAdapter;
+    private PagerSlidingTabStrip mTabs;
+    private Toolbar mToolbar;
+    private View mView;
+    private ViewPager mViewPager;
+    private static final String[] mContentTabs = new String[] {"Información", "Ubicación"};
 
     public static ContenedorContactoFragment newInstance() {
         ContenedorContactoFragment fragment = new ContenedorContactoFragment();
@@ -27,33 +31,52 @@ public class ContenedorContactoFragment extends Fragment implements ViewPager.On
         return fragment;
     }
 
-    public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
-        super.onCreateView(paramLayoutInflater, paramViewGroup, paramBundle);
-        view = paramLayoutInflater.inflate(R.layout.fragment_inicial_contacto_fundacion, paramViewGroup, false);
-        iconos = getResources().obtainTypedArray(R.array.icons_contacto);
-        viewPager = ((ViewPager) view.findViewById(R.id.view_pager_contacto));
-        adapter = new FragmentViewPagerAdapter(getFragmentManager(), iconos);
-        adapter.addFragment(DatosContactoFundacionFragment.newInstance());
-        adapter.addFragment(MapaContactoFundacionFragment.newInstance());
-        viewPager.setAdapter(adapter);
-        tabPageIndicator = ((TabPageIndicator) view.findViewById(R.id.tab_contacto));
-        tabPageIndicator.setViewPager(viewPager);
-        tabPageIndicator.setOnPageChangeListener(this);
-        return view;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle arguments) {
+        super.onCreateView(inflater, container, arguments);
+        
+        mView = inflater.inflate(R.layout.fragment_inicial_contacto_fundacion, container, false);
+
+        mViewPager = (ViewPager) mView.findViewById(R.id.view_pager_contacto);
+        
+        mAdapter = new FragmentViewPagerAdapter(getChildFragmentManager(), mContentTabs);
+        mAdapter.addFragment(DatosContactoFundacionFragment.newInstance());
+        mAdapter.addFragment(MapaContactoFundacionFragment.newInstance());
+
+        mViewPager.setAdapter(mAdapter);
+
+        mTabs = (PagerSlidingTabStrip) mView.findViewById(R.id.tabs);
+        mTabs.setViewPager(mViewPager);
+        mTabs.setOnPageChangeListener(this);
+       
+        return mView;
     }
 
-    public void onPageScrollStateChanged(int paramInt) {}
-    
-    public void onPageScrolled(int paramInt1, float paramFloat, int paramInt2) {}
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mToolbar = (Toolbar) mView.findViewById(R.id.toolbar);
+        mToolbar.setTitle(R.string.contacto_titulo_barra);
+        mToolbar.setNavigationIcon(R.drawable.ic_regresar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().popBackStack();
+            }
+        });
+    }
 
-    public void onPageSelected(int paramInt) {
-        switch (paramInt) {
-            case 0:
-                ((TextView) getActivity().findViewById(R.id.tv_titulo_superior)).setText(R.string.titulo_tab_datos_contacto);
-                break;
-            case 1:
-                ((TextView) getActivity().findViewById(R.id.tv_titulo_superior)).setText(R.string.titulo_tab_ubicacion_contacto);
-                break;
-        }
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        mViewPager.setCurrentItem(position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

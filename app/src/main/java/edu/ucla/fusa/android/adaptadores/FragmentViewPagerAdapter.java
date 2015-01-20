@@ -1,21 +1,20 @@
 package edu.ucla.fusa.android.adaptadores;
 
-import android.content.res.TypedArray;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import com.viewpagerindicator.IconPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentViewPagerAdapter extends FragmentStatePagerAdapter implements IconPagerAdapter {
+public class FragmentViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private List<Fragment> fragments = new ArrayList();
-    private TypedArray iconos;
+    private List<Fragment> fragments;
+    private String[] mTabs;
 
-    public FragmentViewPagerAdapter(FragmentManager paramFragmentManager, TypedArray paramTypedArray) {
+    public FragmentViewPagerAdapter(FragmentManager paramFragmentManager, String[] tabs) {
         super(paramFragmentManager);
-        this.iconos = paramTypedArray;
+        mTabs = tabs;
+        fragments = new ArrayList();
     }
 
     public void addFragment(Fragment paramFragment) {
@@ -26,11 +25,13 @@ public class FragmentViewPagerAdapter extends FragmentStatePagerAdapter implemen
         return fragments.size();
     }
 
-    public int getIconResId(int paramInt) {
-        return iconos.getResourceId(paramInt, -1);
-    }
-
     public Fragment getItem(int paramInt) {
         return fragments.get(paramInt);
     }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mTabs[position % mTabs.length].toUpperCase();
+    }
+
 }

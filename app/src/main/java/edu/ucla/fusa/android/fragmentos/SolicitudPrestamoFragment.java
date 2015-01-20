@@ -70,7 +70,7 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         getActivity().getActionBar().setIcon(R.drawable.ic_solicitud_prestamo_blanco);
-        getActivity().getActionBar().setTitle(R.string.contenido_prestamo_instrumento_action_bar_titulo);
+        getActivity().getActionBar().setTitle(R.string.prestamo_titulo_barra);
         new LoadingTipoInstrumento().execute();
         new LoadingTipoPrestamo().execute();
         bd = new EstudianteTable(getActivity());
@@ -166,7 +166,7 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
                         Toast.makeText(getActivity(), R.string.mensaje_complete_campos_aspirante, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getActivity(), R.string.mensaje_error_enviar_solicitud, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), R.string.mensaerr, Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

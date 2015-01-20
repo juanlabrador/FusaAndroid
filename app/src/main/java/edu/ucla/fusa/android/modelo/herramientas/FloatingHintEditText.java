@@ -29,7 +29,7 @@ public class FloatingHintEditText extends EditText {
         this(context, null);
     }
     public FloatingHintEditText(Context context, AttributeSet attrs) {
-        this(context, attrs, R.attr.floatingHintEditTextStyle);
+        this(context, attrs, 0);
     }
     public FloatingHintEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);

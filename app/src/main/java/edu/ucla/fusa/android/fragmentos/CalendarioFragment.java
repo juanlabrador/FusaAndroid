@@ -40,7 +40,7 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         getActivity().getActionBar().setIcon(R.drawable.ic_calendario_blanco);
-        getActivity().getActionBar().setTitle(R.string.contenido_calendario_action_bar_titulo);
+        getActivity().getActionBar().setTitle(R.string.calendario_titulo_barra);
     }
 
     public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
@@ -59,7 +59,7 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
     public void onResume() {
         super.onResume();
         getActivity().getActionBar().setIcon(R.drawable.ic_calendario_blanco);
-        getActivity().getActionBar().setTitle(R.string.contenido_calendario_action_bar_titulo);
+        getActivity().getActionBar().setTitle(R.string.calendario_titulo_barra);
     }
 
     /*public void onSelectedDayChange(CalendarView paramCalendarView, int paramInt1, int paramInt2, int paramInt3) {
@@ -82,7 +82,7 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
         }
         if (contador > 1) {
             AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-            dialog.setIcon(R.drawable.ic_eventos);
+            //dialog.setIcon(R.drawable.ic_eventos);
             dialog.setTitle("Seleccione un evento");
             final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                     getActivity(),

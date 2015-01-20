@@ -20,16 +20,16 @@ int attr bpKeyboardIndicatorColor 0x7f010008
 int attr bpTextColor 0x7f010000
 int attr bpTitleColor 0x7f010001
 int attr bpTitleDividerColor 0x7f010006
-int attr switchMinWidth 0x7f010012
-int attr switchPadding 0x7f010013
+int attr switchMinWidth1 0x7f010012
+int attr switchPadding1 0x7f010013
 int attr switchPreferenceStyle 0x7f01000b
-int attr switchStyle 0x7f01000a
-int attr switchTextAppearance 0x7f010011
+int attr switchStyle1 0x7f01000a
+int attr switchTextAppearance1 0x7f010011
 int attr textOff 0x7f01000f
 int attr textOn 0x7f01000e
-int attr thumb 0x7f01000c
-int attr thumbTextPadding 0x7f010010
-int attr track 0x7f01000d
+int attr thumb1 0x7f01000c
+int attr thumbTextPadding1 0x7f010010
+int attr track1 0x7f01000d
 int color ampm_text_color 0x7f050000
 int color blue 0x7f050001
 int color blue_focused 0x7f050002
@@ -437,13 +437,13 @@ int styleable BetterPickersDialogFragment_bpTitleColor 1
 int styleable BetterPickersDialogFragment_bpTitleDividerColor 6
 int[] styleable BetterPickersSwitchTheme { 0x7f01000a, 0x7f01000b }
 int styleable BetterPickersSwitchTheme_switchPreferenceStyle 1
-int styleable BetterPickersSwitchTheme_switchStyle 0
+int styleable BetterPickersSwitchTheme_switchStyle1 0
 int[] styleable Switch { 0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f, 0x7f010010, 0x7f010011, 0x7f010012, 0x7f010013 }
-int styleable Switch_switchMinWidth 6
-int styleable Switch_switchPadding 7
-int styleable Switch_switchTextAppearance 5
+int styleable Switch_switchMinWidth1 6
+int styleable Switch_switchPadding1 7
+int styleable Switch_switchTextAppearance1 5
 int styleable Switch_textOff 3
 int styleable Switch_textOn 2
-int styleable Switch_thumb 0
-int styleable Switch_thumbTextPadding 4
-int styleable Switch_track 1
+int styleable Switch_thumb1 0
+int styleable Switch_thumbTextPadding1 4
+int styleable Switch_track1 1

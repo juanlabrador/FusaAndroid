@@ -12,9 +12,10 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.viewpagerindicator.TabPageIndicator
-        android:id="@+id/tab_iniciales"
-        android:background="@color/gris"
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/indicador"
         android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_gravity="center_horizontal"/>
 </LinearLayout>

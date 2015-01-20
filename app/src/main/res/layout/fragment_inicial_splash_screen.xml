@@ -23,7 +23,7 @@
         android:gravity="center"
         android:layout_width="fill_parent"
         android:layout_height="0.0dip"
-        android:text="@string/texto_bienvenida"
+        android:text="@string/inicio_texto_bienvenida"
         android:layout_weight="2"
         android:layout_below="@id/logotipo" />
     <TextView
@@ -34,7 +34,7 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_margin="10dp"
-        android:text="@string/texto_informativo"
+        android:text="@string/inicio_texto_informativo"
         android:layout_weight="3" />
     <LinearLayout
         android:gravity="center"
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:text="@string/texto_pregunta_cuenta" />
+            android:text="@string/login_verificar_cuenta" />
         <TextView
             android:textSize="16sp"
             android:textColor="@color/style_link_background_azul"
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:text="@string/texto_iniciar_sesion"
+            android:text="@string/login"
             android:onClick="IniciarSesion" />
     </LinearLayout>
 </LinearLayout>

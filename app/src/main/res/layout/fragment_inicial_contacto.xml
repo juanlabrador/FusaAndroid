@@ -11,31 +11,42 @@
     <LinearLayout
         android:orientation="horizontal"
         android:id="@+id/barra_superior"
-        android:layout_width="fill_parent"
-        android:layout_height="50.0dip">
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        
         <ImageView
-            android:paddingLeft="5.0dip"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
+            android:paddingLeft="5dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:src="@drawable/logo"
             android:scaleType="fitStart"
-            android:layout_weight="1.0" />
-        <TextView android:textSize="16.0dip" android:textColor="@color/blanco" android:gravity="center_vertical" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/titulo_action_bar_contacto" android:layout_weight="2.0" />
+            android:layout_weight="1" />
+        
+        <TextView 
+            android:textSize="16sp"
+            android:textColor="@color/blanco" 
+            android:gravity="center_vertical" 
+            android:layout_width="0dp" 
+            android:layout_height="match_parent" 
+            android:text="@string/contacto_titulo_barra" 
+            android:layout_weight="2" />
+        
     </LinearLayout>
+    
     <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="0.0dip"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:src="@drawable/logo_fundamusical"
-        android:layout_weight="3.0" />
+        android:layout_weight="3" />
     <TextView
-        android:textSize="20.0sp"
+        android:textSize="20sp"
         android:textColor="@color/blanco"
         android:gravity="center"
-        android:layout_width="fill_parent"
-        android:layout_height="0.0dip"
-        android:layout_margin="10.0dip"
-        android:text="@string/contenido_vista_inicial_contacto"
-        android:layout_weight="3.0" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:text="@string/contacto_mensaje"
+        android:layout_weight="3" />
     <Button
         android:textSize="22sp"
         android:textColor="@color/azul_oscuro"
@@ -46,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:text="CONTACTANOS"
+        android:text="@string/contacto_boton"
         android:textStyle="bold"/>
 
     <LinearLayout
@@ -65,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="3dip"
-            android:text="@string/texto_pregunta_cuenta" />
+            android:text="@string/login_verificar_cuenta" />
         <TextView
             android:textSize="16sp"
             android:textColor="@color/style_link_background_azul"
@@ -74,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="3dip"
-            android:text="@string/texto_iniciar_sesion"
+            android:text="@string/login"
             android:onClick="IniciarSesion" />
     </LinearLayout>
 </LinearLayout>

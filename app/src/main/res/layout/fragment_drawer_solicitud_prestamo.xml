@@ -16,11 +16,11 @@
 
         <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
             android:id="@+id/et_tipo_instrumento_prestamo"
-            android:background="@drawable/style_edit_text_azul"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/contenido_prestamo_instrumento_tipo"
+            android:hint="@string/prestamo_tipo_instrumento"
             android:inputType="none"
             android:focusable="false"/>
 
@@ -44,11 +44,11 @@
 
         <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
             android:id="@+id/et_tipo_prestamo"
-            android:background="@drawable/style_edit_text_azul"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/contenido_prestamo_instrumento_titulo_periodo"
+            android:hint="@string/prestamo_periodo"
             android:inputType="none"
             android:focusable="false"/>
 
@@ -72,11 +72,11 @@
 
         <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
             android:id="@+id/et_desde"
-            android:background="@drawable/style_edit_text_azul"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/contenido_prestamo_instrumento_fecha_emision"
+            android:hint="@string/prestamo_fecha_emision"
             android:inputType="none"
             android:focusable="false"/>
 
@@ -100,11 +100,11 @@
 
         <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
             android:id="@+id/et_hasta"
-            android:background="@drawable/style_edit_text_azul"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/contenido_prestamo_instrumento_fecha_vencimiento"
+            android:hint="@string/prestamo_fecha_vencimiento"
             android:inputType="none"
             android:focusable="false"/>
 
@@ -127,10 +127,10 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="@string/contenido_prestamo_instrumento_boton"
-        app:cpb_textComplete="@string/contenido_boton_enviado"
-        app:cpb_textIdle="@string/contenido_boton_normal"
-        app:cpb_textError="@string/contenido_boton_error"
+        android:text="@string/boton_normal"
+        app:cpb_textComplete="@string/boton_enviado"
+        app:cpb_textIdle="@string/boton_normal"
+        app:cpb_textError="@string/boton_error"
         app:cpb_colorProgress="@color/blanco"
         app:cpb_colorIndicator="@color/azul"
         app:cpb_colorIndicatorBackground="@color/gris"

@@ -8,6 +8,7 @@
     <color name="blanco">#fff4f5f7</color>
     <color name="blanco_transparente">#40f4f5f7</color>
     <color name="gris">#ffd6d6d6</color>
+    <color name="gris_fondo">#efeff4</color>
     <color name="gris_oscuro">#ff747474</color>
 
     <color name="clase_particular">#ff379bff</color>

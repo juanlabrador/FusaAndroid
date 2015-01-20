@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 17
+    compileSdkVersion 21
     buildToolsVersion '21.1.1'
 
     defaultConfig {
         applicationId "edu.ucla.fusa.android"
         minSdkVersion 14
-        targetSdkVersion 17
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -32,7 +32,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:1.2.0'
     compile 'com.android.support:support-v4:21.0.0'
     compile 'com.google.android.gms:play-services:6.1.71'
-    compile project(':libraryViewPagerIndicator')
     compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
     compile 'com.navercorp.pulltorefresh:library:3.2.0@aar'
     compile files('libs/activation.jar')
@@ -49,4 +48,12 @@ dependencies {
     }
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile files('libs/universal-image-loader-1.9.3.jar')
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'uk.co.chrisjenx:calligraphy:2.0.0'
+    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.2'
+    compile 'com.jpardogo.materialtabstrip:library:1.0.8'
+    compile 'me.relex:circleindicator:1.1.1@aar'
+    compile project(':GroupLayout-v1.5')
+    compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+    compile 'com.ikimuhendis:ldrawer:0.1'
 }

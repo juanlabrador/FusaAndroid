@@ -1,182 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     android:orientation="vertical"
-    android:id="@id/fragment_registrar_postulaciones"
-    android:background="@color/blanco"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:id="@+id/fragment_postulacion"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris_fondo"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:id="@+id/view_barra_superior_postulaciones"
-        android:background="@color/azul"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp">
-
-        <ImageView android:paddingLeft="5dp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/logo"
-            android:scaleType="fitStart"
-            android:layout_weight="1" />
-        <TextView
-            android:textSize="16dp"
-            android:textColor="@color/blanco"
-            android:gravity="center_vertical"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:text="@string/titulo_action_bar_postularse"
-            android:layout_weight="2" />
-    </LinearLayout>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/custom_toolbar"/>
+    
     <ScrollView
+        android:id="@+id/scroll_postulaciones"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+        
         <LinearLayout
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-                android:id="@+id/et_cedula_aspirante"
-                android:background="@drawable/style_edit_text_azul"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:hint="@string/texto_contenido_editext_cedula_postularse"
-                android:inputType="number"
-                android:maxLength="8"/>
-
-            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-                android:id="@+id/et_nombre_aspirante"
-                android:background="@drawable/style_edit_text_azul"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:hint="@string/texto_contenido_editext_nombre_postularse"
-                android:inputType="text" />
-
-            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-                android:id="@+id/et_apellido_aspirante"
-                android:background="@drawable/style_edit_text_azul"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:hint="@string/texto_contenido_editext_apellido_postularse"
-                android:inputType="text" />
-
-            <LinearLayout
+            android:layout_height="match_parent"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
+        
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp">
-
-                <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-                    android:id="@+id/et_sexo_aspirante"
-                    android:background="@drawable/style_edit_text_azul"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/texto_contenido_editext_sexo_postularse"
-                    android:inputType="none"
-                    android:focusable="false"/>
-
-                <ImageView
-                    android:id="@+id/add_sexo"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_add"/>
-
-            </LinearLayout>
-
-            <LinearLayout
+                android:text="@string/postulacion_cabecera_datos"
+                android:textColor="@color/gris_oscuro"
+                android:textSize="15sp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"/>
+            
+            <com.juanlabrador.GroupLayout
+                android:id="@+id/grupo_datos_basicos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp">
+                android:layout_marginTop="6dp"
+                app:textSizeLayout="15"/>
 
-                <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-                    android:id="@+id/et_fecha_nacimiento_aspirante"
-                    android:background="@drawable/style_edit_text_azul"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/texto_contenido_edittext_fecha_nacimiento_postularse"
-                    android:inputType="none"
-                    android:focusable="false"/>
-
-                <ImageView
-                    android:id="@+id/add_fecha_nacimiento"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_add"/>
-
-            </LinearLayout>
-
-            <CheckBox
-                android:id="@+id/cb_instrumento_propio_aspirante"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:button="@drawable/style_btn_check_azul"
-                android:text="@string/text_contenido_checkbox_posee_instrumento_postularse" />
-
-            <LinearLayout
+                android:text="@string/postulacion_cabecera_aspectos_musicales"
+                android:textColor="@color/gris_oscuro"
+                android:textSize="15sp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"/>
+    
+            <com.juanlabrador.GroupLayout
+                android:id="@+id/grupo_datos_musicales"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp">
+                android:layout_marginTop="6dp"
+                app:textSizeLayout="15"/>
 
-                <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-                    android:id="@+id/et_catedra_aspirante"
-                    android:background="@drawable/style_edit_text_azul"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/texto_contenido_editext_catedra_postularse"
-                    android:inputType="none"
-                    android:focusable="false"/>
-
-                <ImageView
-                    android:id="@+id/add_catedra"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_add"/>
-
-            </LinearLayout>
-
-            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-                android:id="@+id/et_telefono_aspirante"
-                android:background="@drawable/style_edit_text_azul"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:hint="@string/texto_contenido_editext_telefono_postularse"
-                android:inputType="number"
-                android:maxLength="12"/>
-
-            <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-                android:id="@+id/et_email_aspirante"
-                android:background="@drawable/style_edit_text_azul"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:hint="@string/texto_contenido_edittext_correo_postularse"
-                android:inputType="textEmailAddress" />
-
+                android:text="@string/postulacion_cabecera_contacto"
+                android:textColor="@color/gris_oscuro"
+                android:textSize="15sp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"/>
+    
+            <com.juanlabrador.GroupLayout
+                android:id="@+id/grupo_datos_contacto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:textSizeLayout="15"/>
         </LinearLayout>
     </ScrollView>
 
@@ -184,19 +80,27 @@
         android:textSize="22sp"
         android:textColor="@color/blanco"
         android:gravity="center"
-        android:id="@+id/btn_enviar_solicitud_aspirante"
+        android:id="@+id/boton_postulaciones"
         android:background="@drawable/style_button_background_white"
         android:padding="10dp"
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:cpb_textComplete="@string/contenido_boton_enviado"
-        app:cpb_textIdle="@string/contenido_boton_normal"
-        app:cpb_textError="@string/contenido_boton_error"
+        app:cpb_textComplete="@string/boton_enviado"
+        app:cpb_textIdle="@string/boton_normal"
+        app:cpb_textError="@string/boton_error"
         app:cpb_colorProgress="@color/blanco"
         app:cpb_colorIndicator="@color/azul"
         app:cpb_colorIndicatorBackground="@color/gris"
         app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
         app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
         app:cpb_selectorIdle="@color/style_btn_circular_progress_azul" />
+
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        android:layout_gravity="center"
+        android:id="@+id/cargando_postulaciones"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:cpb_color="@color/azul"
+        app:cpb_stroke_width="2dp"
+        android:indeterminate="true"/>
 </LinearLayout>

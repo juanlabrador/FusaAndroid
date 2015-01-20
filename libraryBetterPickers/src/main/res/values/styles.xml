@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools">
     <style name="medium_bold">
         <item name="android:textSize">@dimen/medium_font_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
     </style>
     <style name="medium_bold_hms" parent="medium_bold">
         <item name="android:textSize">@dimen/medium_font_size_hms</item>
     </style>
     <style name="medium_light">
         <item name="android:textSize">@dimen/medium_font_size</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-light</item>
     </style>
     <style name="medium_light_header" parent="medium_light">
         <item name="android:textSize">@dimen/medium_font_size_header</item>
@@ -26,36 +27,36 @@
     </style>
     <style name="medium_light_expiration">
         <item name="android:textSize">@dimen/medium_expiration_font_size</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
     </style>
     <style name="label">
         <item name="android:textSize">@dimen/label_font_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textAllCaps" tools:ignore="NewApi">true</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-condensed</item>
     </style>
     <style name="dialpad">
         <item name="android:textSize">@dimen/dialpad_font_size</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textAllCaps" tools:ignore="NewApi">true</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-light</item>
     </style>
     <style name="dialpad_text" parent="dialpad">
         <item name="android:textSize">@dimen/dialpad_font_size_ampm</item>
     </style>
     <style name="dialog_button">
         <item name="android:textSize">@dimen/dialog_button_font_size</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
         <item name="android:minHeight">48dp</item>
     </style>
     <style name="tablet_dialpad">
         <item name="android:textSize">@dimen/tablet_dialpad_font_size</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textAllCaps" tools:ignore="NewApi">true</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-condensed</item>
     </style>
     <style name="tablet_dialpad_text">
         <item name="android:textSize">@dimen/tablet_dialpad_font_size_ampm</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textAllCaps" tools:ignore="NewApi">true</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-condensed</item>
     </style>
 
     <style name="aosp_time_label">
@@ -65,7 +66,7 @@
 
     <style name="aosp_ampm_label">
         <item name="android:textSize">@dimen/ampm_label_size</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:textAllCaps" tools:ignore="NewApi">true</item>
         <item name="android:textColor">@color/ampm_text_color</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -73,14 +74,14 @@
     <style name="aosp_day_of_week_label_condensed" />
 
     <style name="Widget.Holo.Light.CompoundButton.Switch" parent="android:Widget.CompoundButton">
-        <item name="track">@drawable/switch_track_holo_light</item>
-        <item name="thumb">@drawable/switch_thumb</item>
-        <item name="switchTextAppearance">@style/TextAppearance.Holo.Light.Widget.Switch</item>
+        <item name="track1">@drawable/switch_track_holo_light</item>
+        <item name="thumb1">@drawable/switch_thumb</item>
+        <item name="switchTextAppearance1">@style/TextAppearance.Holo.Light.Widget.Switch</item>
         <item name="textOn">@string/switch_on</item>
         <item name="textOff">@string/switch_off</item>
-        <item name="thumbTextPadding">12dip</item>
-        <item name="switchMinWidth">96dip</item>
-        <item name="switchPadding">16dip</item>
+        <item name="thumbTextPadding1">12dip</item>
+        <item name="switchMinWidth1">96dip</item>
+        <item name="switchPadding1">16dip</item>
     </style>
 
     <style name="TextAppearance.Holo.Light.Widget.Switch" parent="android:TextAppearance.Small">
@@ -102,7 +103,7 @@
         <item name="android:layout_marginRight">8dip</item>
         <item name="android:layout_weight">1</item>
         <item name="android:textColor">@color/recurrence_bubble_text_color</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:textAllCaps" tools:ignore="NewApi">true</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:singleLine">true</item>
@@ -113,7 +114,7 @@
         <item name="android:paddingBottom">4dp</item>
     </style>
 
-    <style name="TextAppearance.EditEvent_Spinner" parent="@android:style/Widget.Holo.Light.Spinner">
+    <style name="TextAppearance.EditEvent_Spinner" parent="@android:style/Widget.Holo.Light.Spinner" tools:ignore="NewApi">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#FF333333</item>
         <item name="android:layout_marginRight">12dp</item>

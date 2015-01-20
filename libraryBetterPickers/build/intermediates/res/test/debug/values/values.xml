@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:ns1="http://schemas.android.com/tools">
     <!-- From: file:/home/juanlabrador/android-projects/fusaandroid/libraryBetterPickers/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <string-array name="backup_country_codes" translatable="false">
@@ -205,8 +205,8 @@
     <color name="white">#ffffff</color>
     <declare-styleable name="Android"><attr name="android:textColor"/><attr name="android:textSize"/><attr name="android:textStyle"/><attr name="android:typeface"/><attr name="android:textColorHighlight"/><attr name="android:textColorHint"/><attr name="android:textColorLink"/></declare-styleable>
     <declare-styleable name="BetterPickersDialogFragment"><attr format="reference" name="bpTextColor"/><attr format="reference" name="bpTitleColor"/><attr format="reference" name="bpDeleteIcon"/><attr format="reference" name="bpCheckIcon"/><attr format="reference" name="bpKeyBackground"/><attr format="reference" name="bpButtonBackground"/><attr format="color" name="bpTitleDividerColor"/><attr format="color" name="bpDividerColor"/><attr format="color" name="bpKeyboardIndicatorColor"/><attr format="reference" name="bpDialogBackground"/></declare-styleable>
-    <declare-styleable name="BetterPickersSwitchTheme"><attr format="reference" name="switchStyle"/><attr format="reference" name="switchPreferenceStyle"/></declare-styleable>
-    <declare-styleable name="Switch"><attr format="reference" name="thumb"/><attr format="reference" name="track"/><attr format="reference" name="textOn"/><attr format="reference" name="textOff"/><attr format="dimension" name="thumbTextPadding"/><attr format="reference" name="switchTextAppearance"/><attr format="dimension" name="switchMinWidth"/><attr format="dimension" name="switchPadding"/></declare-styleable>
+    <declare-styleable name="BetterPickersSwitchTheme"><attr format="reference" name="switchStyle1"/><attr format="reference" name="switchPreferenceStyle"/></declare-styleable>
+    <declare-styleable name="Switch"><attr format="reference" name="thumb1"/><attr format="reference" name="track1"/><attr format="reference" name="textOn"/><attr format="reference" name="textOff"/><attr format="dimension" name="thumbTextPadding1"/><attr format="reference" name="switchTextAppearance1"/><attr format="dimension" name="switchMinWidth1"/><attr format="dimension" name="switchPadding1"/></declare-styleable>
     <dimen name="ampm_label_size">16sp</dimen>
     <dimen name="ampm_left_padding">6dip</dimen>
     <dimen name="body_font_padding">4dp</dimen>
@@ -398,7 +398,7 @@
         <item name="android:layout_marginRight">8dip</item>
         <item name="android:layout_weight">1</item>
         <item name="android:textColor">@color/recurrence_bubble_text_color</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:textAllCaps" ns1:ignore="NewApi">true</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:singleLine">true</item>
@@ -408,7 +408,7 @@
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
     </style>
-    <style name="TextAppearance.EditEvent_Spinner" parent="@android:style/Widget.Holo.Light.Spinner">
+    <style name="TextAppearance.EditEvent_Spinner" ns1:ignore="NewApi" parent="@android:style/Widget.Holo.Light.Spinner">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#FF333333</item>
         <item name="android:layout_marginRight">12dp</item>
@@ -427,18 +427,18 @@
         <item name="android:textColor">@color/dialog_text_color_holo_light</item>
     </style>
     <style name="Widget.Holo.Light.CompoundButton.Switch" parent="android:Widget.CompoundButton">
-        <item name="track">@drawable/switch_track_holo_light</item>
-        <item name="thumb">@drawable/switch_thumb</item>
-        <item name="switchTextAppearance">@style/TextAppearance.Holo.Light.Widget.Switch</item>
+        <item name="track1">@drawable/switch_track_holo_light</item>
+        <item name="thumb1">@drawable/switch_thumb</item>
+        <item name="switchTextAppearance1">@style/TextAppearance.Holo.Light.Widget.Switch</item>
         <item name="textOn">@string/switch_on</item>
         <item name="textOff">@string/switch_off</item>
-        <item name="thumbTextPadding">12dip</item>
-        <item name="switchMinWidth">96dip</item>
-        <item name="switchPadding">16dip</item>
+        <item name="thumbTextPadding1">12dip</item>
+        <item name="switchMinWidth1">96dip</item>
+        <item name="switchPadding1">16dip</item>
     </style>
     <style name="aosp_ampm_label">
         <item name="android:textSize">@dimen/ampm_label_size</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:textAllCaps" ns1:ignore="NewApi">true</item>
         <item name="android:textColor">@color/ampm_text_color</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -449,13 +449,13 @@
     </style>
     <style name="dialog_button">
         <item name="android:textSize">@dimen/dialog_button_font_size</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily" ns1:ignore="NewApi">sans-serif</item>
         <item name="android:minHeight">48dp</item>
     </style>
     <style name="dialpad">
         <item name="android:textSize">@dimen/dialpad_font_size</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textAllCaps" ns1:ignore="NewApi">true</item>
+        <item name="android:fontFamily" ns1:ignore="NewApi">sans-serif-light</item>
     </style>
     <style name="dialpad_text" parent="dialpad">
         <item name="android:textSize">@dimen/dialpad_font_size_ampm</item>
@@ -463,13 +463,13 @@
     <style name="label">
         <item name="android:textSize">@dimen/label_font_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textAllCaps" ns1:ignore="NewApi">true</item>
+        <item name="android:fontFamily" ns1:ignore="NewApi">sans-serif-condensed</item>
     </style>
     <style name="medium_bold">
         <item name="android:textSize">@dimen/medium_font_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily" ns1:ignore="NewApi">sans-serif</item>
     </style>
     <style name="medium_bold_date" parent="@style/medium_bold">
         <item name="android:textSize">@dimen/medium_date_font_size</item>
@@ -479,14 +479,14 @@
     </style>
     <style name="medium_light">
         <item name="android:textSize">@dimen/medium_font_size</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily" ns1:ignore="NewApi">sans-serif-light</item>
     </style>
     <style name="medium_light_date" parent="@style/medium_bold">
         <item name="android:textSize">@dimen/medium_date_font_size</item>
     </style>
     <style name="medium_light_expiration">
         <item name="android:textSize">@dimen/medium_expiration_font_size</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily" ns1:ignore="NewApi">sans-serif</item>
     </style>
     <style name="medium_light_header" parent="medium_light">
         <item name="android:textSize">@dimen/medium_font_size_header</item>
@@ -496,12 +496,12 @@
     </style>
     <style name="tablet_dialpad">
         <item name="android:textSize">@dimen/tablet_dialpad_font_size</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textAllCaps" ns1:ignore="NewApi">true</item>
+        <item name="android:fontFamily" ns1:ignore="NewApi">sans-serif-condensed</item>
     </style>
     <style name="tablet_dialpad_text">
         <item name="android:textSize">@dimen/tablet_dialpad_font_size_ampm</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textAllCaps" ns1:ignore="NewApi">true</item>
+        <item name="android:fontFamily" ns1:ignore="NewApi">sans-serif-condensed</item>
     </style>
 </resources>

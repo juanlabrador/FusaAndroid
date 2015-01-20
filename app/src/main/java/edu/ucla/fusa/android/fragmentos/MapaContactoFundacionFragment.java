@@ -55,7 +55,7 @@ public class MapaContactoFundacionFragment extends Fragment {
           gMap = fragment.getMap();
           positionMap = new LatLng(LATITUD, LONGITUD);
           cameraPosition = new CameraPosition.Builder().target(this.positionMap).zoom(16.0F).build();
-          gMap.addMarker(new MarkerOptions().position(new LatLng(LATITUD, LONGITUD)).title(getString(R.string.fundacion)));
+          gMap.addMarker(new MarkerOptions().position(new LatLng(LATITUD, LONGITUD)).title(getString(R.string.mapa_fundacion)));
           gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
           cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
           gMap.animateCamera(cameraUpdate);

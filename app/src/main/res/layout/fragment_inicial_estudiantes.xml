@@ -10,33 +10,37 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="50.0dip">
+        android:id="@+id/barra_superior"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
         <ImageView
-            android:paddingLeft="5.0dip"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
+            android:paddingLeft="5dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:src="@drawable/logo"
             android:scaleType="fitStart"
-            android:layout_weight="1.0" />
+            android:layout_weight="1" />
 
         <TextView
-            android:textSize="16.0dip"
+            android:textSize="16sp"
             android:textColor="@color/blanco"
             android:gravity="center_vertical"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:text="@string/titulo_action_bar_estudiantes"
-            android:layout_weight="2.0" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/postularse_titulo_barra"
+            android:layout_weight="2" />
+
     </LinearLayout>
+    
     <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="150.0dip"
-        android:layout_margin="20.0dip"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_margin="10dp"
         android:src="@drawable/vista_estudiante"
         android:scaleType="fitCenter"
         android:contentDescription="@string/descripcion_logotipo" />
+    
     <TextView
         android:textSize="20sp"
         android:textColor="@color/blanco"
@@ -44,8 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="10dp"
-        android:text="@string/contenido_vista_inicial_estudiantes"
-        android:layout_weight="2" />
+        android:text="@string/postulacion_mensaje"
+        android:layout_weight="1" />
 
     <Button android:textSize="22sp"
         android:textColor="@color/azul_oscuro"
@@ -55,6 +59,6 @@
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="POSTULATE"
+        android:text="@string/postularse_boton"
         android:textStyle="bold"/>
 </LinearLayout>

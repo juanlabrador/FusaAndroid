@@ -1,6 +1,5 @@
 package edu.ucla.fusa.android.fragmentos;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,22 +9,21 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.viewpagerindicator.TabPageIndicator;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 import edu.ucla.fusa.android.R;
+import me.relex.circleindicator.CircleIndicator;
 
 public class SplashScreenFragment extends Fragment implements View.OnClickListener {
 
     private static long SPLASHDELAY = 3000L;
     public static String TAG = "SplashScreen";
     private Animation animacion;
-    private SharedPreferences.Editor editor;
     private ImageView logotipo;
-    private SharedPreferences sharedPreferences;
     private boolean status = false;
-    private TabPageIndicator tabPageIndicator;
+    private CircleIndicator mCircleIndicator;
     private TextView textoInformacion;
     private TextView tvIniciarSesion;
     private View view;
@@ -37,9 +35,9 @@ public class SplashScreenFragment extends Fragment implements View.OnClickListen
     }
 
     private void startAnimationBarraInferior() {
-        tabPageIndicator = ((TabPageIndicator)getActivity().findViewById(R.id.tab_iniciales));
+        mCircleIndicator = (CircleIndicator) getActivity().findViewById(R.id.indicador);
         animacion = AnimationUtils.loadAnimation(getActivity(), R.anim.animation_barra_inferior);
-        tabPageIndicator.startAnimation(animacion);
+        mCircleIndicator.startAnimation(animacion);
     }
 
     private void startAnimationLogo() {

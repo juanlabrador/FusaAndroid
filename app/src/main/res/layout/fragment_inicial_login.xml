@@ -2,84 +2,104 @@
 <LinearLayout
     android:orientation="vertical"
     android:id="@+id/fragment_login"
-    android:background="@color/blanco"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:background="@color/gris_fondo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:floatview="http://schemas.android.com/apk/lib/com.hardik.floatinglabel">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:gravity="center"
         android:orientation="horizontal"
         android:background="@color/azul"
-        android:layout_width="fill_parent"
-        android:layout_height="50.0dip">
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
         <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:src="@drawable/logo"
             android:scaleType="fitCenter" />
     </LinearLayout>
+    
     <LinearLayout
         android:orientation="vertical"
-        android:padding="10.0dip"
-        android:layout_width="fill_parent"
-        android:layout_height="0.0dip"
-        android:layout_weight="1.0">
-
-        <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-            android:enabled="true"
-            android:id="@+id/et_email_iniciar_sesion"
-            android:background="@drawable/style_edit_text_azul"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5.0dip"
-            android:hint="@string/texto_contenido_edittex_username_login"
-            android:fontFamily="sans-serif"
-            android:inputType="textEmailAddress" />
-        <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-            android:enabled="true"
-            android:id="@+id/et_password_iniciar_sesion"
-            android:background="@drawable/style_edit_text_azul"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5.0dip"
-            android:hint="@string/texto_contenido_edittex_clave_login"
-            android:fontFamily="sans-serif"
-            android:inputType="textPassword"/>
-
-        <com.dd.CircularProgressButton
-            android:textSize="22.0sp"
-            android:textColor="@color/blanco"
-            android:id="@+id/btn_iniciar_sesion"
-            android:background="@drawable/style_button_background_white"
-            android:padding="10.0dip"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10.0dip"
-            android:layout_marginLeft="40.0dip"
-            android:layout_marginRight="40.0dip"
-            android:text="@string/texto_boton_iniciar_sesion_login"
-            app:cpb_textComplete="@string/texto_boton_procesado_iniciar_sesion"
-            app:cpb_textIdle="@string/texto_boton_iniciar_sesion_login"
-            app:cpb_textError="@string/texto_boton_error_iniciar_sesion"
-            app:cpb_colorProgress="@color/blanco"
-            app:cpb_colorIndicator="@color/azul"
-            app:cpb_colorIndicatorBackground="@color/gris"
-            app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
-            app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
-            app:cpb_selectorIdle="@color/style_btn_circular_progress_azul"
-            android:gravity="center"/>
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <TextView
-            android:enabled="true"
-            android:textSize="14.0sp"
-            android:textColor="@color/style_link_background_blanco"
+            android:paddingTop="18dp"
+            android:textSize="16sp"
+            android:textColor="@color/negro"
+            android:layout_width="match_parent"
             android:gravity="center"
-            android:id="@+id/tv_olvidar_password_iniciar_sesion"
-            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/texto_olvidar_clave" />
+            android:text="@string/login_titulo_barra" />
+
+
+        <com.github.siyamed.shapeimageview.HexagonImageView
+            android:id="@+id/avatar_login"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/no_avatar"
+            app:siBorderWidth="1dp"
+            android:layout_gravity="center"
+            app:siBorderColor="@color/azul"
+            android:layout_marginTop="12dp"/>
+        
+        <com.juanlabrador.GroupLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_credenciales"
+            app:textSizeLayout="15"
+            app:withBorder="true"
+            android:paddingLeft="22dp"
+            android:paddingRight="22dp"
+            android:paddingTop="12dp"/>
+        
+        <LinearLayout
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:enabled="true"
+                android:textSize="14sp"
+                android:textColor="@color/style_link_background_blanco"
+                android:id="@+id/tv_olvidar_password_iniciar_sesion"
+                android:layout_width="0dp"
+                android:gravity="center_vertical"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:text="@string/login_olvidar_contraseña" />
+
+            <com.dd.CircularProgressButton
+                android:textSize="14sp"
+                android:textColor="@color/blanco"
+                android:id="@+id/btn_iniciar_sesion"
+                android:background="@drawable/style_button_background_white"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                app:cpb_cornerRadius="3dp"
+                android:text="@string/login_boton"
+                app:cpb_iconComplete="@drawable/ic_action_accept"
+                app:cpb_textIdle="@string/login_boton"
+                app:cpb_iconError="@drawable/ic_action_cancel"
+                app:cpb_colorProgress="@color/blanco"
+                app:cpb_colorIndicator="@color/azul"
+                app:cpb_colorIndicatorBackground="@color/gris"
+                app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
+                app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
+                app:cpb_selectorIdle="@color/style_btn_circular_progress_azul"
+                android:gravity="center"/>
+            
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

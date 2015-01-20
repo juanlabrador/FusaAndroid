@@ -59,7 +59,7 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Vi
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         getActivity().getActionBar().setIcon(R.drawable.ic_cambiar_password_white);
-        getActivity().getActionBar().setTitle(R.string.configuracion_cuenta_cambiar_password);
+        getActivity().getActionBar().setTitle(R.string.contraseña_titulo_barra);
     }
 
     @Nullable
@@ -86,7 +86,7 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Vi
         if (nuevoPassword.getText().hashCode() == paramCharSequence.hashCode()) {
             switch (paramCharSequence.length()) {
                 default:
-                  status.setText(R.string.nivel_dificulad_contraseña_muy_fuerte);
+                  status.setText(R.string.contraseña_muy_fuerte);
                   status.setTextColor(getResources().getColor(R.color.fuerte));
                   barraMuyDebil.setBackgroundColor(getResources().getColor(R.color.fuerte));
                   barraDebil.setBackgroundColor(getResources().getColor(R.color.fuerte));
@@ -104,7 +104,7 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Vi
                   case 2:
                   case 3:
                   case 4:
-                      status.setText(R.string.nivel_dificulad_contraseña_muy_debil);
+                      status.setText(R.string.contraseña_muy_debil);
                       status.setTextColor(getResources().getColor(R.color.debil));
                       barraMuyDebil.setBackgroundColor(getResources().getColor(R.color.debil));
                       barraDebil.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
@@ -113,7 +113,7 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Vi
                       break;
                   case 5:
                   case 6:
-                      status.setText(R.string.nivel_dificulad_contraseña_debil);
+                      status.setText(R.string.contraseña_debil);
                       status.setTextColor(getResources().getColor(R.color.debil));
                       barraMuyDebil.setBackgroundColor(getResources().getColor(R.color.debil));
                       barraDebil.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
@@ -122,7 +122,7 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Vi
                       break;
                   case 7:
                   case 8:
-                      status.setText(R.string.nivel_dificulad_contraseña_normal);
+                      status.setText(R.string.contraseña_normal);
                       status.setTextColor(getResources().getColor(R.color.normal));
                       barraMuyDebil.setBackgroundColor(getResources().getColor(R.color.normal));
                       barraDebil.setBackgroundColor(getResources().getColor(R.color.normal));
@@ -132,7 +132,7 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Vi
                   case 9:
                   case 10:
                   case 11:
-                      status.setText(R.string.nivel_dificulad_contraseña_fuerte);
+                      status.setText(R.string.contraseña_mejor);
                       status.setTextColor(getResources().getColor(R.color.mejor));
                       barraMuyDebil.setBackgroundColor(getResources().getColor(R.color.mejor));
                       barraDebil.setBackgroundColor(getResources().getColor(R.color.mejor));

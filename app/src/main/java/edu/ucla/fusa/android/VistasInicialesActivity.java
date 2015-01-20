@@ -2,28 +2,28 @@ package edu.ucla.fusa.android;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import com.viewpagerindicator.TabPageIndicator;
+
 
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.adaptadores.FragmentViewPagerAdapter;
 import edu.ucla.fusa.android.fragmentos.InicialContactoFragment;
 import edu.ucla.fusa.android.fragmentos.InicialEstudiantesFragment;
-import edu.ucla.fusa.android.fragmentos.InicialEventosFragment;
-import edu.ucla.fusa.android.fragmentos.InicialInstrumentosFragment;
-import edu.ucla.fusa.android.fragmentos.InicialProfesoresFragment;
 import edu.ucla.fusa.android.fragmentos.SplashScreenFragment;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
+import me.relex.circleindicator.CircleIndicator;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class VistasInicialesActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, ActionBar.TabListener {
 
     private FragmentViewPagerAdapter mViewPagerAdapter;
-    private TypedArray mIconsIndicator;
-    private TabPageIndicator mTabIndicator;
+    private CircleIndicator mCircleIndicator;
     private ViewPager mViewPager;
     private UserTable mUserTable;
     private Usuario mUsuario;
@@ -31,25 +31,35 @@ public class VistasInicialesActivity extends FragmentActivity implements ViewPag
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         setContentView(R.layout.activity_inicial);
-        getActionBar().hide();
-        mIconsIndicator = getResources().obtainTypedArray(R.array.nav_icons_inicial);
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/HelveticaNeueLight.ttf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
+
         mViewPager = (ViewPager) findViewById(R.id.view_pager_iniciales);
-        
-        mViewPagerAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), mIconsIndicator);
+
+        mViewPagerAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), null);
         mViewPagerAdapter.addFragment(SplashScreenFragment.newInstance());
         mViewPagerAdapter.addFragment(InicialEstudiantesFragment.newInstance());
-        mViewPagerAdapter.addFragment(InicialProfesoresFragment.newInstance());
-        mViewPagerAdapter.addFragment(InicialInstrumentosFragment.newInstance());
-        mViewPagerAdapter.addFragment(InicialEventosFragment.newInstance());
         mViewPagerAdapter.addFragment(InicialContactoFragment.newInstance());
         
         mViewPager.setAdapter(mViewPagerAdapter);
-        
-        mTabIndicator = (TabPageIndicator) findViewById(R.id.tab_iniciales);
-        mTabIndicator.setViewPager(mViewPager);
-        mTabIndicator.setOnPageChangeListener(this);
+
+        mCircleIndicator = (CircleIndicator) findViewById(R.id.indicador);
+        mCircleIndicator.setViewPager(mViewPager);
+        //mCircleIndicator.setSnap(true);
+        //mCircleIndicator.setFillColor(getResources().getColor(R.color.azul_oscuro));
+        //mCircleIndicator.setPageColor(getResources().getColor(R.color.blanco));
+        //mCircleIndicator.setStrokeColor(Color.TRANSPARENT);
 
         mUserTable = new UserTable(this);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     public void onPageScrollStateChanged(int paramInt) {}

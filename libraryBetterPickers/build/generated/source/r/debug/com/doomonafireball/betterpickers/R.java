@@ -87,7 +87,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int switchMinWidth=0x7f010012;
+        public static int switchMinWidth1=0x7f010012;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -97,7 +97,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int switchPadding=0x7f010013;
+        public static int switchPadding1=0x7f010013;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -105,11 +105,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int switchStyle=0x7f01000a;
+        public static int switchStyle1=0x7f01000a;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int switchTextAppearance=0x7f010011;
+        public static int switchTextAppearance1=0x7f010011;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -121,7 +121,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int thumb=0x7f01000c;
+        public static int thumb1=0x7f01000c;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -131,11 +131,11 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int thumbTextPadding=0x7f010010;
+        public static int thumbTextPadding1=0x7f010010;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int track=0x7f01000d;
+        public static int track1=0x7f01000d;
     }
     public static final class color {
         public static int ampm_text_color=0x7f050000;
@@ -763,10 +763,10 @@ containing a value of this type.
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
            <tr><td><code>{@link #BetterPickersSwitchTheme_switchPreferenceStyle com.doomonafireball.betterpickers:switchPreferenceStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #BetterPickersSwitchTheme_switchStyle com.doomonafireball.betterpickers:switchStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #BetterPickersSwitchTheme_switchStyle1 com.doomonafireball.betterpickers:switchStyle1}</code></td><td></td></tr>
            </table>
            @see #BetterPickersSwitchTheme_switchPreferenceStyle
-           @see #BetterPickersSwitchTheme_switchStyle
+           @see #BetterPickersSwitchTheme_switchStyle1
          */
         public static final int[] BetterPickersSwitchTheme = {
             0x7f01000a, 0x7f01000b
@@ -782,45 +782,45 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static int BetterPickersSwitchTheme_switchPreferenceStyle = 1;
         /**
-          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#switchStyle}
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#switchStyle1}
           attribute's value can be found in the {@link #BetterPickersSwitchTheme} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.doomonafireball.betterpickers:switchStyle
+          @attr name com.doomonafireball.betterpickers:switchStyle1
         */
-        public static int BetterPickersSwitchTheme_switchStyle = 0;
+        public static int BetterPickersSwitchTheme_switchStyle1 = 0;
         /** Attributes that can be used with a Switch.
            <p>Includes the following attributes:</p>
            <table>
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #Switch_switchMinWidth com.doomonafireball.betterpickers:switchMinWidth}</code></td><td></td></tr>
-           <tr><td><code>{@link #Switch_switchPadding com.doomonafireball.betterpickers:switchPadding}</code></td><td></td></tr>
-           <tr><td><code>{@link #Switch_switchTextAppearance com.doomonafireball.betterpickers:switchTextAppearance}</code></td><td></td></tr>
+           <tr><td><code>{@link #Switch_switchMinWidth1 com.doomonafireball.betterpickers:switchMinWidth1}</code></td><td></td></tr>
+           <tr><td><code>{@link #Switch_switchPadding1 com.doomonafireball.betterpickers:switchPadding1}</code></td><td></td></tr>
+           <tr><td><code>{@link #Switch_switchTextAppearance1 com.doomonafireball.betterpickers:switchTextAppearance1}</code></td><td></td></tr>
            <tr><td><code>{@link #Switch_textOff com.doomonafireball.betterpickers:textOff}</code></td><td></td></tr>
            <tr><td><code>{@link #Switch_textOn com.doomonafireball.betterpickers:textOn}</code></td><td></td></tr>
-           <tr><td><code>{@link #Switch_thumb com.doomonafireball.betterpickers:thumb}</code></td><td></td></tr>
-           <tr><td><code>{@link #Switch_thumbTextPadding com.doomonafireball.betterpickers:thumbTextPadding}</code></td><td></td></tr>
-           <tr><td><code>{@link #Switch_track com.doomonafireball.betterpickers:track}</code></td><td></td></tr>
+           <tr><td><code>{@link #Switch_thumb1 com.doomonafireball.betterpickers:thumb1}</code></td><td></td></tr>
+           <tr><td><code>{@link #Switch_thumbTextPadding1 com.doomonafireball.betterpickers:thumbTextPadding1}</code></td><td></td></tr>
+           <tr><td><code>{@link #Switch_track1 com.doomonafireball.betterpickers:track1}</code></td><td></td></tr>
            </table>
-           @see #Switch_switchMinWidth
-           @see #Switch_switchPadding
-           @see #Switch_switchTextAppearance
+           @see #Switch_switchMinWidth1
+           @see #Switch_switchPadding1
+           @see #Switch_switchTextAppearance1
            @see #Switch_textOff
            @see #Switch_textOn
-           @see #Switch_thumb
-           @see #Switch_thumbTextPadding
-           @see #Switch_track
+           @see #Switch_thumb1
+           @see #Switch_thumbTextPadding1
+           @see #Switch_track1
          */
         public static final int[] Switch = {
             0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f,
             0x7f010010, 0x7f010011, 0x7f010012, 0x7f010013
         };
         /**
-          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#switchMinWidth}
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#switchMinWidth1}
           attribute's value can be found in the {@link #Switch} array.
 
 
@@ -832,11 +832,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.doomonafireball.betterpickers:switchMinWidth
+          @attr name com.doomonafireball.betterpickers:switchMinWidth1
         */
-        public static int Switch_switchMinWidth = 6;
+        public static int Switch_switchMinWidth1 = 6;
         /**
-          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#switchPadding}
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#switchPadding1}
           attribute's value can be found in the {@link #Switch} array.
 
 
@@ -848,19 +848,19 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.doomonafireball.betterpickers:switchPadding
+          @attr name com.doomonafireball.betterpickers:switchPadding1
         */
-        public static int Switch_switchPadding = 7;
+        public static int Switch_switchPadding1 = 7;
         /**
-          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#switchTextAppearance}
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#switchTextAppearance1}
           attribute's value can be found in the {@link #Switch} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.doomonafireball.betterpickers:switchTextAppearance
+          @attr name com.doomonafireball.betterpickers:switchTextAppearance1
         */
-        public static int Switch_switchTextAppearance = 5;
+        public static int Switch_switchTextAppearance1 = 5;
         /**
           <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#textOff}
           attribute's value can be found in the {@link #Switch} array.
@@ -882,17 +882,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static int Switch_textOn = 2;
         /**
-          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#thumb}
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#thumb1}
           attribute's value can be found in the {@link #Switch} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.doomonafireball.betterpickers:thumb
+          @attr name com.doomonafireball.betterpickers:thumb1
         */
-        public static int Switch_thumb = 0;
+        public static int Switch_thumb1 = 0;
         /**
-          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#thumbTextPadding}
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#thumbTextPadding1}
           attribute's value can be found in the {@link #Switch} array.
 
 
@@ -904,18 +904,18 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.doomonafireball.betterpickers:thumbTextPadding
+          @attr name com.doomonafireball.betterpickers:thumbTextPadding1
         */
-        public static int Switch_thumbTextPadding = 4;
+        public static int Switch_thumbTextPadding1 = 4;
         /**
-          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#track}
+          <p>This symbol is the offset where the {@link com.doomonafireball.betterpickers.R.attr#track1}
           attribute's value can be found in the {@link #Switch} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.doomonafireball.betterpickers:track
+          @attr name com.doomonafireball.betterpickers:track1
         */
-        public static int Switch_track = 1;
+        public static int Switch_track1 = 1;
     };
 }

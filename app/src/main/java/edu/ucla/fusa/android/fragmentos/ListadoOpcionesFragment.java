@@ -38,7 +38,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
-public class ListadoOpcionesFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class ListadoOpcionesFragment extends Fragment  {
 
     private static String TAG = "ListadoOpcionesFragment";
     private static final int CROP_FROM_CAMERA = 2;
@@ -64,7 +64,7 @@ public class ListadoOpcionesFragment extends Fragment implements AdapterView.OnI
         return fragment;
     }
 
-    public void onCreate(Bundle paramBundle) {
+    /*public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         getActivity().getActionBar().setTitle(R.string.configuracion);
         getActivity().getActionBar().setIcon(R.drawable.ic_configuracion_blanco);
@@ -159,7 +159,7 @@ public class ListadoOpcionesFragment extends Fragment implements AdapterView.OnI
         new AlertDialog.Builder(getActivity()).setAdapter(adapter, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int item) {
                 if (item == 0) { /** Desde la cámara */
-                    Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                 /*   Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                     mFotoCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "tmp_avatar_" + String.valueOf(System.currentTimeMillis()) + ".jpg"));
                     intent.putExtra("output", mFotoCaptureUri);
                     try {
@@ -169,7 +169,7 @@ public class ListadoOpcionesFragment extends Fragment implements AdapterView.OnI
                         e.printStackTrace();
                     }
                 } else { /** Desde galeria de imagenes */
-                    Intent intent = new Intent();
+                  /*  Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction("android.intent.action.GET_CONTENT");
                     startActivityForResult(Intent.createChooser(intent, "Completa la acción usando..."), PICK_FROM_FILE);
@@ -213,7 +213,7 @@ public class ListadoOpcionesFragment extends Fragment implements AdapterView.OnI
         return Base64.encode(stream.toByteArray(), Base64.DEFAULT);
     }
 
-    private void doCrop() {
+    /*private void doCrop() {
         startActivityForResult(new Intent("com.android.camera.action.CROP")
                 .setDataAndType(mFotoCaptureUri, "image/*")
                 .putExtra("crop", "true")
@@ -230,7 +230,7 @@ public class ListadoOpcionesFragment extends Fragment implements AdapterView.OnI
         @Override
         protected Integer doInBackground(String... params) {
             /** Cargamos los parametros que enviaremos por URL */
-            ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
+          /*  ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
             parametros.add(new BasicNameValuePair("username", params[0]));
             parametros.add(new BasicNameValuePair("foto", params[1]));
 
@@ -256,7 +256,7 @@ public class ListadoOpcionesFragment extends Fragment implements AdapterView.OnI
         @Override
         protected Integer doInBackground(String... params) {
             /** Cargamos los parametros que enviaremos por URL */
-            ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
+          /*  ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
             parametros.add(new BasicNameValuePair("username", params[0]));
             parametros.add(new BasicNameValuePair("imagen", params[1]));
 
@@ -277,5 +277,5 @@ public class ListadoOpcionesFragment extends Fragment implements AdapterView.OnI
                     break;
             }
         }
-    }
+    }*/
 }

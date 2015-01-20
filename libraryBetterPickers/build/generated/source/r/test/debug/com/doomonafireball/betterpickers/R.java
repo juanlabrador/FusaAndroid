@@ -32,16 +32,16 @@ public final class R {
 		public static final int bpTextColor = 0x7f010000;
 		public static final int bpTitleColor = 0x7f010001;
 		public static final int bpTitleDividerColor = 0x7f010006;
-		public static final int switchMinWidth = 0x7f010012;
-		public static final int switchPadding = 0x7f010013;
+		public static final int switchMinWidth1 = 0x7f010012;
+		public static final int switchPadding1 = 0x7f010013;
 		public static final int switchPreferenceStyle = 0x7f01000b;
-		public static final int switchStyle = 0x7f01000a;
-		public static final int switchTextAppearance = 0x7f010011;
+		public static final int switchStyle1 = 0x7f01000a;
+		public static final int switchTextAppearance1 = 0x7f010011;
 		public static final int textOff = 0x7f01000f;
 		public static final int textOn = 0x7f01000e;
-		public static final int thumb = 0x7f01000c;
-		public static final int thumbTextPadding = 0x7f010010;
-		public static final int track = 0x7f01000d;
+		public static final int thumb1 = 0x7f01000c;
+		public static final int thumbTextPadding1 = 0x7f010010;
+		public static final int track1 = 0x7f01000d;
 	}
 	public static final class color {
 		public static final int ampm_text_color = 0x7f050000;
@@ -467,15 +467,15 @@ public final class R {
 		public static final int BetterPickersDialogFragment_bpTitleDividerColor = 6;
 		public static final int[] BetterPickersSwitchTheme = { 0x7f01000a, 0x7f01000b };
 		public static final int BetterPickersSwitchTheme_switchPreferenceStyle = 1;
-		public static final int BetterPickersSwitchTheme_switchStyle = 0;
+		public static final int BetterPickersSwitchTheme_switchStyle1 = 0;
 		public static final int[] Switch = { 0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f, 0x7f010010, 0x7f010011, 0x7f010012, 0x7f010013 };
-		public static final int Switch_switchMinWidth = 6;
-		public static final int Switch_switchPadding = 7;
-		public static final int Switch_switchTextAppearance = 5;
+		public static final int Switch_switchMinWidth1 = 6;
+		public static final int Switch_switchPadding1 = 7;
+		public static final int Switch_switchTextAppearance1 = 5;
 		public static final int Switch_textOff = 3;
 		public static final int Switch_textOn = 2;
-		public static final int Switch_thumb = 0;
-		public static final int Switch_thumbTextPadding = 4;
-		public static final int Switch_track = 1;
+		public static final int Switch_thumb1 = 0;
+		public static final int Switch_thumbTextPadding1 = 4;
+		public static final int Switch_track1 = 1;
 	}
 }

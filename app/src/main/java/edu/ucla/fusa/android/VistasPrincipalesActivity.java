@@ -13,10 +13,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.Vibrator;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +28,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.siyamed.shapeimageview.HexagonImageView;
+import com.ikimuhendis.ldrawer.ActionBarDrawerToggle;
+import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -38,10 +42,8 @@ import edu.ucla.fusa.android.DB.EventoTable;
 import edu.ucla.fusa.android.DB.LugarTable;
 import edu.ucla.fusa.android.DB.NoticiasTable;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
-import edu.ucla.fusa.android.fragmentos.CambiarPasswordFragment;
 import edu.ucla.fusa.android.fragmentos.ListadoOpcionesFragment;
 import edu.ucla.fusa.android.fragmentos.HorarioClasesFragment;
-import edu.ucla.fusa.android.fragmentos.PostulacionComodatoFragment;
 import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
 import edu.ucla.fusa.android.fragmentos.ListadoNoticiasFragment;
 import edu.ucla.fusa.android.fragmentos.SolicitudPrestamoFragment;
@@ -52,6 +54,9 @@ import edu.ucla.fusa.android.modelo.fundacion.Noticia;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
+import edu.ucla.fusa.android.modelo.herramientas.MagicTextView;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
@@ -59,7 +64,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-@SuppressWarnings("deprecation")
 public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
 
 
@@ -67,18 +71,18 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private View mHeaderDrawer;
     private TypedArray mIconsDrawer;
     private ArrayList<ItemListDrawer> mItemsDrawer;
-    private ActionBarDrawerToggle mDrawerToogle;
+    private ActionBarDrawerToggle mDrawerToggle;
     private NavigationAdapter mNavigationAdapter;
     private DrawerLayout mNavigationDrawer;
     private ListView mListDrawer;
     private String[] mTextDrawer;
     private JSONParser mJSONParser;
     
-    private CircleImageView mFoto;
+    private HexagonImageView mFoto;
     private TextView mNombre;
-    private TextView mCorreo;
     private ProgressBar mLoading;
     private TextView mTextLoading;
+    private Toolbar mToolbar;
     
     private Button mRetryButton;
     private int mTipoUsuario;
@@ -89,11 +93,40 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private EstudianteTable mEstudianteTable;
     private NoticiasTable mNoticiasTable;
 
+    private DrawerArrowDrawable mDrawerArrow;
+
 
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
-        getActionBar().hide();
         setContentView(R.layout.activity_principal);
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/HelveticaNeueLight.ttf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
+
+        mDrawerArrow = new DrawerArrowDrawable(this) {
+            @Override
+            public boolean isLayoutRtl() {
+                return false;
+            }
+        };
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(R.string.noticias_titulo_barra);
+        mToolbar.setNavigationIcon(mDrawerArrow);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mNavigationDrawer.isDrawerOpen(mListDrawer)) {
+                    mNavigationDrawer.closeDrawer(mListDrawer);
+                } else {
+                    mNavigationDrawer.openDrawer(mListDrawer);
+                }
+            }
+        });
+        mToolbar.setVisibility(View.INVISIBLE);
         
         mEstudianteTable = new EstudianteTable(this);
         mNoticiasTable = new NoticiasTable(this);
@@ -106,8 +139,8 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mNavigationDrawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         mListDrawer = (ListView) findViewById(R.id.lista_funciones);
 
-        mDrawerToogle = new ActionBarDrawerToggle(this, mNavigationDrawer,
-                R.drawable.ic_navigation_drawer,
+        mDrawerToggle = new ActionBarDrawerToggle(this, mNavigationDrawer,
+                mDrawerArrow,
                 R.string.drawer_open,
                 R.string.drawer_close) {
 
@@ -120,18 +153,33 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             }
         };
 
-        mNavigationDrawer.setDrawerListener(mDrawerToogle);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-        
+        mNavigationDrawer.setDrawerListener(mDrawerToggle);
+
         new LoadingEventos().execute();
         new LoadingNoticias().execute();
-        
+
+
         // Leemos los datos del usuario
         mTipoUsuario = getIntent().getIntExtra("TipoUsuario", -1);
         mUsername = getIntent().getStringExtra("NombreUsuario");
         cargarUsuario();
 
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
     
     // Usuario
@@ -160,9 +208,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                break;
-            case 2: // Es instructor
-                cargarMenuInstructor();
                 break;
             default:
                 showOptionRetry();
@@ -207,9 +252,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             case 1:
                 showFragmentEstudiante(position);
                 break;
-            case 2:
-                showFragmentInstructor(position);
-                break;
             default:
                 showOptionRetry();
                 break;
@@ -217,16 +259,12 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToogle.onOptionsItemSelected(item)) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    protected void onPostCreate(Bundle paramBundle) {
-        super.onPostCreate(paramBundle);
-        mDrawerToogle.syncState();
-    }
 
     public boolean onPrepareOptionsMenu(Menu paramMenu) {
         boolean drawerOpen = mNavigationDrawer.isDrawerOpen(mListDrawer);
@@ -266,13 +304,10 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     // Estudiante
 
     private void cargarPerfilEstudiante(View mHeader) {
-        mFoto = (CircleImageView) mHeader.findViewById(R.id.iv_foto_perfil_drawer);
+        mFoto = (HexagonImageView) mHeader.findViewById(R.id.iv_foto_perfil_drawer);
         mNombre = (TextView) mHeader.findViewById(R.id.etNombreDrawer);
-        mCorreo = (TextView) mHeader.findViewById(R.id.etEmailDrawer);
-
         mFoto.setVisibility(View.VISIBLE);
         mNombre.setVisibility(View.VISIBLE);
-        mCorreo.setVisibility(View.VISIBLE);
 
         //if (mEstudiante.getImagen() != null) {
         //    mFoto.setImageBitmap(convertByteToImage(mEstudiante.getImagen()));
@@ -281,7 +316,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         //}
 
         mNombre.setText(mEstudiante.getNombre() + " " + mEstudiante.getApellido());
-        mCorreo.setText(mEstudiante.getCorreo());
     }
     
     public void cargarMenuEstudiante() {
@@ -290,21 +324,10 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         }
         mHeaderDrawer = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
         cargarPerfilEstudiante(mHeaderDrawer);
-        mIconsDrawer = getResources().obtainTypedArray(R.array.nav_icons_estudiante);
+        mIconsDrawer = getResources().obtainTypedArray(R.array.iconos_menu);
         mListDrawer.addHeaderView(mHeaderDrawer);
-        mTextDrawer = getResources().getStringArray(R.array.nav_funciones_estudiante);
+        mTextDrawer = getResources().getStringArray(R.array.contenido_menu);
         mItemsDrawer = new ArrayList();
-        mItemsDrawer.add(new ItemListDrawer(
-                mTextDrawer[0],
-                mIconsDrawer.getResourceId(0, -1)));
-        mItemsDrawer.add(new ItemListDrawer(
-                mTextDrawer[1],
-                mIconsDrawer.getResourceId(1, -1)));
-
-        mItemsDrawer.add(new ItemListDrawer(null, -1));
-
-        mIconsDrawer = getResources().obtainTypedArray(R.array.nav_icons_general);
-        mTextDrawer = getResources().getStringArray(R.array.nav_funciones_general);
         mItemsDrawer.add(new ItemListDrawer(
                 mTextDrawer[0],
                 mIconsDrawer.getResourceId(0, -1)));
@@ -317,12 +340,15 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mItemsDrawer.add(new ItemListDrawer(
                 mTextDrawer[3],
                 mIconsDrawer.getResourceId(3, -1)));
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[4],
+                mIconsDrawer.getResourceId(4, -1)));
 
         mNavigationAdapter = new NavigationAdapter(this, mItemsDrawer);
         mListDrawer.setAdapter(mNavigationAdapter);
         mListDrawer.setOnItemClickListener(this);
 
-        getActionBar().show();
+        mToolbar.setVisibility(View.VISIBLE);
         mLoading.setVisibility(View.GONE);
         mTextLoading.setVisibility(View.GONE);
     }
@@ -376,102 +402,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mNavigationDrawer.closeDrawer(mListDrawer);
     }
 
-    // Instructor
-
-    private void cargarPerfilInstructor(View mHeader) {
-        mFoto = (CircleImageView) mHeader.findViewById(R.id.iv_foto_perfil_drawer);
-        mNombre = (TextView) mHeader.findViewById(R.id.etNombreDrawer);
-        mCorreo = (TextView) mHeader.findViewById(R.id.etEmailDrawer);
-
-        mFoto.setVisibility(View.VISIBLE);
-        mNombre.setVisibility(View.VISIBLE);
-        mCorreo.setVisibility(View.VISIBLE);
-
-        //if (mEstudiante.getImagen() != null) {
-            //mFoto.setImageBitmap(convertByteToImage(mEstudiante.getImagen()));
-        //} else {
-            mFoto.setImageResource(R.drawable.foto_instructor);
-        //}
-
-        mNombre.setText("Rafael \"Pollo\" Brito");
-        mCorreo.setText("profesor@example.com");
-    }
-    
-    public void cargarMenuInstructor() {
-        if (mNavigationAdapter != null) {
-            mNavigationAdapter.clear();
-        }
-        mHeaderDrawer = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
-        cargarPerfilInstructor(mHeaderDrawer);
-        mIconsDrawer = getResources().obtainTypedArray(R.array.nav_icons_instructor);
-        mListDrawer.addHeaderView(mHeaderDrawer);
-        mTextDrawer = getResources().getStringArray(R.array.nav_funciones_instructor);
-        mItemsDrawer = new ArrayList();
-        mItemsDrawer.add(new ItemListDrawer(
-                mTextDrawer[0],
-                mIconsDrawer.getResourceId(0, -1)));
-        mItemsDrawer.add(new ItemListDrawer(
-                mTextDrawer[1],
-                mIconsDrawer.getResourceId(1, -1)));
-        
-        mItemsDrawer.add(new ItemListDrawer(null, -1));
-        mIconsDrawer = getResources().obtainTypedArray(R.array.nav_icons_general);
-        mTextDrawer = getResources().getStringArray(R.array.nav_funciones_general);
-        mItemsDrawer.add(new ItemListDrawer(
-                mTextDrawer[0],
-                mIconsDrawer.getResourceId(0, -1)));
-        mItemsDrawer.add(new ItemListDrawer(
-                mTextDrawer[1],
-                mIconsDrawer.getResourceId(1, -1)));
-        mItemsDrawer.add(new ItemListDrawer(
-                mTextDrawer[2],
-                mIconsDrawer.getResourceId(2, -1)));
-        mItemsDrawer.add(new ItemListDrawer(
-                mTextDrawer[3],
-                mIconsDrawer.getResourceId(3, -1)));
-
-        mNavigationAdapter = new NavigationAdapter(this, mItemsDrawer);
-        mListDrawer.setAdapter(mNavigationAdapter);
-        mListDrawer.setOnItemClickListener(this);
-    }
-
-    private void showFragmentInstructor(int position) {
-        getSupportFragmentManager().popBackStack();
-        switch (position) {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, PostulacionComodatoFragment.newInstance())
-                        .commit();
-                break;
-            case 4:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
-                        .commit();
-                break;
-            case 5:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, CalendarioFragment.newInstance())
-                        .commit();
-                break;
-            case 6:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, CambiarPasswordFragment.newInstance())
-                        .commit();
-                break;
-            case 7:
-                new Logout().execute();
-                break;
-        }
-        mListDrawer.setItemChecked(position, true);
-        mListDrawer.setSelection(position);
-        mNavigationDrawer.closeDrawer(mListDrawer);
-    }
 
     public void onBackPressed() {
         if (mNavigationDrawer.isDrawerOpen(mListDrawer)) {
@@ -481,18 +411,13 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         }
     }
 
-    public void onConfigurationChanged(Configuration paramConfiguration) {
-        super.onConfigurationChanged(paramConfiguration);
-        mDrawerToogle.onConfigurationChanged(paramConfiguration);
-    }
-
     public class BuscarEstudiante extends AsyncTask<String, Void, Integer> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             mLoading.setVisibility(View.VISIBLE);
-            mTextLoading.setText(R.string.cargando);
+            mTextLoading.setText(R.string.mensaje_cargando);
             mRetryButton.setVisibility(View.GONE);
         }
 
@@ -602,7 +527,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                     Log.i(TAG, "¡Noticias guardadas!");
                     mLoading.setVisibility(View.GONE);
                     mTextLoading.setVisibility(View.GONE);
-                    getActionBar().show();
+                    mToolbar.setVisibility(View.VISIBLE);
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())

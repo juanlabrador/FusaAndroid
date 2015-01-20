@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.ListFragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 
 public class ListadoNoticiasFragment extends ListFragment implements PullToRefreshBase.OnRefreshListener<ListView>, View.OnClickListener {
 
+    private Toolbar mToolbar;
     private ListNoticiasAdapter mListAdapter;
     private View mBackToTop;
     private int mIndex = -1;
@@ -67,8 +69,8 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        getActivity().getActionBar().setTitle(R.string.contenido_noticia_action_bar_titulo);
-        getActivity().getActionBar().setIcon(R.drawable.ic_noticias_blanco);
+        //mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        //mToolbar.setTitle(R.string.noticias_titulo_barra);
         mBackToTop = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_back_to_top_list_view, null, false);
         mBackToTop.setOnClickListener(this);
         mNoticiasTable = new NoticiasTable(getActivity());
@@ -79,6 +81,7 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         super.onCreateView(inflater, container, bundle);
         mView = inflater.inflate(R.layout.fragment_drawer_list_noticias, container, false);
+        
         mList = (PullToRefreshListView) mView.findViewById(R.id.pull_to_refresh_list);
         mLoading = (ProgressBar) mView.findViewById(R.id.progress_bar_noticias);
         mTextLoading = (TextView) mView.findViewById(R.id.tv_empty_text);
@@ -102,8 +105,8 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
 
     public void onResume() {
         super.onResume();
-        getActivity().getActionBar().setTitle(R.string.contenido_noticia_action_bar_titulo);
-        getActivity().getActionBar().setIcon(R.drawable.ic_noticias_blanco);
+        //mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        //mToolbar.setTitle(R.string.noticias_titulo_barra);
         mItemsNoticias = mNoticiasTable.searchNews();
         if (mItemsNoticias.size() != 0) {
             Log.i(TAG, "Cantidad de noticias: " + mItemsNoticias.size());
@@ -253,7 +256,7 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
                     break;
                 case 0:
                     try {
-                        Toast.makeText(getActivity(), R.string.mensaje_busqueda_vacio_noticias, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.mensaje_error_busqueda, Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

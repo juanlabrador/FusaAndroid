@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="iconos_contacto">
-        <item>@drawable/ic_datos</item>
-        <item>@drawable/ic_ubicacion</item>
-    </array>
     <string-array name="contenido_menu">
         <item>Mis clases</item>
         <item>Solicitud de préstamo</item>
         <item>Noticias</item>
         <item>Calendario de eventos</item>
-        <item>Solicitud de préstamo</item>
+        <item>Cambiar contraseña</item>
+        <item>Cerrar sesión</item>
     </string-array>
 
     <array name="iconos_menu">
@@ -17,12 +14,8 @@
         <item>@drawable/ic_solicitud_prestamo</item>
         <item>@drawable/ic_noticias</item>
         <item>@drawable/ic_calendario</item>
+        <item>@drawable/ic_cambiar_password</item>
         <item>@drawable/ic_login</item>
     </array>
 
-    <array name="iconos_inicial">
-        <item>@drawable/ic_login</item>
-        <item>@drawable/ic_estudiantes</item>
-        <item>@drawable/ic_contacto</item>
-    </array>
 </resources>

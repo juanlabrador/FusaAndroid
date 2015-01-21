@@ -18,11 +18,13 @@ public class LugarTable {
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_DESCRIPCION = "descripcion";
     public static final String COLUMN_DIRECCION = "direccion";
+    public static final String COLUMN_ID_LUGAR = "lugar_id";
 
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
-            + COLUMN_ID + " INTEGER PRIMARY KEY, "
+            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_DESCRIPCION + " TEXT, "
-            + COLUMN_DIRECCION + " TEXT);";
+            + COLUMN_DIRECCION + " TEXT, "
+            + COLUMN_ID_LUGAR + " INTEGER);";
 
     private DataBaseHelper mHelper;
     private SQLiteDatabase mDatabase;
@@ -35,10 +37,10 @@ public class LugarTable {
         mLugar = new Lugar();
     }
 
-    private ContentValues generarValores (int id, String descripcion, String direccion) {
+    private ContentValues generarValores (String descripcion, String direccion, int id) {
 
         ContentValues valores = new ContentValues();
-        valores.put(COLUMN_ID, id);
+        valores.put(COLUMN_ID_LUGAR, id);
         valores.put(COLUMN_DESCRIPCION, descripcion);
         valores.put(COLUMN_DIRECCION, direccion);
 
@@ -46,16 +48,16 @@ public class LugarTable {
     }
 
     public void insertData(int id, String descripcion, String direccion) {
-        mDatabase.insert(TABLE_NAME, null, generarValores(id, descripcion, direccion));
+        mDatabase.insert(TABLE_NAME, null, generarValores(descripcion, direccion, id));
     }
 
     public Lugar searchLugar(String id) {
         Log.i(TAG, "¡Buscando el lugar!");
         String[] condicion = new String[] {id};
-        String[] columnas = new String[] {COLUMN_ID, COLUMN_DESCRIPCION, COLUMN_DIRECCION};
-        mCursor = mDatabase.query(TABLE_NAME, columnas, COLUMN_ID + " =?", condicion, null, null, null, null);
+        String[] columnas = new String[] {COLUMN_ID, COLUMN_DESCRIPCION, COLUMN_DIRECCION, COLUMN_ID_LUGAR};
+        mCursor = mDatabase.query(TABLE_NAME, columnas, COLUMN_ID_LUGAR + "=?", condicion, null, null, null, null);
         if (mCursor.moveToFirst()) {
-            mLugar.setId(mCursor.getInt(0));
+            mLugar.setId(mCursor.getInt(3));
             mLugar.setDescripcion(mCursor.getString(1));
             mLugar.setDireccion(mCursor.getString(2));
         }

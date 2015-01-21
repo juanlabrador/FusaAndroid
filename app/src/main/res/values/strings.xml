@@ -77,13 +77,16 @@
     <string name="contraseña_requisitos_letra_misnuscula">Al menos una letra en minuscula.</string>
     <string name="contraseña_requisitos_numeros">Al menos un digito entre 0 - 9.</string>
     <string name="contraseña_requisito_caracter_especial">Al menos un caracter especial (@#$%).</string>
-    <string name="contraseña_antigua">Antigua contraseña</string>
+    <string name="contraseña_antigua">Actual contraseña</string>
     <string name="contraseña_boton_exito">Cambio exitoso</string>
     <string name="contraseña_boton_error">¡Ups! Error</string>
     <string name="contraseña_boton">Cambiar contraseña</string>
     <string name="contraseña_nueva">Nueva contraseña</string>
-    <string name="contraseña_repetir">Repita su nueva contraseña</string>
+    <string name="contraseña_repetir">Repita nueva contraseña</string>
     <string name="contraseña_titulo_barra">Cambiar contraseña</string>
+    <string name="contraseña_mostrar">Mostrar las contraseñas</string>
+    <string name="contraseña_mostrar_descripcion">Si esta activado, habilita la posibilidad de mostrar todas las contraseñas.</string>
+    <string name="contraseña_requisito">La nueva contraseña debe:\n\n  - contener al menos un dígito de 0 a 9.\n  - contener al menos una letra en minúscula.\n  - contener al menos una letra en mayúscula.\n  - contener al menos un símbolo especial \"@#$%\".\n  -  estar entre 6 y 20 carácteres máximo.</string>
     
     <!-- Postulación de un aspirante -->
     <string name="postularse_apellido">Apellido</string>

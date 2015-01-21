@@ -6,12 +6,12 @@ import java.util.regex.Pattern;
 public class ValidadorPasswords {
 
     private static final String PATRON_PASSWORD = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
-    private Matcher matcher;
-    private Pattern pattern;
+    private static Matcher matcher;
+    private static Pattern pattern;
 
-    public boolean validarPassword(String paramString) {
-        this.pattern = Pattern.compile(PATRON_PASSWORD);
-        this.matcher = this.pattern.matcher(paramString);
-        return this.matcher.matches();
+    public static boolean validarPassword(String paramString) {
+        pattern = Pattern.compile(PATRON_PASSWORD);
+        matcher = pattern.matcher(paramString);
+        return matcher.matches();
     }
 }

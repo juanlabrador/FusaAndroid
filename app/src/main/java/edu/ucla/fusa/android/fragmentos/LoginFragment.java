@@ -2,6 +2,9 @@ package edu.ucla.fusa.android.fragmentos;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
@@ -25,11 +28,14 @@ import com.juanlabrador.GroupLayout;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import edu.ucla.fusa.android.DB.DataBaseHelper;
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.VistasPrincipalesActivity;
+import edu.ucla.fusa.android.modelo.herramientas.Base64;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
@@ -46,6 +52,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
     private JSONParser mJSONParser;
     private UserTable mUserTable;
     private Usuario mUsuario;
+    private SharedPreferences mPreferencias;
+    private Bitmap mBitmap;
 
     public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
@@ -73,6 +81,18 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         mPasswordRestore.setOnClickListener(this);
 
         mLogin.setOnClickListener(this);
+
+        mPreferencias = getActivity().getSharedPreferences("usuario", Context.MODE_PRIVATE);
+        if (!mPreferencias.getString("usuario", "").equals("") && 
+                !mPreferencias.getString("foto", "").equals("")) {
+            mCredenciales.getEditTextLayoutAt(0).setContent(mPreferencias.getString("usuario", ""));
+            mBitmap = convertByteToImage(mPreferencias.getString("foto", ""));
+            if (mBitmap != null) {
+                mAvatar.setImageBitmap(convertByteToImage(mPreferencias.getString("foto", "")));
+            } else {
+                Log.i(TAG, "¡Avatar nulo");
+            }
+        }
         
         return mView;
     }
@@ -116,6 +136,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
 
     public void onTextChanged(CharSequence paramCharSequence, int paramInt1, int paramInt2, int paramInt3) {
         mLogin.setProgress(0);
+    }
+
+    private Bitmap convertByteToImage(String data) {
+        try {
+            return BitmapFactory.decodeByteArray(Base64.decode(data), 0, Base64.decode(data).length);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public boolean exiteConexionInternet() {
@@ -201,11 +230,17 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
                         @Override
                         public void run() {
                             SystemClock.sleep(2000);
-                            Log.i(TAG, "!Login success!");
-                            startActivity(new Intent(getActivity(), VistasPrincipalesActivity.class)
-                                    .putExtra("TipoUsuario", mUsuario.getTipoUsuario().getId())
-                                    .putExtra("NombreUsuario", mUsuario.getUsername()));
-                            getActivity().finish();
+                            if (mUsuario.getTipoUsuario().getId() == 1) {
+                                Log.i(TAG, "!Login success!");
+                                startActivity(new Intent(getActivity(), VistasPrincipalesActivity.class)
+                                        .putExtra("NombreUsuario", mUsuario.getUsername()));
+                                getActivity().finish();
+                            } else {
+                                Log.i(TAG, "¡No es un estudiante!");
+                                errorIniciarSesion();
+                                habilitarElementos();
+                                getActivity().deleteDatabase(DataBaseHelper.NAME);
+                            }
                         }
                     }).start();
                     break;
@@ -224,17 +259,19 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
     }
 
     private void habilitarElementos() {
-        mCredenciales.getEditTextLayoutAt(0).getEditText().setEnabled(true);
-        mCredenciales.getEditTextLayoutAt(1).getEditText().setEnabled(true);
         mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(true);
         mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(true);
+        mCredenciales.getEditTextLayoutAt(0).getEditText().setTextIsSelectable(true);
+        mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(true);
+        mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusableInTouchMode(true);
+        mCredenciales.getEditTextLayoutAt(1).getEditText().setTextIsSelectable(true);
+        mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(true);
+        mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusableInTouchMode(true);
         mPasswordRestore.setEnabled(true);
         mPasswordRestore.setTextColor(getResources().getColor(android.R.color.black));
     }
 
     private void deshabilitarElementos() {
-        mCredenciales.getEditTextLayoutAt(0).getEditText().setEnabled(false);
-        mCredenciales.getEditTextLayoutAt(1).getEditText().setEnabled(false);
         mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(false);
         mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(false);
         mPasswordRestore.setEnabled(false);

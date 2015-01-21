@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    public static final String NAME = "fusamovil.sqlite";
+    public static final String NAME = "fusa";
     public static final int VERSION = 1;
 
     public DataBaseHelper(Context context) {

@@ -1,16 +1,21 @@
 package edu.ucla.fusa.android;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.support.v4.app.FragmentActivity;
@@ -24,7 +29,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,14 +39,15 @@ import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import edu.ucla.fusa.android.DB.DataBaseHelper;
 import edu.ucla.fusa.android.DB.EstudianteTable;
 import edu.ucla.fusa.android.DB.EventoTable;
 import edu.ucla.fusa.android.DB.LugarTable;
 import edu.ucla.fusa.android.DB.NoticiasTable;
+import edu.ucla.fusa.android.DB.UserTable;
+import edu.ucla.fusa.android.adaptadores.ListOpcionesAdapter;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
-import edu.ucla.fusa.android.fragmentos.ListadoOpcionesFragment;
+import edu.ucla.fusa.android.fragmentos.CambiarPasswordFragment;
 import edu.ucla.fusa.android.fragmentos.HorarioClasesFragment;
 import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
 import edu.ucla.fusa.android.fragmentos.ListadoNoticiasFragment;
@@ -51,14 +56,19 @@ import edu.ucla.fusa.android.modelo.academico.Estudiante;
 import edu.ucla.fusa.android.modelo.evento.Evento;
 import edu.ucla.fusa.android.modelo.evento.Lugar;
 import edu.ucla.fusa.android.modelo.fundacion.Noticia;
+import edu.ucla.fusa.android.modelo.herramientas.Base64;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
+import edu.ucla.fusa.android.modelo.herramientas.ItemListOpcionesMultimedia;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
-import edu.ucla.fusa.android.modelo.herramientas.MagicTextView;
+import edu.ucla.fusa.android.modelo.seguridad.Usuario;
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,7 +76,9 @@ import java.util.Calendar;
 
 public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
 
-
+    private static final int CROP_FROM_CAMERA = 2;
+    private static final int PICK_FROM_CAMERA = 1;
+    private static final int PICK_FROM_FILE = 3;
     private static String TAG = "VistasPrincipalesActivity";
     private View mHeaderDrawer;
     private TypedArray mIconsDrawer;
@@ -78,29 +90,36 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private String[] mTextDrawer;
     private JSONParser mJSONParser;
     
+    private SharedPreferences mPreferencias;
+    private SharedPreferences.Editor mEditor;
     private HexagonImageView mFoto;
     private TextView mNombre;
     private TextView mCorreo;
-    private ProgressBar mLoading;
+    private CircularProgressBar mLoading;
     private TextView mTextLoading;
     private Toolbar mToolbar;
     
     private Button mRetryButton;
-    private int mTipoUsuario;
     private String mUsername;
+    private Uri mFotoCaptureUri;
+    private ArrayList<ItemListOpcionesMultimedia> mItemsMultimedia;
 
     private ArrayList<Noticia> mNoticias;
     private Estudiante mEstudiante;
     private EstudianteTable mEstudianteTable;
     private NoticiasTable mNoticiasTable;
+    private UserTable mUserTable;
+    private Usuario mUsuario;
+    private Bitmap mBitmap;
 
     private DrawerArrowDrawable mDrawerArrow;
+    private byte[] mPhoto;
 
 
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         setContentView(R.layout.activity_principal);
-
+        mItemsMultimedia = new ArrayList<>();
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                         .setDefaultFontPath("fonts/HelveticaNeueLight.ttf")
                         .setFontAttrId(R.attr.fontPath)
@@ -131,9 +150,10 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         
         mEstudianteTable = new EstudianteTable(this);
         mNoticiasTable = new NoticiasTable(this);
+        mUserTable = new UserTable(this);
         mJSONParser = new JSONParser();
         
-        mLoading = (ProgressBar) findViewById(R.id.pb_cargando);
+        mLoading = (CircularProgressBar) findViewById(R.id.pb_cargando);
         mTextLoading = (TextView) findViewById(R.id.text_cargando);
         mRetryButton = (Button) findViewById(R.id.btn_reintentar_conexion);
         mNavigationDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -161,21 +181,9 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
 
 
         // Leemos los datos del usuario
-        mTipoUsuario = getIntent().getIntExtra("TipoUsuario", -1);
         mUsername = getIntent().getStringExtra("NombreUsuario");
         cargarUsuario();
 
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -186,33 +194,25 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     // Usuario
     
     private void cargarUsuario() {
-        Log.i(TAG, "Tipo de usuario: " + mTipoUsuario);
-        switch (mTipoUsuario) {
-            case 1: // Es estudiante
-                try {
-                    mEstudiante = mEstudianteTable.searchUser();
-                    if (mEstudiante != null) {
-                        Log.i(TAG, "¡Busca al estudiante en la BD!");
-                        cargarMenuEstudiante();
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
-                                .commit();
-                    } else {
-                        if (exiteConexionInternet()) {
-                            Log.i(TAG, "¡Busca al estudiante en el servidor!");
-                            new BuscarEstudiante().execute(mUsername);
-                        } else {
-                            showOptionRetry();
-                        }
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
+        try {
+            mEstudiante = mEstudianteTable.searchUser();
+            if (mEstudiante != null) {
+                Log.i(TAG, "¡Busca al estudiante en la BD!");
+                cargarMenuEstudiante();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
+                        .commit();
+            } else {
+                if (exiteConexionInternet()) {
+                    Log.i(TAG, "¡Busca al estudiante en el servidor!");
+                    new BuscarEstudiante().execute(mUsername);
+                } else {
+                    showOptionRetry();
                 }
-                break;
-            default:
-                showOptionRetry();
-                break;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 
@@ -249,14 +249,52 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     }
 
     public void onItemClick(AdapterView<?> paramAdapterView, View paramView, int position, long paramLong) {
-        switch (mTipoUsuario) {
-            case 1:
-                showFragmentEstudiante(position);
+        getSupportFragmentManager().popBackStack();
+        switch (position) {
+            case 0:showDialog();
                 break;
-            default:
-                showOptionRetry();
+            case 1:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frame_container, HorarioClasesFragment.newInstance())
+                        .commit();
+                break;
+            case 2:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frame_container, SolicitudPrestamoFragment.newInstance())
+                        .commit();
+                break;
+            case 3:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
+                        .commit();
+                break;
+            case 4:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frame_container, CalendarioFragment.newInstance())
+                        .commit();
+                break;
+            case 5:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frame_container, CambiarPasswordFragment.newInstance())
+                        .commit();
+                break;
+            case 6:
+                new Logout().execute();
                 break;
         }
+
+        mListDrawer.setItemChecked(position, true);
+        mListDrawer.setSelection(position);
+        mNavigationDrawer.closeDrawer(mListDrawer);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -274,13 +312,18 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     }
 
     private Bitmap convertByteToImage(byte[] data) {
-        return BitmapFactory.decodeByteArray(data, 0, data.length);
+        try {
+            return BitmapFactory.decodeByteArray(Base64.decode(data), 0, Base64.decode(data).length);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private byte[] convertImageToByte(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
-        return  stream.toByteArray();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return Base64.encodeBytesToBytes(stream.toByteArray());
     }
 
     private void showOptionRetry() {
@@ -288,14 +331,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mRetryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (mTipoUsuario) {
-                    case 1:
-                        new BuscarEstudiante().execute(mUsername);
-                        break;
-                    case 2:
-                        break;
-                }
-                
+                new BuscarEstudiante().execute(mUsername);
             }
         });
         mTextLoading.setText(R.string.mensaje_comprobar_conexion);
@@ -304,7 +340,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
 
     // Estudiante
 
-    private void cargarPerfilEstudiante(View mHeader) {
+    private void cargarHeader(View mHeader) {
         mFoto = (HexagonImageView) mHeader.findViewById(R.id.iv_foto_perfil_drawer);
         mNombre = (TextView) mHeader.findViewById(R.id.etNombreDrawer);
         mCorreo = (TextView) mHeader.findViewById(R.id.etCorreoDrawer);
@@ -327,7 +363,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             mNavigationAdapter.clear();
         }
         mHeaderDrawer = getLayoutInflater().inflate(R.layout.custom_header_drawer, null);
-        cargarPerfilEstudiante(mHeaderDrawer);
+        cargarHeader(mHeaderDrawer);
         mIconsDrawer = getResources().obtainTypedArray(R.array.iconos_menu);
         mListDrawer.addHeaderView(mHeaderDrawer);
         mTextDrawer = getResources().getStringArray(R.array.contenido_menu);
@@ -347,6 +383,9 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mItemsDrawer.add(new ItemListDrawer(
                 mTextDrawer[4],
                 mIconsDrawer.getResourceId(4, -1)));
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[5],
+                mIconsDrawer.getResourceId(5, -1)));
 
         mNavigationAdapter = new NavigationAdapter(this, mItemsDrawer);
         mListDrawer.setAdapter(mNavigationAdapter);
@@ -356,56 +395,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mLoading.setVisibility(View.GONE);
         mTextLoading.setVisibility(View.GONE);
     }
-    
-    private void showFragmentEstudiante(int position) {
-        getSupportFragmentManager().popBackStack();
-        switch (position) {
-            case 0:
-                break;
-            case 1:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.frame_container, HorarioClasesFragment.newInstance())
-                        .commit();
-                break;
-            case 2:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.frame_container, SolicitudPrestamoFragment.newInstance())
-                        .commit();
-                break;
-            case 4:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
-                        .commit();
-                break;
-            case 5:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.frame_container, CalendarioFragment.newInstance())
-                        .commit();
-                break;
-            case 6:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.frame_container, ListadoOpcionesFragment.newInstance())
-                        .commit();
-                break;
-            case 7:
-                new Logout().execute();
-                break;
-        }
-        
-        mListDrawer.setItemChecked(position, true);
-        mListDrawer.setSelection(position);
-        mNavigationDrawer.closeDrawer(mListDrawer);
-    }
-
 
     public void onBackPressed() {
         if (mNavigationDrawer.isDrawerOpen(mListDrawer)) {
@@ -538,6 +527,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                             .commit();
                     break;
                 case -1:
+                    Log.i(TAG, "¡No hay noticias!");
                     showOptionRetry();
                     errorBusqueda();
                     break;
@@ -594,11 +584,11 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 } else if (mEventos.size() != 0) {
                     for (Evento evento : mEventos) {
                         mEventoTable.insertData(
-                                evento.getId(),
                                 evento.getNombre(),
                                 evento.getLogistica(),
                                 evento.getFecha(),
                                 evento.getHora(),
+                                evento.getId(),
                                 evento.getLugar().getId()
                         );
                         mLugar = mLugarTable.searchLugar(String.valueOf(evento.getLugar().getId()));
@@ -653,10 +643,17 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             dialog.setIndeterminate(false);
             dialog.setCancelable(false);
             dialog.show();
+            mUsuario = mUserTable.searchUser();
         }
 
         protected Void doInBackground(Void[] params) {
             SystemClock.sleep(2000);
+            mPreferencias = getSharedPreferences("usuario", Context.MODE_PRIVATE);
+            mEditor = mPreferencias.edit();
+            mEditor.clear();
+            mEditor.putString("usuario", mUsuario.getUsername());
+            mEditor.putString("foto", mUsuario.getFoto().toString());
+            mEditor.commit();
             deleteDatabase(DataBaseHelper.NAME);
             return null;
         }
@@ -668,5 +665,128 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             finish();
         }
     }
-   
+
+    // Cambiar foto de perfil
+
+    private void showDialog() {
+        mItemsMultimedia.clear();
+        mItemsMultimedia.add(new ItemListOpcionesMultimedia(getString(R.string.opcion_multimedia_camara), R.drawable.ic_camara));
+        mItemsMultimedia.add(new ItemListOpcionesMultimedia(getString(R.string.opcion_multimedia_galeria), R.drawable.ic_cambiar_foto));
+        ListOpcionesAdapter adapter = new ListOpcionesAdapter(this, mItemsMultimedia);
+        new AlertDialog.Builder(this).setAdapter(adapter, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int item) {
+                if (item == 0) { /** Desde la cámara */
+                    Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                    mFotoCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "tmp_avatar_" + String.valueOf(System.currentTimeMillis()) + ".jpg"));
+                    intent.putExtra("output", mFotoCaptureUri);
+                    try {
+                        intent.putExtra("return-data", true);
+                        startActivityForResult(intent, PICK_FROM_CAMERA);
+                    } catch (ActivityNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                } else { /** Desde galeria de imagenes */
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction("android.intent.action.GET_CONTENT");
+                    startActivityForResult(Intent.createChooser(intent, "Completa la acción usando..."), PICK_FROM_FILE);
+                }
+            }
+        }).create().show();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        File file;
+        mUsuario = mUserTable.searchUser();
+        if (RESULT_OK == resultCode) {
+            switch (requestCode) {
+                case PICK_FROM_CAMERA:
+                    doCrop();
+                    break;
+                case PICK_FROM_FILE:
+                    mFotoCaptureUri = data.getData();
+                    doCrop();
+                    break;
+                case CROP_FROM_CAMERA:
+                    Bundle b = data.getExtras();
+                    if (b != null) {
+                        mBitmap = b.getParcelable("data");
+                        mPhoto = convertImageToByte(mBitmap);
+                        new UploadFoto().execute(mUsuario.getUsername(), mPhoto.toString());
+                        new UploadFotoEstudiante().execute(mUsuario.getUsername(), mPhoto.toString());
+                    }
+                    file = new File(mFotoCaptureUri.getPath());
+                    if (file.exists()) {
+                        file.delete();
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void doCrop() {
+        startActivityForResult(new Intent("com.android.camera.action.CROP")
+                .setDataAndType(mFotoCaptureUri, "image/*")
+                .putExtra("crop", "true")
+                .putExtra("outputX", 200)
+                .putExtra("outputY", 200)
+                .putExtra("aspectX", 1)
+                .putExtra("aspectY", 1)
+                .putExtra("scale", true)
+                .putExtra("return-data", true), CROP_FROM_CAMERA);
+    }
+
+    private class UploadFoto extends AsyncTask<String, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(String... params) {
+            /** Cargamos los parametros que enviaremos por URL */
+            ArrayList<NameValuePair> parametros = new ArrayList<>();
+            parametros.add(new BasicNameValuePair("username", params[0]));
+            parametros.add(new BasicNameValuePair("foto", params[1]));
+
+            return mJSONParser.serviceChangeFoto(parametros);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            switch (result) {
+                case 0:
+                    Log.i(TAG, "¡No se cargo la foto!");
+                    break;
+                case 1:
+                    Log.i(TAG, "¡Foto actualizada!");
+                    break;
+            }
+        }
+    }
+
+    private class UploadFotoEstudiante extends AsyncTask<String, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(String... params) {
+            /** Cargamos los parametros que enviaremos por URL */
+            ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
+            parametros.add(new BasicNameValuePair("username", params[0]));
+            parametros.add(new BasicNameValuePair("imagen", params[1]));
+
+            return mJSONParser.serviceChangeFotoEstudiante(parametros);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            switch (result) {
+                case 0:
+                    Log.i(TAG, "¡No se cargo la foto!");
+                    Toast.makeText(getApplicationContext(), R.string.mensaje_error_cambiar_foto, Toast.LENGTH_SHORT).show();
+                    break;
+                case 1:
+                    Log.i(TAG, "¡Foto actualizada!");
+                    ((HexagonImageView) findViewById(R.id.iv_foto_perfil_drawer)).setImageBitmap(mBitmap);
+                    break;
+            }
+        }
+    }
 }

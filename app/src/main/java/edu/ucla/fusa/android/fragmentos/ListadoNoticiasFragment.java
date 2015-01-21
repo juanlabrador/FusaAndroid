@@ -256,7 +256,7 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
                     break;
                 case 0:
                     try {
-                        Toast.makeText(getActivity(), R.string.mensaje_error_busqueda, Toast.LENGTH_SHORT).show();
+                        Log.i(TAG, "¡Noticias actualizadas!");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

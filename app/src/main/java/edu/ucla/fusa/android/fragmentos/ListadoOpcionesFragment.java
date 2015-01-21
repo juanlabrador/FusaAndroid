@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -210,7 +209,7 @@ public class ListadoOpcionesFragment extends Fragment  {
     private byte[] convertImageToByte(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        return Base64.encode(stream.toByteArray(), Base64.DEFAULT);
+        return Base64.encodeBytesToBytes(stream.toByteArray());
     }
 
     /*private void doCrop() {

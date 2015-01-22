@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import edu.ucla.fusa.android.modelo.instrumentos.TipoPrestamo;
+
 /**
  * Created by juanlabrador on 19/11/14.
  */
@@ -23,6 +25,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(NoticiasTable.CREATE_TABLE);
         db.execSQL(EventoTable.CREATE_TABLE);
         db.execSQL(LugarTable.CREATE_TABLE);
+        db.execSQL(TipoPrestamoTable.CREATE_TABLE);
     }
 
     @Override
@@ -32,6 +35,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + NoticiasTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + EventoTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + LugarTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TipoPrestamoTable.TABLE_NAME);
         onCreate(db);
     }
 }

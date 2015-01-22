@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.FragmentViewPagerAdapter;
@@ -24,6 +25,7 @@ public class ContenedorContactoFragment extends Fragment implements ViewPager.On
     private View mView;
     private ViewPager mViewPager;
     private static final String[] mContentTabs = new String[] {"Información", "Ubicación"};
+    private DrawerArrowDrawable mDrawerArrow;
 
     public static ContenedorContactoFragment newInstance() {
         ContenedorContactoFragment fragment = new ContenedorContactoFragment();
@@ -54,9 +56,19 @@ public class ContenedorContactoFragment extends Fragment implements ViewPager.On
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mDrawerArrow = new DrawerArrowDrawable(getActivity()) {
+            @Override
+            public boolean isLayoutRtl() {
+                return false;
+            }
+        };
+
+        mDrawerArrow.setProgress(1f);
+        
         mToolbar = (Toolbar) mView.findViewById(R.id.toolbar);
         mToolbar.setTitle(R.string.contacto_titulo_barra);
-        mToolbar.setNavigationIcon(R.drawable.ic_regresar);
+        mToolbar.setNavigationIcon(mDrawerArrow);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

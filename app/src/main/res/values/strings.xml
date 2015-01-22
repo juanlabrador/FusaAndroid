@@ -40,11 +40,15 @@
     <string name="prestamo_fin_de_semana">Fin de semana</string>
     <string name="prestamo_vacacional">Vacacional</string>
     <string name="prestamo_tipo_instrumento">Tipo de instrumento</string>
-    <string name="prestamo_periodo">Periodo de préstamo</string>
-
+    <string name="prestamo_periodo">Periodo</string>
+    <string name="prestamo_descripcion_tipo">Puede seleccionar entre \"Fin de semana\" que equivale por máximo 3 días o \"Vacacional\" que equivale por menos de 1 año.</string>
     
     
     <!--  Mensajes de Toast -->
+    <string name="mensaje_error_contraseña_actual">La actual contraseña no es correcta.</string>
+    <string name="mensaje_error_contraseña_requisitos">La contraseña nueva no cumple con los requisitos.</string>
+    <string name="mensaje_error_repetir_contraseña">Las nuevas contraseñas con concuerdan.</string>
+    <string name="mensaje_error_excepcion">De alguna manera, en algún lugar, algo salió mal.</string>
     <string name="mensaje_cargando">Un momento...</string>
     <string name="mensaje_comprobar_conexion">Comprueba tu conexión y reinténtalo</string>
     <string name="error_enviar_correo">¡No posee un cliente de correo instalado!</string>
@@ -52,19 +56,23 @@
     <string name="mensaje_error_datos_no_disponibles">No hay datos disponibles</string>
     <string name="mensaje_cedula_invalido">Ingrese una cédula válida.</string>
     <string name="mensaje_correo_invalido">Ingrese una cuenta de correo válida.</string>
-    <string name="mensaje_complete_campos_aspirante">Por favor, complete el formulario.</string>
-    <string name="mensaje_error_aspirante">Ya postulo a esta persona.</string>
+    <string name="mensaje_complete_campos">Por favor, complete el formulario.</string>
+    <string name="mensaje_error_aspirante">¡Tenemos un error en los datos, escriba correctamente, y reintente!</string>
     <string name="mensaje_elegir_cliente_correo">Elija un cliente de correo electrónico.</string>
     <string name="mensaje_error_crear_mapa">¡Lo sentimos! Imposible crear el mapa</string>
     <string name="mensaje_error_iniciar_sesion">Su dirección de correo o contraseña no son válidos</string>
-    <string name="mensaje_error_conexion">¡Ups, no esta conectado a Internet! Por favor, conectese a una red.</string>
-    <string name="mensaje_error_servidor">¡Ups, estamos presentando problemas con el servidor! Por favor, intente más tarde.</string>
-    <string name="mensaje_error_cargar_catedras">¡Ups, no hemos podido cargar la lista de catedras! Por favor, intente de nuevo más tarde.</string>
-    <string name="mensaje_error_cambiar_foto">¡Ups, no hemos podido cargar tu foto! Por favor, intenta más tarde.</string>
-    <string name="mensaje_error_cargar_tipo_prestamo">¡Ups, no hemos podido cargar los tipos de prestamos! Por favor, intente de nuevo más tarde.</string>
-    <string name="mensaje_error_cargar_tipo_instrumento">¡Ups, no hemos podido cargar los tipos de instrumentos! Por favor, intente de nuevo más tarde.</string>
-    <string name="mensaje_error_busqueda">¡Ups, hubo un error al cargar, intente más tarde!</string>
+    <string name="mensaje_error_conexion">¡No esta conectado a Internet! Por favor, conectese a una red.</string>
+    <string name="mensaje_error_servidor">¡Estamos presentando problemas con el servidor! Por favor, intente más tarde.</string>
+    <string name="mensaje_error_cargar_catedras">¡no hemos podido cargar la lista de catedras! Por favor, intente de nuevo más tarde.</string>
+    <string name="mensaje_error_cambiar_foto">¡No hemos podido cargar tu foto! Por favor, intenta más tarde.</string>
+    <string name="mensaje_error_cargar_tipo_prestamo">¡No hemos podido cargar los tipos de prestamos! Por favor, intente de nuevo más tarde.</string>
+    <string name="mensaje_error_cargar_tipo_instrumento">¡No hemos podido cargar los tipos de instrumentos! Por favor, intente de nuevo más tarde.</string>
+    <string name="mensaje_error_busqueda">¡Hubo un problema al cargar los datos, intente nuevamente!</string>
     <string name="mensaje_noticias_actualizadas">Las noticias estan actualizadas.</string>
+    <string name="mensaje_error_fecha">¡Por favor, ingrese una fecha valida!</string>
+    <string name="mensaje_error_fecha_prestamo">La fecha de emisión debe ser menor a la fecha de vencimiento.</string>
+    <string name="mensaje_error_enviar">¡Algo ha pasado, vuelva a intentar!</string>
+    <string name="mensaje_error_periodo_prestamo">Las fechas no concuerdan con el periodo de préstamo.</string>
 
     <!-- Cambiar contraseña -->
     <string name="contraseña_debil">Débil</string>
@@ -94,8 +102,8 @@
     <string name="postularse_cedula">Cédula de identidad</string>
     <string name="postularse_sexo">Sexo</string>
     <string name="postularse_catedra">Seleccione una catedra</string>
-    <string name="postularse_telefono">Teléfono móvil</string>
-    <string name="postularse_titulo_barra">Registrate como aspirante</string>
+    <string name="postularse_telefono">Teléfono </string>
+    <string name="postularse_titulo_barra">Postulate</string>
     <string name="postularse_correo">Correo electrónico</string>
     <string name="postularse_fecha_nacimiento">Fecha de nacimiento</string>
     <string name="postularse_boton">POSTULATE</string>
@@ -106,12 +114,13 @@
     <string name="postulacion_cabecera_datos">DATOS BÁSICOS</string>
     <string name="postulacion_cabecera_aspectos_musicales">ASPECTOS MUSICALES</string>
     <string name="postulacion_cabecera_contacto">CONTACTO</string>
+    <string name="postulacion_descripcion_cedula">Si no posee una cédula, por favor ingrese la cédula de su representante.</string>
 
     <!-- Contacto fundación -->
-    <string name="contacto_mensaje">Con nosotros, el proceso de enseñanza en forma continua logrará de su trabajo un aprendizaje constante y significativo</string>
+    <string name="contacto_mensaje">Con nosotros, el proceso \nde enseñanza en forma continua \nlogrará de su trabajo un aprendizaje \nconstante y significativo.</string>
     <string name="contacto_correo_fundacion">crlara@fundamusical.org.ve</string>
-    <string name="contacto_telefono1">0251-2676646</string>
-    <string name="contacto_telefono2">0251-2532556</string>
+    <string name="contacto_telefono1">02512676646</string>
+    <string name="contacto_telefono2">02512532556</string>
     <string name="contacto_coordinador">Coordinador:</string>
     <string name="contacto_correo">Correo electrónico:</string>
     <string name="contacto_direccion">Dirección</string>
@@ -134,9 +143,9 @@
     <string name="login_usuario">Usuario</string>
     <string name="login_contraseña">Contraseña</string>
     <string name="login_boton_error">¡Ups! Error</string>
-    <string name="login_boton">Inicia sesión</string>
-    <string name="login_boton_correcto">Bienvenido</string>
-
+    <string name="login_boton">Iniciar sesión</string>
+    <string name="login_boton_correcto">¡Bienvenido!</string>
+    <string name="login_cambiar_usuario">Iniciar sesión con otra cuenta</string>
 
     <!-- Restaurar contraseña -->
     <string name="restaurar_titulo_barra">¿Olvidaste tu contraseña?</string>

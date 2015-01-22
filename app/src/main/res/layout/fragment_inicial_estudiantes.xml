@@ -7,36 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:id="@+id/barra_superior"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <ImageView
-            android:paddingLeft="5dp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/logo"
-            android:scaleType="fitStart"
-            android:layout_weight="1" />
-
-        <TextView
-            android:textSize="16sp"
-            android:textColor="@color/blanco"
-            android:gravity="center_vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="@string/postularse_titulo_barra"
-            android:layout_weight="2" />
-
-    </LinearLayout>
     
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:layout_margin="10dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:src="@drawable/vista_estudiante"
         android:scaleType="fitCenter"
         android:contentDescription="@string/descripcion_logotipo" />

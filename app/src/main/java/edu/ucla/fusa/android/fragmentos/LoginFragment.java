@@ -10,35 +10,34 @@ import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.dd.CircularProgressButton;
 import com.github.siyamed.shapeimageview.HexagonImageView;
 import com.juanlabrador.GroupLayout;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.enums.SnackbarType;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import edu.ucla.fusa.android.DB.DataBaseHelper;
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.VistasPrincipalesActivity;
-import edu.ucla.fusa.android.modelo.herramientas.Base64;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
-import edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText;
 
 public class LoginFragment extends Fragment implements View.OnClickListener, TextWatcher {
 
@@ -46,8 +45,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
     private GroupLayout mCredenciales;
     private HexagonImageView mAvatar;
     private CircularProgressButton mLogin;
-    private FloatingHintEditText mPassword;
     private TextView mPasswordRestore;
+    private TextView mChangeAccount;
     private View mView;
     private JSONParser mJSONParser;
     private UserTable mUserTable;
@@ -79,6 +78,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         
         mPasswordRestore = (TextView) mView.findViewById(R.id.tv_olvidar_password_iniciar_sesion);
         mPasswordRestore.setOnClickListener(this);
+        
+        mChangeAccount = (TextView) mView.findViewById(R.id.tv_cambiar_usuario);
+        mChangeAccount.setOnClickListener(this);
 
         mLogin.setOnClickListener(this);
 
@@ -87,11 +89,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
                 !mPreferencias.getString("foto", "").equals("")) {
             mCredenciales.getEditTextLayoutAt(0).setContent(mPreferencias.getString("usuario", ""));
             mBitmap = convertByteToImage(mPreferencias.getString("foto", ""));
+
             if (mBitmap != null) {
-                mAvatar.setImageBitmap(convertByteToImage(mPreferencias.getString("foto", "")));
+                mAvatar.setImageBitmap(mBitmap);
             } else {
-                Log.i(TAG, "¡Avatar nulo");
+                Log.i(TAG, "¡Avatar nulo!");
             }
+            mChangeAccount.setVisibility(View.VISIBLE);
+            mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(false);
         }
         
         return mView;
@@ -111,10 +116,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
                         new Login().execute(mCredenciales.getEditTextLayoutAt(0).getContent(), mCredenciales.getEditTextLayoutAt(1).getContent());
                     } else {
                         habilitarElementos();
-                        errorIniciarSesion();
+                        SnackbarManager.show(
+                                Snackbar.with(getActivity())
+                                        .type(SnackbarType.MULTI_LINE)
+                                        .text(R.string.mensaje_error_iniciar_sesion));
                     }
                 } else {
-                    errorConexionInternet();
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.mensaje_error_conexion));
                 }
                 break;
             case R.id.tv_olvidar_password_iniciar_sesion:
@@ -123,6 +134,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
                         .replace(android.R.id.content, RestaurarPasswordFragment.newInstance())
                         .addToBackStack(null)
                         .commit();
+                break;
+            case R.id.tv_cambiar_usuario:
+                mAvatar.setImageResource(R.drawable.no_avatar);
+                mCredenciales.getEditTextLayoutAt(0).setContent("");
+                mPreferencias.edit().clear().commit();
+                mChangeAccount.setVisibility(View.GONE);
                 break;
         }
     }
@@ -139,12 +156,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
     }
 
     private Bitmap convertByteToImage(String data) {
-        try {
-            return BitmapFactory.decodeByteArray(Base64.decode(data), 0, Base64.decode(data).length);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        byte[] bytes = Base64.decode(data, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
+    private Bitmap convertByteToImage(byte[] data) {
+        return BitmapFactory.decodeByteArray(data, 0, data.length);
     }
 
     public boolean exiteConexionInternet() {
@@ -162,24 +179,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         }
     }
 
-    public void errorIniciarSesion(){
-        Vibrator vibrator =(Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(200);
-        Toast.makeText(getActivity(), R.string.mensaje_error_iniciar_sesion, Toast.LENGTH_SHORT).show();
-    }
-
-    public void errorConexionInternet(){
-        Vibrator vibrator =(Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(200);
-        Toast.makeText(getActivity(), R.string.mensaje_error_conexion, Toast.LENGTH_SHORT).show();;
-    }
-
-    public void errorServidor(){
-        Vibrator vibrator =(Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(200);
-        Toast.makeText(getActivity(),R.string.mensaje_error_servidor, Toast.LENGTH_SHORT).show();;
-    }
-
     private class Login extends AsyncTask<String, Void, Integer> {
 
         @Override
@@ -192,8 +191,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
 
         @Override
         protected Integer doInBackground(String... params) {
-            SystemClock.sleep(3000);
-            int response = -1;
+            SystemClock.sleep(2000);
+            int response;
             /** Cargamos los parametros que enviaremos por URL */
             ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
             parametros.add(new BasicNameValuePair("username", params[0]));
@@ -226,32 +225,43 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
             mLogin.setProgress(result);
             switch (result) {
                 case 100:
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            SystemClock.sleep(2000);
-                            if (mUsuario.getTipoUsuario().getId() == 1) {
+                    if (mUsuario.getTipoUsuario().getId() == 1) {
+                        mBitmap = convertByteToImage(mUsuario.getFoto());
+                        mAvatar.setImageBitmap(mBitmap);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SystemClock.sleep(3000);
                                 Log.i(TAG, "!Login success!");
                                 startActivity(new Intent(getActivity(), VistasPrincipalesActivity.class)
                                         .putExtra("NombreUsuario", mUsuario.getUsername()));
                                 getActivity().finish();
-                            } else {
-                                Log.i(TAG, "¡No es un estudiante!");
-                                errorIniciarSesion();
-                                habilitarElementos();
-                                getActivity().deleteDatabase(DataBaseHelper.NAME);
                             }
-                        }
-                    }).start();
+                        }).start();
+                    } else {
+                        Log.i(TAG, "¡No es un estudiante!");
+                        SnackbarManager.show(
+                                Snackbar.with(getActivity())
+                                        .type(SnackbarType.MULTI_LINE)
+                                        .text(R.string.mensaje_error_iniciar_sesion));
+                        habilitarElementos();
+                        getActivity().deleteDatabase(DataBaseHelper.NAME);
+                    }
                     break;
                 case -1:
                     Log.i(TAG, "Error con las credenciales");
-                    errorIniciarSesion();
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.mensaje_error_iniciar_sesion));
                     habilitarElementos();
                     break;
                 case 0:
                     Log.i(TAG, "Problemas con conectividad");
-                    errorServidor();
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.mensaje_error_servidor));
                     habilitarElementos();
                     break;
             }
@@ -269,6 +279,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusableInTouchMode(true);
         mPasswordRestore.setEnabled(true);
         mPasswordRestore.setTextColor(getResources().getColor(android.R.color.black));
+        mChangeAccount.setTextColor(getResources().getColor(android.R.color.black));
+        mChangeAccount.setEnabled(true);
     }
 
     private void deshabilitarElementos() {
@@ -276,5 +288,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(false);
         mPasswordRestore.setEnabled(false);
         mPasswordRestore.setTextColor(getResources().getColor(android.R.color.darker_gray));
+        mChangeAccount.setEnabled(false);
+        mChangeAccount.setTextColor(getResources().getColor(android.R.color.darker_gray));
+    }
+
+    private void deshabilitarUsuario() {
+        mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(false);
+        mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(false);
+        mPasswordRestore.setEnabled(false);
+        mPasswordRestore.setTextColor(getResources().getColor(android.R.color.darker_gray));
+        mChangeAccount.setEnabled(false);
+        mChangeAccount.setTextColor(getResources().getColor(android.R.color.darker_gray));
     }
 }

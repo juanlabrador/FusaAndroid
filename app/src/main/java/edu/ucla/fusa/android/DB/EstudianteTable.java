@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
+import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 
 /**
  * Created by juanlabrador on 10/01/15.
@@ -22,7 +23,6 @@ public class EstudianteTable {
     private static String COLUMN_APELLIDO = "apellido";
     private static String COLUMN_CEDULA = "cedula";
     private static String COLUMN_CORREO = "correo";
-    private static String COLUMN_DIRECCION = "direccion";
     private static String COLUMN_EDAD = "edad";
     private static String COLUMN_FECHA_NACIMIENTO = "fecha_nac";
     private static String COLUMN_SEXO = "sexo";
@@ -33,6 +33,7 @@ public class EstudianteTable {
     private static String COLUMN_CONSERVATORIO = "inscritoConservatorio";
     private static String COLUMN_CORO = "inscritoCoro";
     private static String COLUMN_INSTRUMENTO = "instrumentoPropio";
+    private static String COLUMN_NOMBRE_USUARIO = "username";
 
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
             + COLUMN_ID + " INTEGER PRIMARY KEY, "
@@ -49,23 +50,27 @@ public class EstudianteTable {
             + COLUMN_BECADO + " TEXT, "
             + COLUMN_CONSERVATORIO + " TEXT, "
             + COLUMN_CORO + " TEXT, "
-            + COLUMN_INSTRUMENTO + " TEXT);";
+            + COLUMN_INSTRUMENTO + " TEXT, "
+            + COLUMN_NOMBRE_USUARIO + " TEXT);";
 
     private DataBaseHelper helper;
     private SQLiteDatabase db;
     private Cursor cursor;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private Estudiante estudiante = new Estudiante();
+    private UserTable mUserTable;
+    private Usuario mUsuario;
 
     public EstudianteTable(Context context) {
         helper = new DataBaseHelper(context);
         db = helper.getWritableDatabase();
+        mUserTable = new UserTable(context);
     }
 
     private ContentValues generarValores (int id, String nombre, String apellido, String cedula, String correo,
                                          int edad, Date fechaNac, String sexo,
                                           String telfFijo, String telfMovil, byte[] foto, String becado,
-                                          String conservatorio, String coro, String instrumento) {
+                                          String conservatorio, String coro, String instrumento, String username) {
 
         ContentValues valores = new ContentValues();
         valores.put(COLUMN_ID, id);
@@ -83,6 +88,7 @@ public class EstudianteTable {
         valores.put(COLUMN_CONSERVATORIO, conservatorio);
         valores.put(COLUMN_CORO, coro);
         valores.put(COLUMN_INSTRUMENTO, instrumento);
+        valores.put(COLUMN_NOMBRE_USUARIO, username);
 
         return valores;
     }
@@ -90,14 +96,15 @@ public class EstudianteTable {
     public void insertData(int id, String nombre, String apellido, String cedula, String correo,
                            int edad, Date fechaNac, String sexo,
                            String telfFijo, String telfMovil, byte[] foto, String becado,
-                           String conservatorio, String coro, String instrumento) {
+                           String conservatorio, String coro, String instrumento, String username) {
         //db = helper.getWritableDatabase();
         db.insert(TABLE_NAME, null, generarValores(id, nombre, apellido, cedula, correo,
                 edad, fechaNac, sexo, telfFijo, telfMovil, foto, becado,
-                conservatorio, coro, instrumento));
+                conservatorio, coro, instrumento, username));
     }
 
     public Estudiante searchUser() throws ParseException {
+        mUsuario = mUserTable.searchUser();
         String tiraSQL = "SELECT * FROM " + TABLE_NAME;
         //db = helper.getReadableDatabase();
         cursor = db.rawQuery(tiraSQL, null);
@@ -117,6 +124,7 @@ public class EstudianteTable {
             estudiante.setInscritoConservatorio(cursor.getString(12));
             estudiante.setInscritoCoro(cursor.getString(13));
             estudiante.setInstrumentoPropio(cursor.getString(14));
+            estudiante.setUsuario(mUsuario);
 
         } else {
             estudiante = null;

@@ -12,19 +12,23 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import com.dd.CircularProgressButton;
 import com.juanlabrador.GroupLayout;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.enums.SnackbarType;
 
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.R;
+import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import edu.ucla.fusa.android.validadores.ValidadorPasswords;
 
-public class CambiarPasswordFragment extends Fragment implements TextWatcher, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class CambiarPasswordFragment extends Fragment implements TextWatcher, CompoundButton.OnCheckedChangeListener, Toolbar.OnMenuItemClickListener {
     
     private static String TAG = "CambiarPasswordFragment";
     private GroupLayout mMostrarContraseña;
@@ -34,14 +38,12 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Vi
     private View mBarraFuerte;
     private View mBarraMuyDebil;
     private View mBarraMuyFuerte;
-    private CircularProgressButton mBoton;
     private TextView mStatus;
-    private ValidadorPasswords mValidador;
     private View mView;
     private Toolbar mToolbar;
     private UserTable mUserTable;
     private Usuario mUsuario;
-    private String mActualContraseña;
+    private JSONParser mJSONParser;
 
     public static CambiarPasswordFragment newInstance() {
         CambiarPasswordFragment fragment = new CambiarPasswordFragment();
@@ -62,6 +64,7 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Vi
         mAntiguaContraseña.addValidatorLayout(R.string.contraseña_antigua);
         mAntiguaContraseña.getValidatorLayoutAt(0).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         mAntiguaContraseña.getValidatorLayoutAt(0).getEditText().addTextChangedListener(this);
+        mAntiguaContraseña.getValidatorLayoutAt(0).setMaxLength(20);
         
         mNuevaContraseña = (GroupLayout) mView.findViewById(R.id.nueva_contraseña);
         mNuevaContraseña.addEditTextLayout(R.string.contraseña_nueva);
@@ -70,6 +73,8 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Vi
         mNuevaContraseña.getValidatorLayoutAt(1).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         mNuevaContraseña.getEditTextLayoutAt(0).getEditText().addTextChangedListener(this);
         mNuevaContraseña.getValidatorLayoutAt(1).getEditText().addTextChangedListener(this);
+        mNuevaContraseña.getEditTextLayoutAt(0).setMaxLength(20);
+        mNuevaContraseña.getValidatorLayoutAt(1).setMaxLength(20);
         
         mStatus = (TextView) mView.findViewById(R.id.tv_status_password);
 
@@ -77,11 +82,8 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Vi
         mBarraDebil = mView.findViewById(R.id.barra_debil);
         mBarraFuerte = mView.findViewById(R.id.barra_fuerte);
         mBarraMuyFuerte = mView.findViewById(R.id.barra_muy_fuerte);
-        mBoton = (CircularProgressButton) mView.findViewById(R.id.btn_cambiar_password);
-        mBoton.setOnClickListener(this);
         
-        mBoton.setEnabled(false);
-        mBoton.setBackgroundColor(getResources().getColor(R.color.gris_oscuro));
+        mJSONParser = new JSONParser();
         return mView;
     }
 
@@ -89,11 +91,9 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Vi
         if (!mAntiguaContraseña.getValidatorLayoutAt(0).getContent().equals("") &&
                 !mNuevaContraseña.getEditTextLayoutAt(0).getContent().equals("") &&
                 !mNuevaContraseña.getValidatorLayoutAt(1).getContent().equals("")) {
-            mBoton.setBackgroundResource(R.color.azul);
-            mBoton.setEnabled(true);
+            mToolbar.getMenu().findItem(R.id.action_enviar).setEnabled(true);
         } else {
-            mBoton.setEnabled(false);
-            mBoton.setBackgroundColor(getResources().getColor(R.color.gris_oscuro));
+            mToolbar.getMenu().findItem(R.id.action_enviar).setEnabled(false);
         }
 
         if (mNuevaContraseña.getEditTextLayoutAt(0).getEditText().getText().hashCode() == editable.hashCode()) {
@@ -166,27 +166,12 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Vi
 
     public void beforeTextChanged(CharSequence charSequence, int i1, int i2, int i3) {}
 
-    public void onClick(View view) {
-        if (mAntiguaContraseña.getValidatorLayoutAt(0).getEstado()) {
-            if (mNuevaContraseña.getValidatorLayoutAt(1).getEstado()) {
-                if (ValidadorPasswords.validarPassword(mNuevaContraseña.getEditTextLayoutAt(0).getContent())) {
-                    Log.i(TAG, "¡Contraseña aceptada!");
-                } else {
-                    Log.i(TAG, "¡La contraseña no cumple con los requisitos minimos!");
-                }
-            } else {
-                Log.i(TAG, "¡Las nuevas contraseñas no concuerdan!");
-            }
-        } else {
-            Log.i(TAG, "¡La contraseña actual no concuerda!");
-        }
-        
-    }
-
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         mToolbar.setTitle(R.string.contraseña_titulo_barra);
+        mToolbar.inflateMenu(R.menu.action_enviar);
+        mToolbar.setOnMenuItemClickListener(this);
         mUserTable = new UserTable(getActivity());
         mUsuario = mUserTable.searchUser();
     }
@@ -197,6 +182,12 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Vi
                 mAntiguaContraseña.getValidatorLayoutAt(0).dataCheck();
             } else {
                 mAntiguaContraseña.getValidatorLayoutAt(0).dataError();
+            }
+        } else if (mNuevaContraseña.getEditTextLayoutAt(0).getEditText().getText().hashCode() == charSequence.hashCode()) {
+            if (mNuevaContraseña.getEditTextLayoutAt(0).getContent().equals(mNuevaContraseña.getValidatorLayoutAt(1).getContent())) {
+                mNuevaContraseña.getValidatorLayoutAt(1).dataCheck();
+            } else {
+                mNuevaContraseña.getValidatorLayoutAt(1).dataError();
             }
         } else if (mNuevaContraseña.getValidatorLayoutAt(1).getEditText().getText().hashCode() == charSequence.hashCode()) {
             if (mNuevaContraseña.getEditTextLayoutAt(0).getContent().equals(mNuevaContraseña.getValidatorLayoutAt(1).getContent())) {
@@ -219,12 +210,85 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Vi
             mNuevaContraseña.getValidatorLayoutAt(1).getEditText().setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         }
     }
-    
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.action_enviar:
+                if (mAntiguaContraseña.getValidatorLayoutAt(0).isCheck()) {
+                    if (mNuevaContraseña.getValidatorLayoutAt(1).isCheck()) {
+                        if (ValidadorPasswords.validarPassword(mNuevaContraseña.getEditTextLayoutAt(0).getContent())) {
+                            Log.i(TAG, "¡Contraseña aceptada!");
+                            mUsuario.setPassword(mNuevaContraseña.getEditTextLayoutAt(0).getContent());
+                            new UpdatePassword().execute(mUsuario);
+                        } else {
+                            Log.i(TAG, "¡La contraseña no cumple con los requisitos minimos!");
+                            SnackbarManager.show(
+                                    Snackbar.with(getActivity())
+                                            .type(SnackbarType.MULTI_LINE)
+                                            .text(R.string.mensaje_error_contraseña_requisitos));
+                        }
+                    } else {
+                        Log.i(TAG, "¡Las nuevas contraseñas no concuerdan!");
+                        SnackbarManager.show(
+                                Snackbar.with(getActivity())
+                                        .text(R.string.mensaje_error_repetir_contraseña));
+                    }
+                } else {
+                    Log.i(TAG, "¡La contraseña actual no concuerda!");
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .text(R.string.mensaje_error_contraseña_actual));
+                }
+                break;
+        }
+        return true;
+    }
+
     private class UpdatePassword extends AsyncTask<Usuario, Void, Integer> {
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mToolbar.getMenu().findItem(R.id.action_enviar).setActionView(R.layout.custom_progress_bar);
+        }
+
+        @Override
         protected Integer doInBackground(Usuario... usuarios) {
-            return null;
+            int result;
+            try {
+                return mJSONParser.updateUsuario(usuarios[0]);
+            } catch (Exception e) {
+                e.printStackTrace();
+                result = 0;
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            switch (result) {
+                case 100:
+                    Log.i(TAG, "¡Cambio de contraseña exitoso!");
+                    getFragmentManager().popBackStack();
+                    break;
+                case -1:
+                    Log.i(TAG, "¡Error al cambiar contraseña!");
+                    mToolbar.getMenu().findItem(R.id.action_enviar).setActionView(null);
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.mensaje_error_enviar));
+                    break;
+                case 0:
+                    mToolbar.getMenu().findItem(R.id.action_enviar).setActionView(null);
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.mensaje_error_excepcion));
+                    break;
+            }
         }
     }
 }

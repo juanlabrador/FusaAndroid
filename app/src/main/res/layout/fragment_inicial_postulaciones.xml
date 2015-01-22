@@ -33,7 +33,7 @@
                 android:textColor="@color/gris_oscuro"
                 android:textSize="15sp"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="16dp"/>
             
             <com.juanlabrador.GroupLayout
                 android:id="@+id/grupo_datos_basicos"
@@ -45,11 +45,21 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/gris_oscuro"
+                android:textSize="13sp"
+                android:text="@string/postulacion_descripcion_cedula"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/postulacion_cabecera_aspectos_musicales"
                 android:textColor="@color/gris_oscuro"
                 android:textSize="15sp"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp"/>
+                android:layout_marginTop="16dp"/>
     
             <com.juanlabrador.GroupLayout
                 android:id="@+id/grupo_datos_musicales"
@@ -65,35 +75,17 @@
                 android:textColor="@color/gris_oscuro"
                 android:textSize="15sp"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp"/>
+                android:layout_marginTop="16dp"/>
     
             <com.juanlabrador.GroupLayout
                 android:id="@+id/grupo_datos_contacto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:layout_marginBottom="12dp"
                 app:textSizeLayout="15"/>
         </LinearLayout>
     </ScrollView>
-
-    <com.dd.CircularProgressButton
-        android:textSize="22sp"
-        android:textColor="@color/blanco"
-        android:gravity="center"
-        android:id="@+id/boton_postulaciones"
-        android:background="@drawable/style_button_background_white"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:cpb_textComplete="@string/boton_enviado"
-        app:cpb_textIdle="@string/boton_normal"
-        app:cpb_textError="@string/boton_error"
-        app:cpb_colorProgress="@color/blanco"
-        app:cpb_colorIndicator="@color/azul"
-        app:cpb_colorIndicatorBackground="@color/gris"
-        app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
-        app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
-        app:cpb_selectorIdle="@color/style_btn_circular_progress_azul" />
 
     <fr.castorflex.android.circularprogressbar.CircularProgressBar
         android:layout_gravity="center"

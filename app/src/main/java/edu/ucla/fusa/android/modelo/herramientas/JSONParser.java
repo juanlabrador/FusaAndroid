@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONObject;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -58,16 +59,17 @@ public class JSONParser {
         return null;
     }
 
-    public int serviceChangeFoto(ArrayList<NameValuePair> params) {
-        try {
-            mRestTemplate = new RestTemplate(mRequestFactory);
-            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            mParameters = "changeFoto/" + params.get(0).getValue() + "/" + params.get(1).getValue();
-            return mRestTemplate.getForObject(URL + mParameters, Integer.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
+    public int updateUsuario(Usuario usuario) {
+        // Create a new RestTemplate instance
+        mRestTemplate = new RestTemplate(true, mRequestFactory);
+
+        System.setProperty("http.keepAlive", "false");
+        // Add the Jackson and String message converters
+        mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        mRestTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+
+        // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
+        return mRestTemplate.postForObject(URL + "usuario/update", usuario, Integer.class);
     }
 
     // Estudiante
@@ -84,16 +86,17 @@ public class JSONParser {
         return null;
     }
 
-    public int serviceChangeFotoEstudiante(ArrayList<NameValuePair> params) {
-        try {
-            mRestTemplate = new RestTemplate(mRequestFactory);
-            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            mParameters = "changeFotoEstudiante/" + params.get(0).getValue() + "/" + params.get(1).getValue();
-            return mRestTemplate.getForObject(URL + mParameters, Integer.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
+    public int updateEstudiante(Estudiante estudiante) {
+        // Create a new RestTemplate instance
+        mRestTemplate = new RestTemplate(true, mRequestFactory);
+
+        System.setProperty("http.keepAlive", "false");
+        // Add the Jackson and String message converters
+        mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        mRestTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+
+        // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
+        return mRestTemplate.postForObject(URL + "estudiante/update", estudiante, Integer.class);
     }
 
     // Noticias
@@ -150,21 +153,6 @@ public class JSONParser {
 
         // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
         return mRestTemplate.postForObject(URL + "aspirante/upload", aspirante, Integer.class);
-    }
-
-    // Postulación de un instructor
-
-    public int uploadInstructorAspirante(InstructorAspirante aspirante) throws Exception {
-        // Create a new RestTemplate instance
-        mRestTemplate = new RestTemplate(true, mRequestFactory);
-
-        System.setProperty("http.keepAlive", "false");
-        // Add the Jackson and String message converters
-        mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        mRestTemplate.getMessageConverters().add(new StringHttpMessageConverter());
-
-        // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
-        return mRestTemplate.postForObject(URL + "instructorAspirante/upload", aspirante, Integer.class);
     }
 
     // Solicitud de un prestamo

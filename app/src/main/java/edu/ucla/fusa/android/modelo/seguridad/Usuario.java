@@ -18,19 +18,6 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(int id, String username, String password, byte[] foto,
-                   TipoUsuario tipoUsuario, String estatus,
-                   Calendar fechaCreacion, Calendar ultimoAcceso) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.foto = foto;
-        this.tipoUsuario = tipoUsuario;
-        this.estatus = estatus;
-        this.fechaCreacion = fechaCreacion;
-        this.ultimoAcceso = ultimoAcceso;
-    }
-
     public int getId() {
         return id;
     }

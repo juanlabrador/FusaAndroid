@@ -54,52 +54,57 @@
             android:id="@+id/login_credenciales"
             app:textSizeLayout="15"
             app:withBorder="true"
-            android:paddingLeft="22dp"
-            android:paddingRight="22dp"
-            android:paddingTop="12dp"/>
-        
-        <LinearLayout
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingTop="12dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="12dp"/>
+
+        <com.dd.CircularProgressButton
+            android:textSize="18sp"
+            android:textColor="@color/blanco"
+            android:id="@+id/btn_iniciar_sesion"
+            android:background="@drawable/style_button_background_white"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+            app:cpb_cornerRadius="3dp"
+            android:text="@string/login_boton"
+            app:cpb_textComplete="@string/login_boton_correcto"
+            app:cpb_textIdle="@string/login_boton"
+            app:cpb_textError="@string/login_boton_error"
+            app:cpb_colorProgress="@color/blanco"
+            app:cpb_colorIndicator="@color/azul"
+            app:cpb_colorIndicatorBackground="@color/gris"
+            app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
+            app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
+            app:cpb_selectorIdle="@color/style_btn_circular_progress_azul"
+            android:gravity="center"/>
+        
+        <TextView
+            android:enabled="true"
+            android:textSize="14sp"
+            android:textColor="@color/style_link_background_blanco"
+            android:id="@+id/tv_olvidar_password_iniciar_sesion"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/login_olvidar_contraseña" />
 
-            <TextView
-                android:enabled="true"
-                android:textSize="14sp"
-                android:textColor="@color/style_link_background_blanco"
-                android:id="@+id/tv_olvidar_password_iniciar_sesion"
-                android:layout_width="0dp"
-                android:gravity="center_vertical"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text="@string/login_olvidar_contraseña" />
+        <TextView
+            android:visibility="gone"
+            android:enabled="true"
+            android:textSize="14sp"
+            android:textColor="@color/style_link_background_blanco"
+            android:id="@+id/tv_cambiar_usuario"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/login_cambiar_usuario" />
 
-            <com.dd.CircularProgressButton
-                android:textSize="14sp"
-                android:textColor="@color/blanco"
-                android:id="@+id/btn_iniciar_sesion"
-                android:background="@drawable/style_button_background_white"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                app:cpb_cornerRadius="3dp"
-                android:text="@string/login_boton"
-                app:cpb_iconComplete="@drawable/ic_action_accept"
-                app:cpb_textIdle="@string/login_boton"
-                app:cpb_iconError="@drawable/ic_action_cancel"
-                app:cpb_colorProgress="@color/blanco"
-                app:cpb_colorIndicator="@color/azul"
-                app:cpb_colorIndicatorBackground="@color/gris"
-                app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
-                app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
-                app:cpb_selectorIdle="@color/style_btn_circular_progress_azul"
-                android:gravity="center"/>
             
-        </LinearLayout>
+            
     </LinearLayout>
 </LinearLayout>

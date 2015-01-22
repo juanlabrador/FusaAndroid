@@ -22,6 +22,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,11 +31,13 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.siyamed.shapeimageview.HexagonImageView;
 import com.ikimuhendis.ldrawer.ActionBarDrawerToggle;
 import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.enums.SnackbarType;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -44,6 +47,7 @@ import edu.ucla.fusa.android.DB.EstudianteTable;
 import edu.ucla.fusa.android.DB.EventoTable;
 import edu.ucla.fusa.android.DB.LugarTable;
 import edu.ucla.fusa.android.DB.NoticiasTable;
+import edu.ucla.fusa.android.DB.TipoPrestamoTable;
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.adaptadores.ListOpcionesAdapter;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
@@ -56,11 +60,11 @@ import edu.ucla.fusa.android.modelo.academico.Estudiante;
 import edu.ucla.fusa.android.modelo.evento.Evento;
 import edu.ucla.fusa.android.modelo.evento.Lugar;
 import edu.ucla.fusa.android.modelo.fundacion.Noticia;
-import edu.ucla.fusa.android.modelo.herramientas.Base64;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListOpcionesMultimedia;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
+import edu.ucla.fusa.android.modelo.instrumentos.TipoPrestamo;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -68,7 +72,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -114,6 +117,9 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
 
     private DrawerArrowDrawable mDrawerArrow;
     private byte[] mPhoto;
+    private File mFile;
+    private ArrayList<TipoPrestamo> mTiposPrestamos;
+    private TipoPrestamoTable mTipoPrestamoTable;
 
 
     protected void onCreate(Bundle paramBundle) {
@@ -146,12 +152,13 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 }
             }
         });
-        mToolbar.setVisibility(View.INVISIBLE);
+        mToolbar.setVisibility(View.GONE);
         
         mEstudianteTable = new EstudianteTable(this);
         mNoticiasTable = new NoticiasTable(this);
         mUserTable = new UserTable(this);
         mJSONParser = new JSONParser();
+        mTipoPrestamoTable = new TipoPrestamoTable(this);
         
         mLoading = (CircularProgressBar) findViewById(R.id.pb_cargando);
         mTextLoading = (TextView) findViewById(R.id.text_cargando);
@@ -178,7 +185,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
 
         new LoadingEventos().execute();
         new LoadingNoticias().execute();
-
+        new LoadingTipoPrestamo().execute();
 
         // Leemos los datos del usuario
         mUsername = getIntent().getStringExtra("NombreUsuario");
@@ -229,18 +236,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         } else {
             return false;
         }
-    }
-
-    public void errorBusqueda(){
-        Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(200);
-        Toast.makeText(this, R.string.mensaje_error_busqueda, Toast.LENGTH_SHORT).show();
-    }
-
-    public void errorServidor(){
-        Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(200);
-        Toast.makeText(this,R.string.mensaje_error_servidor, Toast.LENGTH_SHORT).show();;
     }
 
     public boolean onCreateOptionsMenu(Menu paramMenu) {
@@ -312,18 +307,13 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     }
 
     private Bitmap convertByteToImage(byte[] data) {
-        try {
-            return BitmapFactory.decodeByteArray(Base64.decode(data), 0, Base64.decode(data).length);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return BitmapFactory.decodeByteArray(data, 0, data.length);
     }
 
     private byte[] convertImageToByte(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        return Base64.encodeBytesToBytes(stream.toByteArray());
+        return stream.toByteArray();
     }
 
     private void showOptionRetry() {
@@ -347,12 +337,11 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mFoto.setVisibility(View.VISIBLE);
         mNombre.setVisibility(View.VISIBLE);
         mCorreo.setVisibility(View.VISIBLE);
-
-        //if (mEstudiante.getImagen() != null) {
-        //    mFoto.setImageBitmap(convertByteToImage(mEstudiante.getImagen()));
-        //} else {
+        if (mEstudiante.getImagen().length != 0) {
+            mFoto.setImageBitmap(convertByteToImage(mEstudiante.getImagen()));
+        } else {
             mFoto.setImageResource(R.drawable.no_avatar);
-        //}
+        }
 
         mNombre.setText(mEstudiante.getNombre() + " " + mEstudiante.getApellido());
         mCorreo.setText(mEstudiante.getCorreo());
@@ -443,7 +432,8 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                             mEstudiante.getBecado(),
                             mEstudiante.getInscritoConservatorio(),
                             mEstudiante.getInscritoCoro(),
-                            mEstudiante.getInstrumentoPropio());
+                            mEstudiante.getInstrumentoPropio(),
+                            mEstudiante.getUsuario().getUsername());
                     response = 100;
                 } else { // No existe el estudiante
                     response = -1;
@@ -529,12 +519,18 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 case -1:
                     Log.i(TAG, "¡No hay noticias!");
                     showOptionRetry();
-                    errorBusqueda();
+                    SnackbarManager.show(
+                            Snackbar.with(getApplicationContext())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.mensaje_error_busqueda));
                     break;
                 case 0:
                     Log.i(TAG, "¡Error al buscar las noticias!");
                     showOptionRetry();
-                    errorServidor();
+                    SnackbarManager.show(
+                            Snackbar.with(getApplicationContext())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.mensaje_error_servidor));
                     break;
             }
             
@@ -652,7 +648,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             mEditor = mPreferencias.edit();
             mEditor.clear();
             mEditor.putString("usuario", mUsuario.getUsername());
-            mEditor.putString("foto", mUsuario.getFoto().toString());
+            mEditor.putString("foto", Base64.encodeToString(mUsuario.getFoto(), Base64.DEFAULT));
             mEditor.commit();
             deleteDatabase(DataBaseHelper.NAME);
             return null;
@@ -696,7 +692,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        File file;
+        
         mUsuario = mUserTable.searchUser();
         if (RESULT_OK == resultCode) {
             switch (requestCode) {
@@ -712,12 +708,17 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                     if (b != null) {
                         mBitmap = b.getParcelable("data");
                         mPhoto = convertImageToByte(mBitmap);
-                        new UploadFoto().execute(mUsuario.getUsername(), mPhoto.toString());
-                        new UploadFotoEstudiante().execute(mUsuario.getUsername(), mPhoto.toString());
+                        mUsuario.setFoto(mPhoto);
+                        mEstudiante.setImagen(mPhoto);
+                        new UploadFoto().execute(mUsuario);
+                        new UploadFotoEstudiante().execute(mEstudiante);
                     }
-                    file = new File(mFotoCaptureUri.getPath());
-                    if (file.exists()) {
-                        file.delete();
+                    mFile = new File(mFotoCaptureUri.getPath());
+                    if (mFile.exists()) {
+                        mFile.delete();
+                        Log.i(TAG, "¡Encontro la foto en la memoria!");
+                    } else {
+                        Log.i(TAG, "¡No encontro la foto en la memoria!");
                     }
                     break;
             }
@@ -736,42 +737,74 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 .putExtra("return-data", true), CROP_FROM_CAMERA);
     }
 
-    private class UploadFoto extends AsyncTask<String, Void, Integer> {
+    private class UploadFoto extends AsyncTask<Usuario, Void, Integer> {
 
         @Override
-        protected Integer doInBackground(String... params) {
-            /** Cargamos los parametros que enviaremos por URL */
-            ArrayList<NameValuePair> parametros = new ArrayList<>();
-            parametros.add(new BasicNameValuePair("username", params[0]));
-            parametros.add(new BasicNameValuePair("foto", params[1]));
-
-            return mJSONParser.serviceChangeFoto(parametros);
+        protected Integer doInBackground(Usuario... usuarios) {
+            return mJSONParser.updateUsuario(usuarios[0]);
         }
 
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             switch (result) {
-                case 0:
+                case -1:
                     Log.i(TAG, "¡No se cargo la foto!");
                     break;
-                case 1:
+                case 100:
                     Log.i(TAG, "¡Foto actualizada!");
                     break;
             }
         }
     }
 
-    private class UploadFotoEstudiante extends AsyncTask<String, Void, Integer> {
+    private class UploadFotoEstudiante extends AsyncTask<Estudiante, Void, Integer> {
 
         @Override
-        protected Integer doInBackground(String... params) {
-            /** Cargamos los parametros que enviaremos por URL */
-            ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
-            parametros.add(new BasicNameValuePair("username", params[0]));
-            parametros.add(new BasicNameValuePair("imagen", params[1]));
+        protected Integer doInBackground(Estudiante... estudiantes) {
+            return mJSONParser.updateEstudiante(estudiantes[0]);
+        }
 
-            return mJSONParser.serviceChangeFotoEstudiante(parametros);
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            switch (result) {
+                case -1:
+                    Log.i(TAG, "¡No se cargo la foto!");
+                    break;
+                case 100:
+                    Log.i(TAG, "¡Foto actualizada!");
+                    ((HexagonImageView) findViewById(R.id.iv_foto_perfil_drawer)).setImageBitmap(mBitmap);
+                    break;
+            }
+        }
+    }
+    
+    // Tipo de Prestamo 
+
+    private class LoadingTipoPrestamo extends AsyncTask<Void, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+            mTiposPrestamos = mTipoPrestamoTable.searchTiposPrestamos();
+            if (mTiposPrestamos.size() == 0) {
+                mTiposPrestamos = mJSONParser.serviceLoadingTipoPrestamo();
+                if (mTiposPrestamos == null) {
+                    return 0;
+                } else if (mTiposPrestamos.size() != 0) {
+                    for (TipoPrestamo mTipoPrestamo : mTiposPrestamos) {
+                        mTipoPrestamoTable.insertData(
+                                mTipoPrestamo.getId(),
+                                mTipoPrestamo.getDescripcion()
+                        );
+                    }
+                    return 100;
+                } else {
+                    return 0;
+                }
+            } else {
+                return 200;
+            }
         }
 
         @Override
@@ -779,12 +812,13 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             super.onPostExecute(result);
             switch (result) {
                 case 0:
-                    Log.i(TAG, "¡No se cargo la foto!");
-                    Toast.makeText(getApplicationContext(), R.string.mensaje_error_cambiar_foto, Toast.LENGTH_SHORT).show();
+                    Log.i(TAG, "¡No hay tipos de prestamos!");
                     break;
-                case 1:
-                    Log.i(TAG, "¡Foto actualizada!");
-                    ((HexagonImageView) findViewById(R.id.iv_foto_perfil_drawer)).setImageBitmap(mBitmap);
+                case 100:
+                    Log.i(TAG, "¡Tipos de prestamos guardados!");
+                    break;
+                case 200:
+                    Log.i(TAG, "¡Ya existen tipos de prestamo!");
                     break;
             }
         }

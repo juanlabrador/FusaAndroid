@@ -209,10 +209,10 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
             parametros.add(new BasicNameValuePair("ultimaNoticia", params[0]));
             Log.i(TAG, "Ultimo de la lista " + params[0]);
             mNoticias = mJSONParser.serviceRefreshNoticias(parametros);
-            Log.i(TAG, "Tamaño de la lista " + mNoticias.size());
             if (mNoticias == null) {
                 return 0;
             } else if (mNoticias.size() != 0) {
+                Log.i(TAG, "Tamaño de la lista " + mNoticias.size());
                 for (Noticia noticia : mNoticias) {
                     //Agregamos a la lista de noticias
                     mItemsNoticias.add(new ItemListNoticia(

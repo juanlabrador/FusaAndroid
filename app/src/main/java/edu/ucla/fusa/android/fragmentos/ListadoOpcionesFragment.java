@@ -21,7 +21,6 @@ import android.widget.Toast;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.ListConfiguracionAdapter;

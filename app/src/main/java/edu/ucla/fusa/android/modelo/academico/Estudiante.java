@@ -1,8 +1,5 @@
 package edu.ucla.fusa.android.modelo.academico;
 
-import java.util.Date;
-
-import edu.ucla.fusa.android.modelo.fundacion.Parroquia;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 
 /**
@@ -15,9 +12,28 @@ public class Estudiante extends Persona {
     private String inscritoConservatorio;
     private String inscritoCoro;
     private String instrumentoPropio;
+    private Usuario usuario;
     private String estatus;
 
     public Estudiante() {
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getBecado() {

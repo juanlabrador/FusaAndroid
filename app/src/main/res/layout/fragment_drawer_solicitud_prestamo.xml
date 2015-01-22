@@ -1,140 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gris_fondo"
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/contenido_tipo_instrumento_prestamo"
+    <com.juanlabrador.GroupLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-
-        <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-            android:id="@+id/et_tipo_instrumento_prestamo"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/prestamo_tipo_instrumento"
-            android:inputType="none"
-            android:focusable="false"/>
-
-        <ImageView
-            android:id="@+id/add_instrumento_prestamo"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_add"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/contenido_tipo_prestamo"
+        app:textSizeLayout="15"
+        android:id="@+id/tipos_prestamos"
+        android:layout_marginTop="16dp"/>
+    
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_below="@+id/contenido_tipo_instrumento_prestamo">
+        android:text="@string/prestamo_descripcion_tipo"
+        android:textSize="13sp"
+        android:textColor="@color/gris_oscuro"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"/>
 
-        <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-            android:id="@+id/et_tipo_prestamo"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/prestamo_periodo"
-            android:inputType="none"
-            android:focusable="false"/>
-
-        <ImageView
-            android:id="@+id/add_prestamo"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_add"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/contenido_fecha_emision_prestamo"
+    <com.juanlabrador.GroupLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_below="@+id/contenido_tipo_prestamo">
-
-        <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-            android:id="@+id/et_desde"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/prestamo_fecha_emision"
-            android:inputType="none"
-            android:focusable="false"/>
-
-        <ImageView
-            android:id="@+id/add_fecha_emision_prestamo"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_add"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/contenido_fecha_vencimiento_prestamo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_below="@+id/contenido_fecha_emision_prestamo">
-
-        <edu.ucla.fusa.android.modelo.herramientas.FloatingHintEditText
-            android:id="@+id/et_hasta"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/prestamo_fecha_vencimiento"
-            android:inputType="none"
-            android:focusable="false"/>
-
-        <ImageView
-            android:id="@+id/add_fecha_vencimiento_prestamo"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_add"/>
-
-    </LinearLayout>
-
-
-    <com.dd.CircularProgressButton
-        android:textSize="22sp"
-        android:textColor="@color/blanco"
-        android:gravity="center"
-        android:id="@+id/btn_enviar_solicitud_prestamo"
-        android:background="@drawable/style_button_background_white"
-        android:padding="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/boton_normal"
-        app:cpb_textComplete="@string/boton_enviado"
-        app:cpb_textIdle="@string/boton_normal"
-        app:cpb_textError="@string/boton_error"
-        app:cpb_colorProgress="@color/blanco"
-        app:cpb_colorIndicator="@color/azul"
-        app:cpb_colorIndicatorBackground="@color/gris"
-        app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
-        app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
-        app:cpb_selectorIdle="@color/style_btn_circular_progress_azul"/>
-</RelativeLayout>
+        app:textSizeLayout="15"
+        android:id="@+id/fechas_prestamo"
+        android:layout_marginTop="22dp"/>
+</LinearLayout>

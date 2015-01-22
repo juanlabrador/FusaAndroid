@@ -16,11 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.ScrollView;
-import android.widget.Toast;
-import com.dd.CircularProgressButton;
 import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
 import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
+import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
 import com.juanlabrador.GroupLayout;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.enums.SnackbarType;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.modelo.academico.Catedra;
@@ -33,9 +35,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-public class EstudianteAspiranteFragment extends Fragment implements View.OnClickListener, DatePickerDialogFragment.DatePickerDialogHandler, TextWatcher {
+public class EstudianteAspiranteFragment extends Fragment implements View.OnClickListener, DatePickerDialogFragment.DatePickerDialogHandler, TextWatcher, Toolbar.OnMenuItemClickListener, PopupMenu.OnMenuItemClickListener {
 
     private static String TAG = "IncialPostulacionesFragment";
     private GroupLayout mDatosBasicos;
@@ -45,7 +48,6 @@ public class EstudianteAspiranteFragment extends Fragment implements View.OnClic
     private ScrollView mScroll;
     private Calendar calendar;
     private int day;
-    private CircularProgressButton mBoton;
     private CircularProgressBar mProgressBar;
     private int month;
     private ArrayList<String> mCustomMenu;
@@ -53,10 +55,11 @@ public class EstudianteAspiranteFragment extends Fragment implements View.OnClic
     private View mView;
     private int year;
     private JSONParser jsonParser = new JSONParser();
-    private List<Catedra> catedras = new ArrayList<Catedra>();
+    private List<Catedra> catedras = new ArrayList<>();
     private Catedra c = new Catedra();
     private Aspirante aspirante = new Aspirante();
     private int age;
+    private DrawerArrowDrawable mDrawerArrow;
 
     public static EstudianteAspiranteFragment newInstance() {
         EstudianteAspiranteFragment fragment = new EstudianteAspiranteFragment();
@@ -67,6 +70,7 @@ public class EstudianteAspiranteFragment extends Fragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle arguments) {
         super.onCreateView(inflater, container, arguments);
         mView = inflater.inflate(R.layout.fragment_inicial_postulaciones, container, false);
+
         
         mScroll = (ScrollView) mView.findViewById(R.id.scroll_postulaciones);
         mScroll.setVisibility(View.GONE);
@@ -77,6 +81,8 @@ public class EstudianteAspiranteFragment extends Fragment implements View.OnClic
         mDatosBasicos.addPopupLayout(R.string.postularse_sexo, R.menu.sexo);
         mDatosBasicos.addOneButtonLayout(R.string.postularse_fecha_nacimiento, GroupLayout.ColorIcon.GRAY);
         mDatosBasicos.getOneButtonLayoutAt(4).getButton().setOnClickListener(this);
+        mDatosBasicos.getEditTextLayoutAt(0).setInputType(InputType.TYPE_CLASS_NUMBER);
+        mDatosBasicos.getEditTextLayoutAt(0).setMaxLength(8);
         mDatosBasicos.getEditTextLayoutAt(0).getEditText().addTextChangedListener(this);
         mDatosBasicos.getEditTextLayoutAt(1).getEditText().addTextChangedListener(this);
         mDatosBasicos.getEditTextLayoutAt(2).getEditText().addTextChangedListener(this);
@@ -89,14 +95,11 @@ public class EstudianteAspiranteFragment extends Fragment implements View.OnClic
         mDatosContacto = (GroupLayout) mView.findViewById(R.id.grupo_datos_contacto);
         mDatosContacto.addEditTextLayout(R.string.postularse_telefono);
         mDatosContacto.addValidatorLayout(R.string.postularse_correo);
+        mDatosContacto.getEditTextLayoutAt(0).setMaxLength(11);
         mDatosContacto.getEditTextLayoutAt(0).getEditText().addTextChangedListener(this);
         mDatosContacto.getValidatorLayoutAt(1).getEditText().addTextChangedListener(this);
         mDatosContacto.getEditTextLayoutAt(0).setInputType(InputType.TYPE_CLASS_NUMBER);
         mDatosContacto.getValidatorLayoutAt(1).setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-
-        mBoton = (CircularProgressButton) mView.findViewById(R.id.boton_postulaciones);
-        mBoton.setOnClickListener(this);
-        mBoton.setVisibility(View.GONE);
         
         mProgressBar = (CircularProgressBar) mView.findViewById(R.id.cargando_postulaciones);
         calendar = Calendar.getInstance();
@@ -111,35 +114,56 @@ public class EstudianteAspiranteFragment extends Fragment implements View.OnClic
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mDrawerArrow = new DrawerArrowDrawable(getActivity()) {
+            @Override
+            public boolean isLayoutRtl() {
+                return false;
+            }
+        };
+
+        mDrawerArrow.setProgress(1f);
+        
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolbar.setTitle(R.string.postularse_titulo_barra);
-        mToolbar.setNavigationIcon(R.drawable.ic_regresar);
+        mToolbar.setNavigationIcon(mDrawerArrow);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getFragmentManager().popBackStack();
             }
         });
+        mToolbar.inflateMenu(R.menu.action_enviar);
+        mToolbar.setOnMenuItemClickListener(this);
         mToolbar.setVisibility(View.GONE);
     }
 
-    public void onClick(View view) {
-        if (view == mBoton) {
-            if (mBoton.getProgress() != 100) {
-                if (ValidadorEmails.validarEmail(mDatosContacto.getValidatorLayoutAt(1).getContent()) != true) {
-                    Toast.makeText(getActivity(), R.string.mensaje_correo_invalido, Toast.LENGTH_SHORT).show();
-                } else if (mDatosBasicos.getEditTextLayoutAt(0).getContent().equals("") && mDatosBasicos.getEditTextLayoutAt(1).getContent().equals("") && 
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {        
+        switch (menuItem.getItemId()) {
+            case R.id.action_enviar:
+                if (!mDatosContacto.getValidatorLayoutAt(1).isCheck()) {
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                            .text(R.string.mensaje_correo_invalido));
+                } else if (mDatosBasicos.getEditTextLayoutAt(0).getContent().equals("") && mDatosBasicos.getEditTextLayoutAt(1).getContent().equals("") &&
                         mDatosBasicos.getEditTextLayoutAt(2).getContent().equals("") && mDatosBasicos.getPopupLayoutAt(3).getContent().equals("") && mDatosBasicos.getOneButtonLayoutAt(4).getContent().equals("") &&
                         mDatosMusicales.getPopupLayoutAt(1).getContent().equals("") && mDatosContacto.getEditTextLayoutAt(0).getContent().equals("") && mDatosContacto.getValidatorLayoutAt(1).getContent().equals("")) {
-                    Toast.makeText(getActivity(), R.string.mensaje_complete_campos_aspirante, Toast.LENGTH_SHORT).show();
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .text(R.string.mensaje_complete_campos));
                 } else {
                     setAspirante();
                     new UploadAspirante().execute(aspirante);
                 }
-            } else {
-                Toast.makeText(getActivity(), R.string.mensaje_error_aspirante, Toast.LENGTH_SHORT).show();
-            }
-        } else if (view == mDatosBasicos.getOneButtonLayoutAt(4).getButton()) {
+                break;
+        }
+        return true;
+    }
+
+    public void onClick(View view) {
+        if (view == mDatosBasicos.getOneButtonLayoutAt(4).getButton()) {
             new DatePickerBuilder()
                     .setFragmentManager(getChildFragmentManager())
                     .setStyleResId(R.style.BetterPickersDialogFragment_Light)
@@ -148,18 +172,9 @@ public class EstudianteAspiranteFragment extends Fragment implements View.OnClic
         }
     }
 
-    public void onCreate(Bundle paramBundle) {
-        super.onCreate(paramBundle);
-
-
-    }
-
-    public void onResume() {
-        super.onResume();
-    }
-
     private void setAspirante() {
-        aspirante.setCatedra(c);
+        Log.i(TAG, "Posición: " + mDatosMusicales.getPopupLayoutAt(1).getmItemPosition());
+        aspirante.setCatedra(catedras.get(mDatosMusicales.getPopupLayoutAt(1).getmItemPosition()));
         aspirante.setNombre(mDatosBasicos.getEditTextLayoutAt(1).getContent());
         aspirante.setApellido(mDatosBasicos.getEditTextLayoutAt(2).getContent());
         aspirante.setCedula(mDatosBasicos.getEditTextLayoutAt(0).getContent());
@@ -182,27 +197,31 @@ public class EstudianteAspiranteFragment extends Fragment implements View.OnClic
 
     @Override
     public void onDialogDateSet(int reference, int year, int month, int day) {
-        if (month < 9)
-            mDatosBasicos.getOneButtonLayoutAt(4).setContent(day + "-0" + (month + 1) + "-" + year);
-        else
-            mDatosBasicos.getOneButtonLayoutAt(4).setContent(day + "-" + (month + 1) + "-" + year);
+        try {
+            Calendar calendar = Calendar.getInstance();
+            Date mFechaNacimiento = new SimpleDateFormat("dd-MM-yyyy").parse(day + "-" + (month + 1) + "-" + year);
+            if (mFechaNacimiento.before(calendar.getTime())) {  //Validamos que la fecha de nacimiento sea menor a la fecha actual.
+                if (month < 9)
+                    mDatosBasicos.getOneButtonLayoutAt(4).setContent(day + "-0" + (month + 1) + "-" + year);
+                else
+                    mDatosBasicos.getOneButtonLayoutAt(4).setContent(day + "-" + (month + 1) + "-" + year);
 
-        Calendar calendar = Calendar.getInstance();
-        age = calendar.get(Calendar.YEAR) - year;
-    }
-
-    private void showMenuCatedra() {
-        mDatosMusicales.getPopupLayoutAt(1).getPopupMenu().setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                c = catedras.get(menuItem.getOrder());
-                Log.i(TAG, "Selecciono la catedra " + c.getDescripcion() + " de la posición " + menuItem.getOrder());
-                //mDatosMusicales.getPopupLayoutAt(1).setContent((String) menuItem.getTitle());
-                return true;
+                age = calendar.get(Calendar.YEAR) - year;
+            } else {
+                SnackbarManager.show(
+                        Snackbar.with(getActivity())
+                                .type(SnackbarType.MULTI_LINE)
+                                .text(R.string.mensaje_error_fecha));
             }
-        });
-        //mDatosMusicales.getPopupLayoutAt(1).getPopupMenu().show();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            SnackbarManager.show(
+                Snackbar.with(getActivity())
+                       .type(SnackbarType.MULTI_LINE)
+                       .text(R.string.mensaje_error_excepcion));
+        }
     }
+
 
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -211,15 +230,17 @@ public class EstudianteAspiranteFragment extends Fragment implements View.OnClic
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-        mBoton.setProgress(0);
+
     }
 
     @Override
     public void afterTextChanged(Editable editable) {
-        if (ValidadorEmails.validarEmail(mDatosContacto.getValidatorLayoutAt(1).getContent()) != true) {
-            mDatosContacto.getValidatorLayoutAt(1).dataError();
-        } else if (ValidadorEmails.validarEmail(mDatosContacto.getValidatorLayoutAt(1).getContent()) == true)  {
-            mDatosContacto.getValidatorLayoutAt(1).dataCheck();
+        if (mDatosContacto.getValidatorLayoutAt(1).getEditText().getText().hashCode() == editable.hashCode()) {
+            if (!ValidadorEmails.validarEmail(mDatosContacto.getValidatorLayoutAt(1).getContent())) {
+                mDatosContacto.getValidatorLayoutAt(1).dataError();
+            } else {
+                mDatosContacto.getValidatorLayoutAt(1).dataCheck();
+            }
         }
     }
 
@@ -254,18 +275,22 @@ public class EstudianteAspiranteFragment extends Fragment implements View.OnClic
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-
-            if (result == 0) {
-                Toast.makeText(getActivity(), R.string.mensaje_error_busqueda, Toast.LENGTH_SHORT).show();
-                getFragmentManager().popBackStack();
-                Log.i(TAG, "¡Error al buscar!");
-            } else if (result == 100) {
-                mDatosMusicales.addPopupLayout(R.string.postularse_catedra, mCustomMenu);
-                mProgressBar.setVisibility(View.GONE);
-                mScroll.setVisibility(View.VISIBLE);
-                mBoton.setVisibility(View.VISIBLE);
-                mToolbar.setVisibility(View.VISIBLE);
-                Log.i(TAG, "¡Cargando sin problemas!");
+            switch (result) {
+                case 0:
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.mensaje_error_busqueda));
+                    getFragmentManager().popBackStack();
+                    Log.i(TAG, "¡Error al buscar!");
+                    break;
+                case 100:
+                    mDatosMusicales.addPopupLayout(R.string.postularse_catedra, mCustomMenu);
+                    mProgressBar.setVisibility(View.GONE);
+                    mScroll.setVisibility(View.VISIBLE);
+                    mToolbar.setVisibility(View.VISIBLE);
+                    Log.i(TAG, "¡Cargando sin problemas!");
+                    break;
             }
         }
     }
@@ -275,18 +300,17 @@ public class EstudianteAspiranteFragment extends Fragment implements View.OnClic
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mBoton.setProgress(0);
-            mBoton.setIndeterminateProgressMode(true);
-            mBoton.setProgress(50);
+            mToolbar.getMenu().findItem(R.id.action_enviar).setActionView(R.layout.custom_progress_bar);
         }
 
         @Override
         protected Integer doInBackground(Aspirante... aspirante) {
-            int result = -1;
+            int result;
             try {
                 result = jsonParser.uploadAspirante(aspirante[0]);
             } catch (Exception e) {
                 e.printStackTrace();
+                result = 0;
             }
             return result;
         }
@@ -294,11 +318,27 @@ public class EstudianteAspiranteFragment extends Fragment implements View.OnClic
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            mBoton.setProgress(result);
-            if (result == 100) {
-                //getFragmentManager().popBackStackImmediate();
-            } else {
-                mBoton.setErrorText("Error, ¡reintentar!");
+            switch (result) {
+                case 100:
+                    Log.i(TAG, "¡Aspirante guardado!");
+                    getFragmentManager().popBackStackImmediate();
+                    break;
+                case 0:
+                    Log.i(TAG, "¡Error al cargar el aspirante, datos malos!");
+                    mToolbar.getMenu().findItem(R.id.action_enviar).setActionView(null);
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.mensaje_error_excepcion));
+                    break;
+                case -1:
+                    Log.i(TAG, "¡Error con el servidor!");
+                    mToolbar.getMenu().findItem(R.id.action_enviar).setActionView(null);
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.mensaje_error_enviar));
+                    break;
             }
         }
     }

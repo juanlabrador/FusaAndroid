@@ -1,6 +1,7 @@
 package edu.ucla.fusa.android;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -17,15 +18,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
-import android.os.Vibrator;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -47,11 +46,15 @@ import edu.ucla.fusa.android.DB.EstudianteTable;
 import edu.ucla.fusa.android.DB.EventoTable;
 import edu.ucla.fusa.android.DB.LugarTable;
 import edu.ucla.fusa.android.DB.NoticiasTable;
+import edu.ucla.fusa.android.DB.PrestamoTable;
+import edu.ucla.fusa.android.DB.SolicitudPrestamoTable;
+import edu.ucla.fusa.android.DB.TipoInstrumentoTable;
 import edu.ucla.fusa.android.DB.TipoPrestamoTable;
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.adaptadores.ListOpcionesAdapter;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
 import edu.ucla.fusa.android.fragmentos.CambiarPasswordFragment;
+import edu.ucla.fusa.android.fragmentos.EstatusPrestamoFragment;
 import edu.ucla.fusa.android.fragmentos.HorarioClasesFragment;
 import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
 import edu.ucla.fusa.android.fragmentos.ListadoNoticiasFragment;
@@ -64,6 +67,9 @@ import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListOpcionesMultimedia;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
+import edu.ucla.fusa.android.modelo.instrumentos.Prestamo;
+import edu.ucla.fusa.android.modelo.instrumentos.SolicitudPrestamo;
+import edu.ucla.fusa.android.modelo.instrumentos.TipoInstrumento;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoPrestamo;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
@@ -72,13 +78,14 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
 
+    private static final int APROBADO = 1;
+    private static final int RECHAZADO = 2;
     private static final int CROP_FROM_CAMERA = 2;
     private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_FILE = 3;
@@ -120,6 +127,14 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private File mFile;
     private ArrayList<TipoPrestamo> mTiposPrestamos;
     private TipoPrestamoTable mTipoPrestamoTable;
+    private ArrayList<TipoInstrumento> mTiposInstrumentos;
+    private TipoInstrumentoTable mTipoInstrumentoTable;
+    private int mPositionList;
+    
+    private SolicitudPrestamoTable mSolicitudPrestamoTable;
+    private PrestamoTable mPrestamoTable;
+    private SolicitudPrestamo mSolicitudPrestamo;
+    private Prestamo mPrestamo;
 
 
     protected void onCreate(Bundle paramBundle) {
@@ -159,6 +174,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mUserTable = new UserTable(this);
         mJSONParser = new JSONParser();
         mTipoPrestamoTable = new TipoPrestamoTable(this);
+        mTipoInstrumentoTable = new TipoInstrumentoTable(this);
         
         mLoading = (CircularProgressBar) findViewById(R.id.pb_cargando);
         mTextLoading = (TextView) findViewById(R.id.text_cargando);
@@ -186,6 +202,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         new LoadingEventos().execute();
         new LoadingNoticias().execute();
         new LoadingTipoPrestamo().execute();
+        new LoadingTipoInstrumentos().execute();
 
         // Leemos los datos del usuario
         mUsername = getIntent().getStringExtra("NombreUsuario");
@@ -193,33 +210,27 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
 
     }
 
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-    
+
     // Usuario
     
     private void cargarUsuario() {
-        try {
-            mEstudiante = mEstudianteTable.searchUser();
-            if (mEstudiante != null) {
-                Log.i(TAG, "¡Busca al estudiante en la BD!");
-                cargarMenuEstudiante();
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
-                        .commit();
+        mEstudiante = mEstudianteTable.searchUser();
+        if (mEstudiante != null) {
+            Log.i(TAG, "¡Busca al estudiante en la BD!");
+            cargarMenuEstudiante();
+            new LoadingSolicitudPrestamo().execute(mEstudiante.getId());
+        } else {
+            if (exiteConexionInternet()) {
+                Log.i(TAG, "¡Busca al estudiante en el servidor!");
+                new BuscarEstudiante().execute(mUsername);
             } else {
-                if (exiteConexionInternet()) {
-                    Log.i(TAG, "¡Busca al estudiante en el servidor!");
-                    new BuscarEstudiante().execute(mUsername);
-                } else {
-                    showOptionRetry();
-                }
+                showOptionRetry();
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
     }
 
@@ -238,14 +249,10 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         }
     }
 
-    public boolean onCreateOptionsMenu(Menu paramMenu) {
-        //getMenuInflater().inflate(R.menu.principal, menu);
-        return true;
-    }
-
     public void onItemClick(AdapterView<?> paramAdapterView, View paramView, int position, long paramLong) {
         getSupportFragmentManager().popBackStack();
-        switch (position) {
+        mPositionList = position;
+        switch (mPositionList) {
             case 0:showDialog();
                 break;
             case 1:
@@ -256,11 +263,19 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                         .commit();
                 break;
             case 2:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.frame_container, SolicitudPrestamoFragment.newInstance())
-                        .commit();
+                if (mSolicitudPrestamo == null) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.frame_container, SolicitudPrestamoFragment.newInstance(this))
+                            .commit();
+                } else {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.frame_container, EstatusPrestamoFragment.newInstance(this))
+                            .commit();
+                }
                 break;
             case 3:
                 getSupportFragmentManager()
@@ -287,24 +302,11 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 break;
         }
 
-        mListDrawer.setItemChecked(position, true);
-        mListDrawer.setSelection(position);
+        mListDrawer.setItemChecked(mPositionList, true);
+        mListDrawer.setSelection(mPositionList);
         mNavigationDrawer.closeDrawer(mListDrawer);
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    public boolean onPrepareOptionsMenu(Menu paramMenu) {
-        boolean drawerOpen = mNavigationDrawer.isDrawerOpen(mListDrawer);
-        //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
-        return super.onPrepareOptionsMenu(paramMenu);
-    }
 
     private Bitmap convertByteToImage(byte[] data) {
         return BitmapFactory.decodeByteArray(data, 0, data.length);
@@ -337,7 +339,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mFoto.setVisibility(View.VISIBLE);
         mNombre.setVisibility(View.VISIBLE);
         mCorreo.setVisibility(View.VISIBLE);
-        if (mEstudiante.getImagen().length != 0) {
+        if (mEstudiante.getImagen() != null) {
             mFoto.setImageBitmap(convertByteToImage(mEstudiante.getImagen()));
         } else {
             mFoto.setImageResource(R.drawable.no_avatar);
@@ -379,7 +381,9 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mNavigationAdapter = new NavigationAdapter(this, mItemsDrawer);
         mListDrawer.setAdapter(mNavigationAdapter);
         mListDrawer.setOnItemClickListener(this);
-
+        mListDrawer.setItemChecked(3, true);
+        mListDrawer.setSelection(3);
+        
         mToolbar.setVisibility(View.VISIBLE);
         mLoading.setVisibility(View.GONE);
         mTextLoading.setVisibility(View.GONE);
@@ -389,8 +393,22 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         if (mNavigationDrawer.isDrawerOpen(mListDrawer)) {
             mNavigationDrawer.closeDrawer(mListDrawer);
         } else {
-            super.onBackPressed();
+            Log.i(TAG, "¡Cantidad de fragmentos activos: " + getSupportFragmentManager().getBackStackEntryCount());
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                mListDrawer.setItemChecked(3, true);
+                mListDrawer.setSelection(3);
+                getSupportFragmentManager().popBackStack(getSupportFragmentManager().getBackStackEntryAt(0).getId(), getSupportFragmentManager().POP_BACK_STACK_INCLUSIVE);
+            } else {
+                mListDrawer.setItemChecked(3, true);
+                mListDrawer.setSelection(3);
+                super.onBackPressed();
+            }
         }
+    }
+    
+    public void nuevaSolicitudPrestamo() {
+        mSolicitudPrestamo = null;
+        mPrestamo = null;
     }
 
     public class BuscarEstudiante extends AsyncTask<String, Void, Integer> {
@@ -406,7 +424,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         @Override
         protected Integer doInBackground(String... params) {
             int response;
-            
+            Log.i(TAG, "¡Busca al estudiante en el servidor!");
             // Parametros via GET
             ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
             parametros.add(new BasicNameValuePair("username", params[0]));
@@ -434,6 +452,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                             mEstudiante.getInscritoCoro(),
                             mEstudiante.getInstrumentoPropio(),
                             mEstudiante.getUsuario().getUsername());
+                    new LoadingSolicitudPrestamo().execute(mEstudiante.getId());
                     response = 100;
                 } else { // No existe el estudiante
                     response = -1;
@@ -476,7 +495,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             mItemsNoticias = mNoticiasTable.searchNews();
             if (mItemsNoticias.size() == 0) {
                 Log.i(TAG, "¡Buscando noticias!");
-                mNoticias = new ArrayList<Noticia>();
+                mNoticias = new ArrayList<>();
                 mNoticias = mJSONParser.serviceLoadingNoticias();
                 if (mNoticias == null) {
                     return 0;
@@ -505,6 +524,13 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             switch (result) {
                 case 200:
                     Log.i(TAG, "¡Noticias por actualizar!");
+                    mLoading.setVisibility(View.GONE);
+                    mTextLoading.setVisibility(View.GONE);
+                    mToolbar.setVisibility(View.VISIBLE);
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
+                            .commit();
                     break;
                 case 100:
                     Log.i(TAG, "¡Noticias guardadas!");
@@ -648,8 +674,14 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             mEditor = mPreferencias.edit();
             mEditor.clear();
             mEditor.putString("usuario", mUsuario.getUsername());
-            mEditor.putString("foto", Base64.encodeToString(mUsuario.getFoto(), Base64.DEFAULT));
+            if (mUsuario.getFoto() != null) {
+                mEditor.putString("foto", Base64.encodeToString(mUsuario.getFoto(), Base64.DEFAULT));
+            } else {
+                mEditor.putString("foto", "");
+            }
             mEditor.commit();
+            Log.i(TAG, "¡Cerrando sesión...!");
+            DataBaseHelper.getInstance(VistasPrincipalesActivity.this).close();
             deleteDatabase(DataBaseHelper.NAME);
             return null;
         }
@@ -822,5 +854,234 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                     break;
             }
         }
+    }
+
+    // Tipo de Instrumento
+
+    private class LoadingTipoInstrumentos extends AsyncTask<Void, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+            mTiposInstrumentos = mTipoInstrumentoTable.searchTiposInstrumentos();
+            if (mTiposInstrumentos.size() == 0) {
+                mTiposInstrumentos = mJSONParser.serviceLoadingTipoInstrumento();
+                if (mTiposInstrumentos == null) {
+                    return 0;
+                } else if (mTiposInstrumentos.size() != 0) {
+                    for (TipoInstrumento mTipoInstrumento : mTiposInstrumentos) {
+                        mTipoInstrumentoTable.insertData(
+                                mTipoInstrumento.getId(),
+                                mTipoInstrumento.getDescripcion()
+                        );
+                    }
+                    return 100;
+                } else {
+                    return 0;
+                }
+            } else {
+                return 200;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            switch (result) {
+                case 0:
+                    Log.i(TAG, "¡No hay tipos de instrumentos!");
+                    break;
+                case 100:
+                    Log.i(TAG, "¡Tipos de instrumentos guardados!");
+                    break;
+                case 200:
+                    Log.i(TAG, "¡Ya existen tipos de instrumentos!");
+                    break;
+            }
+        }
+    }
+    
+    // Solicitud de prestamo 
+    
+    public class LoadingSolicitudPrestamo extends AsyncTask<Integer, Void, Void> {
+
+        private String mEstatusSolicitud;
+        private int mIDSolicitud, mIDPrestamo;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mSolicitudPrestamoTable = new SolicitudPrestamoTable(VistasPrincipalesActivity.this);
+            mJSONParser = new JSONParser();
+            mPrestamoTable = new PrestamoTable(VistasPrincipalesActivity.this);
+
+        }
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            mSolicitudPrestamo = mSolicitudPrestamoTable.searchSolicitudPrestamo();
+            if (mSolicitudPrestamo != null) {  // Existe internamente, comprobar su estatus
+                mEstatusSolicitud = mSolicitudPrestamo.getEstatus();
+                if (!mEstatusSolicitud.equals("finalizado")) {
+                    if (!mEstatusSolicitud.equals("rechazado")) {
+                        mIDSolicitud = mSolicitudPrestamo.getId();
+                        mSolicitudPrestamo = mJSONParser.serviceSolicitudPrestamo(mIDSolicitud);
+                        if (mSolicitudPrestamo != null) {
+                            if (mSolicitudPrestamo.getEstatus().equals(mEstatusSolicitud)) {
+                                Log.i(TAG, "¡No ha cambiado el estatus!");
+                            } else {
+                                Log.i(TAG, "¡Cambio el estatus, actualiza!");
+                                mSolicitudPrestamoTable.updateData(
+                                        mSolicitudPrestamo.getId(),
+                                        mSolicitudPrestamo.getEstatus());
+                                mEstatusSolicitud = mSolicitudPrestamo.getEstatus();
+                                if (mEstatusSolicitud.equals("aprobado")) {
+                                    Log.i(TAG, "¡Cambio a aprobado!");
+                                    notificacion(
+                                            R.string.prestamo_aprobada_titulo,
+                                            R.string.prestamo_encabezado_aprobado,
+                                            APROBADO);
+                                } else if (mEstatusSolicitud.equals("rechazado")) {
+                                    Log.i(TAG, "¡Cambio a rechazado!");
+                                    notificacion(
+                                            R.string.prestamo_rechazada_titulo,
+                                            R.string.prestamo_encabezado_rechazado,
+                                            RECHAZADO);
+                                } else if (mEstatusSolicitud.equals("entregado")) {
+                                    Log.i(TAG, "¡Cambio a entregado!");
+                                    mIDSolicitud = mSolicitudPrestamo.getId();
+                                    mPrestamo = mPrestamoTable.searchPrestamo();
+                                    if (mPrestamo != null) {  // Actualiza el prestamo
+                                        Log.i(TAG, "¡Tengo un prestamo guardado internamente!");
+                                        Log.i(TAG, "¡Actualiza estatus del prestamo!");
+                                        mIDPrestamo = mPrestamo.getId();
+                                        mPrestamoTable.updateData(mIDPrestamo, mEstatusSolicitud);
+                                    } else { // El prestamo fue aprobado, lo guarda
+                                        Log.i(TAG, "¡No tengo un prestamo interno, busco en el servidor!");
+                                        mPrestamo = mJSONParser.servicePrestamo(mIDSolicitud);
+                                        if (mPrestamo != null) {
+                                            Log.i(TAG, "¡Nuevo prestamo, guardado!");
+                                            mPrestamoTable.insertData(
+                                                    mPrestamo.getFechaEmision(),
+                                                    mPrestamo.getFechaVencimiento(),
+                                                    mPrestamo.getEstatus(),
+                                                    mPrestamo.getInstrumento().getTipoInstrumento().getDescripcion(),
+                                                    mPrestamo.getInstrumento().getModelo().getDescripcion(),
+                                                    mPrestamo.getInstrumento().getSerial(),
+                                                    mPrestamo.getInstrumento().getModelo().getMarca().getDescripcion(),
+                                                    mPrestamo.getId()
+                                            );
+                                        } else {
+                                            Log.i(TAG, "¡Es raro, deberia de haber un prestamo!");
+                                        }
+                                    }
+                                } else {
+                                    Log.i(TAG, "¡No ha cambiado a entregado aún!");
+                                }
+                            }
+                        } else {
+                            Log.i(TAG, "¡Seria raro que tenga una solicitud interna y no en el servidor!");
+                        }
+                    } else {
+                        Log.i(TAG, "¡La solicitud fue rechazada");
+                        mPrestamo = null;
+                    }
+                } else {
+                    Log.i(TAG, "¡La solicitud esta finalizada!");
+                }
+            } else {
+                Log.i(TAG, "¡Buscando alguna solicitud por estudiante!");
+                mSolicitudPrestamo = mJSONParser.serviceSolicitudPrestamoPorEstudiante(integers[0]);
+                if (mSolicitudPrestamo != null) {
+                    Log.i(TAG, "¡Al iniciar sesión de nuevo, tengo una solicitud en el servidor");
+                    mEstatusSolicitud = mSolicitudPrestamo.getEstatus();
+                    Log.i(TAG, mEstatusSolicitud);
+                    if (!mEstatusSolicitud.equals("finalizado")) {
+                        if (!mEstatusSolicitud.equals("rechazado")) {
+                            Log.i(TAG, "¡La solicitud aún esta vigente!");
+                            mSolicitudPrestamoTable.insertData(
+                                    mSolicitudPrestamo.getId(),
+                                    mSolicitudPrestamo.getTipoPrestamo().getDescripcion(),
+                                    mSolicitudPrestamo.getEstatus(),
+                                    mSolicitudPrestamo.getTipoInstrumento().getDescripcion(),
+                                    mSolicitudPrestamo.getFechaEmision(),
+                                    mSolicitudPrestamo.getFechaVencimiento());
+                            mPrestamo = mJSONParser.servicePrestamo(mSolicitudPrestamo.getId());
+                            if (mPrestamo != null) {
+                                mPrestamoTable.insertData(
+                                        mPrestamo.getFechaEmision(),
+                                        mPrestamo.getFechaVencimiento(),
+                                        mPrestamo.getEstatus(),
+                                        mPrestamo.getInstrumento().getTipoInstrumento().getDescripcion(),
+                                        mPrestamo.getInstrumento().getModelo().getDescripcion(),
+                                        mPrestamo.getInstrumento().getSerial(),
+                                        mPrestamo.getInstrumento().getModelo().getMarca().getDescripcion(),
+                                        mPrestamo.getId()
+                                );
+                            } else {
+                                Log.i(TAG, "¡No tengo un prestamo aprobado!");
+                            }
+                        } else {
+                            Log.i(TAG, "¡La utlima solicitud fue rechazada!");
+                            mPrestamo = null;
+                            mSolicitudPrestamo = null;
+                        }
+                    } else {
+                        Log.i(TAG, "¡La solicitud ya expiro!");
+                        mSolicitudPrestamo = null;
+                        mPrestamo = null;
+                    }
+                } else {
+                    Log.i(TAG, "¡No tengo ninguna solicitud!");
+                }
+            }
+            return null;
+        }
+    }
+    
+    private void notificacion(int titulo, int encabezado, int estatus) {
+        String[] notasAprobado = new String[] {
+                "¡Tu solicitud fue APROBADA! :)",
+                "Recuerda pasar por las oficinas", 
+                "para recoger tu instrumento."};
+
+        String[] notasRechazado = new String[] {
+                "¡Lo sentimos! :(", 
+                "Su solicitud fue RECHAZADA.",
+                "Puedo volver a solicitar",
+                "nuevamente un prestamo."};
+
+        NotificationCompat.InboxStyle mInboxStyle =
+                new NotificationCompat.InboxStyle();
+
+        NotificationCompat.Builder mNotificacion = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle(getString(titulo))
+                .setTicker(getString(encabezado))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setDefaults(NotificationCompat.DEFAULT_ALL);
+        
+        if (estatus == 1) {
+            mInboxStyle.addLine(notasAprobado[0]);
+            mInboxStyle.addLine(notasAprobado[1]);
+            mInboxStyle.addLine(notasAprobado[2]);
+        } else {
+            mInboxStyle.addLine(notasRechazado[0]);
+            mInboxStyle.addLine(notasRechazado[1]);
+            mInboxStyle.addLine(notasRechazado[2]);
+            mInboxStyle.addLine(notasRechazado[3]);
+        }
+        
+        mNotificacion.setStyle(mInboxStyle);
+        mNotificacion.setAutoCancel(true);
+        NotificationManager mManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mManager.notify(1, mNotificacion.build());
+                
+        
+    }
+    
+    public void actualizarSolicitud() {
+        mSolicitudPrestamo = mSolicitudPrestamoTable.searchSolicitudPrestamo();
+        mListDrawer.setItemChecked(3, true);
+        mListDrawer.setSelection(3);
     }
 }

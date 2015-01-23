@@ -46,6 +46,6 @@ dependencies {
     compile 'me.relex:circleindicator:1.1.1@aar'
     compile 'com.github.siyamed:android-shape-imageview:0.9.2'
     compile 'com.ikimuhendis:ldrawer:0.1'
-    compile project(':GroupLayout-v1.5')
     compile 'com.nispok:snackbar:2.7.4'
+    compile project(':GrupoLayout-v1.5')
 }

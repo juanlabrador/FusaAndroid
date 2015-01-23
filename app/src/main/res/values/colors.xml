@@ -44,4 +44,6 @@
     <color name="rojo_oscuro">#ffe11a1a</color>
     <color name="verde">#ff31e71c</color>
     <color name="verde_oscuro">#ff35d024</color>
+    
+    <color name="verde_bienvenido">#FF04B404</color>
 </resources>

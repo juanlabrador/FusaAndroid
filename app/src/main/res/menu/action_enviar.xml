@@ -4,5 +4,6 @@
     
     <item android:id="@+id/action_enviar"
           android:title="Enviar"
+          android:icon="@drawable/ic_enviar"
           app:showAsAction="always"/>
 </menu>

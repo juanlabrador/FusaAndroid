@@ -47,7 +47,7 @@ public class EventoTable {
     
 
     public EventoTable(Context context) {
-        mHelper = new DataBaseHelper(context);
+        mHelper = DataBaseHelper.getInstance(context);
         mDatabase = mHelper.getWritableDatabase();
         mLugarTable = new LugarTable(context);
         mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -74,10 +74,10 @@ public class EventoTable {
                            Date fecha, Date hora, int evento, int idLugar) {
         mDatabase.insert(TABLE_NAME, null, generarValores(nombre, logistica, fecha, hora, evento, idLugar));
     }
-
+    
     public ArrayList<Evento> searchEventos(String fecha) {
-        String[] condicion = new String[] {fecha};
-        String[] columnas = new String[] {COLUMN_ID, COLUMN_NOMBRE,
+        String[] condicion = new String[]{fecha};
+        String[] columnas = new String[]{COLUMN_ID, COLUMN_NOMBRE,
                 COLUMN_FECHA, COLUMN_HORA, COLUMN_LOGISTICA, COLUMN_ID_EVENTO, COLUMN_ID_LUGAR};
         mCursor = mDatabase.query(TABLE_NAME, columnas, COLUMN_FECHA + "<?", condicion, null, null, null, null);
         mEventos.clear();
@@ -93,7 +93,7 @@ public class EventoTable {
                         //mTimeFormat.parse(mCursor.getString(3)), // Hora
                         null,
                         mLugarTable.searchLugar(String.valueOf(mCursor.getInt(6))), //Lugar
-                         "activo"
+                        "activo"
                 ));
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -104,7 +104,7 @@ public class EventoTable {
 
     public int searchUltimoEvento() {
         int mUltimo = -1;
-        String[] columnas = new String[] {COLUMN_ID, COLUMN_NOMBRE,
+        String[] columnas = new String[]{COLUMN_ID, COLUMN_NOMBRE,
                 COLUMN_FECHA, COLUMN_HORA, COLUMN_LOGISTICA, COLUMN_ID_EVENTO, COLUMN_ID_LUGAR};
         mCursor = mDatabase.query(TABLE_NAME, columnas, null, null, null, null, null, null);
         mEventos.clear();

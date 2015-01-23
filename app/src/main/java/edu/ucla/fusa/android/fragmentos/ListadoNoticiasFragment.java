@@ -69,8 +69,9 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        //mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        //mToolbar.setTitle(R.string.noticias_titulo_barra);
+        mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        mToolbar.setTitle(R.string.noticias_titulo_barra);
+        mToolbar.getMenu().clear();
         mBackToTop = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_back_to_top_list_view, null, false);
         mBackToTop.setOnClickListener(this);
         mNoticiasTable = new NoticiasTable(getActivity());
@@ -105,8 +106,9 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
 
     public void onResume() {
         super.onResume();
-        //mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        //mToolbar.setTitle(R.string.noticias_titulo_barra);
+        mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        mToolbar.setTitle(R.string.noticias_titulo_barra);
+        mToolbar.getMenu().clear();
         mItemsNoticias = mNoticiasTable.searchNews();
         if (mItemsNoticias.size() != 0) {
             Log.i(TAG, "Cantidad de noticias: " + mItemsNoticias.size());

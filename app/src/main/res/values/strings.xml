@@ -39,10 +39,36 @@
     <string name="prestamo_fecha_vencimiento">Hasta la fecha</string>
     <string name="prestamo_fin_de_semana">Fin de semana</string>
     <string name="prestamo_vacacional">Vacacional</string>
-    <string name="prestamo_tipo_instrumento">Tipo de instrumento</string>
+    <string name="prestamo_tipo_instrumento">Instrumento</string>
     <string name="prestamo_periodo">Periodo</string>
     <string name="prestamo_descripcion_tipo">Puede seleccionar entre \"Fin de semana\" que equivale por máximo 3 días o \"Vacacional\" que equivale por menos de 1 año.</string>
-    
+
+    <!-- Estatus del prestamo -->
+    <string name="estatus_prestamo_titulo_barra">Estatus del prestamo</string>
+    <string name="estatus_prestamo_fecha_emision">Fecha de recibo</string>
+    <string name="estatus_prestamo_fecha_vencimiento">Fecha de entrega</string>
+    <string name="estatus_prestamo_codigo">Código</string>
+    <string name="estatus_prestamo_estado">Estado actual</string>
+    <string name="estatus_prestamo_tipo_instrumento">Tipo</string>
+    <string name="estatus_prestamo_marca">Marca</string>
+    <string name="estatus_prestamo_modelo">Modelo</string>
+    <string name="estatus_prestamo_serial">Serial</string>
+    <string name="estatus_prestamo_periodo">Periodo</string>
+    <string name="estatus_prestamo_grupo_instrumento">DATOS DEL INSTRUMENTO</string>
+    <string name="estatus_prestamo_grupo_solicitud">DATOS DE LA SOLICITUD</string>
+    <string name="estatus_prestamo_grupo_prestamo">DATOS DEL PRESTAMO</string>
+    <string name="estatus_prestamo_descripcion_tipo">Puede seleccionar entre \"Fin de semana\" para un prestamo de máximo 3 días o \"Vacacional\" por un período largo menor a 1 año.</string>
+    <string name="estatus_prestamo_por_asignar">Por asignar</string>
+    <string name="estatus_prestamo_rechazado">Declinado</string>
+    <string name="estatus_prestamo_entregar_instrumento">Recuerde devolver el instrumento en los próximos días.</string>
+
+    <!-- Notificaciones -->
+    <string name="prestamo_aprobado">Tu solicitud fue APROBADA, recuerda pasar por las oficinas para recoger tu instrumento.</string>
+    <string name="prestamo_rechazada">Lo sentimos, su solicitud fue RECHAZADA. Puedo volver a solicitar nuevamente un prestamo.</string>
+    <string name="prestamo_rechazada_titulo">¡Malas noticias!</string>
+    <string name="prestamo_aprobada_titulo">¡Buenas noticias!</string>
+    <string name="prestamo_encabezado_aprobado">Aprobaron tu solicitud</string>
+    <string name="prestamo_encabezado_rechazado">Rechazaron tu solicitud</string>
     
     <!--  Mensajes de Toast -->
     <string name="mensaje_error_contraseña_actual">La actual contraseña no es correcta.</string>
@@ -73,6 +99,7 @@
     <string name="mensaje_error_fecha_prestamo">La fecha de emisión debe ser menor a la fecha de vencimiento.</string>
     <string name="mensaje_error_enviar">¡Algo ha pasado, vuelva a intentar!</string>
     <string name="mensaje_error_periodo_prestamo">Las fechas no concuerdan con el periodo de préstamo.</string>
+    <string name="mensaje_error_fin_semana">Las fechas no corresponden a un fin de semana.</string>
 
     <!-- Cambiar contraseña -->
     <string name="contraseña_debil">Débil</string>

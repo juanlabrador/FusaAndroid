@@ -3,6 +3,7 @@ package edu.ucla.fusa.android.modelo.instrumentos;
 import java.util.Date;
 
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
+import edu.ucla.fusa.android.modelo.fundacion.Empleado;
 
 /**
  * Created by juanlabrador on 12/01/15.
@@ -18,16 +19,6 @@ public class SolicitudPrestamo {
     private String estatus;
 
     public SolicitudPrestamo() {
-    }
-
-    public SolicitudPrestamo(int id, Estudiante estudiante, TipoInstrumento tipoInstrumento, TipoPrestamo tipoPrestamo, Date fechaEmision, Date fechaVencimiento, String estatus) {
-        this.id = id;
-        this.estudiante = estudiante;
-        this.tipoInstrumento = tipoInstrumento;
-        this.tipoPrestamo = tipoPrestamo;
-        this.fechaEmision = fechaEmision;
-        this.fechaVencimiento = fechaVencimiento;
-        this.estatus = estatus;
     }
 
     public int getId() {

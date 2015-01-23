@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import edu.ucla.fusa.android.modelo.academico.Catedra;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
 import edu.ucla.fusa.android.modelo.evento.Evento;
+import edu.ucla.fusa.android.modelo.instrumentos.Prestamo;
 import edu.ucla.fusa.android.modelo.instrumentos.SolicitudPrestamo;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoInstrumento;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoPrestamo;
@@ -106,7 +107,7 @@ public class JSONParser {
             mRestTemplate = new RestTemplate(mRequestFactory);
             mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             ResponseEntity<Noticia[]> responseEntity = mRestTemplate.getForEntity(URL + "ServiceNoticias", Noticia[].class);
-            return new ArrayList<Noticia>(Arrays.asList(responseEntity.getBody()));
+            return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,7 +120,7 @@ public class JSONParser {
             mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             mParameters = "ServiceNewNoticias/" + params.get(0).getValue();
             ResponseEntity<Noticia[]> responseEntity = mRestTemplate.getForEntity(URL + mParameters, Noticia[].class);
-            return new ArrayList<Noticia>(Arrays.asList(responseEntity.getBody()));
+            return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,7 +134,7 @@ public class JSONParser {
             mRestTemplate = new RestTemplate(mRequestFactory);
             mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             ResponseEntity<Catedra[]> responseEntity = mRestTemplate.getForEntity(URL + "ServiceCatedras", Catedra[].class);
-            return new ArrayList<Catedra>(Arrays.asList(responseEntity.getBody()));
+            return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -157,7 +158,7 @@ public class JSONParser {
 
     // Solicitud de un prestamo
 
-    public int uploadSolicitudPrestamo(SolicitudPrestamo solicitud) throws Exception {
+    public SolicitudPrestamo uploadSolicitudPrestamo(SolicitudPrestamo solicitud) throws Exception {
         // Create a new RestTemplate instance
         mRestTemplate = new RestTemplate(true, mRequestFactory);
 
@@ -167,7 +168,31 @@ public class JSONParser {
         mRestTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
         // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
-        return mRestTemplate.postForObject(URL + "SolicitudPrestamo/upload", solicitud, Integer.class);
+        return mRestTemplate.postForObject(URL + "SolicitudPrestamo/upload", solicitud, SolicitudPrestamo.class);
+    }
+
+    public SolicitudPrestamo serviceSolicitudPrestamoPorEstudiante(int id) {
+        try {
+            mRestTemplate = new RestTemplate(mRequestFactory);
+            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            mParameters = "buscar_solicitud_por_estudiante/" + id;
+            return mRestTemplate.getForObject(URL + mParameters, SolicitudPrestamo.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public SolicitudPrestamo serviceSolicitudPrestamo(int id) {
+        try {
+            mRestTemplate = new RestTemplate(mRequestFactory);
+            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            mParameters = "buscar_solicitud/" + id;
+            return mRestTemplate.getForObject(URL + mParameters, SolicitudPrestamo.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // Tipo de prestamo
@@ -177,7 +202,7 @@ public class JSONParser {
             mRestTemplate = new RestTemplate(mRequestFactory);
             mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             ResponseEntity<TipoPrestamo[]> responseEntity = mRestTemplate.getForEntity(URL + "TipoPrestamos", TipoPrestamo[].class);
-            return new ArrayList<TipoPrestamo>(Arrays.asList(responseEntity.getBody()));
+            return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -191,7 +216,7 @@ public class JSONParser {
             mRestTemplate = new RestTemplate(mRequestFactory);
             mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             ResponseEntity<TipoInstrumento[]> responseEntity = mRestTemplate.getForEntity(URL + "TipoInstrumentos", TipoInstrumento[].class);
-            return new ArrayList<TipoInstrumento>(Arrays.asList(responseEntity.getBody()));
+            return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -206,7 +231,21 @@ public class JSONParser {
             mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             mParameters = "ServiceEventos/" + params.get(0).getValue() + "/" + params.get(1).getValue();
             ResponseEntity<Evento[]> responseEntity = mRestTemplate.getForEntity(URL + mParameters, Evento[].class);
-            return new ArrayList<Evento>(Arrays.asList(responseEntity.getBody()));
+            return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    // Prestamo
+
+    public Prestamo servicePrestamo(int id) {
+        try {
+            mRestTemplate = new RestTemplate(mRequestFactory);
+            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            mParameters = "buscar_prestamo/" + id;
+            return mRestTemplate.getForObject(URL + mParameters, Prestamo.class);
         } catch (Exception e) {
             e.printStackTrace();
         }

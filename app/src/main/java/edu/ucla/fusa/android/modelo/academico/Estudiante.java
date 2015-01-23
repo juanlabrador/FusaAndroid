@@ -7,7 +7,6 @@ import edu.ucla.fusa.android.modelo.seguridad.Usuario;
  */
 public class Estudiante extends Persona {
 
-    private int id;
     private String becado;
     private String inscritoConservatorio;
     private String inscritoCoro;
@@ -24,16 +23,6 @@ public class Estudiante extends Persona {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getBecado() {

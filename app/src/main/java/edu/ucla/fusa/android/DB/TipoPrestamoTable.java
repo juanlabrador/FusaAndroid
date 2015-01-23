@@ -32,7 +32,7 @@ public class TipoPrestamoTable {
     private ArrayList<TipoPrestamo> mTiposPrestamos;
 
     public TipoPrestamoTable(Context context) {
-        mHelper = new DataBaseHelper(context);
+        mHelper = DataBaseHelper.getInstance(context);
         mDatabase = mHelper.getWritableDatabase();
         mTiposPrestamos = new ArrayList<>();
     }
@@ -55,7 +55,6 @@ public class TipoPrestamoTable {
         //db = helper.getReadableDatabase();
         mCursor = mDatabase.rawQuery(tiraSQL, null);
         while (mCursor.moveToNext()) {
-            Log.i(TAG, "¡Buscando Tipos de prestamos!");
             mTiposPrestamos.add(new TipoPrestamo(
                     mCursor.getInt(2), // ID
                     mCursor.getString(1), // Nombre

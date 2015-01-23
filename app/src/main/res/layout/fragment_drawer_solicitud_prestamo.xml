@@ -28,6 +28,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:textSizeLayout="15"
-        android:id="@+id/fechas_prestamo"
+        android:id="@+id/instrumentos_prestamo"
         android:layout_marginTop="22dp"/>
+
+    <com.juanlabrador.GroupLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:textSizeLayout="15"
+        android:id="@+id/fechas_prestamo"
+        android:layout_marginTop="12dp"/>
 </LinearLayout>

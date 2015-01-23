@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris_fondo">
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.juanlabrador.GroupLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/grupo_estatus_prestamo"
+                app:textSizeLayout="15"
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:id="@+id/recordatorio_prestamo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gris_oscuro"
+                android:text="@string/estatus_prestamo_entregar_instrumento"
+                android:textSize="13sp"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:visibility="gone"/>
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gris_oscuro"
+                android:text="@string/estatus_prestamo_grupo_solicitud"
+                android:textSize="15sp"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"/>
+            
+            <com.juanlabrador.GroupLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/grupos_datos_solicitud"
+                app:textSizeLayout="15"
+                android:layout_marginTop="6dp"/>
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gris_oscuro"
+                android:text="@string/estatus_prestamo_grupo_instrumento"
+                android:textSize="15sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"/>
+            
+            <com.juanlabrador.GroupLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/grupos_datos_instrumento"
+                app:textSizeLayout="15"
+                android:layout_marginTop="6dp"/>
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gris_oscuro"
+                android:text="@string/estatus_prestamo_grupo_prestamo"
+                android:textSize="15sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"/>
+            
+            <com.juanlabrador.GroupLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/grupo_datos_prestamo"
+                app:textSizeLayout="15"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="16dp"/>
+        
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

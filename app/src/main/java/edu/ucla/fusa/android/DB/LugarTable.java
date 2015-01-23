@@ -32,7 +32,7 @@ public class LugarTable {
     private Lugar mLugar;
 
     public LugarTable(Context context) {
-        mHelper = new DataBaseHelper(context);
+        mHelper = DataBaseHelper.getInstance(context);
         mDatabase = mHelper.getWritableDatabase();
         mLugar = new Lugar();
     }
@@ -50,11 +50,10 @@ public class LugarTable {
     public void insertData(int id, String descripcion, String direccion) {
         mDatabase.insert(TABLE_NAME, null, generarValores(descripcion, direccion, id));
     }
-
     public Lugar searchLugar(String id) {
         Log.i(TAG, "¡Buscando el lugar!");
-        String[] condicion = new String[] {id};
-        String[] columnas = new String[] {COLUMN_ID, COLUMN_DESCRIPCION, COLUMN_DIRECCION, COLUMN_ID_LUGAR};
+        String[] condicion = new String[]{id};
+        String[] columnas = new String[]{COLUMN_ID, COLUMN_DESCRIPCION, COLUMN_DIRECCION, COLUMN_ID_LUGAR};
         mCursor = mDatabase.query(TABLE_NAME, columnas, COLUMN_ID_LUGAR + "=?", condicion, null, null, null, null);
         if (mCursor.moveToFirst()) {
             mLugar.setId(mCursor.getInt(3));

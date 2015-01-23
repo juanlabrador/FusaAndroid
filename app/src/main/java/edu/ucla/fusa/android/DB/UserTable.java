@@ -27,14 +27,14 @@ public class UserTable {
                     + COLUMN_PHOTO + " BLOB, "
                     + COLUMN_TIPO_USER + " INTEGER);";
 
-    private DataBaseHelper helper;
-    private SQLiteDatabase db;
-    private Cursor cursor;
-    private Usuario usuario = new Usuario();
+    private DataBaseHelper mHelper;
+    private SQLiteDatabase mDataBase;
+    private Cursor mCursor;
+    private Usuario mUsuario = new Usuario();
 
     public UserTable(Context context) {
-        helper = new DataBaseHelper(context);
-        db = helper.getWritableDatabase();
+        mHelper = DataBaseHelper.getInstance(context);
+        mDataBase = mHelper.getWritableDatabase();
     }
 
     private ContentValues generarValores (String username, String password, byte[] foto, int tipoUsuario) {
@@ -50,29 +50,28 @@ public class UserTable {
 
     public void insertData(String username, String password, byte[] foto, int tipoUsuario) {
         //db = helper.getWritableDatabase();
-        db.insert(TABLE_NAME, null, generarValores(username, password, foto, tipoUsuario));
+        mDataBase.insert(TABLE_NAME, null, generarValores(username, password, foto, tipoUsuario));
     }
 
     public Usuario searchUser() {
         String tiraSQL = "SELECT * FROM " + TABLE_NAME;
         //db = helper.getReadableDatabase();
-        cursor = db.rawQuery(tiraSQL, null);
-        if (cursor.moveToFirst()) {
-            usuario.setId(cursor.getInt(0));
-            usuario.setUsername(cursor.getString(1));
-            usuario.setPassword(cursor.getString(2));
-            usuario.setFoto(cursor.getBlob(3));
-            usuario.setTipoUsuario(
-                    new TipoUsuario(cursor.getInt(4), "", ""));
+        mCursor = mDataBase.rawQuery(tiraSQL, null);
+        if (mCursor.moveToFirst()) {
+            mUsuario.setId(mCursor.getInt(0));
+            mUsuario.setUsername(mCursor.getString(1));
+            mUsuario.setPassword(mCursor.getString(2));
+            mUsuario.setFoto(mCursor.getBlob(3));
+            mUsuario.setTipoUsuario(
+                    new TipoUsuario(mCursor.getInt(4), "", ""));
         } else {
-            usuario = null;
+            mUsuario = null;
         }
-
-        return usuario;
+        return mUsuario;
     }
 
     public void destroyTable() {
         //db = helper.getWritableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        mDataBase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
     }
 }

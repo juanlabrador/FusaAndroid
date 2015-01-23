@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.dd.CircularProgressButton;
+import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
 import com.juanlabrador.GroupLayout;
 
 import edu.ucla.fusa.android.R;
@@ -22,6 +23,7 @@ public class RestaurarPasswordFragment extends Fragment implements View.OnClickL
     private CircularProgressButton mBoton;
     private View mView;
     private Toolbar mToolbar;
+    private DrawerArrowDrawable mDrawerArrow;
 
     public static RestaurarPasswordFragment newInstance() {
         RestaurarPasswordFragment fragment = new RestaurarPasswordFragment();
@@ -51,9 +53,20 @@ public class RestaurarPasswordFragment extends Fragment implements View.OnClickL
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mDrawerArrow = new DrawerArrowDrawable(getActivity()) {
+            @Override
+            public boolean isLayoutRtl() {
+                return false;
+            }
+        };
+
+        mDrawerArrow.setProgress(1f);
+
+
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolbar.setTitle(R.string.postularse_titulo_barra);
-        mToolbar.setNavigationIcon(R.drawable.ic_regresar);
+        mToolbar.setNavigationIcon(mDrawerArrow);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

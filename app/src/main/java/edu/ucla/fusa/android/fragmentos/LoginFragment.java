@@ -85,15 +85,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         mLogin.setOnClickListener(this);
 
         mPreferencias = getActivity().getSharedPreferences("usuario", Context.MODE_PRIVATE);
-        if (!mPreferencias.getString("usuario", "").equals("") && 
-                !mPreferencias.getString("foto", "").equals("")) {
+        if (!mPreferencias.getString("usuario", "").equals("")) {
             mCredenciales.getEditTextLayoutAt(0).setContent(mPreferencias.getString("usuario", ""));
-            mBitmap = convertByteToImage(mPreferencias.getString("foto", ""));
+            if (!mPreferencias.getString("foto", "").equals("")) {
+                mBitmap = convertByteToImage(mPreferencias.getString("foto", ""));
 
-            if (mBitmap != null) {
-                mAvatar.setImageBitmap(mBitmap);
-            } else {
-                Log.i(TAG, "¡Avatar nulo!");
+                if (mBitmap != null) {
+                    mAvatar.setImageBitmap(mBitmap);
+                } else {
+                    Log.i(TAG, "¡Avatar nulo!");
+                }
             }
             mChangeAccount.setVisibility(View.VISIBLE);
             mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(false);
@@ -226,8 +227,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
             switch (result) {
                 case 100:
                     if (mUsuario.getTipoUsuario().getId() == 1) {
-                        mBitmap = convertByteToImage(mUsuario.getFoto());
-                        mAvatar.setImageBitmap(mBitmap);
+                        if (mUsuario.getFoto() != null) {
+                            mBitmap = convertByteToImage(mUsuario.getFoto());
+                            mAvatar.setImageBitmap(mBitmap);
+                        }
                         new Thread(new Runnable() {
                             @Override
                             public void run() {

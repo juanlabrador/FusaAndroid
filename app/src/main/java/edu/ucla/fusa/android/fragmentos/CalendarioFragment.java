@@ -39,7 +39,6 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
 
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
-        getActivity().getActionBar().setIcon(R.drawable.ic_calendario_blanco);
         getActivity().getActionBar().setTitle(R.string.calendario_titulo_barra);
     }
 
@@ -58,7 +57,6 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
 
     public void onResume() {
         super.onResume();
-        getActivity().getActionBar().setIcon(R.drawable.ic_calendario_blanco);
         getActivity().getActionBar().setTitle(R.string.calendario_titulo_barra);
     }
 

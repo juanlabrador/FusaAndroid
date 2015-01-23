@@ -41,8 +41,8 @@ public class ContenedorContactoFragment extends Fragment implements ViewPager.On
         mViewPager = (ViewPager) mView.findViewById(R.id.view_pager_contacto);
         
         mAdapter = new FragmentViewPagerAdapter(getChildFragmentManager(), mContentTabs);
-        mAdapter.addFragment(DatosContactoFundacionFragment.newInstance());
-        mAdapter.addFragment(MapaContactoFundacionFragment.newInstance());
+        mAdapter.addFragment(DatosFundacionFragment.newInstance());
+        mAdapter.addFragment(MapaFundacionFragment.newInstance());
 
         mViewPager.setAdapter(mAdapter);
 

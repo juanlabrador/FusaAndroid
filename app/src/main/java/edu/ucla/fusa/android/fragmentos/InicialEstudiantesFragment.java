@@ -24,7 +24,7 @@ public class InicialEstudiantesFragment extends Fragment
 
   public void onClick(View paramView) {
     getFragmentManager().beginTransaction()
-            .replace(android.R.id.content, EstudianteAspiranteFragment.newInstance())
+            .replace(android.R.id.content, AspiranteFragment.newInstance())
             .addToBackStack(null)
             .commit();
   }

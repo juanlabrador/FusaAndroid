@@ -53,17 +53,17 @@ public class EstudianteTable {
             + COLUMN_INSTRUMENTO + " TEXT, "
             + COLUMN_NOMBRE_USUARIO + " TEXT);";
 
-    private DataBaseHelper helper;
-    private SQLiteDatabase db;
-    private Cursor cursor;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-    private Estudiante estudiante = new Estudiante();
+    private DataBaseHelper mHelper;
+    private SQLiteDatabase mDataBase;
+    private Cursor mCursor;
+    private SimpleDateFormat mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private Estudiante mEstudiante = new Estudiante();
     private UserTable mUserTable;
     private Usuario mUsuario;
 
     public EstudianteTable(Context context) {
-        helper = new DataBaseHelper(context);
-        db = helper.getWritableDatabase();
+        mHelper = DataBaseHelper.getInstance(context);
+        mDataBase = mHelper.getWritableDatabase();
         mUserTable = new UserTable(context);
     }
 
@@ -79,7 +79,7 @@ public class EstudianteTable {
         valores.put(COLUMN_CEDULA, cedula);
         valores.put(COLUMN_CORREO, correo);
         valores.put(COLUMN_EDAD, edad);
-        valores.put(COLUMN_FECHA_NACIMIENTO, dateFormat.format(fechaNac));
+        valores.put(COLUMN_FECHA_NACIMIENTO, mDateFormat.format(fechaNac));
         valores.put(COLUMN_SEXO, sexo);
         valores.put(COLUMN_TELF_FIJO, telfFijo);
         valores.put(COLUMN_TELF_MOVIL, telfMovil);
@@ -98,43 +98,46 @@ public class EstudianteTable {
                            String telfFijo, String telfMovil, byte[] foto, String becado,
                            String conservatorio, String coro, String instrumento, String username) {
         //db = helper.getWritableDatabase();
-        db.insert(TABLE_NAME, null, generarValores(id, nombre, apellido, cedula, correo,
+        mDataBase.insert(TABLE_NAME, null, generarValores(id, nombre, apellido, cedula, correo,
                 edad, fechaNac, sexo, telfFijo, telfMovil, foto, becado,
                 conservatorio, coro, instrumento, username));
     }
+    public Estudiante searchUser() {
+        try {
+            mUsuario = mUserTable.searchUser();
+            String tiraSQL = "SELECT * FROM " + TABLE_NAME;
+            //db = helper.getReadableDatabase();
+            mCursor = mDataBase.rawQuery(tiraSQL, null);
+            if (mCursor.moveToFirst()) {
+                mEstudiante.setId(mCursor.getInt(0));
+                mEstudiante.setNombre(mCursor.getString(1));
+                mEstudiante.setApellido(mCursor.getString(2));
+                mEstudiante.setCedula(mCursor.getString(3));
+                mEstudiante.setCorreo(mCursor.getString(4));
+                mEstudiante.setEdad(mCursor.getInt(5));
+                mEstudiante.setFechanac(mDateFormat.parse(mCursor.getString(6)));
+                mEstudiante.setSexo(mCursor.getString(7));
+                mEstudiante.setTelefonoFijo(mCursor.getString(8));
+                mEstudiante.setTelefonoMovil(mCursor.getString(9));
+                mEstudiante.setImagen(mCursor.getBlob(10));
+                mEstudiante.setBecado(mCursor.getString(11));
+                mEstudiante.setInscritoConservatorio(mCursor.getString(12));
+                mEstudiante.setInscritoCoro(mCursor.getString(13));
+                mEstudiante.setInstrumentoPropio(mCursor.getString(14));
+                mEstudiante.setUsuario(mUsuario);
 
-    public Estudiante searchUser() throws ParseException {
-        mUsuario = mUserTable.searchUser();
-        String tiraSQL = "SELECT * FROM " + TABLE_NAME;
-        //db = helper.getReadableDatabase();
-        cursor = db.rawQuery(tiraSQL, null);
-        if (cursor.moveToFirst()) {
-            estudiante.setId(cursor.getInt(0));
-            estudiante.setNombre(cursor.getString(1));
-            estudiante.setApellido(cursor.getString(2));
-            estudiante.setCedula(cursor.getString(3));
-            estudiante.setCorreo(cursor.getString(4));
-            estudiante.setEdad(cursor.getInt(5));
-            estudiante.setFechanac(dateFormat.parse(cursor.getString(6)));
-            estudiante.setSexo(cursor.getString(7));
-            estudiante.setTelefonoFijo(cursor.getString(8));
-            estudiante.setTelefonoMovil(cursor.getString(9));
-            estudiante.setImagen(cursor.getBlob(10));
-            estudiante.setBecado(cursor.getString(11));
-            estudiante.setInscritoConservatorio(cursor.getString(12));
-            estudiante.setInscritoCoro(cursor.getString(13));
-            estudiante.setInstrumentoPropio(cursor.getString(14));
-            estudiante.setUsuario(mUsuario);
-
-        } else {
-            estudiante = null;
+            } else {
+                mEstudiante = null;
+            }
+            return mEstudiante;
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-
-        return estudiante;
+        return null;
     }
 
     public void destroyTable() {
         //db = helper.getWritableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        mDataBase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
     }
 }

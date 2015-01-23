@@ -40,7 +40,7 @@ public class NoticiasTable {
     private ArrayList<ItemListNoticia> mNoticias = new ArrayList<ItemListNoticia>();
 
     public NoticiasTable(Context context) {
-        mHelper = new DataBaseHelper(context);
+        mHelper = DataBaseHelper.getInstance(context);
         mDataBase = mHelper.getWritableDatabase();
     }
 
@@ -63,7 +63,7 @@ public class NoticiasTable {
     }
 
     public ArrayList<ItemListNoticia> searchNews() {
-        String[] columnas = new String[] {COLUMN_ID, COLUMN_TITULO, COLUMN_DESCRIPCION,
+        String[] columnas = new String[]{COLUMN_ID, COLUMN_TITULO, COLUMN_DESCRIPCION,
                 COLUMN_FECHA_PUBLICACION, COLUMN_IMAGEN, COLUMN_ID_NOTICIA};
         mCursor = mDataBase.query(TABLE_NAME, columnas, null, null, null, null, COLUMN_ID, "50");
         mNoticias.clear();
@@ -84,8 +84,8 @@ public class NoticiasTable {
     }
 
     public ArrayList<ItemListNoticia> searchOldNews(String id) {
-        String[] condicion = new String[] {id};
-        String[] columnas = new String[] {COLUMN_ID, COLUMN_TITULO, COLUMN_DESCRIPCION,
+        String[] condicion = new String[]{id};
+        String[] columnas = new String[]{COLUMN_ID, COLUMN_TITULO, COLUMN_DESCRIPCION,
                 COLUMN_FECHA_PUBLICACION, COLUMN_IMAGEN, COLUMN_ID_NOTICIA};
         mCursor = mDataBase.query(TABLE_NAME, columnas, COLUMN_ID_NOTICIA + "<?", condicion, null, null, COLUMN_ID + " DESC", "20");
         while (mCursor.moveToNext()) {

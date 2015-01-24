@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
@@ -46,20 +47,15 @@ public class AspiranteFragment extends Fragment implements View.OnClickListener,
     private GroupLayout mDatosContacto;
     private Toolbar mToolbar;
     private ScrollView mScroll;
-    private Calendar calendar;
-    private int day;
     private CircularProgressBar mProgressBar;
-    private int month;
     private ArrayList<String> mCustomMenu;
-
     private View mView;
-    private int year;
     private JSONParser jsonParser = new JSONParser();
     private List<Catedra> catedras = new ArrayList<>();
-    private Catedra c = new Catedra();
     private Aspirante mAspirante = new Aspirante();
     private int age;
     private DrawerArrowDrawable mDrawerArrow;
+    private LinearLayout mParent;
 
     public static AspiranteFragment newInstance() {
         AspiranteFragment fragment = new AspiranteFragment();
@@ -71,7 +67,8 @@ public class AspiranteFragment extends Fragment implements View.OnClickListener,
         super.onCreateView(inflater, container, arguments);
         mView = inflater.inflate(R.layout.fragment_inicial_postulaciones, container, false);
 
-        
+        mParent = (LinearLayout) mView.findViewById(R.id.fragment_postulacion);
+        mParent.setBackgroundColor(getResources().getColor(R.color.azul));
         mScroll = (ScrollView) mView.findViewById(R.id.scroll_postulaciones);
         mScroll.setVisibility(View.GONE);
         mDatosBasicos = (GroupLayout) mView.findViewById(R.id.grupo_datos_basicos);
@@ -102,10 +99,6 @@ public class AspiranteFragment extends Fragment implements View.OnClickListener,
         mDatosContacto.getValidatorLayoutAt(1).setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         
         mProgressBar = (CircularProgressBar) mView.findViewById(R.id.cargando_postulaciones);
-        calendar = Calendar.getInstance();
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        month = calendar.get(Calendar.MONTH);
-        year = calendar.get(Calendar.YEAR);
 
         new LoadingCatedras().execute();
         return mView;
@@ -286,10 +279,15 @@ public class AspiranteFragment extends Fragment implements View.OnClickListener,
                     break;
                 case 100:
                     mDatosMusicales.addPopupLayout(R.string.postularse_catedra, mCustomMenu);
-                    mProgressBar.setVisibility(View.GONE);
-                    mScroll.setVisibility(View.VISIBLE);
-                    mToolbar.setVisibility(View.VISIBLE);
-                    Log.i(TAG, "¡Cargando sin problemas!");
+                    try {
+                        mProgressBar.setVisibility(View.GONE);
+                        mScroll.setVisibility(View.VISIBLE);
+                        mToolbar.setVisibility(View.VISIBLE);
+                        mParent.setBackgroundColor(getResources().getColor(R.color.gris_fondo));
+                        Log.i(TAG, "¡Cargando sin problemas!");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
             }
         }
@@ -307,6 +305,7 @@ public class AspiranteFragment extends Fragment implements View.OnClickListener,
 
         @Override
         protected Integer doInBackground(Aspirante... aspirante) {
+            SystemClock.sleep(4000);
             int result;
             try {
                 result = jsonParser.uploadAspirante(aspirante[0]);

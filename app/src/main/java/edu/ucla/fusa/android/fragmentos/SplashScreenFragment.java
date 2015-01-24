@@ -41,13 +41,13 @@ public class SplashScreenFragment extends Fragment implements View.OnClickListen
     }
 
     private void startAnimationLogo() {
-        logotipo = ((ImageView)getView().findViewById(R.id.logotipo));
+        logotipo = (ImageView) getView().findViewById(R.id.logotipo);
         animacion = AnimationUtils.loadAnimation(getActivity(), R.anim.animation_logo);
         logotipo.startAnimation(animacion);
     }
 
     private void startAnimationText() {
-        textoInformacion = ((TextView)getView().findViewById(R.id.textoInformacion));
+        textoInformacion = (TextView) getView().findViewById(R.id.textoInformacion);
         animacion = AnimationUtils.loadAnimation(getActivity(), R.anim.animation_text);
         textoInformacion.startAnimation(animacion);
     }
@@ -68,15 +68,15 @@ public class SplashScreenFragment extends Fragment implements View.OnClickListen
 
     public void onClick(View paramView) {
         getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, LoginFragment.newInstance())
                 .addToBackStack(null)
+                .replace(android.R.id.content, LoginFragment.newInstance())
                 .commit();
     }
 
-    public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
-        super.onCreateView(paramLayoutInflater, paramViewGroup, paramBundle);
-        view = paramLayoutInflater.inflate(R.layout.fragment_inicial_splash_screen, paramViewGroup, false);
-        tvIniciarSesion = ((TextView) view.findViewById(R.id.tv_iniciar_sesion));
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle arguments) {
+        super.onCreateView(inflater, container, arguments);
+        view = inflater.inflate(R.layout.fragment_inicial_splash_screen, container, false);
+        tvIniciarSesion = (TextView) view.findViewById(R.id.tv_iniciar_sesion);
         tvIniciarSesion.setOnClickListener(this);
         return view;
     }

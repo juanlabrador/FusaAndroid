@@ -54,7 +54,7 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
     @Nullable
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle arguments) {
         super.onCreateView(inflater, container, arguments);
-        mView = inflater.inflate(R.layout.fragment_configuraciones_cambiar_password, container, false);
+        mView = inflater.inflate(R.layout.fragment_drawer_cambiar_password, container, false);
 
         mMostrarContraseña = (GroupLayout) mView.findViewById(R.id.mostrar_contraseña);
         mMostrarContraseña.addSwitchLayout(R.string.contraseña_mostrar, getResources().getColor(R.color.azul));

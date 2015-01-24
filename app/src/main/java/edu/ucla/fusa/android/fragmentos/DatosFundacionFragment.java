@@ -29,7 +29,7 @@ public class DatosFundacionFragment extends Fragment implements View.OnClickList
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle arguments) {
         super.onCreateView(inflater, container, arguments);
-        mView = inflater.inflate(R.layout.fragment_inicial_contacto_fundacion_datos, container, false);
+        mView = inflater.inflate(R.layout.fragment_inicial_fundacion_datos, container, false);
 
         mGrupoDireccion = (GroupLayout) mView.findViewById(R.id.direccion_contacto);
         mGrupoDireccion.addTextLayout(R.string.contacto_direccion, R.string.contacto_direccion_fundacion);

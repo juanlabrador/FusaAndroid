@@ -74,9 +74,10 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
         mToolbar.getMenu().clear();
         mBackToTop = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_back_to_top_list_view, null, false);
         mBackToTop.setOnClickListener(this);
+        mToolbar.setVisibility(View.VISIBLE);
         mNoticiasTable = new NoticiasTable(getActivity());
         mJSONParser = new JSONParser();
-        mNoticias = new ArrayList<Noticia>();
+        mNoticias = new ArrayList<>();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -109,6 +110,7 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         mToolbar.setTitle(R.string.noticias_titulo_barra);
         mToolbar.getMenu().clear();
+        mToolbar.setVisibility(View.VISIBLE);
         mItemsNoticias = mNoticiasTable.searchNews();
         if (mItemsNoticias.size() != 0) {
             Log.i(TAG, "Cantidad de noticias: " + mItemsNoticias.size());

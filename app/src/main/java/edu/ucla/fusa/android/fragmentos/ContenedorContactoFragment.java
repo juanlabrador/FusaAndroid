@@ -36,7 +36,7 @@ public class ContenedorContactoFragment extends Fragment implements ViewPager.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle arguments) {
         super.onCreateView(inflater, container, arguments);
         
-        mView = inflater.inflate(R.layout.fragment_inicial_contacto_fundacion, container, false);
+        mView = inflater.inflate(R.layout.fragment_inicial_fundacion, container, false);
 
         mViewPager = (ViewPager) mView.findViewById(R.id.view_pager_contacto);
         

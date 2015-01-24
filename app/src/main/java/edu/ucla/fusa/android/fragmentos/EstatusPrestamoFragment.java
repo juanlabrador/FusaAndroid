@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import com.juanlabrador.GroupLayout;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 
 import edu.ucla.fusa.android.DB.PrestamoTable;
@@ -59,7 +57,7 @@ public class EstatusPrestamoFragment extends Fragment implements Toolbar.OnMenuI
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        mView = inflater.inflate(R.layout.fragment_estatus_prestamo, container, false);
+        mView = inflater.inflate(R.layout.fragment_drawer_estatus_prestamo, container, false);
         
         mGrupoSolicitud = (GroupLayout) mView.findViewById(R.id.grupos_datos_solicitud);
         mGrupoSolicitud.addTextLayout(R.string.estatus_prestamo_codigo);

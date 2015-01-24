@@ -46,7 +46,7 @@ public class MapaFundacionFragment extends Fragment {
     }
 
     public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
-        return paramLayoutInflater.inflate(R.layout.fragment_inicial_contacto_fundacion_mapa, paramViewGroup, false);
+        return paramLayoutInflater.inflate(R.layout.fragment_inicial_fundacion_mapa, paramViewGroup, false);
     }
 
     public void onResume() {

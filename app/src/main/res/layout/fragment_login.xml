@@ -2,7 +2,7 @@
 <LinearLayout
     android:orientation="vertical"
     android:id="@+id/fragment_login"
-    android:background="@color/gris_fondo"
+    android:background="@color/azul"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
@@ -29,9 +29,9 @@
         android:layout_weight="1">
 
         <TextView
-            android:paddingTop="18dp"
-            android:textSize="16sp"
-            android:textColor="@color/negro"
+            android:paddingTop="22dp"
+            android:textSize="18sp"
+            android:textColor="@color/blanco"
             android:layout_width="match_parent"
             android:gravity="center"
             android:layout_height="wrap_content"
@@ -45,8 +45,8 @@
             android:src="@drawable/no_avatar"
             app:siBorderWidth="1dp"
             android:layout_gravity="center"
-            app:siBorderColor="@color/azul"
-            android:layout_marginTop="12dp"/>
+            app:siBorderColor="@color/blanco"
+            android:layout_marginTop="16dp"/>
         
         <com.juanlabrador.GroupLayout
             android:layout_width="match_parent"
@@ -59,10 +59,9 @@
             android:layout_marginTop="12dp"/>
 
         <com.dd.CircularProgressButton
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="@color/blanco"
             android:id="@+id/btn_iniciar_sesion"
-            android:background="@drawable/style_button_background_white"
             android:layout_marginLeft="22dp"
             android:layout_marginRight="22dp"
             android:layout_marginTop="12dp"
@@ -73,9 +72,9 @@
             app:cpb_textComplete="@string/login_boton_correcto"
             app:cpb_textIdle="@string/login_boton"
             app:cpb_textError="@string/login_boton_error"
-            app:cpb_colorProgress="@color/gris_fondo"
-            app:cpb_colorIndicator="@color/azul"
-            app:cpb_colorIndicatorBackground="@color/gris_fondo"
+            app:cpb_colorProgress="@color/azul_oscuro"
+            app:cpb_colorIndicator="@color/blanco"
+            app:cpb_colorIndicatorBackground="@color/azul"
             app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
             app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
             app:cpb_selectorIdle="@color/style_btn_circular_progress_azul"

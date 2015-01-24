@@ -62,10 +62,20 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle arguments) {
         super.onCreateView(inflater, container, arguments);
-        mView = inflater.inflate(R.layout.fragment_inicial_login, container, false);
+        mView = inflater.inflate(R.layout.fragment_login, container, false);
 
         mLogin = (CircularProgressButton) mView.findViewById(R.id.btn_iniciar_sesion);
-        
+        mLogin.setOnClickListener(this);
+
+        mAvatar = (HexagonImageView) mView.findViewById(R.id.avatar_login);
+        mAvatar.setImageResource(R.drawable.no_avatar);
+
+        mPasswordRestore = (TextView) mView.findViewById(R.id.tv_olvidar_password_iniciar_sesion);
+        mPasswordRestore.setOnClickListener(this);
+
+        mChangeAccount = (TextView) mView.findViewById(R.id.tv_cambiar_usuario);
+        mChangeAccount.setOnClickListener(this);
+
         mCredenciales = (GroupLayout) mView.findViewById(R.id.login_credenciales);
         mCredenciales.addEditTextLayout(R.string.login_usuario);
         mCredenciales.addEditTextLayout(R.string.login_contraseña);
@@ -73,19 +83,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         mCredenciales.getEditTextLayoutAt(1).getEditText().addTextChangedListener(this);
         mCredenciales.getEditTextLayoutAt(1).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
-        mAvatar = (HexagonImageView) mView.findViewById(R.id.avatar_login);
-        mAvatar.setImageResource(R.drawable.no_avatar);
+        restoreData();
         
-        mPasswordRestore = (TextView) mView.findViewById(R.id.tv_olvidar_password_iniciar_sesion);
-        mPasswordRestore.setOnClickListener(this);
-        
-        mChangeAccount = (TextView) mView.findViewById(R.id.tv_cambiar_usuario);
-        mChangeAccount.setOnClickListener(this);
+        return mView;
+    }
 
-        mLogin.setOnClickListener(this);
-
+    public void restoreData() {
         mPreferencias = getActivity().getSharedPreferences("usuario", Context.MODE_PRIVATE);
         if (!mPreferencias.getString("usuario", "").equals("")) {
+            Log.i(TAG, "¡Tiene datos en cache!");
             mCredenciales.getEditTextLayoutAt(0).setContent(mPreferencias.getString("usuario", ""));
             if (!mPreferencias.getString("foto", "").equals("")) {
                 mBitmap = convertByteToImage(mPreferencias.getString("foto", ""));
@@ -99,8 +105,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
             mChangeAccount.setVisibility(View.VISIBLE);
             mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(false);
         }
-        
-        return mView;
     }
 
     public void afterTextChanged(Editable paramEditable) {}
@@ -130,17 +134,18 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
                 }
                 break;
             case R.id.tv_olvidar_password_iniciar_sesion:
-                mPasswordRestore.setTextColor(getResources().getColor(android.R.color.holo_blue_light));
                 getFragmentManager().beginTransaction()
-                        .replace(android.R.id.content, RestaurarPasswordFragment.newInstance())
                         .addToBackStack(null)
+                        .replace(android.R.id.content, RestaurarPasswordFragment.newInstance())
                         .commit();
                 break;
             case R.id.tv_cambiar_usuario:
                 mAvatar.setImageResource(R.drawable.no_avatar);
                 mCredenciales.getEditTextLayoutAt(0).setContent("");
+                mCredenciales.getEditTextLayoutAt(1).setContent("");
                 mPreferencias.edit().clear().commit();
                 mChangeAccount.setVisibility(View.GONE);
+                habilitarElementos();
                 break;
         }
     }
@@ -150,6 +155,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         super.onCreate(savedInstanceState);
         mJSONParser = new JSONParser();
         mUserTable = new UserTable(getActivity());
+        
     }
 
     public void onTextChanged(CharSequence paramCharSequence, int paramInt1, int paramInt2, int paramInt3) {
@@ -275,14 +281,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(true);
         mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(true);
         mCredenciales.getEditTextLayoutAt(0).getEditText().setTextIsSelectable(true);
-        mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(true);
-        mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusableInTouchMode(true);
         mCredenciales.getEditTextLayoutAt(1).getEditText().setTextIsSelectable(true);
-        mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(true);
         mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusableInTouchMode(true);
         mPasswordRestore.setEnabled(true);
-        mPasswordRestore.setTextColor(getResources().getColor(android.R.color.black));
-        mChangeAccount.setTextColor(getResources().getColor(android.R.color.black));
+        mPasswordRestore.setTextColor(getResources().getColor(R.color.azul_oscuro));
+        mChangeAccount.setTextColor(getResources().getColor(R.color.azul_oscuro));
         mChangeAccount.setEnabled(true);
     }
 
@@ -290,17 +293,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(false);
         mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(false);
         mPasswordRestore.setEnabled(false);
-        mPasswordRestore.setTextColor(getResources().getColor(android.R.color.darker_gray));
         mChangeAccount.setEnabled(false);
-        mChangeAccount.setTextColor(getResources().getColor(android.R.color.darker_gray));
-    }
-
-    private void deshabilitarUsuario() {
-        mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(false);
-        mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(false);
-        mPasswordRestore.setEnabled(false);
-        mPasswordRestore.setTextColor(getResources().getColor(android.R.color.darker_gray));
-        mChangeAccount.setEnabled(false);
-        mChangeAccount.setTextColor(getResources().getColor(android.R.color.darker_gray));
     }
 }

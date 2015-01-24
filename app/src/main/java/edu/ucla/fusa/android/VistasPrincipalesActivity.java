@@ -58,6 +58,7 @@ import edu.ucla.fusa.android.fragmentos.EstatusPrestamoFragment;
 import edu.ucla.fusa.android.fragmentos.HorarioClasesFragment;
 import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
 import edu.ucla.fusa.android.fragmentos.ListadoNoticiasFragment;
+import edu.ucla.fusa.android.fragmentos.LogoutFragment;
 import edu.ucla.fusa.android.fragmentos.SolicitudPrestamoFragment;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
 import edu.ucla.fusa.android.modelo.evento.Evento;
@@ -210,6 +211,11 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mToolbar.setVisibility(View.GONE);
+    }
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -298,7 +304,10 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                         .commit();
                 break;
             case 6:
-                new Logout().execute();
+                getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.principal, LogoutFragment.newInstance())
+                    .commit();
                 break;
         }
 
@@ -383,8 +392,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mListDrawer.setOnItemClickListener(this);
         mListDrawer.setItemChecked(3, true);
         mListDrawer.setSelection(3);
-        
-        mToolbar.setVisibility(View.VISIBLE);
+
         mLoading.setVisibility(View.GONE);
         mTextLoading.setVisibility(View.GONE);
     }
@@ -651,48 +659,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             }
         }
     }
-    
-    // Cerrar sesión 
-
-    private class Logout extends AsyncTask<Void, Void, Void> {
-
-        private ProgressDialog dialog;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dialog = new ProgressDialog(VistasPrincipalesActivity.this);
-            dialog.setMessage(getResources().getString(R.string.cerrar_sesion));
-            dialog.setIndeterminate(false);
-            dialog.setCancelable(false);
-            dialog.show();
-            mUsuario = mUserTable.searchUser();
-        }
-
-        protected Void doInBackground(Void[] params) {
-            SystemClock.sleep(2000);
-            mPreferencias = getSharedPreferences("usuario", Context.MODE_PRIVATE);
-            mEditor = mPreferencias.edit();
-            mEditor.clear();
-            mEditor.putString("usuario", mUsuario.getUsername());
-            if (mUsuario.getFoto() != null) {
-                mEditor.putString("foto", Base64.encodeToString(mUsuario.getFoto(), Base64.DEFAULT));
-            } else {
-                mEditor.putString("foto", "");
-            }
-            mEditor.commit();
-            Log.i(TAG, "¡Cerrando sesión...!");
-            DataBaseHelper.getInstance(VistasPrincipalesActivity.this).close();
-            deleteDatabase(DataBaseHelper.NAME);
-            return null;
-        }
-
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            dialog.dismiss();
-            startActivity(new Intent(getApplicationContext(), VistasInicialesActivity.class));
-            finish();
-        }
-    }
 
     // Cambiar foto de perfil
 
@@ -742,6 +708,8 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                         mPhoto = convertImageToByte(mBitmap);
                         mUsuario.setFoto(mPhoto);
                         mEstudiante.setImagen(mPhoto);
+                        mEstudianteTable.updateFoto(mEstudiante.getId(), mEstudiante.getImagen());
+                        mUserTable.updateFoto(mUsuario.getId(), mUsuario.getFoto());
                         new UploadFoto().execute(mUsuario);
                         new UploadFotoEstudiante().execute(mEstudiante);
                     }

@@ -92,7 +92,7 @@
         android:id="@+id/cargando_postulaciones"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:cpb_color="@color/azul"
+        app:cpb_color="@color/blanco"
         app:cpb_stroke_width="2dp"
         android:indeterminate="true"/>
 </LinearLayout>

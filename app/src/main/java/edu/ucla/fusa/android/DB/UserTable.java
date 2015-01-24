@@ -53,6 +53,20 @@ public class UserTable {
         mDataBase.insert(TABLE_NAME, null, generarValores(username, password, foto, tipoUsuario));
     }
 
+    public void updateFoto(int id, byte[] foto) {
+        ContentValues valores = new ContentValues();
+        valores.put(COLUMN_PHOTO, foto);
+        String[] condicion = new String[]{String.valueOf(id)};
+        mDataBase.update(TABLE_NAME, valores, COLUMN_ID_USER + "=?", condicion);
+    }
+
+    public void updatePassword(int id, String pass) {
+        ContentValues valores = new ContentValues();
+        valores.put(COLUMN_PASSWORD, pass);
+        String[] condicion = new String[]{String.valueOf(id)};
+        mDataBase.update(TABLE_NAME, valores, COLUMN_ID_USER + "=?", condicion);
+    }
+
     public Usuario searchUser() {
         String tiraSQL = "SELECT * FROM " + TABLE_NAME;
         //db = helper.getReadableDatabase();

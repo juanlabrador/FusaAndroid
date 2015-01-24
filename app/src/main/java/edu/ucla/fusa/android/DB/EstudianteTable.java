@@ -102,6 +102,14 @@ public class EstudianteTable {
                 edad, fechaNac, sexo, telfFijo, telfMovil, foto, becado,
                 conservatorio, coro, instrumento, username));
     }
+
+    public void updateFoto(int id, byte[] foto) {
+        ContentValues valores = new ContentValues();
+        valores.put(COLUMN_FOTO, foto);
+        String[] condicion = new String[]{String.valueOf(id)};
+        mDataBase.update(TABLE_NAME, valores, COLUMN_ID + "=?", condicion);
+    }
+    
     public Estudiante searchUser() {
         try {
             mUsuario = mUserTable.searchUser();

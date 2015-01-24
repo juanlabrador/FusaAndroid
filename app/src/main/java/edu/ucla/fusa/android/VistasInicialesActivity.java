@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -13,7 +12,7 @@ import android.support.v4.view.ViewPager;
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.adaptadores.FragmentViewPagerAdapter;
 import edu.ucla.fusa.android.fragmentos.InicialContactoFragment;
-import edu.ucla.fusa.android.fragmentos.InicialEstudiantesFragment;
+import edu.ucla.fusa.android.fragmentos.InicialAspiranteFragment;
 import edu.ucla.fusa.android.fragmentos.SplashScreenFragment;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import me.relex.circleindicator.CircleIndicator;
@@ -42,17 +41,13 @@ public class VistasInicialesActivity extends FragmentActivity implements ViewPag
 
         mViewPagerAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), null);
         mViewPagerAdapter.addFragment(SplashScreenFragment.newInstance());
-        mViewPagerAdapter.addFragment(InicialEstudiantesFragment.newInstance());
+        mViewPagerAdapter.addFragment(InicialAspiranteFragment.newInstance());
         mViewPagerAdapter.addFragment(InicialContactoFragment.newInstance());
         
         mViewPager.setAdapter(mViewPagerAdapter);
 
         mCircleIndicator = (CircleIndicator) findViewById(R.id.indicador);
         mCircleIndicator.setViewPager(mViewPager);
-        //mCircleIndicator.setSnap(true);
-        //mCircleIndicator.setFillColor(getResources().getColor(R.color.azul_oscuro));
-        //mCircleIndicator.setPageColor(getResources().getColor(R.color.blanco));
-        //mCircleIndicator.setStrokeColor(Color.TRANSPARENT);
 
         mUserTable = new UserTable(this);
     }

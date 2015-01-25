@@ -1,9 +1,11 @@
 package edu.ucla.fusa.android.adaptadores;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +38,11 @@ public class ListNoticiasAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return this.arrayItems.size();
+        return arrayItems.size();
     }
 
     public Object getItem(int paramInt) {
-        return this.arrayItems.get(paramInt);
+        return arrayItems.get(paramInt);
     }
 
     public long getItemId(int paramInt) {
@@ -53,40 +55,41 @@ public class ListNoticiasAdapter extends BaseAdapter {
         ImageView mImagen;
         TextView mTitulo;
         ExpandableTextView mExpandible;
-        View mLinea1;
     }
 
-    public View getView(int position, View view, ViewGroup viewGroup) {
-        LayoutInflater layoutInflater = activity.getLayoutInflater();
-        if (view == null) {
+    public View getView(int position, View convertView, ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        item = arrayItems.get(position);
+        if (convertView == null) {
             mViewHolder = new ViewHolder();
-            view = layoutInflater.inflate(R.layout.custom_item_list_noticias, null);
-            mViewHolder.mTitulo = (TextView) view.findViewById(R.id.tv_titulo_noticia);
-            mViewHolder.mFecha = (TextView) view.findViewById(R.id.tv_fecha_publicacion_noticia);
-            mViewHolder.mImagen = (ImageView) view.findViewById(R.id.iv_foto_noticia);
-            mViewHolder.mExpandible = (ExpandableTextView) view.findViewById(R.id.expand_text_view);
-            mViewHolder.mLinea1 = view.findViewById(R.id.linea_divisor_1);
-            view.setTag(mViewHolder);
-            
-            item = arrayItems.get(position);
-            mViewHolder.mTitulo.setText(item.getTitulo());
-            mViewHolder.mFecha.setText(dateFormat.format(item.getFecha()));
+            if (item.getImagen() == null) {
+                Log.i(TAG, "¡Sin foto!");
+                convertView = inflater.inflate(R.layout.custom_item_list_noticias_sin_foto, null);
+                mViewHolder.mTitulo = (TextView) convertView.findViewById(R.id.tv_titulo_noticia_sin_foto);
+                mViewHolder.mFecha = (TextView) convertView.findViewById(R.id.tv_fecha_publicacion_noticia_sin_foto);
+                mViewHolder.mImagen = (ImageView) convertView.findViewById(R.id.iv_foto_noticia_sin_foto);
+                mViewHolder.mExpandible = (ExpandableTextView) convertView.findViewById(R.id.expand_text_view_sin_foto);
+            } else  {
+                Log.i(TAG, "¡Con foto!");
+                convertView = inflater.inflate(R.layout.custom_item_list_noticias, null);
+                mViewHolder.mTitulo = (TextView) convertView.findViewById(R.id.tv_titulo_noticia);
+                mViewHolder.mFecha = (TextView) convertView.findViewById(R.id.tv_fecha_publicacion_noticia);
+                mViewHolder.mImagen = (ImageView) convertView.findViewById(R.id.iv_foto_noticia);
+                mViewHolder.mExpandible = (ExpandableTextView) convertView.findViewById(R.id.expand_text_view);
+            }
+            convertView.setTag(mViewHolder);
+        } else {
+            mViewHolder = (ViewHolder) convertView.getTag();
+        }
+        item = arrayItems.get(position);
+        mViewHolder.mTitulo.setText(item.getTitulo());
+        mViewHolder.mFecha.setText(dateFormat.format(item.getFecha()));
+        if (item.getImagen() != null) {
             Picasso.with(activity)
                     .load(JSONParser.URL_IMAGEN + item.getId())
                     .into(mViewHolder.mImagen);
-            mViewHolder.mExpandible.setText(item.getDescripcion());
-            mViewHolder.mLinea1.setBackgroundColor(Color.LTGRAY);
-        } else {
-            mViewHolder = (ViewHolder) view.getTag();
-            item = arrayItems.get(position);
-            mViewHolder.mTitulo.setText(item.getTitulo());
-            mViewHolder.mFecha.setText(dateFormat.format(item.getFecha()));
-            Picasso.with(activity)
-                    .load(JSONParser.URL_IMAGEN  + item.getId())
-                    .into(mViewHolder.mImagen);
-            mViewHolder.mExpandible.setText(item.getDescripcion());
-            mViewHolder.mLinea1.setBackgroundColor(Color.LTGRAY);
         }
-        return view;
+        mViewHolder.mExpandible.setText(item.getDescripcion());
+        return convertView;
     }
 }

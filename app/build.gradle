@@ -48,4 +48,8 @@ dependencies {
     compile 'com.nispok:snackbar:2.7.4'
     compile project(':GrupoLayout-v1.5')
     compile 'com.android.support:support-v4:21.0.3'
+    compile 'me.drakeet.materialdialog:library:1.2.2'
+    compile 'com.joanzapata.pdfview:android-pdfview:1.0.+@aar'
+    compile project(':PullToRefresh-v1.0')
+    compile 'com.ms-square:expandableTextView:0.1.3'
 }

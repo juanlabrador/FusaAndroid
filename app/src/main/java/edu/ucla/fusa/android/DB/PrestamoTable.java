@@ -122,6 +122,10 @@ public class PrestamoTable {
         mDatabase.update(TABLE_NAME, valores, COLUMN_ID_PRESTAMO + "=?", condicion);
     }
 
+    public void deleteAll() {
+        mDatabase.delete(TABLE_NAME, null, null);
+    }
+
     public void destroyTable() {
         mDatabase.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
     }

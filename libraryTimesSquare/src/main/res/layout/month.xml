@@ -3,8 +3,10 @@
 <com.squareup.timessquare.MonthView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@color/gris_fondo"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:gravity="center">
  
   <TextView
       android:id="@+id/title"
@@ -13,8 +15,8 @@
       android:layout_marginTop="10dp"
       android:layout_marginBottom="@dimen/calendar_month_title_bottommargin"
       android:gravity="center_horizontal"
-      style="@style/CalendarTitle"
-      />
+      style="@style/CalendarTitle"/>
+    
   <com.squareup.timessquare.CalendarGridView
       android:id="@+id/calendar_grid"
       android:layout_width="match_parent"
@@ -24,8 +26,8 @@
     <com.squareup.timessquare.CalendarRowView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/calendar_day_headers_paddingbottom"
-        >
+        android:paddingBottom="@dimen/calendar_day_headers_paddingbottom">
+        
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"

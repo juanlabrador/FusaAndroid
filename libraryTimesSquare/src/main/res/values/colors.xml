@@ -11,4 +11,7 @@
   <color name="calendar_text_active">#ff778088</color>
   <color name="calendar_text_selected">#ffffffff</color>
   <color name="calendar_text_unselectable">#7f778088</color>
+
+    <color name="gris_fondo">#efeff4</color>
+    <color name="blanco">#fff4f5f7</color>
 </resources>

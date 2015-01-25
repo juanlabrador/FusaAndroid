@@ -1,35 +1,47 @@
 package edu.ucla.fusa.android.fragmentos;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
+import android.widget.ListView;
 
+import me.drakeet.materialdialog.MaterialDialog;
 import com.squareup.timessquare.CalendarPickerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 
+import edu.ucla.fusa.android.DB.EventoTable;
 import edu.ucla.fusa.android.R;
+import edu.ucla.fusa.android.modelo.evento.Evento;
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 public class CalendarioFragment extends Fragment implements CalendarPickerView.OnDateSelectedListener {
 
-    private CalendarPickerView calendario;
-    private View view;
-    private Calendar nextYear;
-    private Calendar today;
-    private ArrayList<String> titulos = new ArrayList<String>();
-    private ArrayList<Date> fechas = new ArrayList<Date>();
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    private static String TAG = "CalendarioFragment";
+    private CalendarPickerView mCalendario;
+    private View mView;
+    private Calendar mProximoAño;
+    private Calendar mDiaActual;
+    private ArrayList<Evento> mEventos;
+    private ArrayList<Date> mFechas;
+    private ArrayList<Integer> mIds;
+    private SimpleDateFormat mDateFormat;
+    private EventoTable mEventoTable;
+    private Toolbar mToolbar;
+    private CircularProgressBar mLoading;
+    private ArrayAdapter<String> mAdapter;
+    private ListView mList;
 
     public static CalendarioFragment newInstance() {
         CalendarioFragment fragment = new CalendarioFragment();
@@ -39,78 +51,86 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
 
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
-        getActivity().getActionBar().setTitle(R.string.calendario_titulo_barra);
+        mEventoTable = new EventoTable(getActivity());
+        mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        mToolbar.setTitle(R.string.calendario_titulo_barra);
+        mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        mFechas = new ArrayList<>();
+        mIds = new ArrayList<>();
     }
 
     public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
         super.onCreateView(paramLayoutInflater, paramViewGroup, paramBundle);
-        view = paramLayoutInflater.inflate(R.layout.fragment_drawer_calendar, paramViewGroup, false);
-        calendario = (CalendarPickerView) view.findViewById(R.id.calendario);
-        calendario.setOnDateSelectedListener(this);
-        nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.YEAR, 1);
-        today = Calendar.getInstance();
-
-        new EventosTaks().execute();
-        return view;
+        mView = paramLayoutInflater.inflate(R.layout.fragment_drawer_calendar, paramViewGroup, false);
+        mCalendario = (CalendarPickerView) mView.findViewById(R.id.calendario);
+        mCalendario.setOnDateSelectedListener(this);
+        mProximoAño = Calendar.getInstance();
+        mProximoAño.add(Calendar.YEAR, 1);
+        mDiaActual = Calendar.getInstance();
+        mLoading = (CircularProgressBar) mView.findViewById(R.id.pb_cargando_calendario);
+        return mView;
     }
 
-    public void onResume() {
-        super.onResume();
-        getActivity().getActionBar().setTitle(R.string.calendario_titulo_barra);
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        new LoadingEventos().execute();
     }
-
-    /*public void onSelectedDayChange(CalendarView paramCalendarView, int paramInt1, int paramInt2, int paramInt3) {
-        getFragmentManager().beginTransaction()
-                .replace(R.id.frame_container, EventoVistasFragment.newInstance())
-                .addToBackStack(null)
-                .commit();
-    }*/
 
     @Override
     public void onDateSelected(Date date) {
-        String fechaCalendario = sdf.format(date);
-        String fechaEvento;
-        int contador = 0;
-        for (int i = 0; i < fechas.size(); i++) {
-            fechaEvento = sdf.format(fechas.get(i));
-            if (fechaEvento.equals(fechaCalendario)) {
-                contador++;
+        String mFechaCalendario = mDateFormat.format(date);
+        String mFechaEvento;
+        mAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
+        final MaterialDialog mDialog = new MaterialDialog(getActivity());
+
+        for (int i = 0; i < mFechas.size(); i++) {
+            mFechaEvento = mDateFormat.format(mFechas.get(i));
+            if (mFechaEvento.equals(mFechaCalendario)) {
+                mAdapter.add(mEventos.get(i).getNombre());
+                mIds.add(mEventos.get(i).getId());
             }
         }
-        if (contador > 1) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-            //dialog.setIcon(R.drawable.ic_eventos);
-            dialog.setTitle("Seleccione un evento");
-            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                    getActivity(),
-                    android.R.layout.select_dialog_singlechoice);
-            for (int i = 0; i < fechas.size(); i++) {
-                fechaEvento = sdf.format(fechas.get(i));
-                if (fechaEvento.equals(fechaCalendario)) {
-                    arrayAdapter.add(titulos.get(i));
-                }
-            }
-            dialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        if (mAdapter.getCount() > 1) {
+            Log.i(TAG, "¡Hay más de un evento!");
+            mList = new ListView(getActivity());
+            mList.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            float scale = getResources().getDisplayMetrics().density;
+            int dpAsPixels = (int) (8 * scale + 0.5f);
+            mList.setPadding(0, dpAsPixels, 0, dpAsPixels);
+            mList.setDividerHeight(0);
+            mList.setAdapter(mAdapter);
+            mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.frame_container, EventoFragment.newInstance(mIds.get(i)))
+                            .commit();
+                    mDialog.dismiss();
+                    Log.i(TAG, "¡Selecciono el evento " + i + " de la lista");
                 }
             });
-            dialog.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(getActivity(), arrayAdapter.getItem(i), Toast.LENGTH_SHORT).show();
-                }
-            });
-            dialog.show();
+            
+            mDialog.setTitle("Seleccione un evento")
+                   .setContentView(mList)
+                    .setNegativeButton("OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mDialog.dismiss();
+                        }
+                    }).show();
+
+        } else if (mAdapter.getCount() == 1){
+            Log.i(TAG, "¡Hay solo un evento!");
+            getFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(null)
+                    .replace(R.id.frame_container, EventoFragment.newInstance(mIds.get(0)))
+                    .commit();
         } else {
-            for (int i = 0; i < fechas.size(); i++) {
-                fechaEvento = sdf.format(fechas.get(i));
-                if (fechaEvento.equals(fechaCalendario)) {
-                    Toast.makeText(getActivity(), titulos.get(i), Toast.LENGTH_SHORT).show();
-                }
-            }
+            Log.i(TAG, "¡No hay eventos en ese dia!");
         }
     }
 
@@ -118,52 +138,40 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
     public void onDateUnselected(Date date) {
 
     }
-
-    private class EventosTaks extends AsyncTask<Void, Void, Void> {
-
-        Collection dates;
+    
+    private class LoadingEventos extends AsyncTask<Void, Void, Integer> {
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            calendario.setEmptyView(view.findViewById(R.id.progress_bar));
+        protected Integer doInBackground(Void... voids) {
+            mEventos = mEventoTable.searchEventos();
+            if (mEventos != null) {
+                Log.i(TAG, "¡Hay eventos!");
+                for(Evento mEvento : mEventos) {
+                    mFechas.add(mEvento.getFecha());
+                }
+                return 100;
+            }
+            return -1;
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
-
-            Calendar diciembre12 = Calendar.getInstance();
-            diciembre12.set(2015, 02, 12);
-            Calendar diciembre15 = Calendar.getInstance();
-            diciembre15.set(2015, 02, 15);
-            Calendar diciembre18 = Calendar.getInstance();
-            diciembre18.set(2015, 02, 18);
-            dates = new ArrayList();
-            dates.add(diciembre12.getTime());
-            dates.add(diciembre15.getTime());
-            dates.add(diciembre18.getTime());
-            titulos.clear();
-            titulos.add(0, "Aniversario Empresas Polar");
-            titulos.add(1, "Caida de Nicolas Maduro");
-            titulos.add(0, "Venezuela es libre");
-            titulos.add(1, "Adios comunismo");
-            fechas.clear();
-            fechas.add(0, diciembre12.getTime());
-            fechas.add(1, diciembre12.getTime());
-            fechas.add(2, diciembre15.getTime());
-            fechas.add(3, diciembre18.getTime());
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            calendario.init(today.getTime(), nextYear.getTime())
-                    .withSelectedDate(today.getTime())
-                    .inMode(CalendarPickerView.SelectionMode.SINGLE)
-                    .withHighlightedDates(dates);
-            calendario.setEmptyView(view.findViewById(R.id.tv_empty_text));
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            switch (result) {
+                case 100:
+                    mCalendario.init(mDiaActual.getTime(), mProximoAño.getTime())
+                            .withSelectedDate(mDiaActual.getTime())
+                            .inMode(CalendarPickerView.SelectionMode.SINGLE)
+                            .withHighlightedDates(mFechas);
+                    break;
+                case -1:
+                    Log.i(TAG, "No hay eventos!");
+                    mCalendario.init(mDiaActual.getTime(), mProximoAño.getTime())
+                            .withSelectedDate(mDiaActual.getTime());
+                    break;
+            }
+            mLoading.setVisibility(View.GONE);
+            mCalendario.setVisibility(View.VISIBLE);
         }
     }
 }

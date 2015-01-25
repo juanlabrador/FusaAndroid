@@ -102,6 +102,10 @@ public class SolicitudPrestamoTable {
         return null;
     }
 
+    public void deleteAll() {
+        mDatabase.delete(TABLE_NAME, null, null);
+    }
+
     public void destroyTable() {
         mDatabase.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
     }

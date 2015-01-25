@@ -33,6 +33,16 @@
     <string name="noticias_titulo_barra">Ultimas Noticias</string>
     <string name="noticias_fecha_publicacion">Publicado el día</string>
     
+    <!-- Evento -->
+    <string name="evento_nombre">Nombre</string>
+    <string name="evento_fecha">Fecha</string>
+    <string name="evento_hora">Hora</string>
+    <string name="evento_sitio">Sitio</string>
+    <string name="evento_direccion">Dirección</string>
+    <string name="evento_titulo_barra">Detalle del evento</string>
+    <string name="evento_encabezado_lugar">LUGAR</string>
+    <string name="evento_sin_hora">Sin definir</string>
+    
     <!-- Prestamo de instrumento -->
     <string name="prestamo_titulo_barra">Solicitud de Prestamo</string>
     <string name="prestamo_fecha_emision">Desde la fecha</string>

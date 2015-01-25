@@ -4,40 +4,41 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    >
+    android:background="@color/blanco">
+    
   <com.squareup.timessquare.CalendarCellView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      style="@style/CalendarCell.CalendarDate"
-      />
+      style="@style/CalendarCell.CalendarDate"/>
+    
   <com.squareup.timessquare.CalendarCellView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      style="@style/CalendarCell.CalendarDate"
-      />
+      style="@style/CalendarCell.CalendarDate"/>
+    
   <com.squareup.timessquare.CalendarCellView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      style="@style/CalendarCell.CalendarDate"
-      />
+      style="@style/CalendarCell.CalendarDate"/>
+    
   <com.squareup.timessquare.CalendarCellView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      style="@style/CalendarCell.CalendarDate"
-      />
+      style="@style/CalendarCell.CalendarDate"/>
+    
   <com.squareup.timessquare.CalendarCellView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      style="@style/CalendarCell.CalendarDate"
-      />
+      style="@style/CalendarCell.CalendarDate"/>
+    
   <com.squareup.timessquare.CalendarCellView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      style="@style/CalendarCell.CalendarDate"
-      />
+      style="@style/CalendarCell.CalendarDate"/>
+    
   <com.squareup.timessquare.CalendarCellView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      style="@style/CalendarCell.CalendarDate"
-      />
+      style="@style/CalendarCell.CalendarDate"/>
+    
 </com.squareup.timessquare.CalendarRowView><!-- From: file:/home/juanlabrador/android-projects/fusaandroid/libraryTimesSquare/src/main/res/layout/week.xml --><!-- From: file:/home/juanlabrador/android-projects/fusaandroid/libraryTimesSquare/build/intermediates/bundles/debug/res/layout/week.xml -->

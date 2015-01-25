@@ -567,7 +567,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                                     .text(R.string.mensaje_error_servidor));
                     break;
             }
-            
         }
     }
     
@@ -576,39 +575,25 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     public class LoadingEventos extends AsyncTask<Void, Void, Integer> {
         
         private String TAG = "LoadingEventos";
-        private Calendar mDesde;
-        private Calendar mHasta;
-        private SimpleDateFormat mDateFormat;
         private ArrayList<Evento> mEventos;
         private EventoTable mEventoTable;
         private LugarTable mLugarTable;
         private Lugar mLugar;
+        private int mUltimoEvento;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            mDesde = Calendar.getInstance();
-            mHasta = Calendar.getInstance();
-            // Sumamos un año
-            mHasta.set(mDesde.get(Calendar.YEAR) + 1, mDesde.get(Calendar.MONTH), mDesde.get(Calendar.DAY_OF_MONTH));
-            mLugar = new Lugar();
             mEventoTable = new EventoTable(getApplicationContext());
             mLugarTable = new LugarTable(getApplicationContext());
-            Log.i(TAG, mDateFormat.format(mDesde.getTime()));
-            Log.i(TAG, mDateFormat.format(mHasta.getTime()));
         }
 
         @Override
         protected Integer doInBackground(Void... params) {
-            mEventos = mEventoTable.searchEventos(mDateFormat.format(mDesde.getTime()));
+            mEventos = mEventoTable.searchEventos();
             Log.i(TAG, "Cantidad de eventos: " + mEventos.size());
             if (mEventos.size() == 0) {
-                /** Cargamos los parametros que enviaremos por URL */
-                ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
-                parametros.add(new BasicNameValuePair("desde", mDateFormat.format(mDesde.getTime())));
-                parametros.add(new BasicNameValuePair("hasta", mDateFormat.format(mHasta.getTime())));
-                mEventos = mJSONParser.serviceLoadingEventos(parametros);
+                mEventos = mJSONParser.serviceLoadingEventos();
                 if (mEventos == null) {
                     return 0;
                 } else if (mEventos.size() != 0) {
@@ -621,7 +606,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                                 evento.getId(),
                                 evento.getLugar().getId()
                         );
-                        mLugar = mLugarTable.searchLugar(String.valueOf(evento.getLugar().getId()));
+                        mLugar = mLugarTable.searchLugar(evento.getLugar().getId());
                         if (mLugar == null) {
                             Log.i(TAG, "¡No existe el lugar!");
                             mLugarTable.insertData(
@@ -629,6 +614,8 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                                     evento.getLugar().getDescripcion(),
                                     evento.getLugar().getDireccion()
                             );
+                        } else {
+                            Log.i(TAG, "¡Existe el lugar!");
                         }
                     }
                     return 100;
@@ -636,8 +623,41 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                     return -1;
                 }
             } else {
-                return 200;
+                if (mEventos.size() < 30) {
+                    mUltimoEvento = mEventoTable.searchUltimoEvento();
+                    mEventos = mJSONParser.serviceLoadingNuevosEventos(mUltimoEvento);
+                    if (mEventos == null) {
+                        return -2;
+                    } else if (mEventos.size() != 0) {
+                        for (Evento evento : mEventos) {
+                            mEventoTable.insertData(
+                                    evento.getNombre(),
+                                    evento.getLogistica(),
+                                    evento.getFecha(),
+                                    evento.getHora(),
+                                    evento.getId(),
+                                    evento.getLugar().getId()
+                            );
+                            mLugar = mLugarTable.searchLugar(evento.getLugar().getId());
+                            if (mLugar == null) {
+                                Log.i(TAG, "¡No existe el lugar para actualizar!");
+                                mLugarTable.insertData(
+                                        evento.getLugar().getId(),
+                                        evento.getLugar().getDescripcion(),
+                                        evento.getLugar().getDireccion()
+                                );
+                            } else {
+                                Log.i(TAG, "¡Si existe el lugar para actualizar!");
+                            }                          
+                        } 
+                        return 200;
+                    } else {
+                        return -2;
+                    }
+                }
             }
+            Log.i(TAG, "¡No hay eventos ni viejos ni nuevos!");
+            return -1;
         }
 
         @Override
@@ -645,10 +665,13 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             super.onPostExecute(result);
             switch (result) {
                 case 200:
-                    Log.i(TAG, "¡Eventos por actualizar!");
+                    Log.i(TAG, "¡Eventos actualizados!");
                     break;
                 case 100:
                     Log.i(TAG, "¡Eventos guardados!");
+                    break;
+                case -2:
+                    Log.i(TAG, "¡No hay eventos nuevos!");
                     break;
                 case -1:
                     Log.i(TAG, "¡No hay eventos!");

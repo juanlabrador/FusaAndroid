@@ -1,8 +1,9 @@
 package edu.ucla.fusa.android.adaptadores;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.squareup.picasso.Picasso;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
+import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,7 +29,6 @@ public class ListNoticiasAdapter extends BaseAdapter {
     private ViewHolder mViewHolder;
     private ItemListNoticia item;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-    private static String URL = "http://10.0.3.2:8080/fusa.frontend/webservices/rest/downloads/";
 
     public ListNoticiasAdapter(FragmentActivity activity, ArrayList<ItemListNoticia> paramArrayList, ListFragment fragment) {
         this.activity = activity;
@@ -47,10 +49,11 @@ public class ListNoticiasAdapter extends BaseAdapter {
 
 
     public static class ViewHolder {
-        TextView descripcion;
-        TextView fecha;
-        ImageView imagen;
-        TextView titulo;
+        TextView mFecha;
+        ImageView mImagen;
+        TextView mTitulo;
+        ExpandableTextView mExpandible;
+        View mLinea1;
     }
 
     public View getView(int position, View view, ViewGroup viewGroup) {
@@ -58,29 +61,31 @@ public class ListNoticiasAdapter extends BaseAdapter {
         if (view == null) {
             mViewHolder = new ViewHolder();
             view = layoutInflater.inflate(R.layout.custom_item_list_noticias, null);
-            mViewHolder.titulo = (TextView) view.findViewById(R.id.tv_titulo_noticia);
-            mViewHolder.fecha = (TextView) view.findViewById(R.id.tv_fecha_publicacion_noticia);
-            mViewHolder.imagen = (ImageView) view.findViewById(R.id.iv_foto_noticia);
-            mViewHolder.descripcion = (TextView) view.findViewById(R.id.tv_descripcion_noticia);
-
+            mViewHolder.mTitulo = (TextView) view.findViewById(R.id.tv_titulo_noticia);
+            mViewHolder.mFecha = (TextView) view.findViewById(R.id.tv_fecha_publicacion_noticia);
+            mViewHolder.mImagen = (ImageView) view.findViewById(R.id.iv_foto_noticia);
+            mViewHolder.mExpandible = (ExpandableTextView) view.findViewById(R.id.expand_text_view);
+            mViewHolder.mLinea1 = view.findViewById(R.id.linea_divisor_1);
             view.setTag(mViewHolder);
             
             item = arrayItems.get(position);
-            mViewHolder.titulo.setText(item.getTitulo());
-            mViewHolder.fecha.setText(dateFormat.format(item.getFecha()));
+            mViewHolder.mTitulo.setText(item.getTitulo());
+            mViewHolder.mFecha.setText(dateFormat.format(item.getFecha()));
             Picasso.with(activity)
-                    .load(URL + item.getId())
-                    .into(mViewHolder.imagen);
-            mViewHolder.descripcion.setText(item.getDescripcion());
+                    .load(JSONParser.URL_IMAGEN + item.getId())
+                    .into(mViewHolder.mImagen);
+            mViewHolder.mExpandible.setText(item.getDescripcion());
+            mViewHolder.mLinea1.setBackgroundColor(Color.LTGRAY);
         } else {
             mViewHolder = (ViewHolder) view.getTag();
             item = arrayItems.get(position);
-            mViewHolder.titulo.setText(item.getTitulo());
-            mViewHolder.fecha.setText(dateFormat.format(item.getFecha()));
+            mViewHolder.mTitulo.setText(item.getTitulo());
+            mViewHolder.mFecha.setText(dateFormat.format(item.getFecha()));
             Picasso.with(activity)
-                    .load(URL + item.getId())
-                    .into(mViewHolder.imagen);
-            mViewHolder.descripcion.setText(item.getDescripcion());
+                    .load(JSONParser.URL_IMAGEN  + item.getId())
+                    .into(mViewHolder.mImagen);
+            mViewHolder.mExpandible.setText(item.getDescripcion());
+            mViewHolder.mLinea1.setBackgroundColor(Color.LTGRAY);
         }
         return view;
     }

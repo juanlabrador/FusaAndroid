@@ -9,9 +9,11 @@ import android.util.Log;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import edu.ucla.fusa.android.modelo.evento.Evento;
+import edu.ucla.fusa.android.modelo.evento.Lugar;
 
 /**
  * Created by juanlabrador on 17/01/15.
@@ -44,6 +46,9 @@ public class EventoTable {
     private SimpleDateFormat mTimeFormat;
     private LugarTable mLugarTable;
     private ArrayList<Evento> mEventos;
+    private Calendar mCalendar;
+    private Evento mEvento;
+    private Lugar mLugar;
     
 
     public EventoTable(Context context) {
@@ -53,6 +58,9 @@ public class EventoTable {
         mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         mTimeFormat = new SimpleDateFormat("hh:mm aa");
         mEventos = new ArrayList<>();
+        mCalendar = Calendar.getInstance();
+        mEvento = new Evento();
+        mLugar = new Lugar();
     }
 
     private ContentValues generarValores (String nombre, byte[] logistica,
@@ -75,26 +83,33 @@ public class EventoTable {
         mDatabase.insert(TABLE_NAME, null, generarValores(nombre, logistica, fecha, hora, evento, idLugar));
     }
     
-    public ArrayList<Evento> searchEventos(String fecha) {
-        String[] condicion = new String[]{fecha};
-        String[] columnas = new String[]{COLUMN_ID, COLUMN_NOMBRE,
-                COLUMN_FECHA, COLUMN_HORA, COLUMN_LOGISTICA, COLUMN_ID_EVENTO, COLUMN_ID_LUGAR};
-        mCursor = mDatabase.query(TABLE_NAME, columnas, COLUMN_FECHA + "<?", condicion, null, null, null, null);
+    public ArrayList<Evento> searchEventos() {
+        Date mViejaFecha;
+        String tiraSQL = "SELECT * FROM " + TABLE_NAME;
         mEventos.clear();
+        mCursor = mDatabase.rawQuery(tiraSQL, null);
         while (mCursor.moveToNext()) {
             Log.i(TAG, "¡Buscando eventos!");
+            Log.i(TAG, "¡Overflow!");
             Log.i(TAG, mCursor.getString(1));
             try {
-                mEventos.add(new Evento(
-                        mCursor.getInt(5), // ID
-                        mCursor.getString(1), // Nombre
-                        mCursor.getBlob(4), // Logistica
-                        mDateFormat.parse(mCursor.getString(2)), // Fecha
-                        //mTimeFormat.parse(mCursor.getString(3)), // Hora
-                        null,
-                        mLugarTable.searchLugar(String.valueOf(mCursor.getInt(6))), //Lugar
-                        "activo"
-                ));
+                mViejaFecha = mDateFormat.parse(mCursor.getString(2));
+                if (mViejaFecha.after(mCalendar.getTime())) {  // Si la fecha del evento no expiro
+                    Log.i(TAG, "¡Evento aún disponible!");
+                    mEventos.add(new Evento(
+                            mCursor.getInt(5), // ID
+                            mCursor.getString(1), // Nombre
+                            mCursor.getBlob(4), // Logistica
+                            mDateFormat.parse(mCursor.getString(2)), // Fecha
+                            //mTimeFormat.parse(mCursor.getString(3)), // Hora
+                            null,
+                            mLugarTable.searchLugar(mCursor.getInt(6)), //Lugar
+                            "activo"
+                    ));
+                } else {
+                    Log.i(TAG, "¡Borrando viejo evento!");
+                    delete(mCursor.getInt(0));
+                }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -102,16 +117,41 @@ public class EventoTable {
         return mEventos;
     }
 
-    public int searchUltimoEvento() {
-        int mUltimo = -1;
-        String[] columnas = new String[]{COLUMN_ID, COLUMN_NOMBRE,
-                COLUMN_FECHA, COLUMN_HORA, COLUMN_LOGISTICA, COLUMN_ID_EVENTO, COLUMN_ID_LUGAR};
-        mCursor = mDatabase.query(TABLE_NAME, columnas, null, null, null, null, null, null);
-        mEventos.clear();
-        while (mCursor.moveToLast()) {
-            Log.i(TAG, "¡Buscando eventos!");
-            mUltimo = mCursor.getInt(5);
+    public Evento searchEvento(int id) {
+        Log.i(TAG, "¡Buscando el evento!");
+        String[] columnas = new String[]{COLUMN_NOMBRE, COLUMN_LOGISTICA, COLUMN_FECHA, COLUMN_HORA, COLUMN_ID_EVENTO, COLUMN_ID_LUGAR};
+        mCursor = mDatabase.query(TABLE_NAME, columnas, COLUMN_ID_EVENTO + "=?", new String[] {String.valueOf(id)}, null, null, null);
+        while (mCursor.moveToFirst()){
+            try {
+                mEvento.setId(mCursor.getInt(4));
+                mEvento.setNombre(mCursor.getString(0));
+                mEvento.setLogistica(mCursor.getBlob(1));
+                mEvento.setFecha(mDateFormat.parse(mCursor.getString(2)));
+                mEvento.setHora(null);
+                //mEvento.setHora(mTimeFormat.parse(mCursor.getString(3)));
+                mLugar = mLugarTable.searchLugar(mCursor.getInt(5));
+                if (mLugar != null) {
+                    mEvento.setLugar(mLugar);
+                }
+                
+                return mEvento;
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
-        return mUltimo;
+        
+        return null;
+    }
+    
+    public int searchUltimoEvento() {
+        Log.i(TAG, "¡Buscando el ultimo!");
+        String[] columnas = new String[]{"MAX(" + COLUMN_ID_EVENTO + ")"};
+        mCursor = mDatabase.query(TABLE_NAME, columnas, null, null, null, null, null);
+        mCursor.moveToFirst();
+        return mCursor.getInt(0);
+    }
+
+    public void delete(int id) {
+        mDatabase.delete(TABLE_NAME, COLUMN_ID + "=?", new String[] {String.valueOf(id)});
     }
 }

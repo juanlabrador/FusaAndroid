@@ -115,18 +115,20 @@ containing a value of this type.
         public static int titleTextColor=0x7f010003;
     }
     public static final class color {
-        public static int calendar_active_month_bg=0x7f040000;
-        public static int calendar_bg=0x7f040001;
-        public static int calendar_divider=0x7f040002;
-        public static int calendar_highlighted_day_bg=0x7f040003;
-        public static int calendar_inactive_month_bg=0x7f040004;
-        public static int calendar_selected_day_bg=0x7f040005;
-        public static int calendar_selected_range_bg=0x7f040006;
-        public static int calendar_text_active=0x7f040007;
-        public static int calendar_text_inactive=0x7f040008;
-        public static int calendar_text_selected=0x7f040009;
-        public static int calendar_text_selector=0x7f04000b;
-        public static int calendar_text_unselectable=0x7f04000a;
+        public static int blanco=0x7f040000;
+        public static int calendar_active_month_bg=0x7f040001;
+        public static int calendar_bg=0x7f040002;
+        public static int calendar_divider=0x7f040003;
+        public static int calendar_highlighted_day_bg=0x7f040004;
+        public static int calendar_inactive_month_bg=0x7f040005;
+        public static int calendar_selected_day_bg=0x7f040006;
+        public static int calendar_selected_range_bg=0x7f040007;
+        public static int calendar_text_active=0x7f040008;
+        public static int calendar_text_inactive=0x7f040009;
+        public static int calendar_text_selected=0x7f04000a;
+        public static int calendar_text_selector=0x7f04000d;
+        public static int calendar_text_unselectable=0x7f04000b;
+        public static int gris_fondo=0x7f04000c;
     }
     public static final class dimen {
         public static int calendar_day_headers_paddingbottom=0x7f050000;

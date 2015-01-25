@@ -2,32 +2,27 @@
 <LinearLayout
     android:orientation="vertical"
     android:id="@+id/fragment_calendar"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@android:color/white">
+    android:background="@color/gris_fondo"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.squareup.timessquare.CalendarPickerView
         android:id="@+id/calendario"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarStyle="outsideOverlay"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:clipToPadding="false"/>
+        android:clipToPadding="true"
+        android:visibility="gone"/>
 
-    <ProgressBar
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
         android:layout_gravity="center"
-        android:id="@+id/progress_bar"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:layout_gravity="center"
-        android:id="@+id/tv_empty_text"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mensaje_error_datos_no_disponibles" />
+        android:id="@+id/pb_cargando_calendario"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:cpb_color="@color/azul"
+        app:cpb_stroke_width="2dp"
+        android:indeterminate="true"/>
 </LinearLayout>

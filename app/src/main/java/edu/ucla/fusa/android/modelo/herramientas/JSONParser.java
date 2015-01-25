@@ -33,6 +33,7 @@ import edu.ucla.fusa.android.modelo.fundacion.Noticia;
 
 public class JSONParser {
 
+    public static String URL_IMAGEN = "http://10.0.3.2:8080/fusa.frontend/webservices/rest/downloads/";
     private static String TAG = "JSONParser";
     private static String URL = "http://10.0.3.2:8080/fusa.frontend/webservices/rest/";
     private String mParameters;
@@ -225,11 +226,23 @@ public class JSONParser {
     
     // Eventos
     
-    public ArrayList<Evento> serviceLoadingEventos(ArrayList<NameValuePair> params) {
+    public ArrayList<Evento> serviceLoadingEventos() {
         try {
             mRestTemplate = new RestTemplate(mRequestFactory);
             mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            mParameters = "ServiceEventos/" + params.get(0).getValue() + "/" + params.get(1).getValue();
+            ResponseEntity<Evento[]> responseEntity = mRestTemplate.getForEntity(URL + "eventos", Evento[].class);
+            return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<Evento> serviceLoadingNuevosEventos(int id) {
+        try {
+            mRestTemplate = new RestTemplate(mRequestFactory);
+            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            mParameters = "eventos_new/" + id;
             ResponseEntity<Evento[]> responseEntity = mRestTemplate.getForEntity(URL + mParameters, Evento[].class);
             return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
         } catch (Exception e) {

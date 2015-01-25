@@ -2,6 +2,7 @@ package edu.ucla.fusa.android.fragmentos;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 
@@ -304,6 +305,7 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
 
         @Override
         protected Integer doInBackground(SolicitudPrestamo... params) {
+            SystemClock.sleep(3000);
             int result;
             try {
                 mSolicitudPrestamo = jsonParser.uploadSolicitudPrestamo(params[0]);

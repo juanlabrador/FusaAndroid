@@ -111,8 +111,8 @@ public class NoticiasTable {
 
     public Integer searchLastNews(){
         String[] columnas = new String[]{"MAX(" + COLUMN_ID + ")"};
-        Cursor cursor = mDataBase.query(TABLE_NAME, columnas, null, null, null, null, null);
-        cursor.moveToFirst();
-        return cursor.getInt(5);
+        mCursor = mDataBase.query(TABLE_NAME, columnas, null, null, null, null, null);
+        mCursor.moveToFirst();
+        return mCursor.getInt(0);
     }
 }

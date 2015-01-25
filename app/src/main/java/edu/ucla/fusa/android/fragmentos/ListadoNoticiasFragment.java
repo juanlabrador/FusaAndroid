@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.yalantis.pulltorefresh.library.PullToRefreshView;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -31,14 +32,15 @@ import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 
 import java.util.ArrayList;
 
-public class ListadoNoticiasFragment extends ListFragment implements PullToRefreshBase.OnRefreshListener<ListView>, View.OnClickListener {
+public class ListadoNoticiasFragment extends ListFragment implements PullToRefreshView.OnRefreshListener, View.OnClickListener {
 
+    private PullToRefreshView mPull;
     private Toolbar mToolbar;
     private ListNoticiasAdapter mListAdapter;
     private View mBackToTop;
     private int mIndex = -1;
     private ArrayList<ItemListNoticia> mItemsNoticias = new ArrayList();
-    private PullToRefreshListView mList;
+    private ListView mList;
     private View mView;
     private JSONParser mJSONParser;
     private NoticiasTable mNoticiasTable;
@@ -84,12 +86,16 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
         super.onCreateView(inflater, container, bundle);
         mView = inflater.inflate(R.layout.fragment_drawer_list_noticias, container, false);
         
-        mList = (PullToRefreshListView) mView.findViewById(R.id.pull_to_refresh_list);
+        mList = (ListView) mView.findViewById(android.R.id.list);
+
+        mPull = (PullToRefreshView) mView.findViewById(R.id.pull_to_refresh);
+        mPull.setOnRefreshListener(this);
+
         mLoading = (ProgressBar) mView.findViewById(R.id.progress_bar_noticias);
         mTextLoading = (TextView) mView.findViewById(R.id.tv_empty_text);
         mButtonRetry = (Button) mView.findViewById(R.id.btn_reintentar_conexion_noticias);
         mButtonRetry.setOnClickListener(this);
-        mList.setOnRefreshListener(this);
+        
         return mView;
     }
 
@@ -97,12 +103,6 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
     public void onPause() {
         super.onPause();
         mIndex = getListView().getLastVisiblePosition();
-    }
-
-    public void onRefresh(PullToRefreshBase<ListView> paramPullToRefreshBase) {
-         mItemNoticia = (ItemListNoticia) mListAdapter.getItem(0);
-        new LoadingNewsNoticiasTaks().execute(String.valueOf(mItemNoticia.getId()));
-
     }
 
     public void onResume() {
@@ -131,6 +131,19 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
     public void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
         //bundle.putInt("item_position", getListView().getSelectedItemPosition());
+    }
+
+    @Override
+    public void onRefresh() {
+        mPull.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mPull.setRefreshing(false);
+                mItemNoticia = (ItemListNoticia) mListAdapter.getItem(0);
+                new LoadingNewsNoticiasTaks().execute(String.valueOf(mItemNoticia.getId()));
+            }
+        }, 2000);
+        
     }
 
     private class LoadingNoticiasTaks extends AsyncTask<Void, Void, Integer> {
@@ -241,7 +254,6 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
 
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            mList.onRefreshComplete();
             switch (result) {
                 case 100:
                     mListAdapter = new ListNoticiasAdapter(getActivity(), mItemsNoticias, ListadoNoticiasFragment.this);

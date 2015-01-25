@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     android:orientation="vertical"
-    android:background="@color/contenido_bg"
+    android:background="@color/gris_fondo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ptr="http://schemas.android.com/apk/res-auto">
-    
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/pull_to_refresh_list"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.yalantis.pulltorefresh.library.PullToRefreshView
+        android:id="@+id/pull_to_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        ptr:ptrPullLabel="@string/lista_pull"
-        ptr:ptrRefreshLabel="@string/lista_refresh"
-        ptr:ptrReleaseLabel="@string/lista_release" />
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@android:id/list"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"/>
+
+    </com.yalantis.pulltorefresh.library.PullToRefreshView>
 
     <ProgressBar
         android:layout_gravity="center"

@@ -192,6 +192,12 @@
 
     <!-- Elementos de la ventana de mis clases -->
     <string name="mis_clases_action_bar">Mis clases</string>
-
+    <string name="mis_clases_particulares">CLASE PARTICULAR</string>
+    <string name="mis_clases_agrupacion">CLASE CON MI AGRUPACIÓN</string>
+    <string name="mis_clases_catedra">Catedra</string>
+    <string name="mis_clases_horario">Horario</string>
+    <string name="mis_clases_instructor">Instructor</string>
+    <string name="mis_clases_nombre_agrupacion">Nombre</string>
+    <string name="mis_clases_sin_clase">No posee alguna actividad para este día.</string>
 
 </resources>

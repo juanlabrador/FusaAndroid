@@ -24,7 +24,7 @@ public class ContenedorContactoFragment extends Fragment implements ViewPager.On
     private Toolbar mToolbar;
     private View mView;
     private ViewPager mViewPager;
-    private static final String[] mContentTabs = new String[] {"Información", "Ubicación"};
+    private static final String[] mContentTabs = new String[] {"Información", "Ubicación", "fff"};
     private DrawerArrowDrawable mDrawerArrow;
 
     public static ContenedorContactoFragment newInstance() {
@@ -36,7 +36,7 @@ public class ContenedorContactoFragment extends Fragment implements ViewPager.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle arguments) {
         super.onCreateView(inflater, container, arguments);
         
-        mView = inflater.inflate(R.layout.fragment_inicial_fundacion, container, false);
+        mView = inflater.inflate(R.layout.fragment_inicial_contenedor_contacto, container, false);
 
         mViewPager = (ViewPager) mView.findViewById(R.id.view_pager_contacto);
         

@@ -7,22 +7,17 @@ The following files were *not* copied into the new Gradle project; you
 should evaluate whether these are still needed in your project and if
 so manually move them:
 
-* library.iml
-* pom.xml
-* test/
-* test/com/
-* test/com/squareup/
-* test/com/squareup/timessquare/
-* test/com/squareup/timessquare/CalendarPickerViewTest.java
+* default.properties
+* proguard.cfg
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => libraryTimesSquare/src/main/AndroidManifest.xml
-* res/ => libraryTimesSquare/src/main/res/
-* src/ => libraryTimesSquare/src/main/java/
+* AndroidManifest.xml => groupedTextView/src/main/AndroidManifest.xml
+* res/ => groupedTextView/src/main/res/
+* src/ => groupedTextView/src/main/java/
 
 Next Steps:
 -----------

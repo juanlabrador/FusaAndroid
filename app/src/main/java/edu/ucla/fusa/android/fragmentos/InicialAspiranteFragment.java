@@ -14,7 +14,7 @@ public class InicialAspiranteFragment extends Fragment implements View.OnClickLi
     
     private Button postulate;
     private View mView;
- 
+
     public static InicialAspiranteFragment newInstance() {
         InicialAspiranteFragment fragment = new InicialAspiranteFragment();
         fragment.setRetainInstance(true);

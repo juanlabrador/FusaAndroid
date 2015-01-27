@@ -1,14 +1,14 @@
 package edu.ucla.fusa.android.modelo.academico;
 
 /**
- * Created by juanlabrador on 25/11/14.
+ * Created by juanlabrador on 25/01/15.
  */
-public class AreaEstudio {
-
+public class TipoAgrupacion {
+    
     private int id;
     private String descripcion;
 
-    public AreaEstudio() {
+    public TipoAgrupacion() {
     }
 
     public int getId() {

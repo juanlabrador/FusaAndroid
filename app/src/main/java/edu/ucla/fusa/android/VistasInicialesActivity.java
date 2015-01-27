@@ -72,6 +72,11 @@ public class VistasInicialesActivity extends FragmentActivity implements ViewPag
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         mUsuario = mUserTable.searchUser();

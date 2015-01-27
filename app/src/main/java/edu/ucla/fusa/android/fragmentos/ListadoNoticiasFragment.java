@@ -164,18 +164,37 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
             } else if (mNoticias.size() != 0) {
                 for (Noticia noticia : mNoticias) {
                     //Agregamos a la lista de noticias
-                    mItemsNoticias.add(new ItemListNoticia(
-                            noticia.getId(),
-                            noticia.getTitulo(),
-                            noticia.getFechapublicacion().getTime(),
-                            noticia.getImagen(),
-                            noticia.getDescripcion()));
-                    //Guardamos en la base de datos
-                    mNoticiasTable.insertData(noticia.getTitulo(),
-                            noticia.getDescripcion(),
-                            noticia.getFechapublicacion().getTime(),
-                            noticia.getImagen(),
-                            noticia.getId());
+                    if (noticia.getImagen() != null) {
+                        mItemsNoticias.add(new ItemListNoticia(
+                                noticia.getId(),
+                                noticia.getTitulo(),
+                                noticia.getFechapublicacion().getTime(),
+                                noticia.getImagen(),
+                                noticia.getDescripcion(),
+                                1));
+                        //Guardamos en la base de datos
+                        mNoticiasTable.insertData(noticia.getTitulo(),
+                                noticia.getDescripcion(),
+                                noticia.getFechapublicacion().getTime(),
+                                noticia.getImagen(),
+                                noticia.getId(),
+                                1);
+                    } else {
+                        mItemsNoticias.add(new ItemListNoticia(
+                                noticia.getId(),
+                                noticia.getTitulo(),
+                                noticia.getFechapublicacion().getTime(),
+                                noticia.getImagen(),
+                                noticia.getDescripcion(),
+                                0));
+                        //Guardamos en la base de datos
+                        mNoticiasTable.insertData(noticia.getTitulo(),
+                                noticia.getDescripcion(),
+                                noticia.getFechapublicacion().getTime(),
+                                noticia.getImagen(),
+                                noticia.getId(),
+                                0);
+                    }
                 }
                 return 100;
             } else {
@@ -231,20 +250,37 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
             } else if (mNoticias.size() != 0) {
                 Log.i(TAG, "Tamaño de la lista " + mNoticias.size());
                 for (Noticia noticia : mNoticias) {
-                    //Agregamos a la lista de noticias
-                    mItemsNoticias.add(new ItemListNoticia(
-                            noticia.getId(),
-                            noticia.getTitulo(),
-                            noticia.getFechapublicacion().getTime(),
-                            noticia.getImagen(),
-                            noticia.getDescripcion()));
-                    //Guardamos en la base de datos
-                    mNoticiasTable.insertData(
-                            noticia.getTitulo(),
-                            noticia.getDescripcion(),
-                            noticia.getFechapublicacion().getTime(),
-                            noticia.getImagen(),
-                            noticia.getId());
+                    if (noticia.getImagen() != null) {
+                        mItemsNoticias.add(new ItemListNoticia(
+                                noticia.getId(),
+                                noticia.getTitulo(),
+                                noticia.getFechapublicacion().getTime(),
+                                noticia.getImagen(),
+                                noticia.getDescripcion(),
+                                1));
+                        //Guardamos en la base de datos
+                        mNoticiasTable.insertData(noticia.getTitulo(),
+                                noticia.getDescripcion(),
+                                noticia.getFechapublicacion().getTime(),
+                                noticia.getImagen(),
+                                noticia.getId(),
+                                1);
+                    } else {
+                        mItemsNoticias.add(new ItemListNoticia(
+                                noticia.getId(),
+                                noticia.getTitulo(),
+                                noticia.getFechapublicacion().getTime(),
+                                noticia.getImagen(),
+                                noticia.getDescripcion(),
+                                0));
+                        //Guardamos en la base de datos
+                        mNoticiasTable.insertData(noticia.getTitulo(),
+                                noticia.getDescripcion(),
+                                noticia.getFechapublicacion().getTime(),
+                                noticia.getImagen(),
+                                noticia.getId(),
+                                0);
+                    }
                 }
                 return 100;
             } else {

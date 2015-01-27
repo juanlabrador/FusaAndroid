@@ -1,164 +1,159 @@
 package edu.ucla.fusa.android.fragmentos;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
+import com.juanlabrador.GroupLayout;
+
 import java.util.List;
 
 import edu.ucla.fusa.android.R;
-import edu.ucla.fusa.android.adaptadores.ExpandibleListHorarioAdapter;
-import edu.ucla.fusa.android.modelo.academico.Grupo;
-import edu.ucla.fusa.android.modelo.academico.AreaEstudio;
-import edu.ucla.fusa.android.modelo.academico.Dia;
-import edu.ucla.fusa.android.modelo.academico.Horario;
-import edu.ucla.fusa.android.modelo.academico.HorarioPorGrupo;
-import edu.ucla.fusa.android.modelo.academico.Instructor;
+import edu.ucla.fusa.android.modelo.academico.Agrupacion;
+import edu.ucla.fusa.android.modelo.academico.ClaseParticular;
 
 /**
  * Created by juanlabrador on 24/11/14.
  */
 public class HorarioClasesFragment extends Fragment {
 
-    private View view;
-    private ExpandibleListHorarioAdapter adapter;
-    private ExpandableListView expandableListView;
-    private List<String> grupo;
-    private HashMap<String, List<HorarioPorGrupo>> contenido;
+    private static String TAG = "HorarioClasesFragment";
+    private GroupLayout mGrupoAgrupacion;
+    private GroupLayout mGrupoClases;
+    private TextView mTextEmpty;
+    private Toolbar mToolbar;
+    private Agrupacion mAgrupacion;
+    private List<ClaseParticular> mClases;
+    private int mDia;
+    private TextView mCabeceraAgrupacion;
+    private TextView mCabeceraClases;
+    private boolean hayAgrupacion = false;
+    private boolean hayClases = false;
 
-    public static HorarioClasesFragment newInstance() {
-        HorarioClasesFragment fragment = new HorarioClasesFragment();
-        fragment.setRetainInstance(true);
-        return fragment;
+    public HorarioClasesFragment(Agrupacion mAgrupacion, List<ClaseParticular> mClases, int mDia) {
+        this.mAgrupacion = mAgrupacion;
+        this.mClases = mClases;
+        this.mDia = mDia;
+        this.setRetainInstance(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        view = inflater.inflate(R.layout.fragment_drawer_schedule, container, false);
+        return inflater.inflate(R.layout.fragment_drawer_schedule, container, false);
+    }
 
-        expandableListView = (ExpandableListView) view.findViewById(R.id.list_view_horario);
-
-        prepareListData();
-
-        adapter = new ExpandibleListHorarioAdapter(getActivity(), grupo, contenido);
-
-        expandableListView.setAdapter(adapter);
-
-        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-                /*Toast.makeText(
-                        getActivity(),
-                        grupo.get(groupPosition)
-                                + " : "
-                                + contenido.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();*/
-                return false;
-            }
-        });
-
-        // Listview Group expanded listener
-        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                /*Toast.makeText(getActivity(),
-                        groupPosition.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();*/
-            }
-        });
-
-        // Listview Group collasped listener
-        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                /*Toast.makeText(getActivity(),
-                        listDataHeader.get(groupPosition) + " Collapsed",
-                        Toast.LENGTH_SHORT).show();*/
-
-            }
-        });
-                return view;
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mGrupoAgrupacion = (GroupLayout) view.findViewById(R.id.grupo_agrupacion);
+        mGrupoClases = (GroupLayout) view.findViewById(R.id.grupo_clase);
+        mCabeceraAgrupacion = (TextView) view.findViewById(R.id.cabecera_agrupacion);
+        mCabeceraClases = (TextView) view.findViewById(R.id.cabecera_clases);
+        mTextEmpty = (TextView) view.findViewById(R.id.sin_clases);
+        prepareView();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().getActionBar().setIcon(R.drawable.ic_mis_clases_blanco);
-        getActivity().getActionBar().setTitle(R.string.mis_clases_action_bar);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getActivity().getActionBar().setIcon(R.drawable.ic_mis_clases_blanco);
-        getActivity().getActionBar().setTitle(R.string.mis_clases_action_bar);
-    }
-
-    private void prepareListData() {
-        grupo = new ArrayList<String>();
-        contenido = new HashMap<String, List<HorarioPorGrupo>>();
-
-        // Adding child data
-        grupo.add("Lunes");
-        grupo.add("Martes");
-        grupo.add("Miercoles");
-        grupo.add("Jueves");
-        grupo.add("Viernes");
-        grupo.add("Sábado");
-
-
-
-
-        // Adding child data
-        List<HorarioPorGrupo> lunes = new ArrayList<HorarioPorGrupo>();
-        lunes.add(new HorarioPorGrupo(1,
-                new AreaEstudio(1, "Cerca del baño"),
-                new Horario(1, new Dia(1, "Lunes"), Calendar.getInstance(), Calendar.getInstance()),
-                new Grupo(1, "Orquesta Larense Juvenil", new Instructor(1, "Francisco Andrade"), 2)));
-
-        List<HorarioPorGrupo> martes = new ArrayList<HorarioPorGrupo>();
-
-        List<HorarioPorGrupo> miercoles = new ArrayList<HorarioPorGrupo>();
-        miercoles.add(new HorarioPorGrupo(1,
-                new AreaEstudio(1, "Cerca del baño"),
-                new Horario(1, new Dia(3, "Miercoles"), Calendar.getInstance(), Calendar.getInstance()),
-                new Grupo(1, "Orquesta Larense Juvenil", new Instructor(1, "Francisco Andrade"), 2)));
-        miercoles.add(new HorarioPorGrupo(1,
-                new AreaEstudio(1, "ET-09"),
-                new Horario(1, new Dia(3, "Miercoles"), Calendar.getInstance(), Calendar.getInstance()),
-                new Grupo(2, "Guitarra", new Instructor(2, "Axel Fernando"), 1)));
-
-        // Adding child data
-        List<HorarioPorGrupo> jueves = new ArrayList<HorarioPorGrupo>();
-
-        List<HorarioPorGrupo> viernes = new ArrayList<HorarioPorGrupo>();
-        viernes.add(new HorarioPorGrupo(1,
-                new AreaEstudio(1, "ET-09"),
-                new Horario(1, new Dia(3, "Viernes"), Calendar.getInstance(), Calendar.getInstance()),
-                new Grupo(2, "Guitarra", new Instructor(2, "Axel Fernando"), 1)));
-
-        List<HorarioPorGrupo> sabado = new ArrayList<HorarioPorGrupo>();
-
-        contenido.put(grupo.get(0), lunes);
-        contenido.put(grupo.get(1), martes);
-        contenido.put(grupo.get(2), miercoles);
-        contenido.put(grupo.get(3), jueves);
-        contenido.put(grupo.get(4), viernes);
-        contenido.put(grupo.get(5), sabado);
+        mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        mToolbar.setTitle(R.string.mis_clases_action_bar);
     }
 
 
+    private void prepareView() {
+        int horaI;
+        int horaF;
+        mGrupoClases.clear();
+        mGrupoAgrupacion.clear();
+        Log.i(TAG, "¡Hay una agrupacion para el dia " + mDia);
+        Log.i(TAG, "¡Tamaño del horario " + mAgrupacion.getHorarioArea().size());
+        for (int j = 0; j < mAgrupacion.getHorarioArea().size(); j++) {
+            Log.i(TAG, " " + mDia + "==" + mAgrupacion.getHorarioArea().get(j).getHorario().getDia().getDia_id());
+            if (mDia == mAgrupacion.getHorarioArea().get(j).getHorario().getDia().getDia_id()) {
+                mGrupoAgrupacion.addTextLayout(R.string.mis_clases_nombre_agrupacion, mAgrupacion.getDescripcion());
+                horaI = Integer.parseInt(mAgrupacion.getHorarioArea().get(j).getHorario().getHoraInicio());
+                horaF = Integer.parseInt(mAgrupacion.getHorarioArea().get(j + 1).getHorario().getHoraFin());
+                mGrupoAgrupacion.addTextLayout(R.string.mis_clases_horario, horaI + ":00 hasta " + horaF + ":00");
+                j++;
+                mGrupoAgrupacion.addTextLayout(R.string.mis_clases_instructor, mAgrupacion.getInstructor().getNombre() + " " + mAgrupacion.getInstructor().getApellido());
+                hayAgrupacion = true;
+            } else {
+                Log.i(TAG, "¡No hay una agrupacion para el dia " + mDia);
+                mCabeceraAgrupacion.setVisibility(View.GONE);
+                mGrupoAgrupacion.setVisibility(View.GONE);
+            }
+        }
+        
+        Log.i(TAG, "¡Hay una clase particular para el dia " + mDia);
+        for (int k = 0; k < mClases.size(); k++) {
+            for (int j = 0; j < mClases.get(k).getHorarioArea().size(); j++) {
+                if (mDia == mClases.get(k).getHorarioArea().get(j).getHorario().getDia().getDia_id()) {
+                    mGrupoClases.addTextLayout(R.string.mis_clases_catedra, mClases.get(0).getCatedra().getDescripcion());
+                    horaI = Integer.parseInt(mClases.get(k).getHorarioArea().get(j).getHorario().getHoraInicio());
+                    horaF = Integer.parseInt(mClases.get(k).getHorarioArea().get(j + 1).getHorario().getHoraFin());
+                    mGrupoClases.addTextLayout(R.string.mis_clases_horario, horaI + ":00 hasta " + horaF + ":00");
+                    j++;
+                    mGrupoClases.addTextLayout(R.string.mis_clases_instructor, mClases.get(0).getInstructor().getNombre() + " " + mClases.get(0).getInstructor().getApellido());
+                    hayClases = true;
+                } else {
+                    Log.i(TAG, "¡No hay una clase particular para el dia " + mDia);
+                    mCabeceraClases.setVisibility(View.GONE);
+                    mGrupoClases.setVisibility(View.GONE);
+                }
+            }
+        }
+        
+
+        if (!hayAgrupacion) {
+            if (!hayClases) {
+                Log.i(TAG, "¡No hay actividad para el dia " + mDia);
+                mTextEmpty.setVisibility(View.VISIBLE);
+            }
+        }
+        /*for (int i = 0; i < 6; i++) {
+            if (mAgrupacion != null){
+                
+                for (int j = 0; j < mAgrupacion.getHorarioArea().size(); j++) {
+                    if (mDia == mAgrupacion.getHorarioArea().get(j).getHorario().getDia().getDia_id()) {
+                        horaI = Integer.parseInt(mAgrupacion.getHorarioArea().get(j).getHorario().getHoraInicio());
+                        horaF = Integer.parseInt(mAgrupacion.getHorarioArea().get(j + 1).getHorario().getHoraFin());
+                        mGrupoAgrupacion.addTextLayout(R.string.mis_clases_horario, horaI + ":00 hasta " + horaF + ":00");
+                        j++;
+                    }
+                }
+                
+            } else {
+                
+            }
+            if (mClases != null){
+                
+                for (int k = 0; k < mClases.size(); k++) {
+                    for (int j = 0; j < mClases.get(k).getHorarioArea().size(); j++) {
+                        if (mDia == mClases.get(k).getHorarioArea().get(j).getHorario().getDia().getDia_id()) {
+                            horaI = Integer.parseInt(mClases.get(k).getHorarioArea().get(j).getHorario().getHoraInicio());
+                            horaF = Integer.parseInt(mClases.get(k).getHorarioArea().get(j + 1).getHorario().getHoraFin());
+                            mGrupoAgrupacion.addTextLayout(R.string.mis_clases_horario, horaI + ":00 hasta " + horaF + ":00");
+                            j++;
+                        }
+                    }
+                }
+                mGrupoAgrupacion.addTextLayout(R.string.mis_clases_instructor, mClases.get(0).getInstructor().getNombre() + " " + mClases.get(0).getInstructor().getApellido());
+            } else {
+                mContenedorClases.setVisibility(View.GONE);
+            }
+            
+            if (mAgrupacion == null && mClases == null) {
+                mTextEmpty.setVisibility(View.VISIBLE);
+            }
+        }*/
+    }
 }

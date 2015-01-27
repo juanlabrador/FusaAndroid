@@ -8,24 +8,20 @@ import java.util.concurrent.CancellationException;
  */
 public class Horario {
 
-    private int id;
+    private int horario_id;
     private Dia dia;
-    private Calendar horaInicio;
-    private Calendar horaFin;
+    private String horaInicio;
+    private String horaFin;
 
-    public Horario(int id, Dia dia, Calendar horaInicio, Calendar horaFin) {
-        this.id = id;
-        this.dia = dia;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
+    public Horario() {
     }
 
-    public int getId() {
-        return id;
+    public int getHorario_id() {
+        return horario_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setHorario_id(int horario_id) {
+        this.horario_id = horario_id;
     }
 
     public Dia getDia() {
@@ -36,19 +32,19 @@ public class Horario {
         this.dia = dia;
     }
 
-    public Calendar getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(Calendar horaInicio) {
+    public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public Calendar getHoraFin() {
+    public String getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(Calendar horaFin) {
+    public void setHoraFin(String horaFin) {
         this.horaFin = horaFin;
     }
 }

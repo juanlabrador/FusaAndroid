@@ -25,15 +25,19 @@ import java.util.ArrayList;
 
 public class ListNoticiasAdapter extends BaseAdapter {
 
+    private int VIEW_TYPE_FOTO = 1;
+    private static int VIEW_TYPE_SIN_FOTO = 0;
     private static String TAG = "ListNoticiasAdapter";
-    private FragmentActivity activity;
+    private Context context;
     private ArrayList<ItemListNoticia> arrayItems;
     private ViewHolder mViewHolder;
+    private ViewHolderFoto mViewHolderFoto;
     private ItemListNoticia item;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private View mView;
 
-    public ListNoticiasAdapter(FragmentActivity activity, ArrayList<ItemListNoticia> paramArrayList, ListFragment fragment) {
-        this.activity = activity;
+    public ListNoticiasAdapter(Context context, ArrayList<ItemListNoticia> paramArrayList, ListFragment fragment) {
+        this.context = context;
         this.arrayItems = paramArrayList;
     }
 
@@ -49,47 +53,102 @@ public class ListNoticiasAdapter extends BaseAdapter {
         return paramInt;
     }
 
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (arrayItems.get(position).getHaveFoto() == 0) {
+            return VIEW_TYPE_SIN_FOTO;
+        } else {
+            return VIEW_TYPE_FOTO;
+        }
+    }
 
     public static class ViewHolder {
+        TextView mFecha;
+        TextView mTitulo;
+        ExpandableTextView mExpandible;
+        int view;
+
+        public int getView() {
+            return view;
+        }
+
+        public void setView(int view) {
+            this.view = view;
+        }
+    }
+
+    public static class ViewHolderFoto {
         TextView mFecha;
         ImageView mImagen;
         TextView mTitulo;
         ExpandableTextView mExpandible;
+        int view;
+
+        public int getView() {
+            return view;
+        }
+
+        public void setView(int view) {
+            this.view = view;
+        }
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         item = arrayItems.get(position);
-        if (convertView == null) {
-            mViewHolder = new ViewHolder();
-            if (item.getImagen() == null) {
+        int type = getItemViewType(position);
+        if (type == VIEW_TYPE_SIN_FOTO) {
+            if (convertView == null) {
+                mViewHolder = new ViewHolder();
+
                 Log.i(TAG, "¡Sin foto!");
-                convertView = inflater.inflate(R.layout.custom_item_list_noticias_sin_foto, null);
+                convertView = inflater.inflate(R.layout.custom_item_list_noticias_sin_foto, parent, false);
                 mViewHolder.mTitulo = (TextView) convertView.findViewById(R.id.tv_titulo_noticia_sin_foto);
                 mViewHolder.mFecha = (TextView) convertView.findViewById(R.id.tv_fecha_publicacion_noticia_sin_foto);
-                mViewHolder.mImagen = (ImageView) convertView.findViewById(R.id.iv_foto_noticia_sin_foto);
                 mViewHolder.mExpandible = (ExpandableTextView) convertView.findViewById(R.id.expand_text_view_sin_foto);
-            } else  {
-                Log.i(TAG, "¡Con foto!");
-                convertView = inflater.inflate(R.layout.custom_item_list_noticias, null);
-                mViewHolder.mTitulo = (TextView) convertView.findViewById(R.id.tv_titulo_noticia);
-                mViewHolder.mFecha = (TextView) convertView.findViewById(R.id.tv_fecha_publicacion_noticia);
-                mViewHolder.mImagen = (ImageView) convertView.findViewById(R.id.iv_foto_noticia);
-                mViewHolder.mExpandible = (ExpandableTextView) convertView.findViewById(R.id.expand_text_view);
+                convertView.setTag(mViewHolder);
+            } else {
+                mViewHolder = (ViewHolder) convertView.getTag();
             }
-            convertView.setTag(mViewHolder);
-        } else {
-            mViewHolder = (ViewHolder) convertView.getTag();
-        }
-        item = arrayItems.get(position);
-        mViewHolder.mTitulo.setText(item.getTitulo());
-        mViewHolder.mFecha.setText(dateFormat.format(item.getFecha()));
-        if (item.getImagen() != null) {
-            Picasso.with(activity)
+            Log.i(TAG, "¡Layout sin foto!");
+            item = arrayItems.get(position);
+            mViewHolder.mTitulo.setText(item.getTitulo());
+            mViewHolder.mFecha.setText(dateFormat.format(item.getFecha()));
+            Log.i(TAG, "Tiene foto " + item.getHaveFoto());
+            mViewHolder.mExpandible.setText(item.getDescripcion());
+            
+        } else if (type == VIEW_TYPE_FOTO) {
+            if (convertView == null) {
+                mViewHolderFoto = new ViewHolderFoto();
+                Log.i(TAG, "¡Con foto!");
+                convertView = inflater.inflate(R.layout.custom_item_list_noticias, parent, false);
+                mView = inflater.inflate(R.layout.custom_item_list_noticias, parent, false);
+                mViewHolderFoto.mTitulo = (TextView) convertView.findViewById(R.id.tv_titulo_noticia);
+                mViewHolderFoto.mFecha = (TextView) convertView.findViewById(R.id.tv_fecha_publicacion_noticia);
+                mViewHolderFoto.mImagen = (ImageView) convertView.findViewById(R.id.iv_foto_noticia);
+                mViewHolderFoto.mExpandible = (ExpandableTextView) convertView.findViewById(R.id.expand_text_view);
+                convertView.setTag(mViewHolderFoto);
+
+            } else {
+                mViewHolderFoto = (ViewHolderFoto) convertView.getTag();
+            }
+            Log.i(TAG, "¡Layout con foto!");
+            item = arrayItems.get(position);
+            mViewHolderFoto.mTitulo.setText(item.getTitulo());
+            mViewHolderFoto.mFecha.setText(dateFormat.format(item.getFecha()));
+            Log.i(TAG, "Tiene foto " + item.getHaveFoto());
+            Picasso.with(context)
                     .load(JSONParser.URL_IMAGEN + item.getId())
-                    .into(mViewHolder.mImagen);
+                    .into(mViewHolderFoto.mImagen);
+
+            mViewHolderFoto.mExpandible.setText(item.getDescripcion());
         }
-        mViewHolder.mExpandible.setText(item.getDescripcion());
+        
         return convertView;
     }
 }

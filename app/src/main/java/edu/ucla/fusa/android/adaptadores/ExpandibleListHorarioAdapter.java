@@ -81,14 +81,14 @@ public class ExpandibleListHorarioAdapter extends BaseExpandableListAdapter {
             instructor.setText(det.getGrupo().getInstructor().getNombre());
         }
 
-        if (det.getHorario().getHoraInicio() != null) {
+        /*if (det.getHorario().getHoraInicio() != null) {
             horaInicio = det.getHorario().getHoraInicio();
             horaInicio.set(Calendar.HOUR, 8);
         }
         if (det.getHorario().getHoraFin() != null) {
             horaFin = det.getHorario().getHoraFin();
             horaFin.set(Calendar.HOUR, 9);
-        }
+        }*/
         if (det.getHorario().getHoraInicio() != null && det.getHorario().getHoraFin() != null) {
             horario.setText(sdf.format(horaInicio.getTime()) + " - " + sdf.format(horaFin.getTime()));
         }

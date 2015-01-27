@@ -7,10 +7,6 @@ import edu.ucla.fusa.android.modelo.seguridad.Usuario;
  */
 public class Estudiante extends Persona {
 
-    private String becado;
-    private String inscritoConservatorio;
-    private String inscritoCoro;
-    private String instrumentoPropio;
     private Usuario usuario;
     private String estatus;
 
@@ -23,38 +19,6 @@ public class Estudiante extends Persona {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    public String getBecado() {
-        return becado;
-    }
-
-    public void setBecado(String becado) {
-        this.becado = becado;
-    }
-
-    public String getInscritoConservatorio() {
-        return inscritoConservatorio;
-    }
-
-    public void setInscritoConservatorio(String inscritoConservatorio) {
-        this.inscritoConservatorio = inscritoConservatorio;
-    }
-
-    public String getInscritoCoro() {
-        return inscritoCoro;
-    }
-
-    public void setInscritoCoro(String inscritoCoro) {
-        this.inscritoCoro = inscritoCoro;
-    }
-
-    public String getInstrumentoPropio() {
-        return instrumentoPropio;
-    }
-
-    public void setInstrumentoPropio(String instrumentoPropio) {
-        this.instrumentoPropio = instrumentoPropio;
     }
 
     public String getEstatus() {

@@ -1,6 +1,5 @@
 package edu.ucla.fusa.android.modelo.herramientas;
 
-import java.util.Calendar;
 import java.util.Date;
 
 public class ItemListNoticia {
@@ -10,13 +9,25 @@ public class ItemListNoticia {
     public long id;
     public byte[] imagen;
     public String titulo;
+    public int haveFoto;
 
-    public ItemListNoticia(long id, String titulo, Date fecha, byte[] imagen, String descripcion) {
-        this.id = id;
-        this.titulo = titulo;
-        this.fecha = fecha;
-        this.imagen = imagen;
+    public ItemListNoticia() {}
+
+    public ItemListNoticia(long id, String titulo, Date fecha, byte[] imagen, String descripcion, int haveFoto) {
         this.descripcion = descripcion;
+        this.fecha = fecha;
+        this.id = id;
+        this.imagen = imagen;
+        this.titulo = titulo;
+        this.haveFoto = haveFoto;
+    }
+
+    public int getHaveFoto() {
+        return haveFoto;
+    }
+
+    public void setHaveFoto(int haveFoto) {
+        this.haveFoto = haveFoto;
     }
 
     public String getDescripcion() {
@@ -47,7 +58,7 @@ public class ItemListNoticia {
         this.fecha = fecha;
     }
 
-    public void setId(int paramInt) {
+    public void setId(long paramInt) {
         this.id = paramInt;
     }
 

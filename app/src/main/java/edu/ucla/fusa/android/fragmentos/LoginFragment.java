@@ -10,6 +10,7 @@ import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.InputType;
@@ -47,7 +48,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
     private CircularProgressButton mLogin;
     private TextView mPasswordRestore;
     private TextView mChangeAccount;
-    private View mView;
     private JSONParser mJSONParser;
     private UserTable mUserTable;
     private Usuario mUsuario;
@@ -62,30 +62,33 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle arguments) {
         super.onCreateView(inflater, container, arguments);
-        mView = inflater.inflate(R.layout.fragment_login, container, false);
+        return inflater.inflate(R.layout.fragment_login, container, false);
+    }
 
-        mLogin = (CircularProgressButton) mView.findViewById(R.id.btn_iniciar_sesion);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mLogin = (CircularProgressButton) view.findViewById(R.id.btn_iniciar_sesion);
         mLogin.setOnClickListener(this);
 
-        mAvatar = (HexagonImageView) mView.findViewById(R.id.avatar_login);
+        mAvatar = (HexagonImageView) view.findViewById(R.id.avatar_login);
         mAvatar.setImageResource(R.drawable.no_avatar);
 
-        mPasswordRestore = (TextView) mView.findViewById(R.id.tv_olvidar_password_iniciar_sesion);
+        mPasswordRestore = (TextView) view.findViewById(R.id.tv_olvidar_password_iniciar_sesion);
         mPasswordRestore.setOnClickListener(this);
 
-        mChangeAccount = (TextView) mView.findViewById(R.id.tv_cambiar_usuario);
+        mChangeAccount = (TextView) view.findViewById(R.id.tv_cambiar_usuario);
         mChangeAccount.setOnClickListener(this);
 
-        mCredenciales = (GroupLayout) mView.findViewById(R.id.login_credenciales);
+        mCredenciales = (GroupLayout) view.findViewById(R.id.login_credenciales);
+        Log.i(TAG, "¡Paso al restaurar pantalla!");
         mCredenciales.addEditTextLayout(R.string.login_usuario);
         mCredenciales.addEditTextLayout(R.string.login_contraseña);
         mCredenciales.getEditTextLayoutAt(0).getEditText().addTextChangedListener(this);
         mCredenciales.getEditTextLayoutAt(1).getEditText().addTextChangedListener(this);
         mCredenciales.getEditTextLayoutAt(1).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-
-        restoreData();
         
-        return mView;
+        restoreData();
     }
 
     public void restoreData() {

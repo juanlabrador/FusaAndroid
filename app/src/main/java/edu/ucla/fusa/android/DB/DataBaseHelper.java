@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import edu.ucla.fusa.android.modelo.academico.ClaseParticular;
 import edu.ucla.fusa.android.modelo.instrumentos.Prestamo;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoInstrumento;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoPrestamo;
@@ -39,6 +40,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(TipoInstrumentoTable.CREATE_TABLE);
         db.execSQL(SolicitudPrestamoTable.CREATE_TABLE);
         db.execSQL(PrestamoTable.CREATE_TABLE);
+        db.execSQL(AgrupacionTable.CREATE_TABLE);
+        db.execSQL(ClaseParticularTable.CREATE_TABLE);
+        db.execSQL(InstructorTable.CREATE_TABLE);
+        db.execSQL(HorarioTable.CREATE_TABLE);
+        db.execSQL(HorarioAreaTable.CREATE_TABLE);
+        db.execSQL(DiaTable.CREATE_TABLE);
     }
 
     @Override
@@ -52,6 +59,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TipoInstrumentoTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + SolicitudPrestamoTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + PrestamoTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + AgrupacionTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ClaseParticularTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + InstructorTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + HorarioTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + HorarioAreaTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DiaTable.TABLE_NAME);
         onCreate(db);
     }
 

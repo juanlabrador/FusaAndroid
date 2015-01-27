@@ -29,10 +29,6 @@ public class EstudianteTable {
     private static String COLUMN_TELF_FIJO = "telefono_fijo";
     private static String COLUMN_TELF_MOVIL = "telefono_movil";
     private static String COLUMN_FOTO = "foto";
-    private static String COLUMN_BECADO = "becado";
-    private static String COLUMN_CONSERVATORIO = "inscritoConservatorio";
-    private static String COLUMN_CORO = "inscritoCoro";
-    private static String COLUMN_INSTRUMENTO = "instrumentoPropio";
     private static String COLUMN_NOMBRE_USUARIO = "username";
 
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
@@ -47,10 +43,6 @@ public class EstudianteTable {
             + COLUMN_TELF_FIJO + " TEXT, "
             + COLUMN_TELF_MOVIL + " TEXT, "
             + COLUMN_FOTO + " BLOB, "
-            + COLUMN_BECADO + " TEXT, "
-            + COLUMN_CONSERVATORIO + " TEXT, "
-            + COLUMN_CORO + " TEXT, "
-            + COLUMN_INSTRUMENTO + " TEXT, "
             + COLUMN_NOMBRE_USUARIO + " TEXT);";
 
     private DataBaseHelper mHelper;
@@ -69,8 +61,7 @@ public class EstudianteTable {
 
     private ContentValues generarValores (int id, String nombre, String apellido, String cedula, String correo,
                                          int edad, Date fechaNac, String sexo,
-                                          String telfFijo, String telfMovil, byte[] foto, String becado,
-                                          String conservatorio, String coro, String instrumento, String username) {
+                                          String telfFijo, String telfMovil, byte[] foto, String username) {
 
         ContentValues valores = new ContentValues();
         valores.put(COLUMN_ID, id);
@@ -84,10 +75,6 @@ public class EstudianteTable {
         valores.put(COLUMN_TELF_FIJO, telfFijo);
         valores.put(COLUMN_TELF_MOVIL, telfMovil);
         valores.put(COLUMN_FOTO, foto);
-        valores.put(COLUMN_BECADO, becado);
-        valores.put(COLUMN_CONSERVATORIO, conservatorio);
-        valores.put(COLUMN_CORO, coro);
-        valores.put(COLUMN_INSTRUMENTO, instrumento);
         valores.put(COLUMN_NOMBRE_USUARIO, username);
 
         return valores;
@@ -95,12 +82,10 @@ public class EstudianteTable {
 
     public void insertData(int id, String nombre, String apellido, String cedula, String correo,
                            int edad, Date fechaNac, String sexo,
-                           String telfFijo, String telfMovil, byte[] foto, String becado,
-                           String conservatorio, String coro, String instrumento, String username) {
+                           String telfFijo, String telfMovil, byte[] foto, String username) {
         //db = helper.getWritableDatabase();
         mDataBase.insert(TABLE_NAME, null, generarValores(id, nombre, apellido, cedula, correo,
-                edad, fechaNac, sexo, telfFijo, telfMovil, foto, becado,
-                conservatorio, coro, instrumento, username));
+                edad, fechaNac, sexo, telfFijo, telfMovil, foto, username));
     }
 
     public void updateFoto(int id, byte[] foto) {
@@ -128,10 +113,6 @@ public class EstudianteTable {
                 mEstudiante.setTelefonoFijo(mCursor.getString(8));
                 mEstudiante.setTelefonoMovil(mCursor.getString(9));
                 mEstudiante.setImagen(mCursor.getBlob(10));
-                mEstudiante.setBecado(mCursor.getString(11));
-                mEstudiante.setInscritoConservatorio(mCursor.getString(12));
-                mEstudiante.setInscritoCoro(mCursor.getString(13));
-                mEstudiante.setInstrumentoPropio(mCursor.getString(14));
                 mEstudiante.setUsuario(mUsuario);
 
             } else {

@@ -2,7 +2,6 @@ package edu.ucla.fusa.android;
 
 import android.app.AlertDialog;
 import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,7 +22,6 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,9 +39,14 @@ import com.nispok.snackbar.enums.SnackbarType;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import edu.ucla.fusa.android.DB.DataBaseHelper;
+import edu.ucla.fusa.android.DB.AgrupacionTable;
+import edu.ucla.fusa.android.DB.ClaseParticularTable;
+import edu.ucla.fusa.android.DB.DiaTable;
 import edu.ucla.fusa.android.DB.EstudianteTable;
 import edu.ucla.fusa.android.DB.EventoTable;
+import edu.ucla.fusa.android.DB.HorarioAreaTable;
+import edu.ucla.fusa.android.DB.HorarioTable;
+import edu.ucla.fusa.android.DB.InstructorTable;
 import edu.ucla.fusa.android.DB.LugarTable;
 import edu.ucla.fusa.android.DB.NoticiasTable;
 import edu.ucla.fusa.android.DB.PrestamoTable;
@@ -54,13 +57,19 @@ import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.adaptadores.ListOpcionesAdapter;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
 import edu.ucla.fusa.android.fragmentos.CambiarPasswordFragment;
+import edu.ucla.fusa.android.fragmentos.ContenedorHorarioFragment;
 import edu.ucla.fusa.android.fragmentos.EstatusPrestamoFragment;
 import edu.ucla.fusa.android.fragmentos.HorarioClasesFragment;
 import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
 import edu.ucla.fusa.android.fragmentos.ListadoNoticiasFragment;
 import edu.ucla.fusa.android.fragmentos.LogoutFragment;
 import edu.ucla.fusa.android.fragmentos.SolicitudPrestamoFragment;
+import edu.ucla.fusa.android.modelo.academico.Agrupacion;
+import edu.ucla.fusa.android.modelo.academico.ClaseParticular;
+import edu.ucla.fusa.android.modelo.academico.Dia;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
+import edu.ucla.fusa.android.modelo.academico.Horario;
+import edu.ucla.fusa.android.modelo.academico.Instructor;
 import edu.ucla.fusa.android.modelo.evento.Evento;
 import edu.ucla.fusa.android.modelo.evento.Lugar;
 import edu.ucla.fusa.android.modelo.fundacion.Noticia;
@@ -79,9 +88,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.List;
 
 public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
 
@@ -265,7 +273,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 getSupportFragmentManager()
                         .beginTransaction()
                         .addToBackStack(null)
-                        .replace(R.id.frame_container, HorarioClasesFragment.newInstance())
+                        .replace(R.id.frame_container, ContenedorHorarioFragment.newInstance())
                         .commit();
                 break;
             case 2:
@@ -455,12 +463,10 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                             mEstudiante.getTelefonoFijo(),
                             mEstudiante.getTelefonoMovil(),
                             mEstudiante.getImagen(),
-                            mEstudiante.getBecado(),
-                            mEstudiante.getInscritoConservatorio(),
-                            mEstudiante.getInscritoCoro(),
-                            mEstudiante.getInstrumentoPropio(),
                             mEstudiante.getUsuario().getUsername());
                     new LoadingSolicitudPrestamo().execute(mEstudiante.getId());
+                    new LoadingAgrupacion().execute(mEstudiante.getId());
+                    new LoadingClasePaticulares().execute(mEstudiante.getId());
                     response = 100;
                 } else { // No existe el estudiante
                     response = -1;
@@ -492,6 +498,206 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         }
     }
     
+    private class LoadingAgrupacion extends AsyncTask<Integer, Void, Void> {
+
+        private AgrupacionTable mAgrupacionTable;
+        private Agrupacion mAgrupacion;
+        private HorarioTable mHorarioTable;
+        private InstructorTable mInstructorTable;
+        private Instructor mInstructor;
+        private HorarioAreaTable mHorarioAreaTable;
+        private Horario mHorario;
+        private DiaTable mDiaTable;
+        private Dia mDia;
+        
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mAgrupacionTable = new AgrupacionTable(getApplicationContext());
+            mInstructorTable = new InstructorTable(getApplicationContext());
+            mHorarioTable = new HorarioTable(getApplicationContext());
+            mAgrupacion = new Agrupacion();
+            mHorarioAreaTable = new HorarioAreaTable(getApplicationContext());
+            mDia = new Dia();
+            mDiaTable = new DiaTable(getApplicationContext());
+        }
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            
+            mAgrupacion = mAgrupacionTable.searchAgrupacion();
+            if (mAgrupacion != null) {
+                Log.i(TAG, "¡Ya tengo una agrupacion guardada!");
+            } else {
+                Log.i(TAG, "¡Buscando agrupacion en el servidor");
+                mAgrupacion = mJSONParser.serviceAgrupacionEstudiante(integers[0]);
+                if (mAgrupacion != null) {
+                    Log.i(TAG, "¡Estoy en una agrupacion!");
+                    mAgrupacionTable.insertData(
+                            mAgrupacion.getDescripcion(),
+                            mAgrupacion.getTipoAgrupacion().getDescripcion(),
+                            mAgrupacion.getInstructor().getId(),
+                            mAgrupacion.getId()
+                    );
+                    
+                    mInstructor = mInstructorTable.searchInstructor(mAgrupacion.getInstructor().getId());
+                    if (mInstructor == null) {
+                        Log.i(TAG, "¡No existe el instructor en agrupacion!");
+                        mInstructorTable.insertData(
+                                mAgrupacion.getInstructor().getId(),
+                                mAgrupacion.getInstructor().getNombre(),
+                                mAgrupacion.getInstructor().getApellido(),
+                                mAgrupacion.getInstructor().getCorreo(),
+                                mAgrupacion.getInstructor().getTelefonoMovil(),
+                                mAgrupacion.getInstructor().getTelefonoFijo(),
+                                mAgrupacion.getInstructor().getImagen()
+
+                        );
+                    }
+                    
+                    for (int i = 0; i < mAgrupacion.getHorarioArea().size(); i++){
+                        
+                        mHorarioAreaTable.insertData(
+                                0, 
+                                mAgrupacion.getId(), 
+                                mAgrupacion.getHorarioArea().get(i).getId()
+                        );
+                        
+                        mHorario = mHorarioTable.searchHorario(mAgrupacion.getHorarioArea().get(i).getId());
+                        if (mHorario == null) {
+                            Log.i(TAG, "¡No hay este horario para la agrupacion!");
+                            
+                            mHorarioTable.insertData(
+                                    mAgrupacion.getHorarioArea().get(i).getHorario().getHorario_id(),
+                                    mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDia_id(),
+                                    mAgrupacion.getHorarioArea().get(i).getHorario().getHoraInicio(),
+                                    mAgrupacion.getHorarioArea().get(i).getHorario().getHoraFin(),
+                                    mAgrupacion.getHorarioArea().get(i).getId()
+                            );
+                            
+                            mDia = mDiaTable.search(mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDia_id());
+                            if (mDia == null) {
+                                mDiaTable.insertData(
+                                        mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDia_id(),
+                                        mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDescripcion()
+                                );
+                            }
+                            
+                        } else {
+                            Log.i(TAG, "¡Ya tenemos este horario de la agrupacion!");
+                        }
+                        
+                    }
+                    Log.i(TAG, "¡Guardado correctamente!");
+                } else {
+                    Log.i(TAG, "¡No estoy en una agrupacion!");
+                }
+            }
+            return null;
+        }
+    }
+
+    private class LoadingClasePaticulares extends AsyncTask<Integer, Void, Void> {
+
+        private ClaseParticularTable mClaseParticularTable;
+        private List<ClaseParticular> mClaseParticulares;
+        private HorarioTable mHorarioTable;
+        private InstructorTable mInstructorTable;
+        private Instructor mInstructor;
+        private HorarioAreaTable mHorarioAreaTable;
+        private Horario mHorario;
+        private DiaTable mDiaTable;
+        private Dia mDia;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mClaseParticularTable = new ClaseParticularTable(getApplicationContext());
+            mInstructorTable = new InstructorTable(getApplicationContext());
+            mHorarioTable = new HorarioTable(getApplicationContext());
+            mClaseParticulares= new ArrayList<>();
+            mHorarioAreaTable = new HorarioAreaTable(getApplicationContext());
+            mDia = new Dia();
+            mDiaTable = new DiaTable(getApplicationContext());
+        }
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+
+            mClaseParticulares = mClaseParticularTable.searchClases();
+            if (mClaseParticulares != null) {
+                Log.i(TAG, "¡Ya tengo mis clases guardada!");
+            } else {
+                Log.i(TAG, "¡Buscando mis clases en el servidor");
+                mClaseParticulares = mJSONParser.serviceClaseEstudiante(integers[0]);
+                if (mClaseParticulares.size() != 0) {
+                    Log.i(TAG, "¡Estoy en una agrupacion!");
+                    
+                    for (int i = 0; i < mClaseParticulares.size(); i++) {
+                        mClaseParticularTable.insertData(
+                                mClaseParticulares.get(i).getCatedra().getDescripcion(),
+                                mClaseParticulares.get(i).getInstructor().getId(),
+                                mClaseParticulares.get(i).getId()
+                                
+                        );
+                        
+                        mInstructor = mInstructorTable.searchInstructor(mClaseParticulares.get(i).getInstructor().getId());
+                        if (mInstructor == null) {
+                            Log.i(TAG, "¡No existe el instructor en Clase Particular!");
+                            mInstructorTable.insertData(
+                                    mClaseParticulares.get(i).getInstructor().getId(),
+                                    mClaseParticulares.get(i).getInstructor().getNombre(),
+                                    mClaseParticulares.get(i).getInstructor().getApellido(),
+                                    mClaseParticulares.get(i).getInstructor().getCorreo(),
+                                    mClaseParticulares.get(i).getInstructor().getTelefonoMovil(),
+                                    mClaseParticulares.get(i).getInstructor().getTelefonoFijo(),
+                                    mClaseParticulares.get(i).getInstructor().getImagen()
+
+                            );
+                        }
+                        
+                        
+                        for (int j = 0; j < mClaseParticulares.get(i).getHorarioArea().size(); j++) {
+
+                            mHorarioAreaTable.insertData(
+                                   mClaseParticulares.get(i).getId(),
+                                    0,
+                                    mClaseParticulares.get(i).getHorarioArea().get(j).getId()
+                            );
+                            
+                            mHorario = mHorarioTable.searchHorario(mClaseParticulares.get(i).getHorarioArea().get(j).getId());
+                            if (mHorario == null) {
+                                Log.i(TAG, "¡No existe este horario para la clase!");
+                                mHorarioTable.insertData(
+                                        mClaseParticulares.get(i).getHorarioArea().get(j).getHorario().getHorario_id(),
+                                        mClaseParticulares.get(i).getHorarioArea().get(j).getHorario().getDia().getDia_id(),
+                                        mClaseParticulares.get(i).getHorarioArea().get(j).getHorario().getHoraInicio(),
+                                        mClaseParticulares.get(i).getHorarioArea().get(j).getHorario().getHoraFin(),
+                                        mClaseParticulares.get(i).getHorarioArea().get(j).getId()
+                                );
+
+                                mDia = mDiaTable.search(mClaseParticulares.get(i).getHorarioArea().get(j).getHorario().getDia().getDia_id());
+                                if (mDia == null) {
+                                    mDiaTable.insertData(
+                                            mClaseParticulares.get(i).getHorarioArea().get(j).getHorario().getDia().getDia_id(),
+                                            mClaseParticulares.get(i).getHorarioArea().get(j).getHorario().getDia().getDescripcion()
+                                    );
+                                }
+                            } else {
+                                Log.i(TAG, "¡Ya tenemos este horario para la clase!");
+                            }
+                        }
+                    }
+                    
+                    Log.i(TAG, "¡Guardado correctamente!");
+                } else {
+                    Log.i(TAG, "¡No estoy en una agrupacion!");
+                }
+            }
+            return null;
+        }
+    }
+    
     // Noticias 
 
     public class LoadingNoticias extends AsyncTask<Void, Void, Integer> {
@@ -509,13 +715,37 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                     return 0;
                 } else if (mNoticias.size() != 0) {
                     for (Noticia noticia : mNoticias) {
-
-                        //Guardamos en la base de datos
-                        mNoticiasTable.insertData(noticia.getTitulo(),
-                                noticia.getDescripcion(),
-                                noticia.getFechapublicacion().getTime(),
-                                noticia.getImagen(),
-                                noticia.getId());
+                        if (noticia.getImagen() != null) {
+                            mItemsNoticias.add(new ItemListNoticia(
+                                    noticia.getId(),
+                                    noticia.getTitulo(),
+                                    noticia.getFechapublicacion().getTime(),
+                                    noticia.getImagen(),
+                                    noticia.getDescripcion(),
+                                    1));
+                            //Guardamos en la base de datos
+                            mNoticiasTable.insertData(noticia.getTitulo(),
+                                    noticia.getDescripcion(),
+                                    noticia.getFechapublicacion().getTime(),
+                                    noticia.getImagen(),
+                                    noticia.getId(),
+                                    1);
+                        } else {
+                            mItemsNoticias.add(new ItemListNoticia(
+                                    noticia.getId(),
+                                    noticia.getTitulo(),
+                                    noticia.getFechapublicacion().getTime(),
+                                    noticia.getImagen(),
+                                    noticia.getDescripcion(),
+                                    0));
+                            //Guardamos en la base de datos
+                            mNoticiasTable.insertData(noticia.getTitulo(),
+                                    noticia.getDescripcion(),
+                                    noticia.getFechapublicacion().getTime(),
+                                    noticia.getImagen(),
+                                    noticia.getId(),
+                                    0);
+                        }
                     }
                     return 100;
                 } else {

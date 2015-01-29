@@ -9,8 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import me.drakeet.materialdialog.MaterialDialog;
@@ -25,8 +29,9 @@ import edu.ucla.fusa.android.DB.EventoTable;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.modelo.evento.Evento;
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
+import me.relex.circleindicator.CircleIndicator;
 
-public class CalendarioFragment extends Fragment implements CalendarPickerView.OnDateSelectedListener {
+public class CalendarioFragment extends Fragment implements CalendarPickerView.OnDateSelectedListener, CalendarPickerView.OnScrollListener {
 
     private static String TAG = "CalendarioFragment";
     private CalendarPickerView mCalendario;
@@ -42,6 +47,12 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
     private CircularProgressBar mLoading;
     private ArrayAdapter<String> mAdapter;
     private ListView mList;
+    private LinearLayout mContenedorLeyenda;
+    private int mLastScrollY;
+    private int mPreviousFirstVisibleItem;
+    private Animation mAnimation;
+    private int mScrollThreshold;
+    private AbsListView mScroll;
 
     public static CalendarioFragment newInstance() {
         CalendarioFragment fragment = new CalendarioFragment();
@@ -64,10 +75,13 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
         mView = paramLayoutInflater.inflate(R.layout.fragment_drawer_calendar, paramViewGroup, false);
         mCalendario = (CalendarPickerView) mView.findViewById(R.id.calendario);
         mCalendario.setOnDateSelectedListener(this);
+        mCalendario.setOnScrollListener(this);
         mProximoAño = Calendar.getInstance();
         mProximoAño.add(Calendar.YEAR, 1);
         mDiaActual = Calendar.getInstance();
         mLoading = (CircularProgressBar) mView.findViewById(R.id.pb_cargando_calendario);
+
+        mContenedorLeyenda = (LinearLayout) mView.findViewById(R.id.contenedor_leyenda);
         return mView;
     }
 
@@ -138,7 +152,99 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
     public void onDateUnselected(Date date) {
 
     }
-    
+
+    @Override
+    public void onScrollStateChanged(AbsListView absListView, int i) {
+    }
+
+    @Override
+    public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        if(totalItemCount == 0) return;
+        if (isSameRow(firstVisibleItem)) {
+            int newScrollY = getTopItemScrollY();
+            boolean isSignificantDelta = Math.abs(mLastScrollY - newScrollY) > mScrollThreshold;
+            if (isSignificantDelta) {
+                if (mLastScrollY > newScrollY) {
+                    Log.i(TAG, "Scroll Up");
+                    startAnimationUp();
+                } else {
+                    startAnimationDown();
+                    Log.i(TAG, "Scroll Down");
+                }
+            }
+            mLastScrollY = newScrollY;
+        } else {
+            if (firstVisibleItem > mPreviousFirstVisibleItem) {
+                Log.i(TAG, "Scroll Up");
+                startAnimationUp();
+            } else {
+                Log.i(TAG, "Scroll Down");
+                startAnimationDown();
+            }
+
+            mLastScrollY = getTopItemScrollY();
+            mPreviousFirstVisibleItem = firstVisibleItem;
+        }
+    }
+
+    private boolean isSameRow(int firstVisibleItem) {
+        return firstVisibleItem == mPreviousFirstVisibleItem;
+    }
+
+    private int getTopItemScrollY() {
+        if (mScroll == null || mScroll.getChildAt(0) == null) return 0;
+        View topChild = mScroll.getChildAt(0);
+        return topChild.getTop();
+    }
+
+    private void startAnimationDown() {
+        if (!mContenedorLeyenda.isShown()) {
+            mContenedorLeyenda = (LinearLayout) getActivity().findViewById(R.id.contenedor_leyenda);
+            mAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.animation_down);
+            mAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    mContenedorLeyenda.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mContenedorLeyenda.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            mContenedorLeyenda.startAnimation(mAnimation);
+        }
+    }
+
+    private void startAnimationUp() {
+        if (mContenedorLeyenda.isShown()) {
+            mContenedorLeyenda = (LinearLayout) getActivity().findViewById(R.id.contenedor_leyenda);
+            mAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.animation_up);
+            mAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    mContenedorLeyenda.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mContenedorLeyenda.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            mContenedorLeyenda.startAnimation(mAnimation);
+        }
+    }
+
     private class LoadingEventos extends AsyncTask<Void, Void, Integer> {
 
         @Override
@@ -172,6 +278,7 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
             }
             mLoading.setVisibility(View.GONE);
             mCalendario.setVisibility(View.VISIBLE);
+            mContenedorLeyenda.setVisibility(View.VISIBLE);
         }
     }
 }

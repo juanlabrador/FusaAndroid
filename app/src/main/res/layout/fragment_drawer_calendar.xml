@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<RelativeLayout
     android:id="@+id/fragment_calendar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/gris_fondo"
-    android:gravity="center"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.squareup.timessquare.CalendarPickerView
@@ -18,11 +16,47 @@
         android:visibility="gone"/>
 
     <fr.castorflex.android.circularprogressbar.CircularProgressBar
-        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:id="@+id/pb_cargando_calendario"
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:cpb_color="@color/azul"
         app:cpb_stroke_width="2dp"
-        android:indeterminate="true"/>
-</LinearLayout>
+        android:indeterminate="true"
+        android:layout_centerVertical="true"/>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contenedor_leyenda"
+        android:layout_alignBottom="@+id/calendario"
+        android:background="@color/azul_transparente"
+        android:orientation="vertical"
+        android:visibility="gone">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center_vertical">
+            
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@color/clase_agrupacion"/>
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blanco"
+                android:textSize="16sp"
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                android:text="Eventos"/>
+            
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -3,12 +3,11 @@ package edu.ucla.fusa.android.fragmentos;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
-import com.joanzapata.pdfview.PDFView;
 import com.juanlabrador.GroupLayout;
 
 import java.text.SimpleDateFormat;
@@ -25,13 +24,13 @@ public class EventoFragment extends Fragment {
     private static String TAG = "EventoFragment";
     private GroupLayout mGrupoEvento;
     private GroupLayout mGrupoLugar;
-    private PDFView mRepertorio;
     private View mView;
     private EventoTable mEventoTable;
     private Evento mEvento;
     private static int mId;
     private SimpleDateFormat mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private SimpleDateFormat mTimeFormat = new SimpleDateFormat("HH:mm aa");
+
     
     public static EventoFragment newInstance(int id) {
         EventoFragment fragment = new EventoFragment();
@@ -54,8 +53,6 @@ public class EventoFragment extends Fragment {
         mGrupoLugar.addTextLayout(R.string.evento_sitio);
         mGrupoLugar.addTextLayout(R.string.evento_direccion);
         
-        mRepertorio = (PDFView) mView.findViewById(R.id.repertorio_pdf);
-
         cargarEvento();
         return mView;
     }

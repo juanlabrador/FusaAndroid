@@ -7,8 +7,8 @@
     <string name="descripcion_logotipo">fusa</string>
     <string name="drawer_close">Fusa</string>
     <string name="drawer_open">Menú principal</string>
-    <string name="opcion_multimedia_camara">Toma una foto</string>
-    <string name="opcion_multimedia_galeria">Selecciona desde galeria</string>
+    <string name="opcion_multimedia_camara">Tomando una fotografía</string>
+    <string name="opcion_multimedia_galeria">Buscando en tu galería</string>
     <string name="item_imagen">position</string>
     <string name="lista_back_top">Volver al inicio</string>
     <string name="lista_pull">Desliza para refrescar...</string>
@@ -16,6 +16,7 @@
     <string name="lista_release">Suelta para refrescar...</string>
     <string name="app_name">Fusa</string>
     <string name="cerrar_sesion">Cerrando sesión...</string>
+    <string name="foto_actualizada">Tu foto ha sido actualizada.</string>
     
     
     <!-- Otras opciones -->
@@ -44,6 +45,7 @@
     <string name="evento_sin_hora">Sin definir</string>
     
     <!-- Prestamo de instrumento -->
+    <string name="prestamo_solicitud_enviada">Tu postulación se ha enviado, pronto se hará su revisión.</string>
     <string name="prestamo_titulo_barra">Solicitud de Prestamo</string>
     <string name="prestamo_fecha_emision">Desde la fecha</string>
     <string name="prestamo_fecha_vencimiento">Hasta la fecha</string>
@@ -110,6 +112,7 @@
     <string name="mensaje_error_enviar">¡Algo ha pasado, vuelva a intentar!</string>
     <string name="mensaje_error_periodo_prestamo">Las fechas no concuerdan con el periodo de préstamo.</string>
     <string name="mensaje_error_fin_semana">Las fechas no corresponden a un fin de semana.</string>
+    <string name="mensaje_error_foto">No hemos podido actualizar tu foto. Vuelve ha intentarlo.</string>
 
     <!-- Cambiar contraseña -->
     <string name="contraseña_debil">Débil</string>

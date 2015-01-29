@@ -217,10 +217,19 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
                         } else {
                             // La fecha de emision es menor a la fecha de vencimiento
                             if (mFechaEscrita.before(new SimpleDateFormat("dd-MM-yyyy").parse(mGrupoFechas.getOneButtonLayoutAt(0).getContent()))) {
-                                if (month < 9)
-                                    mGrupoFechas.getOneButtonLayoutAt(0).setContent(day + "-0" + (month + 1) + "-" + year);
-                                else
-                                    mGrupoFechas.getOneButtonLayoutAt(0).setContent(day + "-" + (month + 1) + "-" + year);
+                                if (month < 9) {
+                                    if (day < 10) {
+                                        mGrupoFechas.getOneButtonLayoutAt(0).setContent("0" + day + "-0" + (month + 1) + "-" + year);
+                                    } else {
+                                        mGrupoFechas.getOneButtonLayoutAt(0).setContent(day + "-0" + (month + 1) + "-" + year);
+                                    }
+                                } else {
+                                    if (day < 10) {
+                                        mGrupoFechas.getOneButtonLayoutAt(0).setContent("0" + day + "-" + (month + 1) + "-" + year);
+                                    } else {
+                                        mGrupoFechas.getOneButtonLayoutAt(0).setContent(day + "-" + (month + 1) + "-" + year);
+                                    }
+                                }
                             } else {
                                 SnackbarManager.show(
                                         Snackbar.with(getActivity())
@@ -240,10 +249,19 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
                         if (!mGrupoFechas.getOneButtonLayoutAt(0).getContent().equals("")) { // Si la fecha de emision se ha escrito
                             // La fecha de vencimiento es mayor a la fecha de emision
                             if (mFechaEscrita.after(new SimpleDateFormat("dd-MM-yyyy").parse(mGrupoFechas.getOneButtonLayoutAt(0).getContent()))) {
-                                if (month < 9)
-                                    mGrupoFechas.getOneButtonLayoutAt(1).setContent(day + "-0" + (month + 1) + "-" + year);
-                                else
-                                    mGrupoFechas.getOneButtonLayoutAt(1).setContent(day + "-" + (month + 1) + "-" + year);
+                                if (month < 9) {
+                                    if (day < 10) {
+                                        mGrupoFechas.getOneButtonLayoutAt(1).setContent("0" + day + "-0" + (month + 1) + "-" + year);
+                                    } else {
+                                        mGrupoFechas.getOneButtonLayoutAt(1).setContent(day + "-0" + (month + 1) + "-" + year);
+                                    }
+                                } else {
+                                    if (day < 10) {
+                                        mGrupoFechas.getOneButtonLayoutAt(1).setContent("0" + day + "-" + (month + 1) + "-" + year);
+                                    } else {
+                                        mGrupoFechas.getOneButtonLayoutAt(1).setContent(day + "-" + (month + 1) + "-" + year);
+                                    }
+                                }
                             } else {
                                 SnackbarManager.show(
                                         Snackbar.with(getActivity())
@@ -251,10 +269,11 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
                                                 .text(R.string.mensaje_error_fecha_prestamo));
                             }
                         } else {
-                            if (month < 9)
+                            if (month < 9) {
                                 mGrupoFechas.getOneButtonLayoutAt(1).setContent(day + "-0" + (month + 1) + "-" + year);
-                            else
+                            } else {
                                 mGrupoFechas.getOneButtonLayoutAt(1).setContent(day + "-" + (month + 1) + "-" + year);
+                            }
                         }
                     } else {
                         SnackbarManager.show(
@@ -338,6 +357,10 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
                     Log.i(TAG, "¡Solicitud enviada!");
                     mToolbar.getMenu().clear();
                     mActivity.actualizarSolicitud();
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.prestamo_solicitud_enviada));
                     getFragmentManager().popBackStack();
                     break;
                 case 0:

@@ -79,7 +79,7 @@ public class NoticiasTable {
                         mDateFormat.parse(mCursor.getString(3)), //Fecha
                         mCursor.getBlob(4), //Imagen
                         mCursor.getString(2), //Descripción
-                        mCursor.getInt(5)
+                        mCursor.getInt(5) // Tiene o no foto
                 ));
             } catch (ParseException e) {
                 e.printStackTrace();

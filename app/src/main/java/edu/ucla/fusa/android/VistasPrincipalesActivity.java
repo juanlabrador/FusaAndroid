@@ -24,7 +24,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -59,6 +61,7 @@ import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
 import edu.ucla.fusa.android.fragmentos.CambiarPasswordFragment;
 import edu.ucla.fusa.android.fragmentos.ContenedorHorarioFragment;
 import edu.ucla.fusa.android.fragmentos.EstatusPrestamoFragment;
+import edu.ucla.fusa.android.fragmentos.EventoFragment;
 import edu.ucla.fusa.android.fragmentos.HorarioClasesFragment;
 import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
 import edu.ucla.fusa.android.fragmentos.ListadoNoticiasFragment;
@@ -83,6 +86,7 @@ import edu.ucla.fusa.android.modelo.instrumentos.TipoInstrumento;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoPrestamo;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
+import me.drakeet.materialdialog.MaterialDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -144,6 +148,10 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private PrestamoTable mPrestamoTable;
     private SolicitudPrestamo mSolicitudPrestamo;
     private Prestamo mPrestamo;
+    
+    private ListView mListPhoto;
+    private ArrayAdapter<String> mAdapterPhoto;
+    private MaterialDialog mDialog;
 
 
     protected void onCreate(Bundle paramBundle) {
@@ -916,13 +924,21 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     // Cambiar foto de perfil
 
     private void showDialog() {
-        mItemsMultimedia.clear();
-        mItemsMultimedia.add(new ItemListOpcionesMultimedia(getString(R.string.opcion_multimedia_camara), R.drawable.ic_camara));
-        mItemsMultimedia.add(new ItemListOpcionesMultimedia(getString(R.string.opcion_multimedia_galeria), R.drawable.ic_cambiar_foto));
-        ListOpcionesAdapter adapter = new ListOpcionesAdapter(this, mItemsMultimedia);
-        new AlertDialog.Builder(this).setAdapter(adapter, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogInterface, int item) {
-                if (item == 0) { /** Desde la cámara */
+        mDialog = new MaterialDialog(this);
+        mAdapterPhoto = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        mAdapterPhoto.add(getString(R.string.opcion_multimedia_camara));
+        mAdapterPhoto.add(getString(R.string.opcion_multimedia_galeria));
+        mListPhoto = new ListView(this);
+        mListPhoto.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        float scale = getResources().getDisplayMetrics().density;
+        int dpAsPixels = (int) (8 * scale + 0.5f);
+        mListPhoto.setPadding(0, dpAsPixels, 0, dpAsPixels);
+        mListPhoto.setDividerHeight(0);
+        mListPhoto.setAdapter(mAdapterPhoto);
+        mListPhoto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0) { /** Desde la cámara */
                     Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                     mFotoCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "tmp_avatar_" + String.valueOf(System.currentTimeMillis()) + ".jpg"));
                     intent.putExtra("output", mFotoCaptureUri);
@@ -938,8 +954,14 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                     intent.setAction("android.intent.action.GET_CONTENT");
                     startActivityForResult(Intent.createChooser(intent, "Completa la acción usando..."), PICK_FROM_FILE);
                 }
+                mDialog.dismiss();
+                Log.i(TAG, "¡Selecciono el evento " + i + " de la lista");
             }
-        }).create().show();
+        });
+
+        mDialog.setTitle("Cambia tu foto de perfil")
+                .setContentView(mListPhoto)
+                .show();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -1024,9 +1046,15 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             switch (result) {
                 case -1:
                     Log.i(TAG, "¡No se cargo la foto!");
+                    SnackbarManager.show(
+                            Snackbar.with(getApplicationContext())
+                                    .text(R.string.mensaje_error_foto));
                     break;
                 case 100:
                     Log.i(TAG, "¡Foto actualizada!");
+                    SnackbarManager.show(
+                            Snackbar.with(getApplicationContext())
+                                    .text(R.string.foto_actualizada));
                     ((HexagonImageView) findViewById(R.id.iv_foto_perfil_drawer)).setImageBitmap(mBitmap);
                     break;
             }

@@ -53,6 +53,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
     private Usuario mUsuario;
     private SharedPreferences mPreferencias;
     private Bitmap mBitmap;
+    private String mUsername;
 
     public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
@@ -95,7 +96,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         mPreferencias = getActivity().getSharedPreferences("usuario", Context.MODE_PRIVATE);
         if (!mPreferencias.getString("usuario", "").equals("")) {
             Log.i(TAG, "¡Tiene datos en cache!");
-            mCredenciales.getEditTextLayoutAt(0).setContent(mPreferencias.getString("usuario", ""));
+            mCredenciales.clear();
+            mCredenciales.addTextLayout(R.string.login_usuario, mPreferencias.getString("usuario", ""));
+            mCredenciales.addEditTextLayout(R.string.login_contraseña);
             if (!mPreferencias.getString("foto", "").equals("")) {
                 mBitmap = convertByteToImage(mPreferencias.getString("foto", ""));
 
@@ -106,7 +109,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
                 }
             }
             mChangeAccount.setVisibility(View.VISIBLE);
-            mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(false);
         }
     }
 
@@ -117,11 +119,21 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_iniciar_sesion:
+                try {
+                   mUsername = mCredenciales.getEditTextLayoutAt(0).getContent();
+                } catch (ClassCastException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    mUsername = mCredenciales.getTextLayoutAt(0).getContent();
+                } catch (ClassCastException e) {
+                    e.printStackTrace();
+                }
                 if (exiteConexionInternet() != false) {
                     deshabilitarElementos();
-                    if (!mCredenciales.getEditTextLayoutAt(0).getContent().equals("") && 
+                    if (!mUsername.equals("") &&
                             !mCredenciales.getEditTextLayoutAt(1).getContent().equals("")) {
-                        new Login().execute(mCredenciales.getEditTextLayoutAt(0).getContent(), mCredenciales.getEditTextLayoutAt(1).getContent());
+                        new Login().execute(mUsername, mCredenciales.getEditTextLayoutAt(1).getContent());
                     } else {
                         habilitarElementos();
                         SnackbarManager.show(
@@ -144,11 +156,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
                 break;
             case R.id.tv_cambiar_usuario:
                 mAvatar.setImageResource(R.drawable.no_avatar);
-                mCredenciales.getEditTextLayoutAt(0).setContent("");
-                mCredenciales.getEditTextLayoutAt(1).setContent("");
                 mPreferencias.edit().clear().commit();
                 mChangeAccount.setVisibility(View.GONE);
-                habilitarElementos();
+                cambiarUsuario();
                 break;
         }
     }
@@ -281,19 +291,31 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
     }
 
     private void habilitarElementos() {
-        mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(true);
+        try {
+            mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(true);
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
         mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(true);
-        mCredenciales.getEditTextLayoutAt(0).getEditText().setTextIsSelectable(true);
-        mCredenciales.getEditTextLayoutAt(1).getEditText().setTextIsSelectable(true);
-        mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusableInTouchMode(true);
         mPasswordRestore.setEnabled(true);
         mPasswordRestore.setTextColor(getResources().getColor(R.color.azul_oscuro));
         mChangeAccount.setTextColor(getResources().getColor(R.color.azul_oscuro));
         mChangeAccount.setEnabled(true);
     }
+    
+    private void cambiarUsuario() {
+        mCredenciales.clear();
+        mCredenciales.addEditTextLayout(R.string.login_usuario);
+        mCredenciales.addEditTextLayout(R.string.login_contraseña);
+        
+    }
 
     private void deshabilitarElementos() {
-        mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(false);
+        try {
+             mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(false);
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
         mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(false);
         mPasswordRestore.setEnabled(false);
         mChangeAccount.setEnabled(false);

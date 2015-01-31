@@ -6,9 +6,9 @@
       <module fileurl="file://$PROJECT_DIR$/FusaAndroid.iml" filepath="$PROJECT_DIR$/FusaAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/GroupLayout-v1.8/GroupLayout-v1.8.iml" filepath="$PROJECT_DIR$/GroupLayout-v1.8/GroupLayout-v1.8.iml" />
       <module fileurl="file://$PROJECT_DIR$/PullToRefreshAnimate-v1.0/PullToRefreshAnimate-v1.0.iml" filepath="$PROJECT_DIR$/PullToRefreshAnimate-v1.0/PullToRefreshAnimate-v1.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TimesSquare-v1.6/TimesSquare-v1.6.iml" filepath="$PROJECT_DIR$/TimesSquare-v1.6/TimesSquare-v1.6.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/fusaandroid.iml" filepath="$PROJECT_DIR$/fusaandroid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libraryTimesSquare/libraryTimesSquare.iml" filepath="$PROJECT_DIR$/libraryTimesSquare/libraryTimesSquare.iml" />
     </modules>
   </component>
 </project>

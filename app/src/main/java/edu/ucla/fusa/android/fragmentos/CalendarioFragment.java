@@ -265,10 +265,16 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
             super.onPostExecute(result);
             switch (result) {
                 case 100:
+                    Calendar c = Calendar.getInstance();
+                    c.set(Calendar.MONTH, 9);
+                    Log.i(TAG, "fecha: " + new SimpleDateFormat("dd-MM-yyyy").format(c.getTime()));
+                    ArrayList<Date> prueba = new ArrayList<>();
+                    prueba.add(c.getTime());
                     mCalendario.init(mDiaActual.getTime(), mProximoAño.getTime())
                             .withSelectedDate(mDiaActual.getTime())
                             .inMode(CalendarPickerView.SelectionMode.SINGLE)
-                            .withHighlightedDates(mFechas);
+                            .withHighlightedDates(mFechas)
+                    .withHighlightedOthersDates(prueba);
                     break;
                 case -1:
                     Log.i(TAG, "No hay eventos!");

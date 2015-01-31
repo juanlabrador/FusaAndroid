@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('TimesSquare-v1.6.aar'))

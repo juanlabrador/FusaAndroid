@@ -11,7 +11,7 @@ public class Evento {
     
     private int id;
     private String nombre;
-    private byte[] logistica;
+    private String descripcion;
     private Date fecha;
     private Date hora;
     private Lugar lugar;
@@ -20,10 +20,10 @@ public class Evento {
     public Evento() {
     }
 
-    public Evento(int id, String nombre, byte[] logistica, Date fecha, Date hora, Lugar lugar, String estatus) {
+    public Evento(int id, String nombre, String descripcion, Date fecha, Date hora, Lugar lugar, String estatus) {
         this.id = id;
         this.nombre = nombre;
-        this.logistica = logistica;
+        this.descripcion = descripcion;
         this.fecha = fecha;
         this.hora = hora;
         this.lugar = lugar;
@@ -54,12 +54,12 @@ public class Evento {
         this.nombre = nombre;
     }
 
-    public byte[] getLogistica() {
-        return logistica;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setLogistica(byte[] logistica) {
-        this.logistica = logistica;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Date getFecha() {

@@ -29,7 +29,7 @@
     <string name="boton_normal">Enviar solicitud</string>
     <string name="boton_reintentar">Intentar nuevamente</string>
     
-    <string name="calendario_titulo_barra">Calendario</string>
+    <string name="calendario_titulo_barra">Calendario de eventos</string>
     
     <string name="noticias_titulo_barra">Ultimas Noticias</string>
     <string name="noticias_fecha_publicacion">Publicado el día</string>
@@ -41,7 +41,8 @@
     <string name="evento_sitio">Sitio</string>
     <string name="evento_direccion">Dirección</string>
     <string name="evento_titulo_barra">Detalle del evento</string>
-    <string name="evento_encabezado_lugar">LUGAR</string>
+    <string name="evento_encabezado_lugar">DIRECCIÓN</string>
+    <string name="evento_encabezado_descripcion">DETALLES</string>
     <string name="evento_sin_hora">Sin definir</string>
     
     <!-- Prestamo de instrumento -->
@@ -136,7 +137,7 @@
     <string name="contraseña_titulo_barra">Cambiar contraseña</string>
     <string name="contraseña_mostrar">Mostrar las contraseñas</string>
     <string name="contraseña_mostrar_descripcion">Si esta activado, habilita la posibilidad de mostrar todas las contraseñas.</string>
-    <string name="contraseña_requisito">La nueva contraseña debe:\n\n  - contener al menos un dígito de 0 a 9.\n  - contener al menos una letra en minúscula.\n  - contener al menos una letra en mayúscula.\n  - contener al menos un símbolo especial \"@#$%\".\n  -  estar entre 6 y 20 carácteres máximo.</string>
+    <string name="contraseña_requisito">La nueva contraseña debe:\n  - contener al menos un dígito de 0 a 9.\n  - contener al menos una letra en minúscula.\n  -  estar entre 6 y 20 carácteres máximo.</string>
     
     <!-- Postulación de un aspirante -->
     <string name="postularse_enviar">Enviando tu postulación</string>

@@ -69,7 +69,7 @@ public class NoticiasTable {
     public ArrayList<ItemListNoticia> searchNews() {
         String[] columnas = new String[]{COLUMN_ID, COLUMN_TITULO, COLUMN_DESCRIPCION,
                 COLUMN_FECHA_PUBLICACION, COLUMN_IMAGEN, COLUMN_TIENE_IMAGEN, COLUMN_ID_NOTICIA};
-        mCursor = mDataBase.query(TABLE_NAME, columnas, null, null, null, null, COLUMN_ID, "20");
+        mCursor = mDataBase.query(TABLE_NAME, columnas, null, null, null, null, COLUMN_ID + " DESC", "20");
         mNoticias.clear();
         while (mCursor.moveToNext()) {
             try {

@@ -34,19 +34,43 @@
         android:background="@color/azul_transparente"
         android:orientation="vertical"
         android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="2dp"
+            android:gravity="center_vertical">
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@color/calendar_agrupacion"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blanco"
+                android:textSize="16sp"
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                android:text="Mis eventos"/>
+
+        </LinearLayout>
         
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dp"
+            android:padding="2dp"
             android:gravity="center_vertical">
             
             <View
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="15dp"
-                android:background="@color/clase_agrupacion"/>
+                android:background="@color/calendar_eventos"/>
             
             <TextView
                 android:layout_width="wrap_content"
@@ -55,7 +79,7 @@
                 android:textSize="16sp"
                 android:padding="5dp"
                 android:layout_marginLeft="10dp"
-                android:text="Eventos"/>
+                android:text="Otros eventos"/>
             
         </LinearLayout>
     </LinearLayout>

@@ -21,6 +21,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/titulo_evento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/negro"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"/>
+
                 <com.juanlabrador.grouplayout.GroupContainer
                     android:id="@+id/grupo_datos_evento"
                     android:layout_width="match_parent"
@@ -32,6 +42,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
+                    android:textColor="@color/gris_oscuro"
+                    android:text="@string/evento_encabezado_descripcion"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"/>
+
+                <com.juanlabrador.grouplayout.GroupContainer
+                    android:id="@+id/grupo_descripcion_evento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:textSizeLayout="15"
+                    android:layout_marginTop="6dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="@color/gris_oscuro"
                     android:text="@string/evento_encabezado_lugar"
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="12dp"
@@ -43,7 +71,7 @@
                     android:layout_height="wrap_content"
                     app:textSizeLayout="15"
                     android:layout_marginTop="6dp"
-                    android:layout_marginBottom="16dp"/>
+                    android:layout_marginBottom="12dp"/>
 
             </LinearLayout>
         </LinearLayout>

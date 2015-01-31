@@ -16,8 +16,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import me.drakeet.materialdialog.MaterialDialog;
+
+import com.juanlabrador.grouplayout.GroupContainer;
 import com.squareup.timessquare.CalendarPickerView;
 
 import java.text.SimpleDateFormat;
@@ -29,7 +32,6 @@ import edu.ucla.fusa.android.DB.EventoTable;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.modelo.evento.Evento;
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
-import me.relex.circleindicator.CircleIndicator;
 
 public class CalendarioFragment extends Fragment implements CalendarPickerView.OnDateSelectedListener, CalendarPickerView.OnScrollListener {
 
@@ -53,6 +55,14 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
     private Animation mAnimation;
     private int mScrollThreshold;
     private AbsListView mScroll;
+    
+    private MaterialDialog mCustomView;
+    private GroupContainer mGrupoEvento;
+    private GroupContainer mGrupoLugar;
+    private GroupContainer mGrupoDescripcion;
+    private Evento mEvento;
+    private SimpleDateFormat mTimeFormat;
+    private TextView mTituloEvento;
 
     public static CalendarioFragment newInstance() {
         CalendarioFragment fragment = new CalendarioFragment();
@@ -66,6 +76,7 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         mToolbar.setTitle(R.string.calendario_titulo_barra);
         mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        mTimeFormat = new SimpleDateFormat("hh:mm aa");
         mFechas = new ArrayList<>();
         mIds = new ArrayList<>();
     }
@@ -117,12 +128,8 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
             mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    getFragmentManager()
-                            .beginTransaction()
-                            .addToBackStack(null)
-                            .replace(R.id.frame_container, EventoFragment.newInstance(mIds.get(i)))
-                            .commit();
-                    mDialog.dismiss();
+                    armarCustomLayout(mIds.get(i));
+                    
                     Log.i(TAG, "¡Selecciono el evento " + i + " de la lista");
                 }
             });
@@ -138,14 +145,38 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
 
         } else if (mAdapter.getCount() == 1){
             Log.i(TAG, "¡Hay solo un evento!");
-            getFragmentManager()
-                    .beginTransaction()
-                    .addToBackStack(null)
-                    .replace(R.id.frame_container, EventoFragment.newInstance(mIds.get(0)))
-                    .commit();
+            
+            armarCustomLayout(mIds.get(0));
+         
         } else {
             Log.i(TAG, "¡No hay eventos en ese dia!");
         }
+    }
+    
+    private void armarCustomLayout(int id) {
+        
+        mCustomView = new MaterialDialog(getActivity());
+        mEvento = mEventoTable.searchEvento(id);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_evento, null);
+
+        mTituloEvento = (TextView) view.findViewById(R.id.titulo_evento);
+        mTituloEvento.setText(mEvento.getNombre().toUpperCase());
+        mGrupoEvento = (GroupContainer) view.findViewById(R.id.grupo_datos_evento);
+        mGrupoEvento.addTextLayout(R.string.evento_fecha, mDateFormat.format(mEvento.getFecha()));
+        mGrupoEvento.addTextLayout(R.string.evento_hora, mTimeFormat.format(mEvento.getHora()));
+
+        mGrupoDescripcion = (GroupContainer) view.findViewById(R.id.grupo_descripcion_evento);
+        mGrupoDescripcion.addSimpleMultiTextLayout(mEvento.getDescripcion());
+
+        mGrupoLugar = (GroupContainer) view.findViewById(R.id.grupo_lugar_evento);
+        mGrupoLugar.addSimpleMultiTextLayout(mEvento.getLugar().getDescripcion());
+        mGrupoLugar.addSimpleMultiTextLayout(mEvento.getLugar().getDireccion());
+
+        mCustomView.setView(view);
+        mCustomView.setCanceledOnTouchOutside(true);
+        mCustomView.setBackgroundResource(R.color.gris_fondo);
+        mCustomView.show();
+        
     }
 
     @Override

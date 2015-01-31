@@ -38,7 +38,7 @@ public class ContenedorHorarioFragment extends Fragment implements ViewPager.OnP
     private PagerSlidingTabStrip mTabs;
     private Toolbar mToolbar;
     private ViewPager mViewPager;
-    private static final String[] mContentTabs = new String[] {"LUN", "MA", "MIE", "JU", "VI", "SAB"};
+    private static final String[] mContentTabs = new String[] {"CATEDRAS", "AGRUPACIONES"};
     private AgrupacionTable mAgrupacionTable;
     private ClaseParticularTable mClaseParticularTable;
     private CircularProgressBar mProgressBar;
@@ -109,10 +109,6 @@ public class ContenedorHorarioFragment extends Fragment implements ViewPager.OnP
             super.onPostExecute(voids);
             mAdapter.addFragment(new HorarioClasesFragment(mAgrupacion, mClasesParticulares, 1));
             mAdapter.addFragment(new HorarioClasesFragment(mAgrupacion, mClasesParticulares, 2));
-            mAdapter.addFragment(new HorarioClasesFragment(mAgrupacion, mClasesParticulares, 3));
-            mAdapter.addFragment(new HorarioClasesFragment(mAgrupacion, mClasesParticulares, 4));
-            mAdapter.addFragment(new HorarioClasesFragment(mAgrupacion, mClasesParticulares, 5));
-            mAdapter.addFragment(new HorarioClasesFragment(mAgrupacion, mClasesParticulares, 6));
             mViewPager.setAdapter(mAdapter);
             mTabs.setViewPager(mViewPager);
             mTabs.setOnPageChangeListener(ContenedorHorarioFragment.this);

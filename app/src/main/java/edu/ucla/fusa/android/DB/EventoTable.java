@@ -24,7 +24,7 @@ public class EventoTable {
     public static final String TABLE_NAME = "evento";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_NOMBRE = "nombre";
-    public static final String COLUMN_LOGISTICA = "logistica";
+    public static final String COLUMN_DESCRIPCION = "descripcion";
     public static final String COLUMN_FECHA = "fecha";
     public static final String COLUMN_HORA = "hora";
     public static final String COLUMN_ID_EVENTO = "evento_id";
@@ -35,7 +35,7 @@ public class EventoTable {
             + COLUMN_NOMBRE + " TEXT, "
             + COLUMN_FECHA + " DATE, "
             + COLUMN_HORA + " DATE, "
-            + COLUMN_LOGISTICA + " BLOB, "
+            + COLUMN_DESCRIPCION + " TEXT, "
             + COLUMN_ID_EVENTO + " INTEGER, "
             + COLUMN_ID_LUGAR + " INTEGER);";
 
@@ -63,24 +63,24 @@ public class EventoTable {
         mLugar = new Lugar();
     }
 
-    private ContentValues generarValores (String nombre, byte[] logistica,
+    private ContentValues generarValores (String nombre, String descripcion,
                                           Date fecha, Date hora, int evento, int lugar) {
 
         ContentValues valores = new ContentValues();
         valores.put(COLUMN_NOMBRE, nombre);
-        valores.put(COLUMN_LOGISTICA, logistica);
+        valores.put(COLUMN_DESCRIPCION, descripcion);
         valores.put(COLUMN_FECHA, mDateFormat.format(fecha));
-        //valores.put(COLUMN_HORA, mTimeFormat.format(hora));
-        valores.put(COLUMN_HORA, "21:00");
+        valores.put(COLUMN_HORA, mTimeFormat.format(hora));
+        //valores.put(COLUMN_HORA, "21:00");
         valores.put(COLUMN_ID_EVENTO, evento);
         valores.put(COLUMN_ID_LUGAR, lugar);
 
         return valores;
     }
 
-    public void insertData(String nombre, byte[] logistica,
+    public void insertData(String nombre, String descripcion,
                            Date fecha, Date hora, int evento, int idLugar) {
-        mDatabase.insert(TABLE_NAME, null, generarValores(nombre, logistica, fecha, hora, evento, idLugar));
+        mDatabase.insert(TABLE_NAME, null, generarValores(nombre, descripcion, fecha, hora, evento, idLugar));
     }
     
     public ArrayList<Evento> searchEventos() {
@@ -99,10 +99,9 @@ public class EventoTable {
                     mEventos.add(new Evento(
                             mCursor.getInt(5), // ID
                             mCursor.getString(1), // Nombre
-                            mCursor.getBlob(4), // Logistica
+                            mCursor.getString(4), // Descrpcion
                             mDateFormat.parse(mCursor.getString(2)), // Fecha
-                            //mTimeFormat.parse(mCursor.getString(3)), // Hora
-                            null,
+                            mTimeFormat.parse(mCursor.getString(3)), // Hora
                             mLugarTable.searchLugar(mCursor.getInt(6)), //Lugar
                             "activo"
                     ));
@@ -119,16 +118,15 @@ public class EventoTable {
 
     public Evento searchEvento(int id) {
         Log.i(TAG, "¡Buscando el evento!");
-        String[] columnas = new String[]{COLUMN_NOMBRE, COLUMN_LOGISTICA, COLUMN_FECHA, COLUMN_HORA, COLUMN_ID_EVENTO, COLUMN_ID_LUGAR};
+        String[] columnas = new String[]{COLUMN_NOMBRE, COLUMN_DESCRIPCION, COLUMN_FECHA, COLUMN_HORA, COLUMN_ID_EVENTO, COLUMN_ID_LUGAR};
         mCursor = mDatabase.query(TABLE_NAME, columnas, COLUMN_ID_EVENTO + "=?", new String[] {String.valueOf(id)}, null, null, null);
         while (mCursor.moveToFirst()){
             try {
                 mEvento.setId(mCursor.getInt(4));
                 mEvento.setNombre(mCursor.getString(0));
-                mEvento.setLogistica(mCursor.getBlob(1));
+                mEvento.setDescripcion(mCursor.getString(1));
                 mEvento.setFecha(mDateFormat.parse(mCursor.getString(2)));
-                mEvento.setHora(null);
-                //mEvento.setHora(mTimeFormat.parse(mCursor.getString(3)));
+                mEvento.setHora(mTimeFormat.parse(mCursor.getString(3)));
                 mLugar = mLugarTable.searchLugar(mCursor.getInt(5));
                 if (mLugar != null) {
                     mEvento.setLugar(mLugar);

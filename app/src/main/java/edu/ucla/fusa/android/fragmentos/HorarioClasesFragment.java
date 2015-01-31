@@ -57,7 +57,7 @@ public class HorarioClasesFragment extends Fragment {
         mCabeceraAgrupacion = (TextView) view.findViewById(R.id.cabecera_agrupacion);
         mCabeceraClases = (TextView) view.findViewById(R.id.cabecera_clases);
         mTextEmpty = (TextView) view.findViewById(R.id.sin_clases);
-        prepareView();
+        //prepareView();
     }
 
     @Override

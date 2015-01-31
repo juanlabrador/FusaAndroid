@@ -115,7 +115,6 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
             mListAdapter.notifyDataSetChanged();
             setListAdapter(mListAdapter);
             mItemNoticia = (ItemListNoticia) mListAdapter.getItem(0);
-            new LoadingNewsNoticiasTaks().execute(String.valueOf(mItemNoticia.getId()));
             mNoticiasTable.borrarViejasNoticias();
             //if (index != -1) {
                 //getListView().setSelectionFromTop(index, 0);
@@ -140,7 +139,7 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
                 mItemNoticia = (ItemListNoticia) mListAdapter.getItem(0);
                 new LoadingNewsNoticiasTaks().execute(String.valueOf(mItemNoticia.getId()));
             }
-        }, 2000);
+        }, 3000);
         
     }
 
@@ -155,48 +154,57 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
 
         protected Integer doInBackground(Void[] paramArrayOfVoid) {
             SystemClock.sleep(2000);
-            Log.i(TAG, "¡Buscando noticias!");
-            mNoticias = mJSONParser.serviceLoadingNoticias();
-            if (mNoticias == null) {
-                return 0;
-            } else if (mNoticias.size() != 0) {
-                for (Noticia noticia : mNoticias) {
-                    //Agregamos a la lista de noticias
-                    if (noticia.getImagen() != null) {
-                        mItemsNoticias.add(new ItemListNoticia(
-                                noticia.getId(),
-                                noticia.getTitulo(),
-                                noticia.getFechapublicacion().getTime(),
-                                noticia.getImagen(),
-                                noticia.getDescripcion(),
-                                1));
-                        //Guardamos en la base de datos
-                        mNoticiasTable.insertData(noticia.getTitulo(),
-                                noticia.getDescripcion(),
-                                noticia.getFechapublicacion().getTime(),
-                                noticia.getImagen(),
-                                noticia.getId(),
-                                1);
-                    } else {
-                        mItemsNoticias.add(new ItemListNoticia(
-                                noticia.getId(),
-                                noticia.getTitulo(),
-                                noticia.getFechapublicacion().getTime(),
-                                noticia.getImagen(),
-                                noticia.getDescripcion(),
-                                0));
-                        //Guardamos en la base de datos
-                        mNoticiasTable.insertData(noticia.getTitulo(),
-                                noticia.getDescripcion(),
-                                noticia.getFechapublicacion().getTime(),
-                                noticia.getImagen(),
-                                noticia.getId(),
-                                0);
+            mItemsNoticias = mNoticiasTable.searchNews();
+            if (mItemsNoticias == null) {
+                Log.i(TAG, "¡No tengo noticias en la base de datos!");
+                mNoticias = mJSONParser.serviceLoadingNoticias();
+                if (mNoticias == null) {
+                    return 0;
+                } else if (mNoticias.size() != 0) {
+                    for (Noticia noticia : mNoticias) {
+                        //Agregamos a la lista de noticias
+                        if (noticia.getImagen() != null) {
+                            mItemsNoticias.add(new ItemListNoticia(
+                                    noticia.getId(),
+                                    noticia.getTitulo(),
+                                    noticia.getFechapublicacion().getTime(),
+                                    noticia.getImagen(),
+                                    noticia.getDescripcion(),
+                                    1));
+                            //Guardamos en la base de datos
+                            mNoticiasTable.insertData(noticia.getTitulo(),
+                                    noticia.getDescripcion(),
+                                    noticia.getFechapublicacion().getTime(),
+                                    noticia.getImagen(),
+                                    noticia.getId(),
+                                    1);
+                        } else {
+                            mItemsNoticias.add(new ItemListNoticia(
+                                    noticia.getId(),
+                                    noticia.getTitulo(),
+                                    noticia.getFechapublicacion().getTime(),
+                                    noticia.getImagen(),
+                                    noticia.getDescripcion(),
+                                    0));
+                            //Guardamos en la base de datos
+                            mNoticiasTable.insertData(noticia.getTitulo(),
+                                    noticia.getDescripcion(),
+                                    noticia.getFechapublicacion().getTime(),
+                                    noticia.getImagen(),
+                                    noticia.getId(),
+                                    0);
+                        }
                     }
+                    Log.i(TAG, "¡Traje noticias del servidor!");
+                    return 100;
+                } else {
+                    Log.i(TAG, "¡No pude traer noticias!");
+                    return 0;
                 }
-                return 100;
             } else {
-                return 0;
+
+                Log.i(TAG, "¡Tengo noticias en la base de datos!");
+                return 100;
             }
         }
 
@@ -205,17 +213,17 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
             if (response == 100) {
                 Log.i(TAG, "¡Noticias cargadas!");
                 mListAdapter = new ListNoticiasAdapter(getActivity(), mItemsNoticias, ListadoNoticiasFragment.this);
-                getListView().addFooterView(mBackToTop);
+                //getListView().addFooterView(mBackToTop);
                 setListAdapter(mListAdapter);
-                getListView().removeFooterView(mBackToTop);
-                getListView().post(new Runnable() {
+                //getListView().removeFooterView(mBackToTop);
+                /*getListView().post(new Runnable() {
                     public void run() {
                         int i = getListView().getLastVisiblePosition();
                         int j = getListAdapter().getCount();
                         if (i + 1 < j)
                             getListView().addFooterView(mBackToTop);
                     }
-                });
+                });*/
             } else {
                 Log.i(TAG, "¡Error al cargar noticias!");
                 try {

@@ -12,4 +12,8 @@ Desarrollado por
 Colaboraciones
 ===============
 
-* Silvana Dorantes (Realización de la mayoria de los servicios implementos) - <silvanadorantes767@gmail.com>
+* Silvana Dorantes - <silvanadorantes767@gmail.com>
+(Implemento la mayoria de los servicios utilizados en Spring.)
+
+* Josif Monroy - <josemonjean@gmail.com>
+(Diseño del icono de launcher y otras imagenes usadas.)

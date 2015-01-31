@@ -114,7 +114,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private SharedPreferences.Editor mEditor;
     private HexagonImageView mFoto;
     private TextView mNombre;
-    private TextView mCorreo;
     private CircularProgressBar mLoading;
     private TextView mTextLoading;
     private Toolbar mToolbar;
@@ -358,10 +357,8 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private void cargarHeader(View mHeader) {
         mFoto = (HexagonImageView) mHeader.findViewById(R.id.iv_foto_perfil_drawer);
         mNombre = (TextView) mHeader.findViewById(R.id.etNombreDrawer);
-        mCorreo = (TextView) mHeader.findViewById(R.id.etCorreoDrawer);
         mFoto.setVisibility(View.VISIBLE);
         mNombre.setVisibility(View.VISIBLE);
-        mCorreo.setVisibility(View.VISIBLE);
         if (mEstudiante.getImagen() != null) {
             mFoto.setImageBitmap(convertByteToImage(mEstudiante.getImagen()));
         } else {
@@ -369,7 +366,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         }
 
         mNombre.setText(mEstudiante.getNombre() + " " + mEstudiante.getApellido());
-        mCorreo.setText(mEstudiante.getCorreo());
     }
     
     public void cargarMenuEstudiante() {
@@ -836,7 +832,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                     for (Evento evento : mEventos) {
                         mEventoTable.insertData(
                                 evento.getNombre(),
-                                evento.getLogistica(),
+                                evento.getDescripcion(),
                                 evento.getFecha(),
                                 evento.getHora(),
                                 evento.getId(),
@@ -868,7 +864,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                         for (Evento evento : mEventos) {
                             mEventoTable.insertData(
                                     evento.getNombre(),
-                                    evento.getLogistica(),
+                                    evento.getDescripcion(),
                                     evento.getFecha(),
                                     evento.getHora(),
                                     evento.getId(),

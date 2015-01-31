@@ -106,18 +106,14 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
                 case 0:
                 case 1:
                 case 2:
-                case 3:
-                case 4:
-                case 5:
                     mStatus.setText("");
                     mBarraMuyDebil.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
                     mBarraDebil.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
                     mBarraFuerte.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
                     mBarraMuyFuerte.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
                     break;
-                case 6:
-                case 7:
-                case 8:
+                case 3:
+                case 4:
                     mStatus.setText(R.string.contraseña_muy_debil);
                     mStatus.setTextColor(getResources().getColor(R.color.debil));
                     mBarraMuyDebil.setBackgroundColor(getResources().getColor(R.color.debil));
@@ -125,8 +121,9 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
                     mBarraFuerte.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
                     mBarraMuyFuerte.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
                     break;
-                case 9:
-                case 10:
+                case 5:
+                case 6:
+                case 7:
                     mStatus.setText(R.string.contraseña_debil);
                     mStatus.setTextColor(getResources().getColor(R.color.debil));
                     mBarraMuyDebil.setBackgroundColor(getResources().getColor(R.color.debil));
@@ -134,9 +131,9 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
                     mBarraFuerte.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
                     mBarraMuyFuerte.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
                     break;
-                case 11:
-                case 12:
-                case 13:
+                case 8:
+                case 9:
+                case 10:
                     mStatus.setText(R.string.contraseña_normal);
                     mStatus.setTextColor(getResources().getColor(R.color.normal));
                     mBarraMuyDebil.setBackgroundColor(getResources().getColor(R.color.normal));
@@ -144,19 +141,18 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
                     mBarraFuerte.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
                     mBarraMuyFuerte.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
                     break;
-                case 14:
-                case 15:
-                case 16:
-                case 17:
+                case 11:
+                case 12:
+                case 13:
                     mStatus.setText(R.string.contraseña_mejor);
                     mStatus.setTextColor(getResources().getColor(R.color.mejor));
                     mBarraMuyDebil.setBackgroundColor(getResources().getColor(R.color.mejor));
                     mBarraDebil.setBackgroundColor(getResources().getColor(R.color.mejor));
                     mBarraFuerte.setBackgroundColor(getResources().getColor(R.color.mejor));
                     mBarraMuyFuerte.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-                case 18:
-                case 19:
-                case 20:
+                    break;
+                case 14:
+                case 15:
                     mStatus.setText(R.string.contraseña_muy_fuerte);
                     mStatus.setTextColor(getResources().getColor(R.color.fuerte));
                     mBarraMuyDebil.setBackgroundColor(getResources().getColor(R.color.fuerte));

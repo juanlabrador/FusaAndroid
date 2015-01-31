@@ -1,3 +1,2 @@
-include ':app', ':PullToRefresh-v1.0', ':GroupLayout-v1.5'
-include ':libraryBetterPickers'
+include ':app', ':PullToRefreshAnimate-v1.0', ':DateSlider-v1.0', ':GroupLayout-v1.8'
 include ':libraryTimesSquare'

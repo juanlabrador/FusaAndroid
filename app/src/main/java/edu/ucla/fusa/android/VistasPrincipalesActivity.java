@@ -56,13 +56,10 @@ import edu.ucla.fusa.android.DB.SolicitudPrestamoTable;
 import edu.ucla.fusa.android.DB.TipoInstrumentoTable;
 import edu.ucla.fusa.android.DB.TipoPrestamoTable;
 import edu.ucla.fusa.android.DB.UserTable;
-import edu.ucla.fusa.android.adaptadores.ListOpcionesAdapter;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
 import edu.ucla.fusa.android.fragmentos.CambiarPasswordFragment;
 import edu.ucla.fusa.android.fragmentos.ContenedorHorarioFragment;
 import edu.ucla.fusa.android.fragmentos.EstatusPrestamoFragment;
-import edu.ucla.fusa.android.fragmentos.EventoFragment;
-import edu.ucla.fusa.android.fragmentos.HorarioClasesFragment;
 import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
 import edu.ucla.fusa.android.fragmentos.ListadoNoticiasFragment;
 import edu.ucla.fusa.android.fragmentos.LogoutFragment;
@@ -152,6 +149,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private ListView mListPhoto;
     private ArrayAdapter<String> mAdapterPhoto;
     private MaterialDialog mDialog;
+    private NotificationManager mManager;
 
 
     protected void onCreate(Bundle paramBundle) {
@@ -1036,6 +1034,12 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private class UploadFotoEstudiante extends AsyncTask<Estudiante, Void, Integer> {
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            sendNotificacion();
+        }
+
+        @Override
         protected Integer doInBackground(Estudiante... estudiantes) {
             return mJSONParser.updateEstudiante(estudiantes[0]);
         }
@@ -1056,6 +1060,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                             Snackbar.with(getApplicationContext())
                                     .text(R.string.foto_actualizada));
                     ((HexagonImageView) findViewById(R.id.iv_foto_perfil_drawer)).setImageBitmap(mBitmap);
+                    mManager.cancel(2);
                     break;
             }
         }
@@ -1326,6 +1331,20 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mManager.notify(1, mNotificacion.build());
                 
         
+    }
+
+    private void sendNotificacion() {
+
+        NotificationCompat.Builder mNotificacion = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle(getString(R.string.contraseña_enviar))
+                .setTicker(getString(R.string.contraseña_enviar))
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        mNotificacion.setAutoCancel(true);
+        mManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mManager.notify(2, mNotificacion.build());
+
     }
     
     public void actualizarSolicitud() {

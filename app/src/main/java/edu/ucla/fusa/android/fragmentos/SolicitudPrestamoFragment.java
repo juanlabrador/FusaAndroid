@@ -1,9 +1,12 @@
 package edu.ucla.fusa.android.fragmentos;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 
 import android.util.Log;
@@ -12,14 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
-import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
-import com.juanlabrador.GroupLayout;
+import com.juanlabrador.dateslider.SliderContainer;
+import com.juanlabrador.grouplayout.GroupContainer;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,14 +40,15 @@ import edu.ucla.fusa.android.modelo.instrumentos.TipoInstrumento;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoPrestamo;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 
-public class SolicitudPrestamoFragment extends Fragment implements View.OnClickListener, DatePickerDialogFragment.DatePickerDialogHandler, Toolbar.OnMenuItemClickListener {
+public class SolicitudPrestamoFragment extends Fragment implements SliderContainer.OnTimeChangeListener , Toolbar.OnMenuItemClickListener {
 
     private static String ESTATUS = "en proceso";
     private static String TAG = "DrawerSolicitudPrestamoFragment";
     private static VistasPrincipalesActivity mActivity;
-    private GroupLayout mGrupoPrestamo;
-    private GroupLayout mGrupoFechas;
-    private GroupLayout mGrupoInstrumentos;
+    private GroupContainer mGrupoPrestamo;
+    private GroupContainer mGrupoFechaEmision;
+    private GroupContainer mGrupoFechaVencimiento;
+    private GroupContainer mGrupoInstrumentos;
     private View mView;
     private JSONParser jsonParser = new JSONParser();
     private SolicitudPrestamo mSolicitudPrestamo;
@@ -63,6 +65,10 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
     private ArrayList<String> mCustomMenuInstrumento = new ArrayList<>();
     private SolicitudPrestamoTable mSolicitudPrestamoTable;
     private int contador;
+    private NotificationManager mManager;
+    private SliderContainer mContainerFechaEmision;
+    private SliderContainer mContainerFechaVencimiento;
+    private Calendar mFechaInicial;
 
     public static SolicitudPrestamoFragment newInstance(VistasPrincipalesActivity activity) {
         SolicitudPrestamoFragment fragment = new SolicitudPrestamoFragment();
@@ -92,26 +98,37 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
 
         mView = inflater.inflate(R.layout.fragment_drawer_solicitud_prestamo, container, false);
 
-        mGrupoPrestamo = (GroupLayout) mView.findViewById(R.id.tipos_prestamos);
+        mGrupoPrestamo = (GroupContainer) mView.findViewById(R.id.tipos_prestamos);
         mTiposPrestamos = mTipoPrestamoTable.searchTiposPrestamos();
         for (int i = 0; i < mTiposPrestamos.size(); i++) {
             mCustomMenuPrestamo.add(mTiposPrestamos.get(i).getDescripcion());
         }
         mGrupoPrestamo.addPopupLayout(R.string.prestamo_periodo, mCustomMenuPrestamo);
         
-        mGrupoInstrumentos = (GroupLayout) mView.findViewById(R.id.instrumentos_prestamo);
+        mGrupoInstrumentos = (GroupContainer) mView.findViewById(R.id.instrumentos_prestamo);
         mTiposInstrumentos = mTipoInstrumentoTable.searchTiposInstrumentos();
         for (int i = 0; i < mTiposInstrumentos.size(); i++) {
             mCustomMenuInstrumento.add(mTiposInstrumentos.get(i).getDescripcion());
         }
         mGrupoInstrumentos.addPopupLayout(R.string.prestamo_tipo_instrumento, mCustomMenuInstrumento);
 
-        mGrupoFechas = (GroupLayout) mView.findViewById(R.id.fechas_prestamo);
-        mGrupoFechas.addOneButtonLayout(R.string.prestamo_fecha_emision, GroupLayout.ColorIcon.GRAY);
-        mGrupoFechas.addOneButtonLayout(R.string.prestamo_fecha_vencimiento, GroupLayout.ColorIcon.GRAY);
-        mGrupoFechas.getOneButtonLayoutAt(0).getButton().setOnClickListener(this);
-        mGrupoFechas.getOneButtonLayoutAt(1).getButton().setOnClickListener(this);
+        mGrupoFechaEmision = (GroupContainer) mView.findViewById(R.id.fecha_emision_titulo);
+        mGrupoFechaEmision.addTextLayout(R.string.prestamo_fecha_emision);
 
+        mGrupoFechaVencimiento = (GroupContainer) mView.findViewById(R.id.fecha_vencimiento_titulo);
+        mGrupoFechaVencimiento.addTextLayout(R.string.prestamo_fecha_vencimiento);
+
+        mContainerFechaEmision = (SliderContainer) mView.findViewById(R.id.fecha_emision);
+        mContainerFechaEmision.setOnTimeChangeListener(this);
+        mFechaInicial = Calendar.getInstance();
+        mContainerFechaEmision.setMinTime(mFechaInicial);
+        mContainerFechaEmision.setTime(mFechaInicial);
+
+        mContainerFechaVencimiento = (SliderContainer) mView.findViewById(R.id.fecha_vencimiento);
+        mContainerFechaVencimiento.setOnTimeChangeListener(this);
+        mFechaInicial = Calendar.getInstance();
+        mContainerFechaVencimiento.setMinTime(mFechaInicial);
+        mContainerFechaVencimiento.setTime(mFechaInicial);
         return mView;
     }
     
@@ -128,167 +145,49 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
 
     private void validarSolicitud() {
 
-        try {
-            Date mFechaEmision = new SimpleDateFormat("dd-MM-yyyy").parse(mGrupoFechas.getOneButtonLayoutAt(0).getContent());
-            Date mFechaVencimiento = new SimpleDateFormat("dd-MM-yyyy").parse(mGrupoFechas.getOneButtonLayoutAt(1).getContent());
-            mEstudiante = mEstudianteTable.searchUser();
-            mUsuario = mUserTable.searchUser();
-            mEstudiante.setUsuario(mUsuario);
-            long mTiempo = mFechaVencimiento.getTime() - mFechaEmision.getTime();
-            long dias = mTiempo / (1000 * 60 *  60 * 24);
-            Log.i(TAG, "Dias: " + dias);
-            
-            if (mGrupoPrestamo.getPopupLayoutAt(0).getItemPosition() == 0) { // Fin de semana
-                if (1 < dias && dias <= 4) {
-                    Calendar mFE = Calendar.getInstance();
-                    mFE.setTime(mFechaEmision);
-                    Calendar mFF = Calendar.getInstance();
-                    mFF.setTime(mFechaVencimiento);
-                    Log.i(TAG, "Viernes es 6 : " + mFE.get(Calendar.DAY_OF_WEEK));
-                    Log.i(TAG, "Lunes es 2 : " + mFF.get(Calendar.DAY_OF_WEEK));
-                    if (mFE.get(Calendar.DAY_OF_WEEK) == 6 && mFF.get(Calendar.DAY_OF_WEEK) == 2) {
-                        Log.i(TAG, "¡Valido el fin de semana!");
-                        Log.i(TAG, new SimpleDateFormat("dd-MM-yyyy HH:mm").format(mFechaEmision));
-                        Log.i(TAG, new SimpleDateFormat("dd-MM-yyyy HH:mm").format(mFechaVencimiento));
-                        armarSolicitud(mFechaEmision, mFechaVencimiento);
-                    } else {
-                        SnackbarManager.show(
-                                Snackbar.with(getActivity())
-                                        .type(SnackbarType.MULTI_LINE)
-                                        .text(R.string.mensaje_error_fin_semana));
-                    }
-                } else {
-                    SnackbarManager.show(
-                            Snackbar.with(getActivity())
-                                    .type(SnackbarType.MULTI_LINE)
-                                    .text(R.string.mensaje_error_periodo_prestamo));
-                }
-            } else if (mGrupoPrestamo.getPopupLayoutAt(0).getItemPosition() == 1) { // Vacacional
-                if (dias > 3 && dias < 365) {
+        Date mFechaEmision = mContainerFechaEmision.getTime().getTime();
+        Date mFechaVencimiento = mContainerFechaVencimiento.getTime().getTime();
+        mEstudiante = mEstudianteTable.searchUser();
+        mUsuario = mUserTable.searchUser();
+        mEstudiante.setUsuario(mUsuario);
+        long mTiempo = mFechaVencimiento.getTime() - mFechaEmision.getTime();
+        long dias = mTiempo / (1000 * 60 *  60 * 24);
+        Log.i(TAG, "Dias: " + dias);
+
+        if (mGrupoPrestamo.getPopupLayoutAt(0).getItemPosition() == 0) { // Fin de semana
+            if (1 < dias && dias <= 4) {
+                Calendar mFE = Calendar.getInstance();
+                mFE.setTime(mFechaEmision);
+                Calendar mFF = Calendar.getInstance();
+                mFF.setTime(mFechaVencimiento);
+                Log.i(TAG, "Viernes es 6 : " + mFE.get(Calendar.DAY_OF_WEEK));
+                Log.i(TAG, "Lunes es 2 : " + mFF.get(Calendar.DAY_OF_WEEK));
+                if (mFE.get(Calendar.DAY_OF_WEEK) == 6 && mFF.get(Calendar.DAY_OF_WEEK) == 2) {
+                    Log.i(TAG, "¡Valido el fin de semana!");
+                    Log.i(TAG, new SimpleDateFormat("dd-MM-yyyy HH:mm").format(mFechaEmision));
+                    Log.i(TAG, new SimpleDateFormat("dd-MM-yyyy HH:mm").format(mFechaVencimiento));
                     armarSolicitud(mFechaEmision, mFechaVencimiento);
                 } else {
                     SnackbarManager.show(
                             Snackbar.with(getActivity())
                                     .type(SnackbarType.MULTI_LINE)
-                                    .text(R.string.mensaje_error_periodo_prestamo));
+                                    .text(R.string.mensaje_error_fin_semana));
                 }
+            } else {
+                SnackbarManager.show(
+                        Snackbar.with(getActivity())
+                                .type(SnackbarType.MULTI_LINE)
+                                .text(R.string.mensaje_error_periodo_prestamo));
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void onClick(View view) {
-        if (view == mGrupoFechas.getOneButtonLayoutAt(0).getButton()) {
-            new DatePickerBuilder()
-                    .setReference(0)
-                    .setFragmentManager(getChildFragmentManager())
-                    .setStyleResId(R.style.BetterPickersDialogFragment_Light)
-                    .setTargetFragment(SolicitudPrestamoFragment.this)
-                    .show();
-        } else if (view == mGrupoFechas.getOneButtonLayoutAt(1).getButton()) {
-            new DatePickerBuilder()
-                    .setReference(1)
-                    .setFragmentManager(getChildFragmentManager())
-                    .setStyleResId(R.style.BetterPickersDialogFragment_Light)
-                    .setTargetFragment(SolicitudPrestamoFragment.this)
-                    .show();
-        }
-    }
-
-    @Override
-    public void onDialogDateSet(int reference, int year, int month, int day) {
-        try {
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) -1);
-            calendar.set(Calendar.HOUR_OF_DAY, 23);
-            calendar.set(Calendar.MINUTE, 50);
-            Date mFechaEscrita = new SimpleDateFormat("dd-MM-yyyy").parse(day + "-" + (month + 1) + "-" + year);
-            Log.i(TAG, new SimpleDateFormat("dd-MM-yyyy HH:mm").format(calendar.getTime()));
-            Log.i(TAG, new SimpleDateFormat("dd-MM-yyyy HH:mm").format(mFechaEscrita));
-            switch (reference) {
-                case 0: // Desde
-                    if (mFechaEscrita.after(calendar.getTime()) || mFechaEscrita.equals(calendar.getTime())) { // Fecha de emision mayor o igual al actual
-                        if (mGrupoFechas.getOneButtonLayoutAt(1).getContent().equals("")) { // Si la fecha de vencimiento no se ha escrito
-                            if (month < 9)
-                                mGrupoFechas.getOneButtonLayoutAt(0).setContent(day + "-0" + (month + 1) + "-" + year);
-                            else
-                                mGrupoFechas.getOneButtonLayoutAt(0).setContent(day + "-" + (month + 1) + "-" + year);
-                        } else {
-                            // La fecha de emision es menor a la fecha de vencimiento
-                            if (mFechaEscrita.before(new SimpleDateFormat("dd-MM-yyyy").parse(mGrupoFechas.getOneButtonLayoutAt(0).getContent()))) {
-                                if (month < 9) {
-                                    if (day < 10) {
-                                        mGrupoFechas.getOneButtonLayoutAt(0).setContent("0" + day + "-0" + (month + 1) + "-" + year);
-                                    } else {
-                                        mGrupoFechas.getOneButtonLayoutAt(0).setContent(day + "-0" + (month + 1) + "-" + year);
-                                    }
-                                } else {
-                                    if (day < 10) {
-                                        mGrupoFechas.getOneButtonLayoutAt(0).setContent("0" + day + "-" + (month + 1) + "-" + year);
-                                    } else {
-                                        mGrupoFechas.getOneButtonLayoutAt(0).setContent(day + "-" + (month + 1) + "-" + year);
-                                    }
-                                }
-                            } else {
-                                SnackbarManager.show(
-                                        Snackbar.with(getActivity())
-                                                .type(SnackbarType.MULTI_LINE)
-                                                .text(R.string.mensaje_error_fecha_prestamo));
-                            }
-                        }
-                    } else {
-                        SnackbarManager.show(
-                                Snackbar.with(getActivity())
-                                        .type(SnackbarType.MULTI_LINE)
-                                        .text(R.string.mensaje_error_fecha));
-                    }
-                    break;
-                case 1:  //Hasta
-                    if (mFechaEscrita.after(calendar.getTime()) || mFechaEscrita.equals(calendar.getTime())) { // Fecha de emision mayor o igual al actual
-                        if (!mGrupoFechas.getOneButtonLayoutAt(0).getContent().equals("")) { // Si la fecha de emision se ha escrito
-                            // La fecha de vencimiento es mayor a la fecha de emision
-                            if (mFechaEscrita.after(new SimpleDateFormat("dd-MM-yyyy").parse(mGrupoFechas.getOneButtonLayoutAt(0).getContent()))) {
-                                if (month < 9) {
-                                    if (day < 10) {
-                                        mGrupoFechas.getOneButtonLayoutAt(1).setContent("0" + day + "-0" + (month + 1) + "-" + year);
-                                    } else {
-                                        mGrupoFechas.getOneButtonLayoutAt(1).setContent(day + "-0" + (month + 1) + "-" + year);
-                                    }
-                                } else {
-                                    if (day < 10) {
-                                        mGrupoFechas.getOneButtonLayoutAt(1).setContent("0" + day + "-" + (month + 1) + "-" + year);
-                                    } else {
-                                        mGrupoFechas.getOneButtonLayoutAt(1).setContent(day + "-" + (month + 1) + "-" + year);
-                                    }
-                                }
-                            } else {
-                                SnackbarManager.show(
-                                        Snackbar.with(getActivity())
-                                                .type(SnackbarType.MULTI_LINE)
-                                                .text(R.string.mensaje_error_fecha_prestamo));
-                            }
-                        } else {
-                            if (month < 9) {
-                                mGrupoFechas.getOneButtonLayoutAt(1).setContent(day + "-0" + (month + 1) + "-" + year);
-                            } else {
-                                mGrupoFechas.getOneButtonLayoutAt(1).setContent(day + "-" + (month + 1) + "-" + year);
-                            }
-                        }
-                    } else {
-                        SnackbarManager.show(
-                                Snackbar.with(getActivity())
-                                        .type(SnackbarType.MULTI_LINE)
-                                        .text(R.string.mensaje_error_fecha));
-                    }
-                    break;
+        } else if (mGrupoPrestamo.getPopupLayoutAt(0).getItemPosition() == 1) { // Vacacional
+            if (dias > 3 && dias < 365) {
+                armarSolicitud(mFechaEmision, mFechaVencimiento);
+            } else {
+                SnackbarManager.show(
+                        Snackbar.with(getActivity())
+                                .type(SnackbarType.MULTI_LINE)
+                                .text(R.string.mensaje_error_periodo_prestamo));
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
-            SnackbarManager.show(
-                    Snackbar.with(getActivity())
-                            .type(SnackbarType.MULTI_LINE)
-                            .text(R.string.mensaje_error_excepcion));
         }
     }
 
@@ -297,9 +196,7 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
         switch (menuItem.getItemId()){
             case R.id.action_enviar:
                 if (!mGrupoPrestamo.getPopupLayoutAt(0).getContent().equals("") &&
-                        !mGrupoInstrumentos.getPopupLayoutAt(0).getContent().equals("") &&
-                        !mGrupoFechas.getOneButtonLayoutAt(0).getContent().equals("")
-                        && !mGrupoFechas.getOneButtonLayoutAt(1).getContent().equals("")) {
+                        !mGrupoInstrumentos.getPopupLayoutAt(0).getContent().equals("")) {
                     validarSolicitud();
                 } else {
                     SnackbarManager.show(
@@ -312,6 +209,38 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
         return false;
     }
 
+    @Override
+    public void onTimeChange(Calendar calendar) {
+        Calendar mTodayDate = Calendar.getInstance();
+        mTodayDate.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) - 1);
+        mTodayDate.set(Calendar.HOUR_OF_DAY, 23);
+        mTodayDate.set(Calendar.MINUTE, 50);
+
+        if (mContainerFechaEmision.getTime().equals(calendar)) {
+            setFechaEmision();
+            if (calendar.after(mTodayDate.getTime()) || calendar.equals(mTodayDate.getTime())) { // Fecha de emision mayor o igual al actual
+                // La fecha de emision es mayor a la fecha de vencimiento
+                if (calendar.after(mContainerFechaVencimiento.getTime())) {
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.mensaje_error_fecha_prestamo));
+                }
+            }
+        } else {
+            setFechaVencimiento();
+            if (calendar.after(mTodayDate.getTime()) || calendar.equals(mTodayDate.getTime())) { // Fecha de emision mayor o igual al actual
+                // La fecha de vencimiento es menor a la fecha de emision
+                if (calendar.before(mContainerFechaEmision.getTime())) {
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.mensaje_error_fecha_prestamo));
+                }
+            }
+        }
+    }
+
     private class UploadSolicitudPrestamo extends AsyncTask<SolicitudPrestamo, Void, Integer> {
 
         @Override
@@ -320,6 +249,7 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
             if (mToolbar.getMenu().findItem(R.id.action_enviar).getActionView() == null) {
                 mToolbar.getMenu().findItem(R.id.action_enviar).setActionView(R.layout.custom_progress_bar);
             }
+            sendNotificacion();
         }
 
         @Override
@@ -357,6 +287,7 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
                     Log.i(TAG, "¡Solicitud enviada!");
                     mToolbar.getMenu().clear();
                     mActivity.actualizarSolicitud();
+                    mManager.cancel(1);
                     SnackbarManager.show(
                             Snackbar.with(getActivity())
                                     .type(SnackbarType.MULTI_LINE)
@@ -383,5 +314,30 @@ public class SolicitudPrestamoFragment extends Fragment implements View.OnClickL
                     break;
             }
         }
+    }
+
+    private void sendNotificacion() {
+
+        NotificationCompat.Builder mNotificacion = new NotificationCompat.Builder(getActivity())
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle(getString(R.string.prestamo_enviar))
+                .setTicker(getString(R.string.prestamo_enviar))
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        mNotificacion.setAutoCancel(true);
+        mManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        mManager.notify(1, mNotificacion.build());
+
+    }
+
+    protected void setFechaEmision() {
+        final Calendar c = mContainerFechaEmision.getTime();
+        mGrupoFechaEmision.getTextLayoutAt(0).setContent(String.format("%td %tb %tY", c, c, c));
+    }
+
+    protected void setFechaVencimiento() {
+        final Calendar c = mContainerFechaVencimiento.getTime();
+        mGrupoFechaVencimiento.getTextLayoutAt(0).setContent(String.format("%td %tb %tY", c, c, c));
+        
     }
 }

@@ -51,21 +51,21 @@
     <string name="prestamo_fecha_vencimiento">Hasta la fecha</string>
     <string name="prestamo_fin_de_semana">Fin de semana</string>
     <string name="prestamo_vacacional">Vacacional</string>
-    <string name="prestamo_tipo_instrumento">Instrumento</string>
-    <string name="prestamo_periodo">Periodo</string>
-    <string name="prestamo_descripcion_tipo">Puede seleccionar entre \"Fin de semana\" que equivale por máximo 3 días o \"Vacacional\" que equivale por menos de 1 año.</string>
+    <string name="prestamo_tipo_instrumento">Tipo de Instrumento</string>
+    <string name="prestamo_periodo">Periodo de préstamo</string>
+    <string name="prestamo_descripcion_tipo">Periodos: \n    - \"Fin de semana\" que equivale a 4 días.\n    - \"Vacacional\" que equivale a menos de 1 año.</string>
 
     <!-- Estatus del prestamo -->
     <string name="estatus_prestamo_titulo_barra">Estatus del prestamo</string>
-    <string name="estatus_prestamo_fecha_emision">Fecha de recibo</string>
-    <string name="estatus_prestamo_fecha_vencimiento">Fecha de entrega</string>
-    <string name="estatus_prestamo_codigo">Código</string>
+    <string name="estatus_prestamo_fecha_emision">Desde la fecha</string>
+    <string name="estatus_prestamo_fecha_vencimiento">Hasta la fecha</string>
+    <string name="estatus_prestamo_codigo">Solicitud Nro.</string>
     <string name="estatus_prestamo_estado">Estado actual</string>
     <string name="estatus_prestamo_tipo_instrumento">Tipo</string>
     <string name="estatus_prestamo_marca">Marca</string>
     <string name="estatus_prestamo_modelo">Modelo</string>
     <string name="estatus_prestamo_serial">Serial</string>
-    <string name="estatus_prestamo_periodo">Periodo</string>
+    <string name="estatus_prestamo_periodo">Periodo de préstamo</string>
     <string name="estatus_prestamo_grupo_instrumento">DATOS DEL INSTRUMENTO</string>
     <string name="estatus_prestamo_grupo_solicitud">DATOS DE LA SOLICITUD</string>
     <string name="estatus_prestamo_grupo_prestamo">DATOS DEL PRESTAMO</string>
@@ -75,6 +75,7 @@
     <string name="estatus_prestamo_entregar_instrumento">Recuerde devolver el instrumento en los próximos días.</string>
 
     <!-- Notificaciones -->
+    <string name="prestamo_enviar">Enviando tu solicitud</string>
     <string name="prestamo_aprobado">Tu solicitud fue APROBADA, recuerda pasar por las oficinas para recoger tu instrumento.</string>
     <string name="prestamo_rechazada">Lo sentimos, su solicitud fue RECHAZADA. Puedo volver a solicitar nuevamente un prestamo.</string>
     <string name="prestamo_rechazada_titulo">¡Malas noticias!</string>
@@ -115,6 +116,7 @@
     <string name="mensaje_error_foto">No hemos podido actualizar tu foto. Vuelve ha intentarlo.</string>
 
     <!-- Cambiar contraseña -->
+    <string name="contraseña_enviar">Actualizando perfil</string>
     <string name="contraseña_debil">Débil</string>
     <string name="contraseña_mejor">Mejor</string>
     <string name="contraseña_muy_debil">Muy débil</string>
@@ -130,18 +132,19 @@
     <string name="contraseña_boton_error">¡Ups! Error</string>
     <string name="contraseña_boton">Cambiar contraseña</string>
     <string name="contraseña_nueva">Nueva contraseña</string>
-    <string name="contraseña_repetir">Repita nueva contraseña</string>
+    <string name="contraseña_repetir">Repita contraseña</string>
     <string name="contraseña_titulo_barra">Cambiar contraseña</string>
     <string name="contraseña_mostrar">Mostrar las contraseñas</string>
     <string name="contraseña_mostrar_descripcion">Si esta activado, habilita la posibilidad de mostrar todas las contraseñas.</string>
     <string name="contraseña_requisito">La nueva contraseña debe:\n\n  - contener al menos un dígito de 0 a 9.\n  - contener al menos una letra en minúscula.\n  - contener al menos una letra en mayúscula.\n  - contener al menos un símbolo especial \"@#$%\".\n  -  estar entre 6 y 20 carácteres máximo.</string>
     
     <!-- Postulación de un aspirante -->
+    <string name="postularse_enviar">Enviando tu postulación</string>
     <string name="postularse_apellido">Apellido</string>
     <string name="postularse_nombre">Nombre</string>
     <string name="postularse_cedula">Cédula de identidad</string>
     <string name="postularse_sexo">Sexo</string>
-    <string name="postularse_catedra">Seleccione una catedra</string>
+    <string name="postularse_catedra">¿Qué desea aprender?</string>
     <string name="postularse_telefono">Teléfono </string>
     <string name="postularse_titulo_barra">Postulate</string>
     <string name="postularse_correo">Correo electrónico</string>
@@ -154,7 +157,7 @@
     <string name="postulacion_cabecera_datos">DATOS BÁSICOS</string>
     <string name="postulacion_cabecera_aspectos_musicales">ASPECTOS MUSICALES</string>
     <string name="postulacion_cabecera_contacto">CONTACTO</string>
-    <string name="postulacion_descripcion_cedula">Si no posee una cédula, por favor ingrese la cédula de su representante.</string>
+    <string name="postulacion_descripcion_cedula">Si el niño/a no posee una cédula, por favor ingrese la cédula de su representante.</string>
 
     <!-- Contacto fundación -->
     <string name="contacto_mensaje">Con nosotros, el proceso \nde enseñanza en forma continua \nlogrará de su trabajo un aprendizaje \nconstante y significativo.</string>
@@ -163,8 +166,9 @@
     <string name="contacto_telefono2">02512532556</string>
     <string name="contacto_coordinador">Coordinador:</string>
     <string name="contacto_correo">Correo electrónico:</string>
-    <string name="contacto_direccion">Dirección</string>
+    <string name="contacto_direccion">DIRECCIÓN</string>
     <string name="contacto_director">Director:</string>
+    <string name="contacto">CONTACTO</string>
     <string name="contacto_telefono">Teléfono</string>
     <string name="contacto_titulo_barra">Contactanos</string>
     <string name="contacto_boton">CONTACTANOS</string>

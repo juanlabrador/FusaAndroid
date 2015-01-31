@@ -23,7 +23,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.dd.CircularProgressButton;
 import com.github.siyamed.shapeimageview.HexagonImageView;
-import com.juanlabrador.GroupLayout;
+import com.juanlabrador.grouplayout.GroupContainer;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
@@ -43,7 +43,7 @@ import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 public class LoginFragment extends Fragment implements View.OnClickListener, TextWatcher {
 
     private static String TAG = "LoginFragment";
-    private GroupLayout mCredenciales;
+    private GroupContainer mCredenciales;
     private HexagonImageView mAvatar;
     private CircularProgressButton mLogin;
     private TextView mPasswordRestore;
@@ -81,7 +81,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         mChangeAccount = (TextView) view.findViewById(R.id.tv_cambiar_usuario);
         mChangeAccount.setOnClickListener(this);
 
-        mCredenciales = (GroupLayout) view.findViewById(R.id.login_credenciales);
+        mCredenciales = (GroupContainer) view.findViewById(R.id.login_credenciales);
         Log.i(TAG, "¡Paso al restaurar pantalla!");
         mCredenciales.addEditTextLayout(R.string.login_usuario);
         mCredenciales.addEditTextLayout(R.string.login_contraseña);

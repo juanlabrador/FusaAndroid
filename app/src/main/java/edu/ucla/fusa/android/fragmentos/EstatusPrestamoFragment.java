@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.juanlabrador.GroupLayout;
+import com.juanlabrador.grouplayout.GroupContainer;
 
 import java.text.SimpleDateFormat;
 
@@ -34,10 +34,10 @@ public class EstatusPrestamoFragment extends Fragment implements Toolbar.OnMenuI
     private static String ESTATUS_ENTREGADO = "ENTREGADO";
     private static String TAG = "EstatusPrestamoFragment";
     private View mView;
-    private GroupLayout mGrupoSolicitud;
-    private GroupLayout mGrupoPrestamo;
-    private GroupLayout mGrupoEstatus;
-    private GroupLayout mGrupoInstrumento;
+    private GroupContainer mGrupoSolicitud;
+    private GroupContainer mGrupoPrestamo;
+    private GroupContainer mGrupoEstatus;
+    private GroupContainer mGrupoInstrumento;
     private Toolbar mToolbar;
     private SolicitudPrestamoTable mSolicitudPrestamoTable;
     private SolicitudPrestamo mSolicitudPrestamo;
@@ -59,21 +59,21 @@ public class EstatusPrestamoFragment extends Fragment implements Toolbar.OnMenuI
         super.onCreateView(inflater, container, savedInstanceState);
         mView = inflater.inflate(R.layout.fragment_drawer_estatus_prestamo, container, false);
         
-        mGrupoSolicitud = (GroupLayout) mView.findViewById(R.id.grupos_datos_solicitud);
+        mGrupoSolicitud = (GroupContainer) mView.findViewById(R.id.grupos_datos_solicitud);
         mGrupoSolicitud.addTextLayout(R.string.estatus_prestamo_codigo);
         mGrupoSolicitud.addTextLayout(R.string.estatus_prestamo_periodo);
         
-        mGrupoInstrumento = (GroupLayout) mView.findViewById(R.id.grupos_datos_instrumento);
+        mGrupoInstrumento = (GroupContainer) mView.findViewById(R.id.grupos_datos_instrumento);
         mGrupoInstrumento.addTextLayout(R.string.estatus_prestamo_tipo_instrumento);
         mGrupoInstrumento.addTextLayout(R.string.estatus_prestamo_serial);
         mGrupoInstrumento.addTextLayout(R.string.estatus_prestamo_marca);
         mGrupoInstrumento.addTextLayout(R.string.estatus_prestamo_modelo);
         
-        mGrupoPrestamo = (GroupLayout) mView.findViewById(R.id.grupo_datos_prestamo);
+        mGrupoPrestamo = (GroupContainer) mView.findViewById(R.id.grupo_datos_prestamo);
         mGrupoPrestamo.addTextLayout(R.string.estatus_prestamo_fecha_emision);
         mGrupoPrestamo.addTextLayout(R.string.estatus_prestamo_fecha_vencimiento);
         
-        mGrupoEstatus = (GroupLayout) mView.findViewById(R.id.grupo_estatus_prestamo);
+        mGrupoEstatus = (GroupContainer) mView.findViewById(R.id.grupo_estatus_prestamo);
         mGrupoEstatus.addTextLayout(R.string.estatus_prestamo_estado);
         
         mRecordatorio = (TextView) mView.findViewById(R.id.recordatorio_prestamo);

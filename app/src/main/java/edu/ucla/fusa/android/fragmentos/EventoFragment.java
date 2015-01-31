@@ -6,9 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.juanlabrador.GroupLayout;
+import com.juanlabrador.grouplayout.GroupContainer;
 
 import java.text.SimpleDateFormat;
 
@@ -22,15 +21,14 @@ import edu.ucla.fusa.android.modelo.evento.Evento;
 public class EventoFragment extends Fragment {
     
     private static String TAG = "EventoFragment";
-    private GroupLayout mGrupoEvento;
-    private GroupLayout mGrupoLugar;
+    private GroupContainer mGrupoEvento;
+    private GroupContainer mGrupoLugar;
     private View mView;
     private EventoTable mEventoTable;
     private Evento mEvento;
     private static int mId;
     private SimpleDateFormat mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private SimpleDateFormat mTimeFormat = new SimpleDateFormat("HH:mm aa");
-
     
     public static EventoFragment newInstance(int id) {
         EventoFragment fragment = new EventoFragment();
@@ -44,12 +42,12 @@ public class EventoFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         mView = inflater.inflate(R.layout.fragment_evento, container, false);
         
-        mGrupoEvento = (GroupLayout) mView.findViewById(R.id.grupo_datos_evento);
+        mGrupoEvento = (GroupContainer) mView.findViewById(R.id.grupo_datos_evento);
         mGrupoEvento.addTextLayout(R.string.evento_nombre);
         mGrupoEvento.addTextLayout(R.string.evento_fecha);
         mGrupoEvento.addTextLayout(R.string.evento_hora);
         
-        mGrupoLugar = (GroupLayout) mView.findViewById(R.id.grupo_lugar_evento);
+        mGrupoLugar = (GroupContainer) mView.findViewById(R.id.grupo_lugar_evento);
         mGrupoLugar.addTextLayout(R.string.evento_sitio);
         mGrupoLugar.addTextLayout(R.string.evento_direccion);
         

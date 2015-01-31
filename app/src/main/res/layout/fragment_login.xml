@@ -47,7 +47,7 @@
             app:siBorderColor="@color/blanco"
             android:layout_marginTop="16dp"/>
         
-        <com.juanlabrador.GroupLayout
+        <com.juanlabrador.grouplayout.GroupContainer
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/login_credenciales"

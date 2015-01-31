@@ -8,17 +8,35 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.juanlabrador.GroupLayout
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:textSize="15sp"
+        android:textColor="@color/gris_oscuro"
+        android:text="@string/contacto_direccion"/>
+    
+    <com.juanlabrador.grouplayout.GroupContainer
         android:id="@+id/direccion_contacto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:textSizeLayout="15"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="6dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:textSize="15sp"
+        android:textColor="@color/gris_oscuro"
+        android:text="@string/contacto"/>
     
-    <com.juanlabrador.GroupLayout
+    <com.juanlabrador.grouplayout.GroupContainer
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/medios_contacto"
         app:textSizeLayout="15"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="6dp"/>
 </LinearLayout>

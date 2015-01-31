@@ -8,10 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.juanlabrador.GroupLayout;
+import com.juanlabrador.grouplayout.GroupContainer;
 
 import java.util.List;
 
@@ -25,8 +24,8 @@ import edu.ucla.fusa.android.modelo.academico.ClaseParticular;
 public class HorarioClasesFragment extends Fragment {
 
     private static String TAG = "HorarioClasesFragment";
-    private GroupLayout mGrupoAgrupacion;
-    private GroupLayout mGrupoClases;
+    private GroupContainer mGrupoAgrupacion;
+    private GroupContainer mGrupoClases;
     private TextView mTextEmpty;
     private Toolbar mToolbar;
     private Agrupacion mAgrupacion;
@@ -53,8 +52,8 @@ public class HorarioClasesFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mGrupoAgrupacion = (GroupLayout) view.findViewById(R.id.grupo_agrupacion);
-        mGrupoClases = (GroupLayout) view.findViewById(R.id.grupo_clase);
+        mGrupoAgrupacion = (GroupContainer) view.findViewById(R.id.grupo_agrupacion);
+        mGrupoClases = (GroupContainer) view.findViewById(R.id.grupo_clase);
         mCabeceraAgrupacion = (TextView) view.findViewById(R.id.cabecera_agrupacion);
         mCabeceraClases = (TextView) view.findViewById(R.id.cabecera_clases);
         mTextEmpty = (TextView) view.findViewById(R.id.sin_clases);

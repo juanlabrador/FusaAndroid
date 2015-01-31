@@ -7,7 +7,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.juanlabrador.GroupLayout
+    <com.juanlabrador.grouplayout.GroupContainer
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:textSizeLayout="15"
+        android:id="@+id/instrumentos_prestamo"
+        android:layout_marginTop="16dp"/>
+    
+    <com.juanlabrador.grouplayout.GroupContainer
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:textSizeLayout="15"
@@ -23,18 +30,32 @@
         android:layout_marginTop="6dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"/>
-
-    <com.juanlabrador.GroupLayout
+    
+    <com.juanlabrador.grouplayout.GroupContainer
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:textSizeLayout="15"
-        android:id="@+id/instrumentos_prestamo"
-        android:layout_marginTop="22dp"/>
-
-    <com.juanlabrador.GroupLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:textSizeLayout="15"
-        android:id="@+id/fechas_prestamo"
+        android:id="@+id/fecha_emision_titulo"
         android:layout_marginTop="12dp"/>
+
+    <include
+        layout="@layout/simple_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fecha_emision"
+        android:layout_margin="6dp"/>
+
+    <com.juanlabrador.grouplayout.GroupContainer
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:textSizeLayout="15"
+        android:id="@+id/fecha_vencimiento_titulo"
+        android:layout_marginTop="8dp"/>
+
+    <include
+        layout="@layout/simple_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fecha_vencimiento"
+        android:layout_margin="6dp"/>
 </LinearLayout>

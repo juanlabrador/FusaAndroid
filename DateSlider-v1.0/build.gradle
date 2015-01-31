@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('DateSlider-v1.0.aar'))

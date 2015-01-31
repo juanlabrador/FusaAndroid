@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/DateSlider-v1.0/DateSlider-v1.0.iml" filepath="$PROJECT_DIR$/DateSlider-v1.0/DateSlider-v1.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/FusaAndroid.iml" filepath="$PROJECT_DIR$/FusaAndroid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/GroupLayout-v1.5/GroupLayout-v1.5.iml" filepath="$PROJECT_DIR$/GroupLayout-v1.5/GroupLayout-v1.5.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PullToRefresh-v1.0/PullToRefresh-v1.0.iml" filepath="$PROJECT_DIR$/PullToRefresh-v1.0/PullToRefresh-v1.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GroupLayout-v1.8/GroupLayout-v1.8.iml" filepath="$PROJECT_DIR$/GroupLayout-v1.8/GroupLayout-v1.8.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PullToRefreshAnimate-v1.0/PullToRefreshAnimate-v1.0.iml" filepath="$PROJECT_DIR$/PullToRefreshAnimate-v1.0/PullToRefreshAnimate-v1.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/fusaandroid.iml" filepath="$PROJECT_DIR$/fusaandroid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libraryBetterPickers/libraryBetterPickers.iml" filepath="$PROJECT_DIR$/libraryBetterPickers/libraryBetterPickers.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraryTimesSquare/libraryTimesSquare.iml" filepath="$PROJECT_DIR$/libraryTimesSquare/libraryTimesSquare.iml" />
     </modules>
   </component>

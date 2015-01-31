@@ -12,14 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
-import com.juanlabrador.GroupLayout;
+import com.juanlabrador.grouplayout.GroupContainer;
 
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.validadores.ValidadorEmails;
 
 public class RestaurarPasswordFragment extends Fragment implements View.OnClickListener, TextWatcher, Toolbar.OnMenuItemClickListener {
 
-    private GroupLayout mCorreo;
+    private GroupContainer mCorreo;
     private View mView;
     private Toolbar mToolbar;
     private DrawerArrowDrawable mDrawerArrow;
@@ -35,7 +35,7 @@ public class RestaurarPasswordFragment extends Fragment implements View.OnClickL
 
         mView = inflater.inflate(R.layout.fragment_inicial_restaurar_password, container, false);
          
-        mCorreo = (GroupLayout) mView.findViewById(R.id.correo_restaurar);
+        mCorreo = (GroupContainer) mView.findViewById(R.id.correo_restaurar);
         mCorreo.addValidatorLayout(R.string.restaurar_correo);
         mCorreo.getValidatorLayoutAt(0).getEditText().addTextChangedListener(this);
         mCorreo.getValidatorLayoutAt(0).setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);

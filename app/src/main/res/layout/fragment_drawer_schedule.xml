@@ -29,7 +29,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"/>
     
-            <com.juanlabrador.GroupLayout
+            <com.juanlabrador.grouplayout.GroupContainer
                 android:id="@+id/grupo_clase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 android:layout_marginRight="12dp"
                 android:layout_marginLeft="12dp"/>
             
-            <com.juanlabrador.GroupLayout
+            <com.juanlabrador.grouplayout.GroupContainer
                 android:id="@+id/grupo_agrupacion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

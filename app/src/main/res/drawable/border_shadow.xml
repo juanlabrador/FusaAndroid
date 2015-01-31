@@ -36,7 +36,7 @@
     <!-- Background -->
     <item>
         <shape>
-            <solid android:color="@color/white" />
+            <solid android:color="#FFF" />
             <corners android:radius="3dp" />
         </shape>
     </item>

@@ -14,10 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yalantis.pulltorefresh.library.PullToRefreshView;
 
 import org.apache.http.NameValuePair;
@@ -119,6 +116,7 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
             setListAdapter(mListAdapter);
             mItemNoticia = (ItemListNoticia) mListAdapter.getItem(0);
             new LoadingNewsNoticiasTaks().execute(String.valueOf(mItemNoticia.getId()));
+            mNoticiasTable.borrarViejasNoticias();
             //if (index != -1) {
                 //getListView().setSelectionFromTop(index, 0);
            // }
@@ -250,8 +248,8 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
             } else if (mNoticias.size() != 0) {
                 Log.i(TAG, "Tamaño de la lista " + mNoticias.size());
                 for (Noticia noticia : mNoticias) {
-                    if (noticia.getImagen() != null) {
-                        mItemsNoticias.add(new ItemListNoticia(
+                    if (noticia.getImagen() != null) {   //Noticia con foto
+                        mItemsNoticias.add(0, new ItemListNoticia(
                                 noticia.getId(),
                                 noticia.getTitulo(),
                                 noticia.getFechapublicacion().getTime(),
@@ -265,8 +263,8 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
                                 noticia.getImagen(),
                                 noticia.getId(),
                                 1);
-                    } else {
-                        mItemsNoticias.add(new ItemListNoticia(
+                    } else {   //Noticias sin foto
+                        mItemsNoticias.add(0, new ItemListNoticia(
                                 noticia.getId(),
                                 noticia.getTitulo(),
                                 noticia.getFechapublicacion().getTime(),
@@ -292,19 +290,20 @@ public class ListadoNoticiasFragment extends ListFragment implements PullToRefre
             super.onPostExecute(result);
             switch (result) {
                 case 100:
+                    Log.i(TAG, "¡Hay nuevas noticias!");
                     mListAdapter = new ListNoticiasAdapter(getActivity(), mItemsNoticias, ListadoNoticiasFragment.this);
-                    getListView().addFooterView(mBackToTop);
-                    //setListAdapter(mListAdapter);
+                    //getListView().addFooterView(mBackToTop);
+                    setListAdapter(mListAdapter);
                     mListAdapter.notifyDataSetChanged();
-                    getListView().removeFooterView(mBackToTop);
-                    getListView().post(new Runnable() {
+                    //getListView().removeFooterView(mBackToTop);
+                    /*getListView().post(new Runnable() {
                         public void run() {
                             int i = getListView().getLastVisiblePosition();
                             int j = getListAdapter().getCount();
                             if (i + 1 < j)
                                 getListView().addFooterView(mBackToTop);
                         }
-                    });
+                    });*/
                     break;
                 case 0:
                     try {

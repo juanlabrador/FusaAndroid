@@ -1,9 +1,12 @@
 package edu.ucla.fusa.android.fragmentos;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
@@ -17,7 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import com.juanlabrador.GroupLayout;
+import com.juanlabrador.grouplayout.GroupContainer;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
@@ -31,9 +34,9 @@ import edu.ucla.fusa.android.validadores.ValidadorPasswords;
 public class CambiarPasswordFragment extends Fragment implements TextWatcher, CompoundButton.OnCheckedChangeListener, Toolbar.OnMenuItemClickListener {
     
     private static String TAG = "CambiarPasswordFragment";
-    private GroupLayout mMostrarContraseña;
-    private GroupLayout mAntiguaContraseña;
-    private GroupLayout mNuevaContraseña;
+    private GroupContainer mMostrarContraseña;
+    private GroupContainer mAntiguaContraseña;
+    private GroupContainer mNuevaContraseña;
     private View mBarraDebil;
     private View mBarraFuerte;
     private View mBarraMuyDebil;
@@ -44,6 +47,7 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
     private UserTable mUserTable;
     private Usuario mUsuario;
     private JSONParser mJSONParser;
+    private NotificationManager mManager;
 
     public static CambiarPasswordFragment newInstance() {
         CambiarPasswordFragment fragment = new CambiarPasswordFragment();
@@ -56,17 +60,17 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
         super.onCreateView(inflater, container, arguments);
         mView = inflater.inflate(R.layout.fragment_drawer_cambiar_password, container, false);
 
-        mMostrarContraseña = (GroupLayout) mView.findViewById(R.id.mostrar_contraseña);
+        mMostrarContraseña = (GroupContainer) mView.findViewById(R.id.mostrar_contraseña);
         mMostrarContraseña.addSwitchLayout(R.string.contraseña_mostrar, getResources().getColor(R.color.azul));
         mMostrarContraseña.getSwitchLayoutAt(0).getSwitch().setOnCheckedChangeListener(this);
         
-        mAntiguaContraseña = (GroupLayout) mView.findViewById(R.id.antigua_contraseña);
+        mAntiguaContraseña = (GroupContainer) mView.findViewById(R.id.antigua_contraseña);
         mAntiguaContraseña.addValidatorLayout(R.string.contraseña_antigua);
         mAntiguaContraseña.getValidatorLayoutAt(0).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         mAntiguaContraseña.getValidatorLayoutAt(0).getEditText().addTextChangedListener(this);
         mAntiguaContraseña.getValidatorLayoutAt(0).setMaxLength(20);
         
-        mNuevaContraseña = (GroupLayout) mView.findViewById(R.id.nueva_contraseña);
+        mNuevaContraseña = (GroupContainer) mView.findViewById(R.id.nueva_contraseña);
         mNuevaContraseña.addEditTextLayout(R.string.contraseña_nueva);
         mNuevaContraseña.addValidatorLayout(R.string.contraseña_repetir );
         mNuevaContraseña.getEditTextLayoutAt(0).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -251,6 +255,7 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
         protected void onPreExecute() {
             super.onPreExecute();
             mToolbar.getMenu().findItem(R.id.action_enviar).setActionView(R.layout.custom_progress_bar);
+            sendNotificacion();
         }
 
         @Override
@@ -272,6 +277,7 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
                 case 100:
                     Log.i(TAG, "¡Cambio de contraseña exitoso!");
                     getFragmentManager().popBackStack();
+                    mManager.cancel(1);
                     break;
                 case -1:
                     Log.i(TAG, "¡Error al cambiar contraseña!");
@@ -290,5 +296,19 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
                     break;
             }
         }
+    }
+
+    private void sendNotificacion() {
+
+        NotificationCompat.Builder mNotificacion = new NotificationCompat.Builder(getActivity())
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle(getString(R.string.contraseña_enviar))
+                .setTicker(getString(R.string.contraseña_enviar))
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        mNotificacion.setAutoCancel(true);
+        mManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        mManager.notify(1, mNotificacion.build());
+
     }
 }

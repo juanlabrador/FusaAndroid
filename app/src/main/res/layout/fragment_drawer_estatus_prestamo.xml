@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.juanlabrador.GroupLayout
+            <com.juanlabrador.grouplayout.GroupContainer
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/grupo_estatus_prestamo"
@@ -45,7 +45,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"/>
             
-            <com.juanlabrador.GroupLayout
+            <com.juanlabrador.grouplayout.GroupContainer
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/grupos_datos_solicitud"
@@ -62,7 +62,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"/>
             
-            <com.juanlabrador.GroupLayout
+            <com.juanlabrador.grouplayout.GroupContainer
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/grupos_datos_instrumento"
@@ -79,7 +79,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"/>
             
-            <com.juanlabrador.GroupLayout
+            <com.juanlabrador.grouplayout.GroupContainer
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/grupo_datos_prestamo"

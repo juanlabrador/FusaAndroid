@@ -69,7 +69,7 @@ public class NoticiasTable {
     public ArrayList<ItemListNoticia> searchNews() {
         String[] columnas = new String[]{COLUMN_ID, COLUMN_TITULO, COLUMN_DESCRIPCION,
                 COLUMN_FECHA_PUBLICACION, COLUMN_IMAGEN, COLUMN_TIENE_IMAGEN, COLUMN_ID_NOTICIA};
-        mCursor = mDataBase.query(TABLE_NAME, columnas, null, null, null, null, COLUMN_ID, "50");
+        mCursor = mDataBase.query(TABLE_NAME, columnas, null, null, null, null, COLUMN_ID, "20");
         mNoticias.clear();
         while (mCursor.moveToNext()) {
             try {
@@ -86,6 +86,12 @@ public class NoticiasTable {
             }
         }
         return mNoticias;
+    }
+
+    public int contarNoticias() {
+        String[] columnas = new String[]{COLUMN_ID};
+        mCursor = mDataBase.query(TABLE_NAME, columnas, null, null, null, null, null);
+        return mCursor.getCount();
     }
 
     public ArrayList<ItemListNoticia> searchOldNews(String id) {
@@ -111,8 +117,22 @@ public class NoticiasTable {
         return mNoticias;
     }
 
+    public void borrarViejasNoticias() {
+        if (contarNoticias() > 40) {
+            String[] columnas = new String[]{COLUMN_ID};
+            mCursor = mDataBase.query(TABLE_NAME, columnas, null, null, null, null, COLUMN_ID + " DESC", "20");
+            while (mCursor.moveToNext()) {
+                deleteAll(mCursor.getInt(0));
+            }
+        }
+    }
+    
     public void destroyTable() {
         mDataBase.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
+    }
+
+    public void deleteAll(int id) {
+        mDataBase.delete(TABLE_NAME, COLUMN_ID + "=?" + id, null);
     }
 
     public Integer searchLastNews(){

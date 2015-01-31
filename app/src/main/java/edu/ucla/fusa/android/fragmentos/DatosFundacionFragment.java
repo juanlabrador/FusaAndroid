@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.juanlabrador.GroupLayout;
+import com.juanlabrador.grouplayout.GroupContainer;
 
 import edu.ucla.fusa.android.R;
 
@@ -18,8 +18,8 @@ public class DatosFundacionFragment extends Fragment implements View.OnClickList
 
     public static String TAG = "DatosFundacion";
     private View mView;
-    private GroupLayout mGrupoDireccion;
-    private GroupLayout mGrupoMedios;
+    private GroupContainer mGrupoDireccion;
+    private GroupContainer mGrupoMedios;
 
     public static DatosFundacionFragment newInstance() {
         DatosFundacionFragment fragment = new DatosFundacionFragment();
@@ -31,22 +31,22 @@ public class DatosFundacionFragment extends Fragment implements View.OnClickList
         super.onCreateView(inflater, container, arguments);
         mView = inflater.inflate(R.layout.fragment_inicial_fundacion_datos, container, false);
 
-        mGrupoDireccion = (GroupLayout) mView.findViewById(R.id.direccion_contacto);
-        mGrupoDireccion.addTextLayout(R.string.contacto_direccion, R.string.contacto_direccion_fundacion);
+        mGrupoDireccion = (GroupContainer) mView.findViewById(R.id.direccion_contacto);
+        mGrupoDireccion.addSimpleMultiTextLayout(R.string.contacto_direccion_fundacion);
         
-        mGrupoMedios = (GroupLayout) mView.findViewById(R.id.medios_contacto);
-        mGrupoMedios.addOneButtonLayout(R.string.contacto_telefono, R.string.contacto_telefono1, R.drawable.ic_celular);
-        mGrupoMedios.addOneButtonLayout(R.string.contacto_telefono, R.string.contacto_telefono2, R.drawable.ic_celular);
-        mGrupoMedios.addOneButtonLayout(R.string.contacto_correo, R.string.contacto_correo_fundacion, R.drawable.ic_correo);
-        mGrupoMedios.getOneButtonLayoutAt(0).getButton().setOnClickListener(this);
-        mGrupoMedios.getOneButtonLayoutAt(1).getButton().setOnClickListener(this);
-        mGrupoMedios.getOneButtonLayoutAt(2).getButton().setOnClickListener(this);
+        mGrupoMedios = (GroupContainer) mView.findViewById(R.id.medios_contacto);
+        mGrupoMedios.addSimpleOneButtonLayout(R.string.contacto_telefono1 , R.drawable.ic_llamada);
+        mGrupoMedios.addSimpleOneButtonLayout(R.string.contacto_telefono2 , R.drawable.ic_llamada);
+        mGrupoMedios.addSimpleOneButtonLayout(R.string.contacto_correo_fundacion, R.drawable.ic_correo);
+        mGrupoMedios.getSimpleOneButtonLayoutAt(0).getButton().setOnClickListener(this);
+        mGrupoMedios.getSimpleOneButtonLayoutAt(1).getButton().setOnClickListener(this);
+        mGrupoMedios.getSimpleOneButtonLayoutAt(2).getButton().setOnClickListener(this);
         
         return mView;
     }
 
     public void onClick(View view) {
-        if (view == mGrupoMedios.getOneButtonLayoutAt(0).getButton()) {
+        if (view == mGrupoMedios.getSimpleOneButtonLayoutAt(0).getButton()) {
             try {
                 startActivity(new Intent("android.intent.action.CALL",
                         Uri.parse("tel:" + getResources().getString(R.string.contacto_telefono1))));
@@ -54,7 +54,7 @@ public class DatosFundacionFragment extends Fragment implements View.OnClickList
                 Toast.makeText(getActivity(), R.string.error_llamada, Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
-        } else if (view == mGrupoMedios.getOneButtonLayoutAt(1).getButton()) {
+        } else if (view == mGrupoMedios.getSimpleOneButtonLayoutAt(1).getButton()) {
             try {
                 startActivity(new Intent("android.intent.action.CALL",
                         Uri.parse("tel:" + getResources().getString(R.string.contacto_telefono2))));
@@ -62,7 +62,7 @@ public class DatosFundacionFragment extends Fragment implements View.OnClickList
                 Toast.makeText(getActivity(), R.string.error_llamada, Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
-        } else if (view == mGrupoMedios.getOneButtonLayoutAt(2).getButton()) {
+        } else if (view == mGrupoMedios.getSimpleOneButtonLayoutAt(2).getButton()) {
             try {
                 Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
                 String[] emails = new String[]{getResources().getString(R.string.contacto_correo_fundacion)};

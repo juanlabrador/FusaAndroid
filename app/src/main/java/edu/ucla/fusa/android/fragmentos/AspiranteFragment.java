@@ -1,10 +1,13 @@
 package edu.ucla.fusa.android.fragmentos;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
@@ -17,10 +20,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ScrollView;
-import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
-import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
 import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
-import com.juanlabrador.GroupLayout;
+import com.juanlabrador.dateslider.SliderContainer;
+import com.juanlabrador.grouplayout.GroupContainer;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
@@ -29,6 +31,7 @@ import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.modelo.academico.Catedra;
 import edu.ucla.fusa.android.modelo.fundacion.Aspirante;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
+import edu.ucla.fusa.android.modelo.instrumentos.TipoInstrumento;
 import edu.ucla.fusa.android.validadores.ValidadorEmails;
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
@@ -39,23 +42,27 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class AspiranteFragment extends Fragment implements View.OnClickListener, DatePickerDialogFragment.DatePickerDialogHandler, TextWatcher, Toolbar.OnMenuItemClickListener, PopupMenu.OnMenuItemClickListener {
+public class AspiranteFragment extends Fragment implements SliderContainer.OnTimeChangeListener , TextWatcher, Toolbar.OnMenuItemClickListener, PopupMenu.OnMenuItemClickListener {
 
     private static String TAG = "IncialPostulacionesFragment";
-    private GroupLayout mDatosBasicos;
-    private GroupLayout mDatosMusicales;
-    private GroupLayout mDatosContacto;
+    private GroupContainer mCedula;
+    private GroupContainer mDatosBasicos;
+    private GroupContainer mDatosMusicales;
+    private GroupContainer mDatosContacto;
+    private SliderContainer mContainerDate;
+    protected Calendar mInitialTime;
     private Toolbar mToolbar;
     private ScrollView mScroll;
     private CircularProgressBar mProgressBar;
     private ArrayList<String> mCustomMenu;
     private View mView;
     private JSONParser jsonParser = new JSONParser();
-    private List<Catedra> catedras = new ArrayList<>();
+    private List<Catedra> mInstrumentos = new ArrayList<>();
     private Aspirante mAspirante = new Aspirante();
     private int age;
     private DrawerArrowDrawable mDrawerArrow;
     private LinearLayout mParent;
+    private NotificationManager mManager;
 
     public static AspiranteFragment newInstance() {
         AspiranteFragment fragment = new AspiranteFragment();
@@ -71,25 +78,29 @@ public class AspiranteFragment extends Fragment implements View.OnClickListener,
         mParent.setBackgroundColor(getResources().getColor(R.color.azul));
         mScroll = (ScrollView) mView.findViewById(R.id.scroll_postulaciones);
         mScroll.setVisibility(View.GONE);
-        mDatosBasicos = (GroupLayout) mView.findViewById(R.id.grupo_datos_basicos);
-        mDatosBasicos.addEditTextLayout(R.string.postularse_cedula);
+
+        mCedula = (GroupContainer) mView.findViewById(R.id.cedula);
+        mCedula.addEditTextLayout(R.string.postularse_cedula);
+        mCedula.getEditTextLayoutAt(0).setInputType(InputType.TYPE_CLASS_NUMBER);
+        mCedula.getEditTextLayoutAt(0).setMaxLength(8);
+        mCedula.getEditTextLayoutAt(0).getEditText().addTextChangedListener(this);
+        
+        mDatosBasicos = (GroupContainer) mView.findViewById(R.id.grupo_datos_basicos);
         mDatosBasicos.addEditTextLayout(R.string.postularse_nombre);
         mDatosBasicos.addEditTextLayout(R.string.postularse_apellido);
         mDatosBasicos.addPopupLayout(R.string.postularse_sexo, R.menu.sexo);
-        mDatosBasicos.addOneButtonLayout(R.string.postularse_fecha_nacimiento, GroupLayout.ColorIcon.GRAY);
-        mDatosBasicos.getOneButtonLayoutAt(4).getButton().setOnClickListener(this);
-        mDatosBasicos.getEditTextLayoutAt(0).setInputType(InputType.TYPE_CLASS_NUMBER);
-        mDatosBasicos.getEditTextLayoutAt(0).setMaxLength(8);
+        mDatosBasicos.addTextLayout(R.string.postularse_fecha_nacimiento);
+
+
         mDatosBasicos.getEditTextLayoutAt(0).getEditText().addTextChangedListener(this);
         mDatosBasicos.getEditTextLayoutAt(1).getEditText().addTextChangedListener(this);
-        mDatosBasicos.getEditTextLayoutAt(2).getEditText().addTextChangedListener(this);
         
-        mDatosMusicales = (GroupLayout) mView.findViewById(R.id.grupo_datos_musicales);
+        mDatosMusicales = (GroupContainer) mView.findViewById(R.id.grupo_datos_musicales);
         mDatosMusicales.addSwitchLayout(R.string.postularse_instrumento);
         mDatosMusicales.getSwitchLayoutAt(0).setSwitchColor(getResources().getColor(R.color.azul));
 
         
-        mDatosContacto = (GroupLayout) mView.findViewById(R.id.grupo_datos_contacto);
+        mDatosContacto = (GroupContainer) mView.findViewById(R.id.grupo_datos_contacto);
         mDatosContacto.addEditTextLayout(R.string.postularse_telefono);
         mDatosContacto.addValidatorLayout(R.string.postularse_correo);
         mDatosContacto.getEditTextLayoutAt(0).setMaxLength(11);
@@ -97,10 +108,16 @@ public class AspiranteFragment extends Fragment implements View.OnClickListener,
         mDatosContacto.getValidatorLayoutAt(1).getEditText().addTextChangedListener(this);
         mDatosContacto.getEditTextLayoutAt(0).setInputType(InputType.TYPE_CLASS_NUMBER);
         mDatosContacto.getValidatorLayoutAt(1).setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+
+        mContainerDate = (SliderContainer) mView.findViewById(R.id.fecha_nacimiento);
+        mContainerDate.setOnTimeChangeListener(this);
+        mInitialTime = Calendar.getInstance();
+        mContainerDate.setMaxTime(mInitialTime);
+        mContainerDate.setTime(mInitialTime);
         
         mProgressBar = (CircularProgressBar) mView.findViewById(R.id.cargando_postulaciones);
 
-        new LoadingCatedras().execute();
+        new LoadingInstrumentos().execute();
         return mView;
     }
 
@@ -140,8 +157,8 @@ public class AspiranteFragment extends Fragment implements View.OnClickListener,
                     SnackbarManager.show(
                             Snackbar.with(getActivity())
                             .text(R.string.mensaje_correo_invalido));
-                } else if (mDatosBasicos.getEditTextLayoutAt(0).getContent().equals("") && mDatosBasicos.getEditTextLayoutAt(1).getContent().equals("") &&
-                        mDatosBasicos.getEditTextLayoutAt(2).getContent().equals("") && mDatosBasicos.getPopupLayoutAt(3).getContent().equals("") && mDatosBasicos.getOneButtonLayoutAt(4).getContent().equals("") &&
+                } else if (mCedula.getEditTextLayoutAt(0).getContent().equals("") && mDatosBasicos.getEditTextLayoutAt(0).getContent().equals("") &&
+                        mDatosBasicos.getEditTextLayoutAt(1).getContent().equals("") && mDatosBasicos.getPopupLayoutAt(2).getContent().equals("") &&
                         mDatosMusicales.getPopupLayoutAt(1).getContent().equals("") && mDatosContacto.getEditTextLayoutAt(0).getContent().equals("") && mDatosContacto.getValidatorLayoutAt(1).getContent().equals("")) {
                     SnackbarManager.show(
                             Snackbar.with(getActivity())
@@ -155,66 +172,30 @@ public class AspiranteFragment extends Fragment implements View.OnClickListener,
         return true;
     }
 
-    public void onClick(View view) {
-        if (view == mDatosBasicos.getOneButtonLayoutAt(4).getButton()) {
-            new DatePickerBuilder()
-                    .setFragmentManager(getChildFragmentManager())
-                    .setStyleResId(R.style.BetterPickersDialogFragment_Light)
-                    .setTargetFragment(AspiranteFragment.this)
-                    .show();
-        }
-    }
-
     private void setAspirante() {
         Log.i(TAG, "Posición: " + mDatosMusicales.getPopupLayoutAt(1).getItemPosition());
-        mAspirante.setCatedra(catedras.get(mDatosMusicales.getPopupLayoutAt(1).getItemPosition()));
-        mAspirante.setNombre(mDatosBasicos.getEditTextLayoutAt(1).getContent());
-        mAspirante.setApellido(mDatosBasicos.getEditTextLayoutAt(2).getContent());
-        mAspirante.setCedula(mDatosBasicos.getEditTextLayoutAt(0).getContent());
+        mAspirante.setCatedra(mInstrumentos.get(mDatosMusicales.getPopupLayoutAt(1).getItemPosition()));
+        mAspirante.setNombre(mDatosBasicos.getEditTextLayoutAt(0).getContent());
+        mAspirante.setApellido(mDatosBasicos.getEditTextLayoutAt(1).getContent());
+        mAspirante.setCedula(mCedula.getEditTextLayoutAt(0).getContent());
         mAspirante.setCorreo(mDatosContacto.getValidatorLayoutAt(1).getContent());
         mAspirante.setTelefonoMovil(mDatosContacto.getEditTextLayoutAt(0).getContent());
         mAspirante.setEdad(age);
-        mAspirante.setSexo(mDatosBasicos.getPopupLayoutAt(3).getContent());
+        mAspirante.setSexo(mDatosBasicos.getPopupLayoutAt(2).getContent());
         if (mDatosMusicales.getSwitchLayoutAt(0).isChecked()) {
             mAspirante.setInstrumentoPropio("Si");
         } else {
             mAspirante.setInstrumentoPropio("No");
         }
         mAspirante.setEstatus("activo");
-        try {
-            mAspirante.setFechanac(new SimpleDateFormat("dd-MM-yyyy").parse(mDatosBasicos.getOneButtonLayoutAt(4).getContent()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        mAspirante.setFechanac(mContainerDate.getTime().getTime());
+
     }
 
-    @Override
-    public void onDialogDateSet(int reference, int year, int month, int day) {
-        try {
-            Calendar calendar = Calendar.getInstance();
-            Date mFechaNacimiento = new SimpleDateFormat("dd-MM-yyyy").parse(day + "-" + (month + 1) + "-" + year);
-            if (mFechaNacimiento.before(calendar.getTime())) {  //Validamos que la fecha de nacimiento sea menor a la fecha actual.
-                if (month < 9)
-                    mDatosBasicos.getOneButtonLayoutAt(4).setContent(day + "-0" + (month + 1) + "-" + year);
-                else
-                    mDatosBasicos.getOneButtonLayoutAt(4).setContent(day + "-" + (month + 1) + "-" + year);
-
-                age = calendar.get(Calendar.YEAR) - year;
-            } else {
-                SnackbarManager.show(
-                        Snackbar.with(getActivity())
-                                .type(SnackbarType.MULTI_LINE)
-                                .text(R.string.mensaje_error_fecha));
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-            SnackbarManager.show(
-                Snackbar.with(getActivity())
-                       .type(SnackbarType.MULTI_LINE)
-                       .text(R.string.mensaje_error_excepcion));
-        }
+    protected void setFechaNacimiento() {
+        final Calendar c = mContainerDate.getTime();
+        mDatosBasicos.getTextLayoutAt(03).setContent(String.format("%td %tb %tY", c, c, c));
     }
-
 
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -237,7 +218,22 @@ public class AspiranteFragment extends Fragment implements View.OnClickListener,
         }
     }
 
-    private class LoadingCatedras extends AsyncTask<Void, Void, Integer> {
+    @Override
+    public void onTimeChange(Calendar calendar) {
+        Calendar year = Calendar.getInstance();
+        Calendar mDate = calendar;
+        setFechaNacimiento();
+        if (calendar.getTime().before(mInitialTime.getTime())) {  //Validamos que la fecha de nacimiento sea menor a la fecha actual.
+            age = year.get(Calendar.YEAR) - calendar.get(Calendar.YEAR);
+        } else {
+            SnackbarManager.show(
+                    Snackbar.with(getActivity())
+                            .type(SnackbarType.MULTI_LINE)
+                            .text(R.string.mensaje_error_fecha));
+        }
+    }
+
+    private class LoadingInstrumentos extends AsyncTask<Void, Void, Integer> {
 
         @Override
         protected void onPreExecute() {
@@ -252,12 +248,12 @@ public class AspiranteFragment extends Fragment implements View.OnClickListener,
             if (mDatosMusicales.getPopupLayoutAt(1) != null) {
                 mDatosMusicales.getPopupLayoutAt(1).getPopupMenu().getMenu().clear();
             }
-            catedras = jsonParser.serviceLoadingCatedras();
-            if (catedras == null) {
+            mInstrumentos = jsonParser.serviceLoadingCatedras();
+            if (mInstrumentos == null) {
                 return 0;
-            } else if (catedras.size() != 0) {
-                for (int i = 0; i < catedras.size(); i++) {
-                    mCustomMenu.add(catedras.get(i).getDescripcion());
+            } else if (mInstrumentos.size() != 0) {
+                for (int i = 0; i < mInstrumentos.size(); i++) {
+                    mCustomMenu.add(mInstrumentos.get(i).getDescripcion());
                 }
                 return 100;
             } else {
@@ -301,6 +297,7 @@ public class AspiranteFragment extends Fragment implements View.OnClickListener,
             if (mToolbar.getMenu().findItem(R.id.action_enviar).getActionView() == null) {
                 mToolbar.getMenu().findItem(R.id.action_enviar).setActionView(R.layout.custom_progress_bar);
             }
+            sendNotificacion();
         }
 
         @Override
@@ -323,6 +320,7 @@ public class AspiranteFragment extends Fragment implements View.OnClickListener,
                 case 100:
                     Log.i(TAG, "¡Aspirante guardado!");
                     getFragmentManager().popBackStack();
+                    mManager.cancel(1);
                     break;
                 case 0:
                     Log.i(TAG, "¡Error al cargar el aspirante, datos malos!");
@@ -343,5 +341,19 @@ public class AspiranteFragment extends Fragment implements View.OnClickListener,
                     break;
             }
         }
+    }
+
+    private void sendNotificacion() {
+
+        NotificationCompat.Builder mNotificacion = new NotificationCompat.Builder(getActivity())
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle(getString(R.string.postularse_enviar))
+                .setTicker(getString(R.string.postularse_enviar))
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        mNotificacion.setAutoCancel(true);
+        mManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        mManager.notify(1, mNotificacion.build());
+
     }
 }

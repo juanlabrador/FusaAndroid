@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.juanlabrador.GroupLayout
+                <com.juanlabrador.grouplayout.GroupContainer
                     android:id="@+id/grupo_datos_evento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="12dp"/>
 
-                <com.juanlabrador.GroupLayout
+                <com.juanlabrador.grouplayout.GroupContainer
                     android:id="@+id/grupo_lugar_evento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -46,13 +46,6 @@
                     android:layout_marginBottom="16dp"/>
 
             </LinearLayout>
-
-
-            <com.joanzapata.pdfview.PDFView
-                android:id="@+id/repertorio_pdf"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

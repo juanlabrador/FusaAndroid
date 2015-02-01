@@ -44,6 +44,15 @@
     <string name="evento_encabezado_lugar">DIRECCIÓN</string>
     <string name="evento_encabezado_descripcion">DETALLES</string>
     <string name="evento_sin_hora">Sin definir</string>
+    <string name="evento_boton_calificar_evento">Calificar este evento</string>
+    
+    <!-- Comentarios -->
+    <string name="comentario_descripcion">Escriba su comentario...</string>
+    <string name="nivel_calificacion_evento_1">No me gustó en lo absoluto</string>
+    <string name="nivel_calificacion_evento_2">No me gustó</string>
+    <string name="nivel_calificacion_evento_3">Está bien</string>
+    <string name="nivel_calificacion_evento_4">Me gustó</string>
+    <string name="nivel_calificacion_evento_5">Me encantó</string>
     
     <!-- Prestamo de instrumento -->
     <string name="prestamo_solicitud_enviada">Tu postulación se ha enviado, pronto se hará su revisión.</string>

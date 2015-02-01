@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="#FFF"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/azul"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.github.siyamed.shapeimageview.HexagonImageView
+            android:id="@+id/iv_foto_perfil_calificando"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/no_avatar"
+            app:siBorderWidth="1dp"
+            app:siBorderColor="@color/blanco"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <TextView
+                android:textSize="14sp"
+                android:textColor="#FFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Calificación por" />
+
+            <TextView
+                android:textSize="14sp"
+                android:textColor="#FFF"
+                android:id="@+id/tv_descripcion_usuario_calificacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="2dp"
+                android:text="Juan Labrador" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="#FFF"
+        android:paddingTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RatingBar
+            android:id="@+id/calificando_evento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:stepSize="1.0"
+            style="@style/RatingBarBig" />
+
+        <TextView
+            android:textSize="13sp"
+            android:textColor="@color/azul_oscuro"
+            android:id="@+id/tv_descripcion_calificacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp" />
+
+        <com.juanlabrador.grouplayout.GroupContainer
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textSizeLayout="15"
+            android:id="@+id/descripcion_comentario"/>
+    </LinearLayout>
+</LinearLayout>

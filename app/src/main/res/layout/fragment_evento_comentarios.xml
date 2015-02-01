@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <FrameLayout
+        android:id="@+id/calificacion_container"
+        android:layout_width="fill_parent"
+        android:layout_height="110.0dip" />
+    <View
+        android:background="@color/gris_oscuro"
+        android:layout_width="fill_parent"
+        android:layout_height="2.0dip" />
+    <ListView
+        android:id="@+id/list_comentarios_evento"
+        android:clickable="false"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="@null" />
+</LinearLayout>

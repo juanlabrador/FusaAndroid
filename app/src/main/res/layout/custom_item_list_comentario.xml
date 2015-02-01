@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:orientation="vertical"
+    android:background="@color/gris_fondo"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:expandableTextView="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blanco"
+        android:layout_below="@+id/contenedor_encabezado_noticia">
+
+        <View
+            android:id="@+id/linea_divisor_2"
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:background="#BDBDBD"
+            android:layout_alignParentTop="true"/>
+
+        <TextView
+            android:textSize="22sp"
+            android:id="@+id/tv_nombre_usuario_comentario"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Juan Labrador"
+            android:textColor="@color/negro"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            android:layout_below="@+id/linea_divisor_2"/>
+
+        <LinearLayout
+            android:id="@+id/fecha_noticia"
+            android:orientation="horizontal"
+            android:paddingRight="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_nombre_usuario_comentario">
+
+            <RatingBar 
+                android:id="@+id/calificacion_evento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="1.0"
+                style="@style/RatingBarSmall" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:textSize="13sp"
+                android:textColor="@color/gris_oscuro"
+                android:id="@+id/tv_fecha_publicacion_noticia_sin_foto"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="21/02/2015"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/linea_divisor_1"
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:background="#BDBDBD"
+            android:layout_below="@+id/fecha_noticia"/>
+
+        <com.ms.square.android.expandabletextview.ExpandableTextView
+            android:id="@+id/expand_text_view_sin_foto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_margin="5dp"
+            expandableTextView:maxCollapsedLines="2"
+            expandableTextView:animDuration="200"
+            android:layout_below="@id/linea_divisor_1">
+
+            <TextView
+                android:id="@+id/expandable_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gris_oscuro"
+                android:textSize="14sp"
+                android:text="Sed elementum facilisis dapibus. Proin rutrum est in est ullamcorper, eget feugiat ante dictum. Maecenas vel volutpat elit. Nullam facilisis nibh a turpis pellentesque efficitur. Integer quis lectus et nisi elementum fringilla id a odio. Proin porta vel diam lobortis viverra. Cras quis odio elit. "/>
+
+            <ImageButton
+                android:id="@+id/expand_collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="8dp"
+                android:layout_gravity="right|bottom"
+                android:background="@android:color/transparent"/>
+        </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:background="#BDBDBD"
+            android:layout_below="@+id/expand_text_view_sin_foto"/>
+    </RelativeLayout>
+   
+</RelativeLayout>

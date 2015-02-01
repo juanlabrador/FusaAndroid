@@ -75,7 +75,6 @@ import edu.ucla.fusa.android.modelo.evento.Lugar;
 import edu.ucla.fusa.android.modelo.fundacion.Noticia;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
-import edu.ucla.fusa.android.modelo.herramientas.ItemListOpcionesMultimedia;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 import edu.ucla.fusa.android.modelo.instrumentos.Prestamo;
 import edu.ucla.fusa.android.modelo.instrumentos.SolicitudPrestamo;
@@ -121,7 +120,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private Button mRetryButton;
     private String mUsername;
     private Uri mFotoCaptureUri;
-    private ArrayList<ItemListOpcionesMultimedia> mItemsMultimedia;
 
     private ArrayList<Noticia> mNoticias;
     private Estudiante mEstudiante;
@@ -154,7 +152,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         setContentView(R.layout.activity_principal);
-        mItemsMultimedia = new ArrayList<>();
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                         .setDefaultFontPath("fonts/HelveticaNeueLight.ttf")
                         .setFontAttrId(R.attr.fontPath)

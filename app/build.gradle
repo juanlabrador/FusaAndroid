@@ -48,6 +48,6 @@ dependencies {
     compile 'com.ms-square:expandableTextView:0.1.3'
     compile project(':PullToRefreshAnimate-v1.0')
     compile project(':DateSlider-v1.0')
-    compile project(':GroupLayout-v1.8')
     compile project(':TimesSquare-v1.6')
+    compile project(':GroupLayout-v1.9')
 }

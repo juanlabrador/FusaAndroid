@@ -1,1 +1,1 @@
-include ':app', ':PullToRefreshAnimate-v1.0', ':DateSlider-v1.0', ':GroupLayout-v1.8', ':TimesSquare-v1.6'
+include ':app', ':PullToRefreshAnimate-v1.0', ':DateSlider-v1.0', ':TimesSquare-v1.6', ':GroupLayout-v1.9'

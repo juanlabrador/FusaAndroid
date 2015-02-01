@@ -46,7 +46,7 @@ public class EventoTable {
     private SimpleDateFormat mTimeFormat;
     private LugarTable mLugarTable;
     private ArrayList<Evento> mEventos;
-    private Calendar mCalendar;
+    private Calendar mMesActual;
     private Evento mEvento;
     private Lugar mLugar;
     
@@ -58,7 +58,8 @@ public class EventoTable {
         mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         mTimeFormat = new SimpleDateFormat("hh:mm aa");
         mEventos = new ArrayList<>();
-        mCalendar = Calendar.getInstance();
+        mMesActual = Calendar.getInstance();
+        mMesActual.set(Calendar.DAY_OF_MONTH, 1);
         mEvento = new Evento();
         mLugar = new Lugar();
     }
@@ -94,7 +95,7 @@ public class EventoTable {
             Log.i(TAG, mCursor.getString(1));
             try {
                 mViejaFecha = mDateFormat.parse(mCursor.getString(2));
-                if (mViejaFecha.after(mCalendar.getTime())) {  // Si la fecha del evento no expiro
+                if (mViejaFecha.after(mMesActual.getTime())) {  // Si la fecha del evento no expiro
                     Log.i(TAG, "¡Evento aún disponible!");
                     mEventos.add(new Evento(
                             mCursor.getInt(5), // ID

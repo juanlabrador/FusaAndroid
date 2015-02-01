@@ -1,5 +1,7 @@
 package edu.ucla.fusa.android.fragmentos;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,10 +18,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import edu.ucla.fusa.android.DB.EstudianteTable;
+import edu.ucla.fusa.android.modelo.academico.Estudiante;
 import me.drakeet.materialdialog.MaterialDialog;
 
+import com.github.siyamed.shapeimageview.HexagonImageView;
 import com.juanlabrador.grouplayout.GroupContainer;
 import com.squareup.timessquare.CalendarPickerView;
 
@@ -57,12 +63,24 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
     private AbsListView mScroll;
     
     private MaterialDialog mCustomView;
+    private MaterialDialog mComentarioView;
     private GroupContainer mGrupoEvento;
     private GroupContainer mGrupoLugar;
     private GroupContainer mGrupoDescripcion;
+    private GroupContainer mBotonComentario;
     private Evento mEvento;
     private SimpleDateFormat mTimeFormat;
     private TextView mTituloEvento;
+    private Calendar mMesActual;
+    
+    private GroupContainer mComentarioEvento;
+    private RatingBar mCalificacion;
+    private TextView mDescripcionCalificacion;
+    private EstudianteTable mEstudianteTable;
+    private Estudiante mEstudiante;
+    private HexagonImageView mFoto;
+    private Bitmap mBitmap;
+    private TextView mNombre;
 
     public static CalendarioFragment newInstance() {
         CalendarioFragment fragment = new CalendarioFragment();
@@ -78,7 +96,7 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
         mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         mTimeFormat = new SimpleDateFormat("hh:mm aa");
         mFechas = new ArrayList<>();
-        mIds = new ArrayList<>();
+        mEstudianteTable = new EstudianteTable(getActivity());
     }
 
     public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
@@ -90,6 +108,8 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
         mProximoAño = Calendar.getInstance();
         mProximoAño.add(Calendar.YEAR, 1);
         mDiaActual = Calendar.getInstance();
+        mMesActual = Calendar.getInstance();
+        mMesActual.set(Calendar.DAY_OF_MONTH, 1);
         mLoading = (CircularProgressBar) mView.findViewById(R.id.pb_cargando_calendario);
 
         mContenedorLeyenda = (LinearLayout) mView.findViewById(R.id.contenedor_leyenda);
@@ -106,9 +126,10 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
     public void onDateSelected(Date date) {
         String mFechaCalendario = mDateFormat.format(date);
         String mFechaEvento;
+        mIds = new ArrayList<>();
         mAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
         final MaterialDialog mDialog = new MaterialDialog(getActivity());
-
+        Log.i(TAG, mDateFormat.format(date));
         for (int i = 0; i < mFechas.size(); i++) {
             mFechaEvento = mDateFormat.format(mFechas.get(i));
             if (mFechaEvento.equals(mFechaCalendario)) {
@@ -154,7 +175,7 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
     }
     
     private void armarCustomLayout(int id) {
-        
+        Log.i(TAG, "ID evento: " + id);
         mCustomView = new MaterialDialog(getActivity());
         mEvento = mEventoTable.searchEvento(id);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_evento, null);
@@ -172,11 +193,85 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
         mGrupoLugar.addSimpleMultiTextLayout(mEvento.getLugar().getDescripcion());
         mGrupoLugar.addSimpleMultiTextLayout(mEvento.getLugar().getDireccion());
 
+        mBotonComentario = (GroupContainer) view.findViewById(R.id.boton_calificar_evento);
+        if(mEvento.getFecha().before(mDiaActual.getTime())) {
+            mBotonComentario.addSimpleMultiTextLayout(R.string.evento_boton_calificar_evento);
+            mBotonComentario.getSimpleMultiTextLayoutAt(0).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    armarLayoutComentario();
+                }
+            });
+        } else {
+            mBotonComentario.setVisibility(View.GONE);
+        }
+        
         mCustomView.setView(view);
         mCustomView.setCanceledOnTouchOutside(true);
         mCustomView.setBackgroundResource(R.color.gris_fondo);
         mCustomView.show();
         
+    }
+
+    private void armarLayoutComentario() {
+        mEstudiante = mEstudianteTable.searchUser();
+        mComentarioView = new MaterialDialog(getActivity());
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_calificar_evento, null);
+
+        mFoto = (HexagonImageView) view.findViewById(R.id.iv_foto_perfil_calificando);
+        mFoto.setImageResource(R.drawable.no_avatar);
+        mBitmap = convertByteToImage(mEstudiante.getImagen());
+        if (mBitmap != null) {
+            mFoto.setImageBitmap(mBitmap);
+        }
+        mNombre = (TextView) view.findViewById(R.id.tv_descripcion_usuario_calificacion);
+        mNombre.setText(mEstudiante.getNombre() + " " + mEstudiante.getApellido());
+        
+        mComentarioEvento = (GroupContainer) view.findViewById(R.id.descripcion_comentario);
+        mComentarioEvento.addMultiEditTextLayout(R.string.comentario_descripcion);
+        mDescripcionCalificacion = (TextView) view.findViewById(R.id.tv_descripcion_calificacion);
+        mCalificacion = (RatingBar) view.findViewById(R.id.calificando_evento);
+        mCalificacion.setIsIndicator(false);
+        mCalificacion.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                mCalificacion.setRating(Math.round(v));
+                mCalificacion.setIsIndicator(false);
+                switch (Math.round(v)) {
+                    case 1:
+                        mDescripcionCalificacion.setText(getResources().getString(R.string.nivel_calificacion_evento_1));
+                        break;
+                    case 2:
+                        mDescripcionCalificacion.setText(getResources().getString(R.string.nivel_calificacion_evento_2));
+                        break;
+                    case 3:
+                        mDescripcionCalificacion.setText(getResources().getString(R.string.nivel_calificacion_evento_3));
+                        break;
+                    case 4:
+                        mDescripcionCalificacion.setText(getResources().getString(R.string.nivel_calificacion_evento_4));
+                        break;
+                    case 5:
+                        mDescripcionCalificacion.setText(getResources().getString(R.string.nivel_calificacion_evento_5));
+                        break;
+                }
+            }
+        });
+
+        mComentarioView.setView(view);
+        mComentarioView.setPositiveButton("Enviar", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mCalificacion.getRating() != 0 && !mComentarioEvento.getMultiEditTextLayoutAt(0).getContent().equals("")) {
+                    mComentarioView.dismiss();
+                }
+            }
+        });
+        mComentarioView.show();
+
+    }
+
+    private Bitmap convertByteToImage(byte[] data) {
+        return BitmapFactory.decodeByteArray(data, 0, data.length);
     }
 
     @Override
@@ -301,7 +396,7 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
                     Log.i(TAG, "fecha: " + new SimpleDateFormat("dd-MM-yyyy").format(c.getTime()));
                     ArrayList<Date> prueba = new ArrayList<>();
                     prueba.add(c.getTime());
-                    mCalendario.init(mDiaActual.getTime(), mProximoAño.getTime())
+                    mCalendario.init(mMesActual.getTime(), mProximoAño.getTime())
                             .withSelectedDate(mDiaActual.getTime())
                             .inMode(CalendarPickerView.SelectionMode.SINGLE)
                             .withHighlightedDates(mFechas)
@@ -309,7 +404,7 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
                     break;
                 case -1:
                     Log.i(TAG, "No hay eventos!");
-                    mCalendario.init(mDiaActual.getTime(), mProximoAño.getTime())
+                    mCalendario.init(mMesActual.getTime(), mProximoAño.getTime())
                             .withSelectedDate(mDiaActual.getTime());
                     break;
             }

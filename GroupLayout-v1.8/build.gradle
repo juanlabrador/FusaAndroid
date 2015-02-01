@@ -1,2 +1,0 @@
-configurations.create("default")
-artifacts.add("default", file('GroupLayout-v1.8.aar'))

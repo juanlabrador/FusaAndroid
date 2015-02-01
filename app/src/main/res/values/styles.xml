@@ -3,12 +3,22 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="windowActionBar">false</item>
         <item name="android:textColorPrimary">@color/negro</item>
-        
         <item name="android:textColorPrimaryInverse">@color/blanco</item>
         <item name="android:windowBackground">@color/gris_fondo</item>
-
         <item name="android:textColorSecondary">@color/azul</item>
-
     </style>
 
+    <style name="RatingBarBig" parent="@android:style/Widget.Holo.Light.RatingBar.Indicator">
+        <item name="android:indeterminateDrawable">@drawable/style_rating_bar_big</item>
+        <item name="android:progressDrawable">@drawable/style_rating_bar_big</item>
+    </style>
+    
+    <style name="RatingBarSmall" parent="@android:style/Widget.Holo.Light.RatingBar.Small">
+        <item name="android:indeterminateDrawable">@drawable/style_rating_bar_small</item>
+        <item name="android:progressDrawable">@drawable/style_rating_bar_small</item>
+    </style>
+    
+    <style name="RatingBarNormal" parent="@android:style/Widget.Holo.Light.RatingBar">
+    <item name="android:indeterminateDrawable">@drawable/style_rating_bar_normal</item>
+    </style>
 </resources>

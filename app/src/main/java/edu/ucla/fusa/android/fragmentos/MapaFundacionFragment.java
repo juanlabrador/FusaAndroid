@@ -27,7 +27,6 @@ public class MapaFundacionFragment extends Fragment {
     private SupportMapFragment fragment;
     private GoogleMap gMap;
     private LatLng positionMap;
-    private View view;
 
     public static MapaFundacionFragment newInstance() {
         MapaFundacionFragment fragment = new MapaFundacionFragment();
@@ -54,7 +53,7 @@ public class MapaFundacionFragment extends Fragment {
         if (gMap == null) {
           gMap = fragment.getMap();
           positionMap = new LatLng(LATITUD, LONGITUD);
-          cameraPosition = new CameraPosition.Builder().target(this.positionMap).zoom(16.0F).build();
+          cameraPosition = new CameraPosition.Builder().target(positionMap).zoom(16.0F).build();
           gMap.addMarker(new MarkerOptions().position(new LatLng(LATITUD, LONGITUD)).title(getString(R.string.mapa_fundacion)));
           gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
           cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);

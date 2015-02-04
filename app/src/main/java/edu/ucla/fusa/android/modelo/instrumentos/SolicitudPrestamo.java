@@ -1,9 +1,6 @@
 package edu.ucla.fusa.android.modelo.instrumentos;
 
-import java.util.Date;
-
-import edu.ucla.fusa.android.modelo.academico.Estudiante;
-import edu.ucla.fusa.android.modelo.fundacion.Empleado;
+import edu.ucla.fusa.android.modelo.academico.EstudiantePorAgrupacion;
 
 /**
  * Created by juanlabrador on 12/01/15.
@@ -11,11 +8,11 @@ import edu.ucla.fusa.android.modelo.fundacion.Empleado;
 public class SolicitudPrestamo {
 
     private int id;
-    private Estudiante estudiante;
+    private EstudiantePorAgrupacion estudiantePorAgrupacion;
     private TipoInstrumento tipoInstrumento;
     private TipoPrestamo tipoPrestamo;
-    private Date fechaEmision;
-    private Date fechaVencimiento;
+    private String fechaEmision;
+    private String fechaVencimiento;
     private String estatus;
 
     public SolicitudPrestamo() {
@@ -29,12 +26,12 @@ public class SolicitudPrestamo {
         this.id = id;
     }
 
-    public Estudiante getEstudiante() {
-        return estudiante;
+    public EstudiantePorAgrupacion getEstudiantePorAgrupacion() {
+        return estudiantePorAgrupacion;
     }
 
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
+    public void setEstudiantePorAgrupacion(EstudiantePorAgrupacion estudiantePorAgrupacion) {
+        this.estudiantePorAgrupacion = estudiantePorAgrupacion;
     }
 
     public TipoInstrumento getTipoInstrumento() {
@@ -53,19 +50,19 @@ public class SolicitudPrestamo {
         this.tipoPrestamo = tipoPrestamo;
     }
 
-    public Date getFechaEmision() {
+    public String getFechaEmision() {
         return fechaEmision;
     }
 
-    public void setFechaEmision(Date fechaEmision) {
+    public void setFechaEmision(String fechaEmision) {
         this.fechaEmision = fechaEmision;
     }
 
-    public Date getFechaVencimiento() {
+    public String getFechaVencimiento() {
         return fechaVencimiento;
     }
 
-    public void setFechaVencimiento(Date fechaVencimiento) {
+    public void setFechaVencimiento(String fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
 

@@ -17,6 +17,8 @@ public class UserTable {
     private static final String COLUMN_ID_USER = "id_usuario";
     private static final String COLUMN_USERNAME = "username";
     private static final String COLUMN_PASSWORD = "password";
+    private static final String COLUMN_NOMBRE = "nombre";
+    private static final String COLUMN_APELLIDO = "apellido";
     private static final String COLUMN_PHOTO = "foto";
     private static final String COLUMN_TIPO_USER = "tipo_usuario";
 
@@ -24,6 +26,8 @@ public class UserTable {
                     + COLUMN_ID_USER + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + COLUMN_USERNAME + " TEXT, "
                     + COLUMN_PASSWORD + " TEXT, "
+                    + COLUMN_NOMBRE + " TEXT, "
+                    + COLUMN_APELLIDO + " TEXT, "
                     + COLUMN_PHOTO + " BLOB, "
                     + COLUMN_TIPO_USER + " INTEGER);";
 
@@ -37,34 +41,36 @@ public class UserTable {
         mDataBase = mHelper.getWritableDatabase();
     }
 
-    private ContentValues generarValores (String username, String password, byte[] foto, int tipoUsuario) {
+    private ContentValues generarValores (String username, String password, String nombre, String apellido, byte[] foto, int tipoUsuario) {
 
         ContentValues valores = new ContentValues();
         valores.put(COLUMN_USERNAME, username);
         valores.put(COLUMN_PASSWORD, password);
+        valores.put(COLUMN_NOMBRE, nombre);
+        valores.put(COLUMN_APELLIDO, apellido);
         valores.put(COLUMN_PHOTO, foto);
         valores.put(COLUMN_TIPO_USER, tipoUsuario);
 
         return valores;
     }
 
-    public void insertData(String username, String password, byte[] foto, int tipoUsuario) {
+    public void insertData(String username, String password, String nombre, String apellido, byte[] foto, int tipoUsuario) {
         //db = helper.getWritableDatabase();
-        mDataBase.insert(TABLE_NAME, null, generarValores(username, password, foto, tipoUsuario));
+        mDataBase.insert(TABLE_NAME, null, generarValores(username, password, nombre, apellido, foto, tipoUsuario));
     }
 
-    public void updateFoto(int id, byte[] foto) {
+    public void updateFoto(String username, byte[] foto) {
         ContentValues valores = new ContentValues();
         valores.put(COLUMN_PHOTO, foto);
-        String[] condicion = new String[]{String.valueOf(id)};
-        mDataBase.update(TABLE_NAME, valores, COLUMN_ID_USER + "=?", condicion);
+        String[] condicion = new String[]{String.valueOf(username)};
+        mDataBase.update(TABLE_NAME, valores, COLUMN_USERNAME + "=?", condicion);
     }
 
-    public void updatePassword(int id, String pass) {
+    public void updatePassword(String username, String pass) {
         ContentValues valores = new ContentValues();
         valores.put(COLUMN_PASSWORD, pass);
-        String[] condicion = new String[]{String.valueOf(id)};
-        mDataBase.update(TABLE_NAME, valores, COLUMN_ID_USER + "=?", condicion);
+        String[] condicion = new String[]{String.valueOf(username)};
+        mDataBase.update(TABLE_NAME, valores, COLUMN_USERNAME + "=?", condicion);
     }
 
     public Usuario searchUser() {
@@ -72,12 +78,13 @@ public class UserTable {
         //db = helper.getReadableDatabase();
         mCursor = mDataBase.rawQuery(tiraSQL, null);
         if (mCursor.moveToFirst()) {
-            mUsuario.setId(mCursor.getInt(0));
             mUsuario.setUsername(mCursor.getString(1));
             mUsuario.setPassword(mCursor.getString(2));
-            mUsuario.setFoto(mCursor.getBlob(3));
+            mUsuario.setNombre(mCursor.getString(3));
+            mUsuario.setApellido(mCursor.getString(4));
+            mUsuario.setFoto(mCursor.getBlob(5));
             mUsuario.setTipoUsuario(
-                    new TipoUsuario(mCursor.getInt(4), "", ""));
+                    new TipoUsuario(mCursor.getInt(6), "Estudiante", "activo"));
         } else {
             mUsuario = null;
         }

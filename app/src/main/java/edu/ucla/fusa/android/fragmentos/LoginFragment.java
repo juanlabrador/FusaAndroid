@@ -96,9 +96,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         mPreferencias = getActivity().getSharedPreferences("usuario", Context.MODE_PRIVATE);
         if (!mPreferencias.getString("usuario", "").equals("")) {
             Log.i(TAG, "¡Tiene datos en cache!");
-            mCredenciales.clear();
-            mCredenciales.addTextLayout(R.string.login_usuario, mPreferencias.getString("usuario", ""));
-            mCredenciales.addEditTextLayout(R.string.login_contraseña);
+            mCredenciales.getEditTextLayoutAt(0).setContent(mPreferencias.getString("usuario", ""));
+            //mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(false);
             if (!mPreferencias.getString("foto", "").equals("")) {
                 mBitmap = convertByteToImage(mPreferencias.getString("foto", ""));
 
@@ -119,16 +118,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_iniciar_sesion:
-                try {
-                   mUsername = mCredenciales.getEditTextLayoutAt(0).getContent();
-                } catch (ClassCastException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    mUsername = mCredenciales.getTextLayoutAt(0).getContent();
-                } catch (ClassCastException e) {
-                    e.printStackTrace();
-                }
+                mUsername = mCredenciales.getEditTextLayoutAt(0).getContent();
                 if (exiteConexionInternet() != false) {
                     deshabilitarElementos();
                     if (!mUsername.equals("") &&
@@ -142,6 +132,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
                                         .text(R.string.mensaje_error_iniciar_sesion));
                     }
                 } else {
+                    habilitarElementos();
                     SnackbarManager.show(
                             Snackbar.with(getActivity())
                                     .type(SnackbarType.MULTI_LINE)
@@ -212,31 +203,35 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         @Override
         protected Integer doInBackground(String... params) {
             SystemClock.sleep(2000);
-            int response;
             /** Cargamos los parametros que enviaremos por URL */
             ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
             parametros.add(new BasicNameValuePair("username", params[0]));
             parametros.add(new BasicNameValuePair("password", params[1]));
 
             /** Mandamos los parametros y esperemos una respuesta del servidor */
-            mUsuario = mJSONParser.serviceLogin(parametros);
-            if (mUsuario != null) {
-                Log.i(TAG, "Username: " + mUsuario.getUsername());
-                if (mUsuario.getId() != -1) { /** Si el usuario existe */
-                    /** Guardamos sus datos internamente para que no se loguee de nuevo */
-                    mUserTable.insertData(
-                            mUsuario.getUsername(),
-                            mUsuario.getPassword(),
-                            mUsuario.getFoto(),
-                            mUsuario.getTipoUsuario().getId());
-                    response = 100;
-                } else { /** Si el usuario no existe */
-                    response = -1;
+            try {
+                mUsuario = mJSONParser.serviceLogin(parametros);
+                if (mUsuario != null) {
+                    Log.i(TAG, "Username: " + mUsuario.getUsername());
+                    if (!mUsuario.getUsername().equals("")) { /** Si el usuario existe */
+                        /** Guardamos sus datos internamente para que no se loguee de nuevo */
+                        mUserTable.insertData(
+                                mUsuario.getUsername(),
+                                mUsuario.getPassword(),
+                                mUsuario.getNombre(),
+                                mUsuario.getApellido(),
+                                mUsuario.getFoto(),
+                                mUsuario.getTipoUsuario().getId());
+                        return 100;
+                    }
+                } else {
+                    return -1;
                 }
-            } else { /** Hubo problemas con el servidor o lentitud de la red */
-                response = 0;
-            }
-            return response;
+            } catch (Exception e) {
+                /** Hubo problemas con el servidor o lentitud de la red */
+                return 0;
+            }  
+            return 0;
         }
 
         @Override
@@ -246,7 +241,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
             switch (result) {
                 case 100:
                     if (mUsuario.getTipoUsuario().getId() == 1) {
-                        if (mUsuario.getFoto() != null) {
+                        if (mUsuario.getFoto().length > 40) {
                             mBitmap = convertByteToImage(mUsuario.getFoto());
                             mAvatar.setImageBitmap(mBitmap);
                         }
@@ -272,31 +267,28 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
                     break;
                 case -1:
                     Log.i(TAG, "Error con las credenciales");
+                    habilitarElementos();
                     SnackbarManager.show(
                             Snackbar.with(getActivity())
                                     .type(SnackbarType.MULTI_LINE)
                                     .text(R.string.mensaje_error_iniciar_sesion));
-                    habilitarElementos();
+
                     break;
                 case 0:
+                    habilitarElementos();
                     Log.i(TAG, "Problemas con conectividad");
                     SnackbarManager.show(
                             Snackbar.with(getActivity())
                                     .type(SnackbarType.MULTI_LINE)
                                     .text(R.string.mensaje_error_servidor));
-                    habilitarElementos();
                     break;
             }
         }
     }
 
     private void habilitarElementos() {
-        try {
-            mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(true);
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        }
-        mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(true);
+        Log.i(TAG, "¡Habilita elementos!");
+        //mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(true);
         mPasswordRestore.setEnabled(true);
         mPasswordRestore.setTextColor(getResources().getColor(R.color.azul_oscuro));
         mChangeAccount.setTextColor(getResources().getColor(R.color.azul_oscuro));
@@ -304,19 +296,17 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
     }
     
     private void cambiarUsuario() {
-        mCredenciales.clear();
-        mCredenciales.addEditTextLayout(R.string.login_usuario);
-        mCredenciales.addEditTextLayout(R.string.login_contraseña);
+        mCredenciales.getEditTextLayoutAt(0).setContent("");
+        mCredenciales.getEditTextLayoutAt(1).setContent("");
+        //mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(true);
+        //mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(true);
+        mLogin.setProgress(0);
         
     }
 
     private void deshabilitarElementos() {
-        try {
-             mCredenciales.getEditTextLayoutAt(0).getEditText().setFocusable(false);
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        }
-        mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(false);
+        Log.i(TAG, "¡Deshabilita elementos!");
+        //mCredenciales.getEditTextLayoutAt(1).getEditText().setFocusable(false);
         mPasswordRestore.setEnabled(false);
         mChangeAccount.setEnabled(false);
     }

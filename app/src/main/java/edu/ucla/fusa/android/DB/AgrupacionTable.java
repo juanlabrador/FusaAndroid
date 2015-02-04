@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.FormatFlagsConversionMismatchException;
 import java.util.List;
 
 import edu.ucla.fusa.android.modelo.academico.Agrupacion;
@@ -42,13 +43,8 @@ public class AgrupacionTable {
     private Agrupacion mAgrupacion;
     private TipoAgrupacion mTipoAgrupacion;
     private Instructor mInstructor;
-    private HorarioArea mHorarioArea;
     private List<HorarioArea> mHorarioAreas;
-    private Horario mHorario;
-    private Dia mDia;
     private InstructorTable mInstructorTable;
-    private HorarioTable mHorarioTable;
-    private List<Horario> mHorarios;
     private HorarioAreaTable mHorarioAreaTable;
 
     public AgrupacionTable(Context context) {
@@ -57,11 +53,7 @@ public class AgrupacionTable {
         mAgrupacion = new Agrupacion();
         mTipoAgrupacion = new TipoAgrupacion();
         mInstructor = new Instructor();
-        mHorarioArea = new HorarioArea();
-        mHorario = new Horario();
-        mDia = new Dia();
         mInstructorTable = new InstructorTable(context);
-        mHorarioTable = new HorarioTable(context);
         mHorarioAreas = new ArrayList<>();
         mHorarioAreaTable = new HorarioAreaTable(context);
     }
@@ -92,7 +84,9 @@ public class AgrupacionTable {
             mAgrupacion.setTipoAgrupacion(mTipoAgrupacion);
             
             mHorarioAreas = mHorarioAreaTable.searchHorarioPorAgrupacion(mCursor.getInt(0));
-
+            for (int i = 0; i < mHorarioAreas.size(); i++) {
+                Log.i(TAG, "Dia en Agrupación: " + mHorarioAreas.get(i).getHorario().getDia().getDescripcion());
+            }
             mAgrupacion.setHorarioArea(mHorarioAreas);
             mInstructor = mInstructorTable.searchInstructor(mCursor.getInt(2));
             mAgrupacion.setInstructor(mInstructor);

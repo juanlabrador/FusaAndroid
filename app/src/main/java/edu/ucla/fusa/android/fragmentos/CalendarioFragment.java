@@ -29,6 +29,7 @@ import com.github.siyamed.shapeimageview.HexagonImageView;
 import com.juanlabrador.grouplayout.GroupContainer;
 import com.squareup.timessquare.CalendarPickerView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,8 +63,8 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
     private int mScrollThreshold;
     private AbsListView mScroll;
     
+    // Ventana de datos del evento
     private MaterialDialog mCustomView;
-    private MaterialDialog mComentarioView;
     private GroupContainer mGrupoEvento;
     private GroupContainer mGrupoLugar;
     private GroupContainer mGrupoDescripcion;
@@ -71,8 +72,11 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
     private Evento mEvento;
     private SimpleDateFormat mTimeFormat;
     private TextView mTituloEvento;
-    private Calendar mMesActual;
-    
+    private Calendar mMesAnterior;
+    private Date mDateEvento;
+
+    // Calificar un comentario
+    private MaterialDialog mComentarioView;
     private GroupContainer mComentarioEvento;
     private RatingBar mCalificacion;
     private TextView mDescripcionCalificacion;
@@ -93,7 +97,7 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
         mEventoTable = new EventoTable(getActivity());
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         mToolbar.setTitle(R.string.calendario_titulo_barra);
-        mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        mDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         mTimeFormat = new SimpleDateFormat("hh:mm aa");
         mFechas = new ArrayList<>();
         mEstudianteTable = new EstudianteTable(getActivity());
@@ -108,8 +112,9 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
         mProximoAño = Calendar.getInstance();
         mProximoAño.add(Calendar.YEAR, 1);
         mDiaActual = Calendar.getInstance();
-        mMesActual = Calendar.getInstance();
-        mMesActual.set(Calendar.DAY_OF_MONTH, 1);
+        mMesAnterior = Calendar.getInstance();
+        mMesAnterior.set(Calendar.DAY_OF_MONTH, 1);
+        mMesAnterior.set(Calendar.MONTH, mMesAnterior.get(Calendar.MONTH) - 1);
         mLoading = (CircularProgressBar) mView.findViewById(R.id.pb_cargando_calendario);
 
         mContenedorLeyenda = (LinearLayout) mView.findViewById(R.id.contenedor_leyenda);
@@ -150,19 +155,14 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     armarCustomLayout(mIds.get(i));
-                    
+                    mDialog.dismiss();
                     Log.i(TAG, "¡Selecciono el evento " + i + " de la lista");
                 }
             });
             
             mDialog.setTitle("Seleccione un evento")
                    .setContentView(mList)
-                    .setNegativeButton("OK", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            mDialog.dismiss();
-                        }
-                    }).show();
+                    .show();
 
         } else if (mAdapter.getCount() == 1){
             Log.i(TAG, "¡Hay solo un evento!");
@@ -183,7 +183,7 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
         mTituloEvento = (TextView) view.findViewById(R.id.titulo_evento);
         mTituloEvento.setText(mEvento.getNombre().toUpperCase());
         mGrupoEvento = (GroupContainer) view.findViewById(R.id.grupo_datos_evento);
-        mGrupoEvento.addTextLayout(R.string.evento_fecha, mDateFormat.format(mEvento.getFecha()));
+        mGrupoEvento.addTextLayout(R.string.evento_fecha, mEvento.getFecha());
         mGrupoEvento.addTextLayout(R.string.evento_hora, mTimeFormat.format(mEvento.getHora()));
 
         mGrupoDescripcion = (GroupContainer) view.findViewById(R.id.grupo_descripcion_evento);
@@ -194,7 +194,12 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
         mGrupoLugar.addSimpleMultiTextLayout(mEvento.getLugar().getDireccion());
 
         mBotonComentario = (GroupContainer) view.findViewById(R.id.boton_calificar_evento);
-        if(mEvento.getFecha().before(mDiaActual.getTime())) {
+        try {
+            mDateEvento = mDateFormat.parse(mEvento.getFecha());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(mDateEvento.before(mDiaActual.getTime())) {
             mBotonComentario.addSimpleMultiTextLayout(R.string.evento_boton_calificar_evento);
             mBotonComentario.getSimpleMultiTextLayoutAt(0).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -379,7 +384,11 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
             if (mEventos != null) {
                 Log.i(TAG, "¡Hay eventos!");
                 for(Evento mEvento : mEventos) {
-                    mFechas.add(mEvento.getFecha());
+                    try {
+                        mFechas.add(mDateFormat.parse(mEvento.getFecha()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
                 return 100;
             }
@@ -396,15 +405,15 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
                     Log.i(TAG, "fecha: " + new SimpleDateFormat("dd-MM-yyyy").format(c.getTime()));
                     ArrayList<Date> prueba = new ArrayList<>();
                     prueba.add(c.getTime());
-                    mCalendario.init(mMesActual.getTime(), mProximoAño.getTime())
+                    mCalendario.init(mMesAnterior.getTime(), mProximoAño.getTime())
                             .withSelectedDate(mDiaActual.getTime())
                             .inMode(CalendarPickerView.SelectionMode.SINGLE)
                             .withHighlightedDates(mFechas)
-                    .withHighlightedOthersDates(prueba);
+                            .withHighlightedOthersDates(prueba);
                     break;
                 case -1:
                     Log.i(TAG, "No hay eventos!");
-                    mCalendario.init(mMesActual.getTime(), mProximoAño.getTime())
+                    mCalendario.init(mMesAnterior.getTime(), mProximoAño.getTime())
                             .withSelectedDate(mDiaActual.getTime());
                     break;
             }

@@ -1,7 +1,5 @@
 package edu.ucla.fusa.android.modelo.fundacion;
 
-import java.util.Calendar;
-
 /**
  * Created by juanlabrador on 05/12/14.
  */
@@ -9,23 +7,13 @@ public class Noticia {
 
     private String descripcion;
     private String estatus;
-    private Calendar fechapublicacion;
+    private String fechapublicacion;
     private long id;
     private byte[] imagen;
     private String nombreImagen;
     private TipoNoticia tipoNoticia;
     private String titulo;
 
-    public Noticia(String descripcion, String estatus, Calendar fechapublicacion, long id, byte[] imagen, String nombreImagen, TipoNoticia tipoNoticia, String titulo) {
-        this.descripcion = descripcion;
-        this.estatus = estatus;
-        this.fechapublicacion = fechapublicacion;
-        this.id = id;
-        this.imagen = imagen;
-        this.nombreImagen = nombreImagen;
-        this.tipoNoticia = tipoNoticia;
-        this.titulo = titulo;
-    }
 
     public Noticia() {}
 
@@ -45,11 +33,11 @@ public class Noticia {
         this.estatus = estatus;
     }
 
-    public Calendar getFechapublicacion() {
+    public String getFechapublicacion() {
         return fechapublicacion;
     }
 
-    public void setFechapublicacion(Calendar fechapublicacion) {
+    public void setFechapublicacion(String fechapublicacion) {
         this.fechapublicacion = fechapublicacion;
     }
 

@@ -44,13 +44,12 @@ public class EstatusPrestamoFragment extends Fragment implements Toolbar.OnMenuI
     private PrestamoTable mPrestamoTable;
     private Prestamo mPrestamo;
     private SimpleDateFormat mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-    private static VistasPrincipalesActivity mActivity;
+    private VistasPrincipalesActivity mActivity;
     private TextView mRecordatorio;
     
-    public static EstatusPrestamoFragment newInstance(VistasPrincipalesActivity activity) {
+    public static EstatusPrestamoFragment newInstance() {
         EstatusPrestamoFragment fragment = new EstatusPrestamoFragment();
         fragment.setRetainInstance(true);
-        mActivity = activity;
         return fragment;
     }
 
@@ -88,6 +87,8 @@ public class EstatusPrestamoFragment extends Fragment implements Toolbar.OnMenuI
         mToolbar.setTitle(R.string.estatus_prestamo_titulo_barra);
         mSolicitudPrestamoTable = new SolicitudPrestamoTable(getActivity());
         mPrestamoTable = new PrestamoTable(getActivity());
+        
+        mActivity = (VistasPrincipalesActivity) getActivity();
     }
     
     private void mostrarEstatus() {
@@ -171,7 +172,7 @@ public class EstatusPrestamoFragment extends Fragment implements Toolbar.OnMenuI
         mActivity.nuevaSolicitudPrestamo();
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.frame_container, SolicitudPrestamoFragment.newInstance(mActivity))
+                .replace(R.id.frame_container, SolicitudPrestamoFragment.newInstance())
                 .addToBackStack(null)
                 .commit();
         return true;

@@ -1,10 +1,8 @@
 package edu.ucla.fusa.android;
 
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
@@ -42,6 +40,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import edu.ucla.fusa.android.DB.AgrupacionTable;
+import edu.ucla.fusa.android.DB.AreaEstudioTable;
 import edu.ucla.fusa.android.DB.ClaseParticularTable;
 import edu.ucla.fusa.android.DB.DiaTable;
 import edu.ucla.fusa.android.DB.EstudianteTable;
@@ -57,14 +56,16 @@ import edu.ucla.fusa.android.DB.TipoInstrumentoTable;
 import edu.ucla.fusa.android.DB.TipoPrestamoTable;
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
+import edu.ucla.fusa.android.fragmentos.AspiranteFragment;
 import edu.ucla.fusa.android.fragmentos.CambiarPasswordFragment;
 import edu.ucla.fusa.android.fragmentos.ContenedorHorarioFragment;
 import edu.ucla.fusa.android.fragmentos.EstatusPrestamoFragment;
 import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
-import edu.ucla.fusa.android.fragmentos.ListadoNoticiasFragment;
+import edu.ucla.fusa.android.fragmentos.NoticiasFragment;
 import edu.ucla.fusa.android.fragmentos.LogoutFragment;
 import edu.ucla.fusa.android.fragmentos.SolicitudPrestamoFragment;
 import edu.ucla.fusa.android.modelo.academico.Agrupacion;
+import edu.ucla.fusa.android.modelo.academico.AreaEstudio;
 import edu.ucla.fusa.android.modelo.academico.ClaseParticular;
 import edu.ucla.fusa.android.modelo.academico.Dia;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
@@ -80,6 +81,7 @@ import edu.ucla.fusa.android.modelo.instrumentos.Prestamo;
 import edu.ucla.fusa.android.modelo.instrumentos.SolicitudPrestamo;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoInstrumento;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoPrestamo;
+import edu.ucla.fusa.android.modelo.seguridad.TipoUsuario;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import me.drakeet.materialdialog.MaterialDialog;
@@ -235,17 +237,22 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     // Usuario
     
     private void cargarUsuario() {
-        mEstudiante = mEstudianteTable.searchUser();
-        if (mEstudiante != null) {
+        mUsuario = mUserTable.searchUser();
+        if (mUsuario != null) {
             Log.i(TAG, "¡Busca al estudiante en la BD!");
             cargarMenuEstudiante();
-            new LoadingSolicitudPrestamo().execute(mEstudiante.getId());
-        } else {
-            if (exiteConexionInternet()) {
-                Log.i(TAG, "¡Busca al estudiante en el servidor!");
-                new BuscarEstudiante().execute(mUsername);
+            mEstudiante = mEstudianteTable.searchUser();
+            if (mEstudiante != null) {
+                new LoadingSolicitudPrestamo().execute(mEstudiante.getId());
+                new LoadingAgrupacion().execute(mEstudiante.getId());
+                //new LoadingClasePaticulares().execute(mEstudiante.getId());
             } else {
-                showOptionRetry();
+                if (exiteConexionInternet()) {
+                    Log.i(TAG, "¡Busca al estudiante en el servidor!");
+                    new BuscarEstudiante().execute(mUsername);
+                } else {
+                    showOptionRetry();
+                }
             }
         }
     }
@@ -269,7 +276,8 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         getSupportFragmentManager().popBackStack();
         mPositionList = position;
         switch (mPositionList) {
-            case 0:showDialog();
+            case 0:
+                showDialog();
                 break;
             case 1:
                 getSupportFragmentManager()
@@ -283,20 +291,20 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                     getSupportFragmentManager()
                             .beginTransaction()
                             .addToBackStack(null)
-                            .replace(R.id.frame_container, SolicitudPrestamoFragment.newInstance(this))
+                            .replace(R.id.frame_container, SolicitudPrestamoFragment.newInstance())
                             .commit();
                 } else {
                     getSupportFragmentManager()
                             .beginTransaction()
                             .addToBackStack(null)
-                            .replace(R.id.frame_container, EstatusPrestamoFragment.newInstance(this))
+                            .replace(R.id.frame_container, EstatusPrestamoFragment.newInstance())
                             .commit();
                 }
                 break;
             case 3:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
+                        .replace(R.id.frame_container, NoticiasFragment.newInstance())
                         .commit();
                 break;
             case 4:
@@ -310,14 +318,21 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 getSupportFragmentManager()
                         .beginTransaction()
                         .addToBackStack(null)
-                        .replace(R.id.frame_container, CambiarPasswordFragment.newInstance())
+                        .replace(R.id.frame_container, AspiranteFragment.newInstance())
                         .commit();
                 break;
             case 6:
                 getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.principal, LogoutFragment.newInstance())
-                    .commit();
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frame_container, CambiarPasswordFragment.newInstance())
+                        .commit();
+                break;
+            case 7:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.principal, LogoutFragment.newInstance())
+                        .commit();
                 break;
         }
 
@@ -325,7 +340,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mListDrawer.setSelection(mPositionList);
         mNavigationDrawer.closeDrawer(mListDrawer);
     }
-
 
     private Bitmap convertByteToImage(byte[] data) {
         return BitmapFactory.decodeByteArray(data, 0, data.length);
@@ -356,13 +370,13 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mNombre = (TextView) mHeader.findViewById(R.id.etNombreDrawer);
         mFoto.setVisibility(View.VISIBLE);
         mNombre.setVisibility(View.VISIBLE);
-        if (mEstudiante.getImagen() != null) {
-            mFoto.setImageBitmap(convertByteToImage(mEstudiante.getImagen()));
+        if (mUsuario.getFoto().length > 40) {
+            mFoto.setImageBitmap(convertByteToImage(mUsuario.getFoto()));
         } else {
             mFoto.setImageResource(R.drawable.no_avatar);
         }
 
-        mNombre.setText(mEstudiante.getNombre() + " " + mEstudiante.getApellido());
+        mNombre.setText(mUsuario.getNombre() + " " + mUsuario.getApellido());
     }
     
     public void cargarMenuEstudiante() {
@@ -393,6 +407,9 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mItemsDrawer.add(new ItemListDrawer(
                 mTextDrawer[5],
                 mIconsDrawer.getResourceId(5, -1)));
+        mItemsDrawer.add(new ItemListDrawer(
+                mTextDrawer[6],
+                mIconsDrawer.getResourceId(6, -1)));
 
         mNavigationAdapter = new NavigationAdapter(this, mItemsDrawer);
         mListDrawer.setAdapter(mNavigationAdapter);
@@ -441,14 +458,13 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             int response;
             Log.i(TAG, "¡Busca al estudiante en el servidor!");
             // Parametros via GET
-            ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
+            ArrayList<NameValuePair> parametros = new ArrayList<>();
             parametros.add(new BasicNameValuePair("username", params[0]));
 
             // Aplicamos el servicio
             mEstudiante = mJSONParser.serviceEstudiante(parametros);
             if (mEstudiante != null) {
                 if (mEstudiante.getId() != -1) { // Existe el estudiante
-
                     // Guardamos los datos internamente
                     mEstudianteTable.insertData(
                             mEstudiante.getId(),
@@ -461,11 +477,8 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                             mEstudiante.getSexo(),
                             mEstudiante.getTelefonoFijo(),
                             mEstudiante.getTelefonoMovil(),
-                            mEstudiante.getImagen(),
-                            mEstudiante.getUsuario().getUsername());
-                    new LoadingSolicitudPrestamo().execute(mEstudiante.getId());
-                    new LoadingAgrupacion().execute(mEstudiante.getId());
-                    new LoadingClasePaticulares().execute(mEstudiante.getId());
+                            mEstudiante.getImagen());
+                    
                     response = 100;
                 } else { // No existe el estudiante
                     response = -1;
@@ -481,9 +494,11 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             super.onPostExecute(result);
             switch (result) {
                 case 100:
-                    cargarMenuEstudiante();
                     // Delay 2 sg
                     Log.i(TAG, "¡Estudiante localizado!");
+                    new LoadingSolicitudPrestamo().execute(mEstudiante.getId());
+                    new LoadingAgrupacion().execute(mEstudiante.getId());
+                    //new LoadingClasePaticulares().execute(mEstudiante.getId());
                     break;
                 case -1:
                     Log.i(TAG, "¡No existe el estudiante!");
@@ -508,6 +523,8 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         private Horario mHorario;
         private DiaTable mDiaTable;
         private Dia mDia;
+        private AreaEstudio mAreaEstudio;
+        private AreaEstudioTable mAreaEstudioTable;
         
         @Override
         protected void onPreExecute() {
@@ -519,6 +536,8 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             mHorarioAreaTable = new HorarioAreaTable(getApplicationContext());
             mDia = new Dia();
             mDiaTable = new DiaTable(getApplicationContext());
+            mAreaEstudio = new AreaEstudio();
+            mAreaEstudioTable = new AreaEstudioTable(getApplicationContext());
         }
 
         @Override
@@ -559,33 +578,28 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                         mHorarioAreaTable.insertData(
                                 0, 
                                 mAgrupacion.getId(), 
-                                mAgrupacion.getHorarioArea().get(i).getId()
+                                mAgrupacion.getHorarioArea().get(i).getId(),
+                                mAgrupacion.getHorarioArea().get(i).getAreaEstudio().getId()
                         );
                         
-                        mHorario = mHorarioTable.searchHorario(mAgrupacion.getHorarioArea().get(i).getId());
-                        if (mHorario == null) {
-                            Log.i(TAG, "¡No hay este horario para la agrupacion!");
-                            
-                            mHorarioTable.insertData(
-                                    mAgrupacion.getHorarioArea().get(i).getHorario().getHorario_id(),
-                                    mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDia_id(),
-                                    mAgrupacion.getHorarioArea().get(i).getHorario().getHoraInicio(),
-                                    mAgrupacion.getHorarioArea().get(i).getHorario().getHoraFin(),
-                                    mAgrupacion.getHorarioArea().get(i).getId()
-                            );
-                            
-                            mDia = mDiaTable.search(mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDia_id());
-                            if (mDia == null) {
-                                mDiaTable.insertData(
-                                        mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDia_id(),
-                                        mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDescripcion()
-                                );
-                            }
-                            
-                        } else {
-                            Log.i(TAG, "¡Ya tenemos este horario de la agrupacion!");
-                        }
-                        
+
+                        mHorarioTable.insertData(
+                                mAgrupacion.getHorarioArea().get(i).getHorario().getHorario_id(),
+                                mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDia_id(),
+                                mAgrupacion.getHorarioArea().get(i).getHorario().getHoraInicio(),
+                                mAgrupacion.getHorarioArea().get(i).getHorario().getHoraFin(),
+                                mAgrupacion.getHorarioArea().get(i).getId()
+                        );
+
+                        mDiaTable.insertData(
+                                mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDia_id(),
+                                mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDescripcion()
+                        );
+
+                        mAreaEstudioTable.insertData(
+                                mAgrupacion.getHorarioArea().get(i).getAreaEstudio().getDescripcion(),
+                                mAgrupacion.getHorarioArea().get(i).getAreaEstudio().getId()
+                        );
                     }
                     Log.i(TAG, "¡Guardado correctamente!");
                 } else {
@@ -659,9 +673,10 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                         for (int j = 0; j < mClaseParticulares.get(i).getHorarioArea().size(); j++) {
 
                             mHorarioAreaTable.insertData(
-                                   mClaseParticulares.get(i).getId(),
+                                    mClaseParticulares.get(i).getId(),
                                     0,
-                                    mClaseParticulares.get(i).getHorarioArea().get(j).getId()
+                                    mClaseParticulares.get(i).getHorarioArea().get(j).getId(),
+                                    mClaseParticulares.get(i).getHorarioArea().get(j).getAreaEstudio().getId()
                             );
                             
                             mHorario = mHorarioTable.searchHorario(mClaseParticulares.get(i).getHorarioArea().get(j).getId());
@@ -718,14 +733,14 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                             mItemsNoticias.add(new ItemListNoticia(
                                     noticia.getId(),
                                     noticia.getTitulo(),
-                                    noticia.getFechapublicacion().getTime(),
+                                    noticia.getFechapublicacion(),
                                     noticia.getImagen(),
                                     noticia.getDescripcion(),
                                     1));
                             //Guardamos en la base de datos
                             mNoticiasTable.insertData(noticia.getTitulo(),
                                     noticia.getDescripcion(),
-                                    noticia.getFechapublicacion().getTime(),
+                                    noticia.getFechapublicacion(),
                                     noticia.getImagen(),
                                     noticia.getId(),
                                     1);
@@ -733,14 +748,14 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                             mItemsNoticias.add(new ItemListNoticia(
                                     noticia.getId(),
                                     noticia.getTitulo(),
-                                    noticia.getFechapublicacion().getTime(),
+                                    noticia.getFechapublicacion(),
                                     noticia.getImagen(),
                                     noticia.getDescripcion(),
                                     0));
                             //Guardamos en la base de datos
                             mNoticiasTable.insertData(noticia.getTitulo(),
                                     noticia.getDescripcion(),
-                                    noticia.getFechapublicacion().getTime(),
+                                    noticia.getFechapublicacion(),
                                     noticia.getImagen(),
                                     noticia.getId(),
                                     0);
@@ -766,7 +781,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                     mToolbar.setVisibility(View.VISIBLE);
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
+                            .replace(R.id.frame_container, NoticiasFragment.newInstance())
                             .commit();
                     break;
                 case 100:
@@ -776,7 +791,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                     mToolbar.setVisibility(View.VISIBLE);
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.frame_container, ListadoNoticiasFragment.newInstance())
+                            .replace(R.id.frame_container, NoticiasFragment.newInstance())
                             .commit();
                     break;
                 case -1:
@@ -973,11 +988,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                         mBitmap = b.getParcelable("data");
                         mPhoto = convertImageToByte(mBitmap);
                         mUsuario.setFoto(mPhoto);
-                        mEstudiante.setImagen(mPhoto);
-                        mEstudianteTable.updateFoto(mEstudiante.getId(), mEstudiante.getImagen());
-                        mUserTable.updateFoto(mUsuario.getId(), mUsuario.getFoto());
                         new UploadFoto().execute(mUsuario);
-                        new UploadFotoEstudiante().execute(mEstudiante);
                     }
                     mFile = new File(mFotoCaptureUri.getPath());
                     if (mFile.exists()) {
@@ -1006,6 +1017,12 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private class UploadFoto extends AsyncTask<Usuario, Void, Integer> {
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            sendNotificacion();
+        }
+
+        @Override
         protected Integer doInBackground(Usuario... usuarios) {
             return mJSONParser.updateUsuario(usuarios[0]);
         }
@@ -1016,49 +1033,24 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             switch (result) {
                 case -1:
                     Log.i(TAG, "¡No se cargo la foto!");
-                    break;
-                case 100:
-                    Log.i(TAG, "¡Foto actualizada!");
-                    break;
-            }
-        }
-    }
-
-    private class UploadFotoEstudiante extends AsyncTask<Estudiante, Void, Integer> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            sendNotificacion();
-        }
-
-        @Override
-        protected Integer doInBackground(Estudiante... estudiantes) {
-            return mJSONParser.updateEstudiante(estudiantes[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-            switch (result) {
-                case -1:
-                    Log.i(TAG, "¡No se cargo la foto!");
                     SnackbarManager.show(
                             Snackbar.with(getApplicationContext())
-                                    .text(R.string.mensaje_error_foto));
-                    break;
-                case 100:
-                    Log.i(TAG, "¡Foto actualizada!");
-                    SnackbarManager.show(
-                            Snackbar.with(getApplicationContext())
-                                    .text(R.string.foto_actualizada));
-                    ((HexagonImageView) findViewById(R.id.iv_foto_perfil_drawer)).setImageBitmap(mBitmap);
+                                    .text(R.string.mensaje_error_foto), VistasPrincipalesActivity.this);
                     mManager.cancel(2);
                     break;
+                case 100:
+                    Log.i(TAG, "¡Foto actualizada!");
+                    SnackbarManager.show(
+                            Snackbar.with(getApplicationContext())
+                                    .text(R.string.foto_actualizada), VistasPrincipalesActivity.this);
+                    ((HexagonImageView) findViewById(R.id.iv_foto_perfil_drawer)).setImageBitmap(mBitmap);
+                    mManager.cancel(2);
+                    mUserTable.updateFoto(mUsuario.getUsername(), mUsuario.getFoto());
+                    break;
             }
         }
     }
-    
+
     // Tipo de Prestamo 
 
     private class LoadingTipoPrestamo extends AsyncTask<Void, Void, Integer> {
@@ -1252,20 +1244,24 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                                     mSolicitudPrestamo.getTipoInstrumento().getDescripcion(),
                                     mSolicitudPrestamo.getFechaEmision(),
                                     mSolicitudPrestamo.getFechaVencimiento());
-                            mPrestamo = mJSONParser.servicePrestamo(mSolicitudPrestamo.getId());
-                            if (mPrestamo != null) {
-                                mPrestamoTable.insertData(
-                                        mPrestamo.getFechaEmision(),
-                                        mPrestamo.getFechaVencimiento(),
-                                        mPrestamo.getEstatus(),
-                                        mPrestamo.getInstrumento().getTipoInstrumento().getDescripcion(),
-                                        mPrestamo.getInstrumento().getModelo().getDescripcion(),
-                                        mPrestamo.getInstrumento().getSerial(),
-                                        mPrestamo.getInstrumento().getModelo().getMarca().getDescripcion(),
-                                        mPrestamo.getId()
-                                );
+                            if (!mEstatusSolicitud.equals("en proceso")) {
+                                mPrestamo = mJSONParser.servicePrestamo(mSolicitudPrestamo.getId());
+                                if (mPrestamo != null) {
+                                    mPrestamoTable.insertData(
+                                            mPrestamo.getFechaEmision(),
+                                            mPrestamo.getFechaVencimiento(),
+                                            mPrestamo.getEstatus(),
+                                            mPrestamo.getInstrumento().getTipoInstrumento().getDescripcion(),
+                                            mPrestamo.getInstrumento().getModelo().getDescripcion(),
+                                            mPrestamo.getInstrumento().getSerial(),
+                                            mPrestamo.getInstrumento().getModelo().getMarca().getDescripcion(),
+                                            mPrestamo.getId()
+                                    );
+                                } else {
+                                    Log.i(TAG, "¡No tengo un prestamo aprobado!");
+                                }
                             } else {
-                                Log.i(TAG, "¡No tengo un prestamo aprobado!");
+                                Log.i(TAG, "¡Mi solicitud esta en proceso!");
                             }
                         } else {
                             Log.i(TAG, "¡La utlima solicitud fue rechazada!");
@@ -1342,6 +1338,16 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     
     public void actualizarSolicitud() {
         mSolicitudPrestamo = mSolicitudPrestamoTable.searchSolicitudPrestamo();
+        mListDrawer.setItemChecked(3, true);
+        mListDrawer.setSelection(3);
+    }
+
+    public void actualizarPostulacion() {
+        mListDrawer.setItemChecked(3, true);
+        mListDrawer.setSelection(3);
+    }
+
+    public void actualizarPassword() {
         mListDrawer.setItemChecked(3, true);
         mListDrawer.setSelection(3);
     }

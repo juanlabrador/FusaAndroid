@@ -27,7 +27,9 @@ import com.nispok.snackbar.enums.SnackbarType;
 
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.R;
+import edu.ucla.fusa.android.VistasPrincipalesActivity;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
+import edu.ucla.fusa.android.modelo.seguridad.TipoUsuario;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import edu.ucla.fusa.android.validadores.ValidadorPasswords;
 
@@ -42,12 +44,12 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
     private View mBarraMuyDebil;
     private View mBarraMuyFuerte;
     private TextView mStatus;
-    private View mView;
     private Toolbar mToolbar;
     private UserTable mUserTable;
     private Usuario mUsuario;
     private JSONParser mJSONParser;
     private NotificationManager mManager;
+    private VistasPrincipalesActivity mActivity;
 
     public static CambiarPasswordFragment newInstance() {
         CambiarPasswordFragment fragment = new CambiarPasswordFragment();
@@ -58,19 +60,23 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
     @Nullable
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle arguments) {
         super.onCreateView(inflater, container, arguments);
-        mView = inflater.inflate(R.layout.fragment_drawer_cambiar_password, container, false);
+        return inflater.inflate(R.layout.fragment_drawer_cambiar_password, container, false);
+    }
 
-        mMostrarContraseña = (GroupContainer) mView.findViewById(R.id.mostrar_contraseña);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mMostrarContraseña = (GroupContainer) view.findViewById(R.id.mostrar_contraseña);
         mMostrarContraseña.addSwitchLayout(R.string.contraseña_mostrar, getResources().getColor(R.color.azul));
         mMostrarContraseña.getSwitchLayoutAt(0).getSwitch().setOnCheckedChangeListener(this);
-        
-        mAntiguaContraseña = (GroupContainer) mView.findViewById(R.id.antigua_contraseña);
+
+        mAntiguaContraseña = (GroupContainer) view.findViewById(R.id.antigua_contraseña);
         mAntiguaContraseña.addValidatorLayout(R.string.contraseña_antigua);
         mAntiguaContraseña.getValidatorLayoutAt(0).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         mAntiguaContraseña.getValidatorLayoutAt(0).getEditText().addTextChangedListener(this);
         mAntiguaContraseña.getValidatorLayoutAt(0).setMaxLength(20);
-        
-        mNuevaContraseña = (GroupContainer) mView.findViewById(R.id.nueva_contraseña);
+
+        mNuevaContraseña = (GroupContainer) view.findViewById(R.id.nueva_contraseña);
         mNuevaContraseña.addEditTextLayout(R.string.contraseña_nueva);
         mNuevaContraseña.addValidatorLayout(R.string.contraseña_repetir );
         mNuevaContraseña.getEditTextLayoutAt(0).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -79,16 +85,14 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
         mNuevaContraseña.getValidatorLayoutAt(1).getEditText().addTextChangedListener(this);
         mNuevaContraseña.getEditTextLayoutAt(0).setMaxLength(20);
         mNuevaContraseña.getValidatorLayoutAt(1).setMaxLength(20);
-        
-        mStatus = (TextView) mView.findViewById(R.id.tv_status_password);
 
-        mBarraMuyDebil = mView.findViewById(R.id.barra_muy_debil);
-        mBarraDebil = mView.findViewById(R.id.barra_debil);
-        mBarraFuerte = mView.findViewById(R.id.barra_fuerte);
-        mBarraMuyFuerte = mView.findViewById(R.id.barra_muy_fuerte);
-        
-        mJSONParser = new JSONParser();
-        return mView;
+        mStatus = (TextView) view.findViewById(R.id.tv_status_password);
+
+        mBarraMuyDebil = view.findViewById(R.id.barra_muy_debil);
+        mBarraDebil = view.findViewById(R.id.barra_debil);
+        mBarraFuerte = view.findViewById(R.id.barra_fuerte);
+        mBarraMuyFuerte = view.findViewById(R.id.barra_muy_fuerte);
+
     }
 
     public void afterTextChanged(Editable editable) {
@@ -174,6 +178,9 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
         mToolbar.setOnMenuItemClickListener(this);
         mUserTable = new UserTable(getActivity());
         mUsuario = mUserTable.searchUser();
+        mJSONParser = new JSONParser();
+        
+        mActivity = (VistasPrincipalesActivity) getActivity();
     }
 
     public void onTextChanged(CharSequence charSequence, int i1, int i2, int i3) {
@@ -256,14 +263,7 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
 
         @Override
         protected Integer doInBackground(Usuario... usuarios) {
-            int result;
-            try {
-                return mJSONParser.updateUsuario(usuarios[0]);
-            } catch (Exception e) {
-                e.printStackTrace();
-                result = 0;
-            }
-            return result;
+            return mJSONParser.updateUsuario(usuarios[0]);
         }
 
         @Override
@@ -272,12 +272,19 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
             switch (result) {
                 case 100:
                     Log.i(TAG, "¡Cambio de contraseña exitoso!");
-                    getFragmentManager().popBackStack();
+                    mActivity.actualizarPassword();
+                    mUserTable.updatePassword(mUsuario.getUsername(), mUsuario.getPassword());
                     mManager.cancel(1);
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.contraseña_exito));
+                    getFragmentManager().popBackStack();
                     break;
                 case -1:
                     Log.i(TAG, "¡Error al cambiar contraseña!");
                     mToolbar.getMenu().findItem(R.id.action_enviar).setActionView(null);
+                    mManager.cancel(1);
                     SnackbarManager.show(
                             Snackbar.with(getActivity())
                                     .type(SnackbarType.MULTI_LINE)
@@ -285,6 +292,7 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
                     break;
                 case 0:
                     mToolbar.getMenu().findItem(R.id.action_enviar).setActionView(null);
+                    mManager.cancel(1);
                     SnackbarManager.show(
                             Snackbar.with(getActivity())
                                     .type(SnackbarType.MULTI_LINE)

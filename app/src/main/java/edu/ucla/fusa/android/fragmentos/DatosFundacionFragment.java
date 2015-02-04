@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.juanlabrador.grouplayout.GroupContainer;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.enums.SnackbarType;
 
 import edu.ucla.fusa.android.R;
 
@@ -51,7 +54,9 @@ public class DatosFundacionFragment extends Fragment implements View.OnClickList
                 startActivity(new Intent("android.intent.action.CALL",
                         Uri.parse("tel:" + getResources().getString(R.string.contacto_telefono1))));
             } catch (Exception e) {
-                Toast.makeText(getActivity(), R.string.error_llamada, Toast.LENGTH_SHORT).show();
+                SnackbarManager.show(
+                        Snackbar.with(getActivity())
+                                .text(R.string.error_llamada));
                 e.printStackTrace();
             }
         } else if (view == mGrupoMedios.getSimpleOneButtonLayoutAt(1).getButton()) {
@@ -59,7 +64,9 @@ public class DatosFundacionFragment extends Fragment implements View.OnClickList
                 startActivity(new Intent("android.intent.action.CALL",
                         Uri.parse("tel:" + getResources().getString(R.string.contacto_telefono2))));
             } catch (Exception e) {
-                Toast.makeText(getActivity(), R.string.error_llamada, Toast.LENGTH_SHORT).show();
+                SnackbarManager.show(
+                        Snackbar.with(getActivity())
+                                .text(R.string.error_llamada));
                 e.printStackTrace();
             }
         } else if (view == mGrupoMedios.getSimpleOneButtonLayoutAt(2).getButton()) {
@@ -71,8 +78,11 @@ public class DatosFundacionFragment extends Fragment implements View.OnClickList
                                 .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.contacto_correo)).setType("message/rfc822"),
                         getResources().getString(R.string.mensaje_elegir_cliente_correo)));
             } catch (ActivityNotFoundException e) {
-                Toast.makeText(getActivity(), R.string.error_enviar_correo, Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
+                SnackbarManager.show(
+                        Snackbar.with(getActivity())
+                                .type(SnackbarType.MULTI_LINE)
+                                .text(R.string.error_enviar_correo));
+
             }
         }
     }

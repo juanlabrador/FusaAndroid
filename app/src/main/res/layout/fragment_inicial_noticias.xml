@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/fragment_estudiante"
+    android:background="@color/azul"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/noticias"
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/descripcion_logotipo" />
+    
+    <TextView
+        android:textSize="20sp"
+        android:textColor="@color/blanco"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:text="@string/noticias_inicial"
+        android:layout_weight="1" />
+
+    <Button android:textSize="22sp"
+        android:textColor="@color/azul_oscuro"
+        android:gravity="center"
+        android:id="@+id/btnNoticias"
+        android:background="@drawable/style_button_background_azul"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/noticias_boton"
+        android:textStyle="bold"/>
+</LinearLayout>

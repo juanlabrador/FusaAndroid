@@ -50,4 +50,6 @@ dependencies {
     compile project(':DateSlider-v1.0')
     compile project(':TimesSquare-v1.6')
     compile project(':GroupLayout-v1.9')
+    compile 'com.ocpsoft:ocpsoft-pretty-time:1.0.7'
+    compile 'com.google.code.gson:gson:2.3.1'
 }

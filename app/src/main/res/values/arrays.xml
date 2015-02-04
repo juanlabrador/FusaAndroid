@@ -5,15 +5,17 @@
         <item>Solicitud de préstamo</item>
         <item>Noticias</item>
         <item>Calendario de eventos</item>
+        <item>Postula a un amigo</item>
         <item>Cambiar contraseña</item>
         <item>Cerrar sesión</item>
     </string-array>
 
     <array name="iconos_menu">
         <item>@drawable/ic_mis_clases</item>
-        <item>@drawable/ic_solicitud_prestamo</item>
+        <item>@drawable/ic_solicitud</item>
         <item>@drawable/ic_noticias</item>
         <item>@drawable/ic_calendario</item>
+        <item>@drawable/ic_unete</item>
         <item>@drawable/ic_cambiar_password</item>
         <item>@drawable/ic_login</item>
     </array>

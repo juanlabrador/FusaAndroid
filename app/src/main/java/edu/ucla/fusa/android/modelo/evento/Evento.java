@@ -1,7 +1,5 @@
 package edu.ucla.fusa.android.modelo.evento;
 
-import android.text.format.Time;
-
 import java.util.Date;
 
 /**
@@ -12,7 +10,7 @@ public class Evento {
     private int id;
     private String nombre;
     private String descripcion;
-    private Date fecha;
+    private String fecha;
     private Date hora;
     private Lugar lugar;
     private String estatus;
@@ -20,7 +18,7 @@ public class Evento {
     public Evento() {
     }
 
-    public Evento(int id, String nombre, String descripcion, Date fecha, Date hora, Lugar lugar, String estatus) {
+    public Evento(int id, String nombre, String descripcion, String fecha, Date hora, Lugar lugar, String estatus) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -62,11 +60,11 @@ public class Evento {
         this.descripcion = descripcion;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

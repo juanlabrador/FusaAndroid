@@ -13,6 +13,7 @@ import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.adaptadores.FragmentViewPagerAdapter;
 import edu.ucla.fusa.android.fragmentos.InicialContactoFragment;
 import edu.ucla.fusa.android.fragmentos.InicialAspiranteFragment;
+import edu.ucla.fusa.android.fragmentos.InicialNoticiasFragment;
 import edu.ucla.fusa.android.fragmentos.SplashScreenFragment;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import me.relex.circleindicator.CircleIndicator;
@@ -42,6 +43,7 @@ public class VistasInicialesActivity extends FragmentActivity implements ViewPag
         mViewPagerAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), null);
         mViewPagerAdapter.addFragment(SplashScreenFragment.newInstance());
         mViewPagerAdapter.addFragment(InicialAspiranteFragment.newInstance());
+        mViewPagerAdapter.addFragment(InicialNoticiasFragment.newInstance());
         mViewPagerAdapter.addFragment(InicialContactoFragment.newInstance());
         
         mViewPager.setAdapter(mViewPagerAdapter);

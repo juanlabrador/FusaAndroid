@@ -118,7 +118,7 @@ public class ListNoticiasAdapter extends BaseAdapter {
             Log.i(TAG, "¡Layout sin foto!");
             item = arrayItems.get(position);
             mViewHolder.mTitulo.setText(item.getTitulo());
-            mViewHolder.mFecha.setText(dateFormat.format(item.getFecha()));
+            mViewHolder.mFecha.setText(item.getFecha());
             Log.i(TAG, "Tiene foto " + item.getHaveFoto());
             mViewHolder.mExpandible.setText(item.getDescripcion());
             
@@ -140,7 +140,7 @@ public class ListNoticiasAdapter extends BaseAdapter {
             Log.i(TAG, "¡Layout con foto!");
             item = arrayItems.get(position);
             mViewHolderFoto.mTitulo.setText(item.getTitulo());
-            mViewHolderFoto.mFecha.setText(dateFormat.format(item.getFecha()));
+            mViewHolderFoto.mFecha.setText(item.getFecha());
             Log.i(TAG, "Tiene foto " + item.getHaveFoto());
             Picasso.with(context)
                     .load(JSONParser.URL_IMAGEN + item.getId())

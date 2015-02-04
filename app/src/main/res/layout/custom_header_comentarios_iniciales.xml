@@ -52,8 +52,7 @@
                 <ImageView
                     android:layout_width="20.0dip"
                     android:layout_height="20.0dip"
-                    android:layout_margin="2.0dip"
-                    android:src="@drawable/ic_usuario" />
+                    android:layout_margin="2.0dip" />
             </LinearLayout>
         </LinearLayout>
         <ImageView

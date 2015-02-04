@@ -10,11 +10,11 @@
     
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="200dp"
         android:layout_marginTop="22dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:src="@drawable/vista_estudiante"
+        android:src="@drawable/postulate"
         android:scaleType="fitCenter"
         android:contentDescription="@string/descripcion_logotipo" />
     

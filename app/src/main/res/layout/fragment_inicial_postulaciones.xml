@@ -10,8 +10,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include
-        android:id="@+id/toolbar"
-        layout="@layout/custom_toolbar"/>
+        android:id="@+id/toolbar_interna"
+        layout="@layout/custom_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
     
     <ScrollView
         android:id="@+id/scroll_postulaciones"
@@ -106,7 +109,7 @@
         android:id="@+id/cargando_postulaciones"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:cpb_color="@color/blanco"
+        app:cpb_color="@color/azul"
         app:cpb_stroke_width="2dp"
         android:indeterminate="true"/>
 </LinearLayout>

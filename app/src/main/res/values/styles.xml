@@ -17,8 +17,5 @@
         <item name="android:indeterminateDrawable">@drawable/style_rating_bar_small</item>
         <item name="android:progressDrawable">@drawable/style_rating_bar_small</item>
     </style>
-    
-    <style name="RatingBarNormal" parent="@android:style/Widget.Holo.Light.RatingBar">
-    <item name="android:indeterminateDrawable">@drawable/style_rating_bar_normal</item>
-    </style>
+
 </resources>

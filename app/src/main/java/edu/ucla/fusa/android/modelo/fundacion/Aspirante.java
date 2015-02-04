@@ -1,25 +1,25 @@
 package edu.ucla.fusa.android.modelo.fundacion;
 
-import edu.ucla.fusa.android.modelo.academico.Catedra;
 import edu.ucla.fusa.android.modelo.academico.Persona;
+import edu.ucla.fusa.android.modelo.instrumentos.TipoInstrumento;
 
 /**
  * Created by juanlabrador on 11/01/15.
  */
 public class Aspirante extends Persona {
 
-    private Catedra catedra;
+    private TipoInstrumento tipoInstrumento;
     private String instrumentoPropio;
 
     public Aspirante() {
     }
 
-    public Catedra getCatedra() {
-        return catedra;
+    public TipoInstrumento getTipoInstrumento() {
+        return tipoInstrumento;
     }
 
-    public void setCatedra(Catedra catedra) {
-        this.catedra = catedra;
+    public void setTipoInstrumento(TipoInstrumento tipoInstrumento) {
+        this.tipoInstrumento = tipoInstrumento;
     }
 
     public String getInstrumentoPropio() {

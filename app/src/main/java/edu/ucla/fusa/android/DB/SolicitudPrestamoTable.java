@@ -34,8 +34,8 @@ public class SolicitudPrestamoTable {
             + COLUMN_PERIODO + " TEXT, "
             + COLUMN_ESTATUS + " TEXT, "
             + COLUMN_TIPO_INSTRUMENTO + " TEXT, "
-            + COLUMN_FECHA_EMISION + " DATE, "
-            + COLUMN_FECHA_VENCIMIENTO + " DATE, "
+            + COLUMN_FECHA_EMISION + " TEXT, "
+            + COLUMN_FECHA_VENCIMIENTO + " TEXT, "
             + COLUMN_ID_SOLICITUD_PRESTAMO + " INTEGER);";
 
     private DataBaseHelper mHelper;
@@ -44,7 +44,6 @@ public class SolicitudPrestamoTable {
     private SolicitudPrestamo mSolicitudPrestamo;
     private TipoPrestamo mTipoPrestamo;
     private TipoInstrumento mTipoInstrumento;
-    private SimpleDateFormat mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
 
     public SolicitudPrestamoTable(Context context) {
@@ -55,20 +54,20 @@ public class SolicitudPrestamoTable {
         mTipoInstrumento = new TipoInstrumento();
     }
 
-    private ContentValues generarValores (String periodo, String estatus, String tipo, Date fechaEmision, Date fechaVencimiento, int id) {
+    private ContentValues generarValores (String periodo, String estatus, String tipo, String fechaEmision, String fechaVencimiento, int id) {
 
         ContentValues valores = new ContentValues();
         valores.put(COLUMN_ID_SOLICITUD_PRESTAMO, id);
         valores.put(COLUMN_PERIODO, periodo);
         valores.put(COLUMN_ESTATUS, estatus);
         valores.put(COLUMN_TIPO_INSTRUMENTO, tipo);
-        valores.put(COLUMN_FECHA_EMISION, mDateFormat.format(fechaEmision));
-        valores.put(COLUMN_FECHA_VENCIMIENTO, mDateFormat.format(fechaVencimiento));
+        valores.put(COLUMN_FECHA_EMISION, fechaEmision);
+        valores.put(COLUMN_FECHA_VENCIMIENTO, fechaVencimiento);
 
         return valores;
     }
 
-    public void insertData(int id, String periodo, String estatus, String tipo, Date fechaEmision, Date fechaVencimiento) {
+    public void insertData(int id, String periodo, String estatus, String tipo, String fechaEmision, String fechaVencimiento) {
         mDatabase.insert(TABLE_NAME, null, generarValores(periodo, estatus, tipo, fechaEmision, fechaVencimiento, id));
     }
 
@@ -80,24 +79,20 @@ public class SolicitudPrestamoTable {
     }
     
     public SolicitudPrestamo searchSolicitudPrestamo() {
-        try {
-            Log.i(TAG, "¡Buscando la solicitud!");
-            String tiraSQL = "SELECT * FROM " + TABLE_NAME;
-            //db = helper.getReadableDatabase();
-            mCursor = mDatabase.rawQuery(tiraSQL, null);
-            if (mCursor.moveToFirst()) {
-                mSolicitudPrestamo.setId(mCursor.getInt(6));
-                mTipoPrestamo.setDescripcion(mCursor.getString(1));
-                mSolicitudPrestamo.setTipoPrestamo(mTipoPrestamo);
-                mSolicitudPrestamo.setEstatus(mCursor.getString(2));
-                mTipoInstrumento.setDescripcion(mCursor.getString(3));
-                mSolicitudPrestamo.setTipoInstrumento(mTipoInstrumento);
-                mSolicitudPrestamo.setFechaEmision(mDateFormat.parse(mCursor.getString(4)));
-                mSolicitudPrestamo.setFechaVencimiento(mDateFormat.parse(mCursor.getString(5)));
-                return mSolicitudPrestamo;
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
+        Log.i(TAG, "¡Buscando la solicitud!");
+        String tiraSQL = "SELECT * FROM " + TABLE_NAME;
+        //db = helper.getReadableDatabase();
+        mCursor = mDatabase.rawQuery(tiraSQL, null);
+        if (mCursor.moveToFirst()) {
+            mSolicitudPrestamo.setId(mCursor.getInt(6));
+            mTipoPrestamo.setDescripcion(mCursor.getString(1));
+            mSolicitudPrestamo.setTipoPrestamo(mTipoPrestamo);
+            mSolicitudPrestamo.setEstatus(mCursor.getString(2));
+            mTipoInstrumento.setDescripcion(mCursor.getString(3));
+            mSolicitudPrestamo.setTipoInstrumento(mTipoInstrumento);
+            mSolicitudPrestamo.setFechaEmision(mCursor.getString(4));
+            mSolicitudPrestamo.setFechaVencimiento(mCursor.getString(5));
+            return mSolicitudPrestamo;
         }
         return null;
     }

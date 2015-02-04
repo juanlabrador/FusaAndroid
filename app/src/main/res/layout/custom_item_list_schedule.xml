@@ -32,7 +32,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_grupo"
+
                 android:scaleType="fitCenter" />
 
             <TextView
@@ -59,7 +59,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_add"
+
                 android:scaleType="fitCenter" />
 
             <TextView
@@ -86,7 +86,6 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="30.0dip"
-                android:src="@drawable/ic_add"
                 android:scaleType="fitCenter" />
 
             <TextView
@@ -114,7 +113,6 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="30.0dip"
-                android:src="@drawable/ic_add"
                 android:scaleType="fitCenter" />
 
             <TextView

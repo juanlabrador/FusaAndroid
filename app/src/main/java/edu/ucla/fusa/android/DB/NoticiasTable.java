@@ -30,7 +30,7 @@ public class NoticiasTable {
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_TITULO + " TEXT, "
             + COLUMN_DESCRIPCION + " TEXT, "
-            + COLUMN_FECHA_PUBLICACION + " DATE, "
+            + COLUMN_FECHA_PUBLICACION + " TEXT, "
             + COLUMN_IMAGEN + " BLOB, "
             + COLUMN_TIENE_IMAGEN + " INTEGER, "
             + COLUMN_ID_NOTICIA + " INTEGER);";
@@ -47,13 +47,13 @@ public class NoticiasTable {
 
     }
 
-    private ContentValues generarValores (String titulo, String descripcion, Date fecha,
+    private ContentValues generarValores (String titulo, String descripcion, String fecha,
                                           byte[] imagen, long idNoticia, int haveFoto) {
 
         ContentValues valores = new ContentValues();
         valores.put(COLUMN_TITULO, titulo);
         valores.put(COLUMN_DESCRIPCION, descripcion);
-        valores.put(COLUMN_FECHA_PUBLICACION, mDateFormat.format(fecha));
+        valores.put(COLUMN_FECHA_PUBLICACION, fecha);
         valores.put(COLUMN_IMAGEN, imagen);
         valores.put(COLUMN_ID_NOTICIA, idNoticia);
         valores.put(COLUMN_TIENE_IMAGEN, haveFoto);
@@ -61,7 +61,7 @@ public class NoticiasTable {
         return valores;
     }
 
-    public void insertData(String titulo, String descripcion, Date fecha,
+    public void insertData(String titulo, String descripcion, String fecha,
                          byte[] imagen, long idNoticia, int haveFoto) {
         mDataBase.insert(TABLE_NAME, null, generarValores(titulo, descripcion, fecha, imagen, idNoticia, haveFoto));
     }
@@ -72,18 +72,14 @@ public class NoticiasTable {
         mCursor = mDataBase.query(TABLE_NAME, columnas, null, null, null, null, COLUMN_ID + " DESC", "20");
         mNoticias.clear();
         while (mCursor.moveToNext()) {
-            try {
-                mNoticias.add(new ItemListNoticia(
-                        mCursor.getInt(6), //ID
-                        mCursor.getString(1), //Titulo
-                        mDateFormat.parse(mCursor.getString(3)), //Fecha
-                        mCursor.getBlob(4), //Imagen
-                        mCursor.getString(2), //Descripción
-                        mCursor.getInt(5) // Tiene o no foto
-                ));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            mNoticias.add(new ItemListNoticia(
+                    mCursor.getInt(6), //ID
+                    mCursor.getString(1), //Titulo
+                    mCursor.getString(3), //Fecha
+                    mCursor.getBlob(4), //Imagen
+                    mCursor.getString(2), //Descripción
+                    mCursor.getInt(5) // Tiene o no foto
+            ));
         }
         return mNoticias;
     }
@@ -100,18 +96,14 @@ public class NoticiasTable {
                 COLUMN_FECHA_PUBLICACION, COLUMN_IMAGEN, COLUMN_TIENE_IMAGEN, COLUMN_ID_NOTICIA};
         mCursor = mDataBase.query(TABLE_NAME, columnas, COLUMN_ID_NOTICIA + "<?", condicion, null, null, COLUMN_ID + " DESC", "20");
         while (mCursor.moveToNext()) {
-            try {
-                mNoticias.add(new ItemListNoticia(
-                        mCursor.getInt(6), //ID
-                        mCursor.getString(1), //Titulo
-                        mDateFormat.parse(mCursor.getString(3)), //Fecha
-                        mCursor.getBlob(4), //Imagen
-                        mCursor.getString(2), //Descripción
-                        mCursor.getInt(5)
-                ));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            mNoticias.add(new ItemListNoticia(
+                    mCursor.getInt(6), //ID
+                    mCursor.getString(1), //Titulo
+                    mCursor.getString(3), //Fecha
+                    mCursor.getBlob(4), //Imagen
+                    mCursor.getString(2), //Descripción
+                    mCursor.getInt(5)
+            ));
         }
 
         return mNoticias;

@@ -18,6 +18,21 @@
     <string name="cerrar_sesion">Cerrando sesión...</string>
     <string name="foto_actualizada">Tu foto ha sido actualizada.</string>
     
+    <!-- Evaluacion agrupacion -->
+    <string name="agrupacion_evaluacion_titulo">OBJETIVOS</string>
+    <string name="agrupacion_evaluacion_tareas">TAREAS</string>
+    <string name="progreso_nivel_1">Debes empezar a prácticar.</string>
+    <string name="progreso_nivel_2">Estas progresando, sigue así.</string>
+    <string name="progreso_nivel_3">Vas muy bien, no detengas el ritmo.</string>
+    <string name="progreso_nivel_4">Sigue así, la práctica hace al maestro.</string>
+    <string name="progreso_nivel_5">¡Bravo! Tu progreso ha sido excelente.</string>
+    <string name="error_evaluaciones">¡Aún no se han procesado tareas para evaluar!</string>
+    
+    <!-- Horario Agrupacion -->
+    <string name="agrupacion_horario_label">Horario</string>
+    <string name="agrupacion_horario_vacio">No participa en ninguna agrupación</string>
+    <string name="agrupacion_horario_dia">Día</string>
+    <string name="agrupacion_horario_notas">Ver mis notas</string>
     
     <!-- Otras opciones -->
     <string name="drawer_cerrar_sesión">Cerrar sesión</string>
@@ -33,6 +48,8 @@
     
     <string name="noticias_titulo_barra">Ultimas Noticias</string>
     <string name="noticias_fecha_publicacion">Publicado el día</string>
+    <string name="noticias_inicial">¿Quieres conocer los ultimos acontecimientos?\nMantente al día con las noticias\n más reciente de la fundación.</string>
+    <string name="noticias_boton">NOTICIAS</string>
     
     <!-- Evento -->
     <string name="evento_nombre">Nombre</string>
@@ -101,6 +118,7 @@
     <string name="mensaje_cargando">Un momento...</string>
     <string name="mensaje_comprobar_conexion">Comprueba tu conexión y reinténtalo</string>
     <string name="error_enviar_correo">¡No posee un cliente de correo instalado!</string>
+    <string name="error_enviar_sms">¡Hubo un error al enviar el mensaje, intente más tarde!</string>
     <string name="error_llamada">¡Llamada fallida!</string>
     <string name="mensaje_error_datos_no_disponibles">No hay datos disponibles</string>
     <string name="mensaje_cedula_invalido">Ingrese una cédula válida.</string>
@@ -138,7 +156,7 @@
     <string name="contraseña_requisitos_numeros">Al menos un digito entre 0 - 9.</string>
     <string name="contraseña_requisito_caracter_especial">Al menos un caracter especial (@#$%).</string>
     <string name="contraseña_antigua">Actual contraseña</string>
-    <string name="contraseña_boton_exito">Cambio exitoso</string>
+    <string name="contraseña_exito">Contraseña actualizada.</string>
     <string name="contraseña_boton_error">¡Ups! Error</string>
     <string name="contraseña_boton">Cambiar contraseña</string>
     <string name="contraseña_nueva">Nueva contraseña</string>
@@ -150,6 +168,7 @@
     
     <!-- Postulación de un aspirante -->
     <string name="postularse_enviar">Enviando tu postulación</string>
+    <string name="postularse_enviado">Tu postulación se ha enviado, pronto se hará su revisión.</string>
     <string name="postularse_apellido">Apellido</string>
     <string name="postularse_nombre">Nombre</string>
     <string name="postularse_cedula">Cédula de identidad</string>
@@ -157,11 +176,12 @@
     <string name="postularse_catedra">¿Qué desea aprender?</string>
     <string name="postularse_telefono">Teléfono </string>
     <string name="postularse_titulo_barra">Postulate</string>
+    <string name="postularse_titulo_barra_2">Postula a un amigo</string>
     <string name="postularse_correo">Correo electrónico</string>
     <string name="postularse_fecha_nacimiento">Fecha de nacimiento</string>
     <string name="postularse_boton">POSTULATE</string>
     <string name="postularse_instrumento">¿Posee instrumento propio?</string>
-    <string name="postulacion_mensaje">Bebés, niños y jovenes \ntienen la oportunidad de \ndesenvolverse en el área musical, \nsi deseas participar, \npostulate con nosotros.</string>
+    <string name="postulacion_mensaje">¿No eres parte de nuestro grupo?\nEl sistema prepará a los niños para que sean hombres y mujeres existosos, productivos y felices.\nEnvianos tu postulación.</string>
     <string name="postulacion_sexo_masculino">Masculino</string>
     <string name="postulacion_sexo_femenino">Femenino</string>
     <string name="postulacion_cabecera_datos">DATOS BÁSICOS</string>

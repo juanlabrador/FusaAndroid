@@ -1,24 +1,22 @@
 package edu.ucla.fusa.android.modelo.herramientas;
 
-import java.util.Date;
-
 public class ItemListNoticia {
 
-    public String descripcion;
-    public Date fecha;
     public long id;
-    public byte[] imagen;
     public String titulo;
+    public String fecha;
+    public byte[] imagen;
+    public String descripcion;
     public int haveFoto;
 
     public ItemListNoticia() {}
 
-    public ItemListNoticia(long id, String titulo, Date fecha, byte[] imagen, String descripcion, int haveFoto) {
-        this.descripcion = descripcion;
-        this.fecha = fecha;
+    public ItemListNoticia(long id, String titulo, String fecha, byte[] imagen, String descripcion, int haveFoto) {
         this.id = id;
-        this.imagen = imagen;
         this.titulo = titulo;
+        this.fecha = fecha;
+        this.imagen = imagen;
+        this.descripcion = descripcion;
         this.haveFoto = haveFoto;
     }
 
@@ -32,10 +30,6 @@ public class ItemListNoticia {
 
     public String getDescripcion() {
         return this.descripcion;
-    }
-
-    public Date getFecha() {
-        return this.fecha;
     }
 
     public long getId() {
@@ -54,7 +48,11 @@ public class ItemListNoticia {
         this.descripcion = descripcion;
     }
 
-    public void setFecha(Date fecha) {
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

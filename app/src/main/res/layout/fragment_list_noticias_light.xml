@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:background="@color/gris_fondo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <include
+        layout="@layout/custom_toolbar"
+        android:id="@+id/toolbar"/>
+
+    <ListView
+        android:id="@android:id/list"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"/>
+
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        android:layout_gravity="center"
+        android:id="@+id/pb_cargando"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:cpb_color="@color/azul"
+        app:cpb_stroke_width="2dp"
+        android:indeterminate="true"/>
+
+</LinearLayout>

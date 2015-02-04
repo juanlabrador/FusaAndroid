@@ -1,30 +1,35 @@
 package edu.ucla.fusa.android.modelo.seguridad;
 
-import java.util.Calendar;
-
 /**
  * Created by juanlabrador on 17/11/14.
  */
 public class Usuario {
 
-    private transient int id;
     private String username;
     private String password;
+    private String nombre;
+    private String apellido;
     private byte[] foto;
     private TipoUsuario tipoUsuario;
-    private String estatus;
-    private Calendar fechaCreacion;
-    private Calendar ultimoAcceso;
 
     public Usuario() {}
 
-    public int getId() {
-        return id;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
 
     public String getUsername() {
         return username;
@@ -58,27 +63,4 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public String getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(String estado) {
-        this.estatus = estado;
-    }
-
-    public Calendar getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(Calendar fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public Calendar getUltimoAcceso() {
-        return ultimoAcceso;
-    }
-
-    public void setUltimoAcceso(Calendar ultimoAcceso) {
-        this.ultimoAcceso = ultimoAcceso;
-    }
 }

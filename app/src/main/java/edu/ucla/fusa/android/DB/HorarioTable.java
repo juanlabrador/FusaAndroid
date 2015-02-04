@@ -44,8 +44,6 @@ public class HorarioTable {
     public HorarioTable(Context context) {
         mHelper = DataBaseHelper.getInstance(context);
         mDatabase = mHelper.getWritableDatabase();
-        mHorario = new Horario();
-        mDia = new Dia();
         mDiaTable = new DiaTable(context);
     }
 
@@ -67,12 +65,16 @@ public class HorarioTable {
     
     public Horario searchHorario(int id) {
         Log.i(TAG, "¡Buscando el horario!");
+        Log.i(TAG, "ID Horario Area: " + id);
         String[] condicion = new String[]{String.valueOf(id)};
         String[] columnas = new String[]{COLUMN_ID_HORARIO, COLUMN_DIA, COLUMN_HORA_INICIAL, COLUMN_HORA_FINAL, COLUMN_ID_HORARIO_AREA};
         mCursor = mDatabase.query(TABLE_NAME, columnas, COLUMN_ID_HORARIO_AREA + "=?", condicion, null, null, null, null);
         if (mCursor.moveToFirst()) {
+            mHorario = new Horario();
+            mDia = null;
             mHorario.setHorario_id(mCursor.getInt(0));
             mDia = mDiaTable.search(mCursor.getInt(1));
+            Log.i(TAG, "Dia en Horario: " + mDia.getDescripcion());
             mHorario.setDia(mDia);
             mHorario.setHoraInicio(mCursor.getString(2));
             mHorario.setHoraFin(mCursor.getString(3));

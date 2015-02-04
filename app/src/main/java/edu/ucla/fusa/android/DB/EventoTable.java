@@ -33,8 +33,8 @@ public class EventoTable {
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_NOMBRE + " TEXT, "
-            + COLUMN_FECHA + " DATE, "
-            + COLUMN_HORA + " DATE, "
+            + COLUMN_FECHA + " TEXT, "
+            + COLUMN_HORA + " TEXT, "
             + COLUMN_DESCRIPCION + " TEXT, "
             + COLUMN_ID_EVENTO + " INTEGER, "
             + COLUMN_ID_LUGAR + " INTEGER);";
@@ -46,7 +46,7 @@ public class EventoTable {
     private SimpleDateFormat mTimeFormat;
     private LugarTable mLugarTable;
     private ArrayList<Evento> mEventos;
-    private Calendar mMesActual;
+    private Calendar mMesAnterior;
     private Evento mEvento;
     private Lugar mLugar;
     
@@ -55,24 +55,24 @@ public class EventoTable {
         mHelper = DataBaseHelper.getInstance(context);
         mDatabase = mHelper.getWritableDatabase();
         mLugarTable = new LugarTable(context);
-        mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        mDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         mTimeFormat = new SimpleDateFormat("hh:mm aa");
         mEventos = new ArrayList<>();
-        mMesActual = Calendar.getInstance();
-        mMesActual.set(Calendar.DAY_OF_MONTH, 1);
+        mMesAnterior = Calendar.getInstance();
+        mMesAnterior.set(Calendar.DAY_OF_MONTH, 1);
+        mMesAnterior.set(Calendar.MONTH, mMesAnterior.get(Calendar.MONTH) - 1);
         mEvento = new Evento();
         mLugar = new Lugar();
     }
 
     private ContentValues generarValores (String nombre, String descripcion,
-                                          Date fecha, Date hora, int evento, int lugar) {
+                                          String fecha, Date hora, int evento, int lugar) {
 
         ContentValues valores = new ContentValues();
         valores.put(COLUMN_NOMBRE, nombre);
         valores.put(COLUMN_DESCRIPCION, descripcion);
-        valores.put(COLUMN_FECHA, mDateFormat.format(fecha));
+        valores.put(COLUMN_FECHA, fecha);
         valores.put(COLUMN_HORA, mTimeFormat.format(hora));
-        //valores.put(COLUMN_HORA, "21:00");
         valores.put(COLUMN_ID_EVENTO, evento);
         valores.put(COLUMN_ID_LUGAR, lugar);
 
@@ -80,7 +80,7 @@ public class EventoTable {
     }
 
     public void insertData(String nombre, String descripcion,
-                           Date fecha, Date hora, int evento, int idLugar) {
+                           String fecha, Date hora, int evento, int idLugar) {
         mDatabase.insert(TABLE_NAME, null, generarValores(nombre, descripcion, fecha, hora, evento, idLugar));
     }
     
@@ -95,13 +95,14 @@ public class EventoTable {
             Log.i(TAG, mCursor.getString(1));
             try {
                 mViejaFecha = mDateFormat.parse(mCursor.getString(2));
-                if (mViejaFecha.after(mMesActual.getTime())) {  // Si la fecha del evento no expiro
+                Log.i(TAG, "Fecha Evento: " + mCursor.getString(2) + " Fecha mes: " + mDateFormat.format(mMesAnterior.getTime()));
+                if (mViejaFecha.after(mMesAnterior.getTime())) {  // Si la fecha del evento no expiro
                     Log.i(TAG, "¡Evento aún disponible!");
                     mEventos.add(new Evento(
                             mCursor.getInt(5), // ID
                             mCursor.getString(1), // Nombre
                             mCursor.getString(4), // Descrpcion
-                            mDateFormat.parse(mCursor.getString(2)), // Fecha
+                            mCursor.getString(2), // Fecha
                             mTimeFormat.parse(mCursor.getString(3)), // Hora
                             mLugarTable.searchLugar(mCursor.getInt(6)), //Lugar
                             "activo"
@@ -122,23 +123,22 @@ public class EventoTable {
         String[] columnas = new String[]{COLUMN_NOMBRE, COLUMN_DESCRIPCION, COLUMN_FECHA, COLUMN_HORA, COLUMN_ID_EVENTO, COLUMN_ID_LUGAR};
         mCursor = mDatabase.query(TABLE_NAME, columnas, COLUMN_ID_EVENTO + "=?", new String[] {String.valueOf(id)}, null, null, null);
         while (mCursor.moveToFirst()){
+            mEvento.setId(mCursor.getInt(4));
+            mEvento.setNombre(mCursor.getString(0));
+            mEvento.setDescripcion(mCursor.getString(1));
+            mEvento.setFecha(mCursor.getString(2));
             try {
-                mEvento.setId(mCursor.getInt(4));
-                mEvento.setNombre(mCursor.getString(0));
-                mEvento.setDescripcion(mCursor.getString(1));
-                mEvento.setFecha(mDateFormat.parse(mCursor.getString(2)));
                 mEvento.setHora(mTimeFormat.parse(mCursor.getString(3)));
-                mLugar = mLugarTable.searchLugar(mCursor.getInt(5));
-                if (mLugar != null) {
-                    mEvento.setLugar(mLugar);
-                }
-                
-                return mEvento;
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            mLugar = mLugarTable.searchLugar(mCursor.getInt(5));
+            if (mLugar != null) {
+                mEvento.setLugar(mLugar);
+            }
+
+            return mEvento;
         }
-        
         return null;
     }
     

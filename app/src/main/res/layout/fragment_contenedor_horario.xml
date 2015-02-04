@@ -9,7 +9,7 @@
 
 
     <com.astuetz.PagerSlidingTabStrip
-        android:id="@+id/tabs_dias"
+        android:id="@+id/tabs_horarios"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:background="@color/azul"
@@ -17,22 +17,12 @@
         app:pstsIndicatorColor="@color/blanco"
         app:pstsTextStyle="normal"
         app:pstsTextSelectedStyle="normal"
-        app:pstsIndicatorHeight="2dp"
-        android:visibility="gone"/>
+        app:pstsIndicatorHeight="2dp"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager_horario"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:visibility="gone"/>
+        android:layout_weight="1"/>
 
-    <fr.castorflex.android.circularprogressbar.CircularProgressBar
-        android:layout_gravity="center"
-        android:id="@+id/pb_cargando_horario"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:cpb_color="@color/blanco"
-        app:cpb_stroke_width="2dp"
-        android:indeterminate="true"/>
 </LinearLayout>

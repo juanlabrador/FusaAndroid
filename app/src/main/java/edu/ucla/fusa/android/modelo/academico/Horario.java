@@ -1,7 +1,5 @@
 package edu.ucla.fusa.android.modelo.academico;
 
-import java.util.Calendar;
-import java.util.concurrent.CancellationException;
 
 /**
  * Created by juanlabrador on 25/11/14.

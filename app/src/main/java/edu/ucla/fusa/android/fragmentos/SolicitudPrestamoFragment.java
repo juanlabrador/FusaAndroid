@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
@@ -34,6 +35,7 @@ import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.VistasPrincipalesActivity;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
+import edu.ucla.fusa.android.modelo.academico.EstudiantePorAgrupacion;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 import edu.ucla.fusa.android.modelo.instrumentos.SolicitudPrestamo;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoInstrumento;
@@ -44,18 +46,16 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
 
     private static String ESTATUS = "en proceso";
     private static String TAG = "DrawerSolicitudPrestamoFragment";
-    private static VistasPrincipalesActivity mActivity;
+    private VistasPrincipalesActivity mActivity;
     private GroupContainer mGrupoPrestamo;
     private GroupContainer mGrupoFechaEmision;
     private GroupContainer mGrupoFechaVencimiento;
     private GroupContainer mGrupoInstrumentos;
-    private View mView;
     private JSONParser jsonParser = new JSONParser();
     private SolicitudPrestamo mSolicitudPrestamo;
-    private Usuario mUsuario;
-    private UserTable mUserTable;
     private Estudiante mEstudiante;
     private EstudianteTable mEstudianteTable;
+    private EstudiantePorAgrupacion mEstudiantePorAgrupacion;
     private Toolbar mToolbar;
     private TipoPrestamoTable mTipoPrestamoTable;
     private ArrayList<TipoPrestamo> mTiposPrestamos;
@@ -69,11 +69,11 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
     private SliderContainer mContainerFechaEmision;
     private SliderContainer mContainerFechaVencimiento;
     private Calendar mFechaInicial;
+    private SimpleDateFormat mDateFormat;
 
-    public static SolicitudPrestamoFragment newInstance(VistasPrincipalesActivity activity) {
+    public static SolicitudPrestamoFragment newInstance() {
         SolicitudPrestamoFragment fragment = new SolicitudPrestamoFragment();
         fragment.setRetainInstance(true);
-        mActivity = activity;
         return fragment;
     }
 
@@ -85,59 +85,66 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
         mToolbar.getMenu().clear();
         mToolbar.inflateMenu(R.menu.action_enviar);
         mToolbar.setOnMenuItemClickListener(this);
+        
+        mActivity = (VistasPrincipalesActivity) getActivity();
+        mEstudianteTable = new EstudianteTable(getActivity());
+        mTipoPrestamoTable = new TipoPrestamoTable(getActivity());
+        mTipoInstrumentoTable = new TipoInstrumentoTable(getActivity());
+        mSolicitudPrestamoTable = new SolicitudPrestamoTable(getActivity());
+        mEstudiantePorAgrupacion = new EstudiantePorAgrupacion();
+        
+        mDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle arguments) {
         super.onCreateView(inflater, container, arguments);
+        return inflater.inflate(R.layout.fragment_drawer_solicitud_prestamo, container, false);
+    }
 
-        mEstudianteTable = new EstudianteTable(getActivity());
-        mTipoPrestamoTable = new TipoPrestamoTable(getActivity());
-        mTipoInstrumentoTable = new TipoInstrumentoTable(getActivity());
-        mUserTable = new UserTable(getActivity());
-        mSolicitudPrestamoTable = new SolicitudPrestamoTable(getActivity());
-
-        mView = inflater.inflate(R.layout.fragment_drawer_solicitud_prestamo, container, false);
-
-        mGrupoPrestamo = (GroupContainer) mView.findViewById(R.id.tipos_prestamos);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mGrupoPrestamo = (GroupContainer) view.findViewById(R.id.tipos_prestamos);
         mTiposPrestamos = mTipoPrestamoTable.searchTiposPrestamos();
         for (int i = 0; i < mTiposPrestamos.size(); i++) {
             mCustomMenuPrestamo.add(mTiposPrestamos.get(i).getDescripcion());
         }
         mGrupoPrestamo.addPopupLayout(R.string.prestamo_periodo, mCustomMenuPrestamo);
-        
-        mGrupoInstrumentos = (GroupContainer) mView.findViewById(R.id.instrumentos_prestamo);
+
+        mGrupoInstrumentos = (GroupContainer) view.findViewById(R.id.instrumentos_prestamo);
         mTiposInstrumentos = mTipoInstrumentoTable.searchTiposInstrumentos();
         for (int i = 0; i < mTiposInstrumentos.size(); i++) {
             mCustomMenuInstrumento.add(mTiposInstrumentos.get(i).getDescripcion());
         }
         mGrupoInstrumentos.addPopupLayout(R.string.prestamo_tipo_instrumento, mCustomMenuInstrumento);
 
-        mGrupoFechaEmision = (GroupContainer) mView.findViewById(R.id.fecha_emision_titulo);
+        mGrupoFechaEmision = (GroupContainer) view.findViewById(R.id.fecha_emision_titulo);
         mGrupoFechaEmision.addTextLayout(R.string.prestamo_fecha_emision);
 
-        mGrupoFechaVencimiento = (GroupContainer) mView.findViewById(R.id.fecha_vencimiento_titulo);
+        mGrupoFechaVencimiento = (GroupContainer) view.findViewById(R.id.fecha_vencimiento_titulo);
         mGrupoFechaVencimiento.addTextLayout(R.string.prestamo_fecha_vencimiento);
 
-        mContainerFechaEmision = (SliderContainer) mView.findViewById(R.id.fecha_emision);
+        mContainerFechaEmision = (SliderContainer) view.findViewById(R.id.fecha_emision);
         mContainerFechaEmision.setOnTimeChangeListener(this);
         mFechaInicial = Calendar.getInstance();
         mContainerFechaEmision.setMinTime(mFechaInicial);
         mContainerFechaEmision.setTime(mFechaInicial);
 
-        mContainerFechaVencimiento = (SliderContainer) mView.findViewById(R.id.fecha_vencimiento);
+        mContainerFechaVencimiento = (SliderContainer) view.findViewById(R.id.fecha_vencimiento);
         mContainerFechaVencimiento.setOnTimeChangeListener(this);
         mFechaInicial = Calendar.getInstance();
         mContainerFechaVencimiento.setMinTime(mFechaInicial);
         mContainerFechaVencimiento.setTime(mFechaInicial);
-        return mView;
+
     }
-    
-    private void armarSolicitud(Date mFechaEmison, Date mFechaVencimiento) {
+
+    private void armarSolicitud(Date mFechaEmision, Date mFechaVencimiento) {
         mSolicitudPrestamo = new SolicitudPrestamo();
         mSolicitudPrestamo.setEstatus(ESTATUS);
-        mSolicitudPrestamo.setFechaEmision(mFechaEmison);
-        mSolicitudPrestamo.setFechaVencimiento(mFechaVencimiento);
-        mSolicitudPrestamo.setEstudiante(mEstudiante);
+        mSolicitudPrestamo.setFechaEmision(mDateFormat.format(mFechaEmision));
+        mSolicitudPrestamo.setFechaVencimiento(mDateFormat.format(mFechaVencimiento));
+        mEstudiantePorAgrupacion.setEstudiante(mEstudiante);
+        mSolicitudPrestamo.setEstudiantePorAgrupacion(mEstudiantePorAgrupacion);
         mSolicitudPrestamo.setTipoPrestamo(mTiposPrestamos.get(mGrupoPrestamo.getPopupLayoutAt(0).getItemPosition()));
         mSolicitudPrestamo.setTipoInstrumento(mTiposInstrumentos.get(mGrupoInstrumentos.getPopupLayoutAt(0).getItemPosition()));
         new UploadSolicitudPrestamo().execute(mSolicitudPrestamo);
@@ -148,8 +155,6 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
         Date mFechaEmision = mContainerFechaEmision.getTime().getTime();
         Date mFechaVencimiento = mContainerFechaVencimiento.getTime().getTime();
         mEstudiante = mEstudianteTable.searchUser();
-        mUsuario = mUserTable.searchUser();
-        mEstudiante.setUsuario(mUsuario);
         long mTiempo = mFechaVencimiento.getTime() - mFechaEmision.getTime();
         long dias = mTiempo / (1000 * 60 *  60 * 24);
         Log.i(TAG, "Dias: " + dias);
@@ -302,7 +307,7 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
                                     .type(SnackbarType.MULTI_LINE)
                                     .text(R.string.mensaje_error_excepcion));*/
                     Log.i(TAG, "Cantidad de llamados: " + contador++);
-                    new UploadSolicitudPrestamo().execute(mSolicitudPrestamo);
+                    //new UploadSolicitudPrestamo().execute(mSolicitudPrestamo);
                     break;
                 case -1:
                     Log.i(TAG, "¡Error con el servidor!");

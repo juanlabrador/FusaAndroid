@@ -1,32 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:orientation="vertical"
-    android:background="@color/gris_fondo"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <com.yalantis.pulltorefresh.library.PullToRefreshView
-        android:id="@+id/pull_to_refresh"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <ListView
-            android:id="@android:id/list"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"/>
-
-    </com.yalantis.pulltorefresh.library.PullToRefreshView>
+        android:id="@android:id/list"
+        android:dividerHeight="@null"
+        android:divider="@null"
+        android:visibility="gone"/>
 
     <fr.castorflex.android.circularprogressbar.CircularProgressBar
         android:layout_gravity="center"
-        android:id="@+id/pb_cargando_noticias"
+        android:id="@+id/pb_cargando_horario_clases"
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:cpb_color="@color/azul"
@@ -35,21 +25,22 @@
 
     <TextView
         android:textSize="18sp"
-        android:id="@+id/noticias_vacias"
+        android:id="@+id/horario_clases_vacio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/gris_oscuro"
         android:gravity="center"
         android:layout_marginBottom="8dp"
-        android:text="@string/noticias_vacia"
+        android:text="@string/mensaje_reintentar"
         android:visibility="gone"/>
 
     <at.markushi.ui.CircleButton
-        android:id="@+id/button_network_noticias"
+        android:id="@+id/button_network_clases"
         android:layout_width="64dip"
         android:layout_height="64dip"
         android:src="@drawable/ic_sin_conexion"
         app:cb_color="@color/gris_oscuro"
         app:cb_pressedRingWidth="8dip"
         android:visibility="gone"/>
+
 </LinearLayout>

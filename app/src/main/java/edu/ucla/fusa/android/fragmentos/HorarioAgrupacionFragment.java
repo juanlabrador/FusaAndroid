@@ -26,6 +26,7 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+import at.markushi.ui.CircleButton;
 import edu.ucla.fusa.android.DB.AgrupacionTable;
 import edu.ucla.fusa.android.DB.EstudianteTable;
 import edu.ucla.fusa.android.R;
@@ -57,6 +58,7 @@ public class HorarioAgrupacionFragment extends Fragment implements View.OnClickL
     private GroupContainer mVerNotas;
     private HorarioAgrupacionAdapter mHorarioAdapter;
     private Toolbar mToolbar;
+    private CircleButton mButtonNetwork;
     
     // Evaluaciones
     private LinearLayout mContenedorEvaluaciones;
@@ -77,6 +79,8 @@ public class HorarioAgrupacionFragment extends Fragment implements View.OnClickL
     private View mViewDialog;
     private int mTotalObjetivos;
     private int mObjetivosAprobados;
+    private LoadingHorario mServiceHorario;
+    private Bundle mCache;
 
     public static HorarioAgrupacionFragment newInstance(){
         HorarioAgrupacionFragment fragment = new HorarioAgrupacionFragment();
@@ -105,7 +109,19 @@ public class HorarioAgrupacionFragment extends Fragment implements View.OnClickL
         mVerNotas = (GroupContainer) view.findViewById(R.id.ver_notas_agrupacion);
         mVerNotas.addSimpleMultiTextLayout(R.string.agrupacion_horario_notas);
         mVerNotas.getSimpleMultiTextLayoutAt(0).setOnClickListener(this);
-        new LoadingHorario().execute();
+        mButtonNetwork = (CircleButton) view.findViewById(R.id.button_network);
+        mButtonNetwork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mProgress.setVisibility(View.VISIBLE);
+                mButtonNetwork.setVisibility(View.GONE);
+                mEmpty.setVisibility(View.GONE);
+                mServiceHorario = new LoadingHorario();
+                mServiceHorario.execute(mEstudiante.getId());
+            }
+        });
+        mServiceHorario = new LoadingHorario();
+        mServiceHorario.execute(mEstudiante.getId());
     }
 
     @Override
@@ -120,17 +136,61 @@ public class HorarioAgrupacionFragment extends Fragment implements View.OnClickL
         mAgrupacionTable = new AgrupacionTable(getActivity());
         mJSONParser = new JSONParser();
         mEstudianteTable = new EstudianteTable(getActivity());
+        mEstudiante = mEstudianteTable.searchUser();
     }
 
-    private class LoadingHorario extends AsyncTask<Void, Void, Integer> {
+    @Override
+    public void onPause() {
+        super.onPause();
+        mCache = new Bundle();
+        mCache.putParcelable("agrupacion", mAgrupacion);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mCache = new Bundle();
+        mCache.putParcelable("agrupacion", mAgrupacion);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mServiceHorario != null) {
+            if (!mServiceHorario.isCancelled()) {
+                mServiceHorario.cancel(true);
+            }
+        }
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (mCache != null) {
+            mAgrupacion = mCache.getParcelable("agrupacion");
+            armarAgrupacion(mAgrupacion);
+            mContenedorHorario.setVisibility(View.VISIBLE);
+            mProgress.setVisibility(View.GONE);
+            mEmpty.setVisibility(View.GONE);
+        } else {
+            mServiceHorario = new LoadingHorario();
+            mServiceHorario.execute(mEstudiante.getId());
+        }
+    }
+
+    private class LoadingHorario extends AsyncTask<Integer, Void, Integer> {
 
         @Override
-        protected Integer doInBackground(Void... voids) {
-            mAgrupacion = mAgrupacionTable.searchAgrupacion();
+        protected Integer doInBackground(Integer... integers) {
+            mAgrupacion = mJSONParser.serviceAgrupacionEstudiante(integers[0]);
             if (mAgrupacion != null) {
-                return 100;
+                if (mAgrupacion.getId() != -1) {
+                    return 100;
+                } else {
+                    return -1;
+                }
             } else {
-                return -1;
+                return 0;
             }
         }
 
@@ -142,78 +202,93 @@ public class HorarioAgrupacionFragment extends Fragment implements View.OnClickL
                     Gson gson = new Gson();
                     String json = gson.toJson(mAgrupacion);
                     Log.i(TAG, json);
-                    mNombreAgrupacion.setText(mAgrupacion.getDescripcion().toUpperCase());
-                    mTipoAgrupacion.setText(mAgrupacion.getTipoAgrupacion().getDescripcion().toUpperCase());
-                    mNombreInstructor.setText("INSTRUCTOR " + mAgrupacion.getInstructor().getNombre().toUpperCase() + " " + mAgrupacion.getInstructor().getApellido().toUpperCase());
-                    mDatosInstructor.addSimpleTwoButtonLayout(mAgrupacion.getInstructor().getTelefonoMovil(), R.drawable.ic_llamada, R.drawable.ic_sms);
-                    mDatosInstructor.addSimpleOneButtonLayout(mAgrupacion.getInstructor().getCorreo(), R.drawable.ic_correo);
-                    mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getOneButton().setOnClickListener(HorarioAgrupacionFragment.this);
-                    mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getTwoButton().setOnClickListener(HorarioAgrupacionFragment.this);
-                    mDatosInstructor.getSimpleOneButtonLayoutAt(1).getButton().setOnClickListener(HorarioAgrupacionFragment.this);
-                    for (int i = 0; i < mAgrupacion.getHorarioArea().size(); i++) {
-                        Log.i(TAG, mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDescripcion());
-                    }
-                    mHorarioAdapter = new HorarioAgrupacionAdapter(getActivity(), mAgrupacion.getHorarioArea());
-                    mHorarioAgrupaciones.setAdapter(mHorarioAdapter);
+                    armarAgrupacion(mAgrupacion);
                     mContenedorHorario.setVisibility(View.VISIBLE);
                     mProgress.setVisibility(View.GONE);
+                    mEmpty.setVisibility(View.GONE);
+                    break;
+                case 0:
+                    mProgress.setVisibility(View.GONE);
+                    mEmpty.setText(R.string.mensaje_reintentar);
+                    mButtonNetwork.setVisibility(View.VISIBLE);
+                    mEmpty.setVisibility(View.VISIBLE);
                     break;
                 case -1:
                     mProgress.setVisibility(View.GONE);
+                    mEmpty.setText(R.string.agrupacion_horario_vacio);
                     mEmpty.setVisibility(View.VISIBLE);
                     break;
             }
         }
     }
 
+    @Override
     public void onClick(View view) {
-        if (view == mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getOneButton()) {
-            try {
-                startActivity(new Intent("android.intent.action.CALL",
-                        Uri.parse("tel:" + mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getContent())));
-            } catch (Exception e) {
-                SnackbarManager.show(
-                        Snackbar.with(getActivity())
-                                .text(R.string.error_llamada));
-                e.printStackTrace();
-            }
-        } else if (view == mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getTwoButton()) {
-            try {
-                Intent smsIntent = new Intent(Intent.ACTION_VIEW);
-                smsIntent.setData(Uri.parse("smsto:"));
-                smsIntent.setType("vnd.android-dir/mms-sms");
-                smsIntent.putExtra("address"  , mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getContent());
-                smsIntent.putExtra("sms_body"  , "");
-                startActivity(smsIntent);
-            } catch (Exception e) {
-                SnackbarManager.show(
-                        Snackbar.with(getActivity())
-                                .type(SnackbarType.MULTI_LINE)
-                                .text(R.string.error_enviar_sms));
-                e.printStackTrace();
-            }
-        } else if (view == mDatosInstructor.getSimpleOneButtonLayoutAt(1).getButton()) {
-            try {
-                Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
-                String[] emails = new String[]{mDatosInstructor.getSimpleOneButtonLayoutAt(1).getContent()};
-                startActivity(Intent.createChooser(
-                        intent.putExtra(Intent.EXTRA_EMAIL, emails)
-                                .putExtra(Intent.EXTRA_SUBJECT, "").setType("message/rfc822"),
-                        getResources().getString(R.string.mensaje_elegir_cliente_correo)));
-            } catch (ActivityNotFoundException e) {
-                SnackbarManager.show(
-                        Snackbar.with(getActivity())
-                                .type(SnackbarType.MULTI_LINE)
-                                .text(R.string.error_enviar_correo));
-                e.printStackTrace();
-            }
-        } else if (view == mVerNotas.getSimpleMultiTextLayoutAt(0)) {
-            armarListaEvaluaciones();
+        if (mDatosInstructor != null) {
+            if (view == mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getOneButton()) {
+                try {
+                    startActivity(new Intent("android.intent.action.CALL",
+                            Uri.parse("tel:" + mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getContent())));
+                } catch (Exception e) {
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .text(R.string.error_llamada));
+                    e.printStackTrace();
+                }
+            } else if (view == mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getTwoButton()) {
+                try {
+                    Intent smsIntent = new Intent(Intent.ACTION_VIEW);
+                    smsIntent.setData(Uri.parse("smsto:"));
+                    smsIntent.setType("vnd.android-dir/mms-sms");
+                    smsIntent.putExtra("address", mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getContent());
+                    smsIntent.putExtra("sms_body", "");
+                    startActivity(smsIntent);
+                } catch (Exception e) {
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.error_enviar_sms));
+                    e.printStackTrace();
+                }
+            } else if (view == mDatosInstructor.getSimpleOneButtonLayoutAt(1).getButton()) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
+                    String[] emails = new String[]{mDatosInstructor.getSimpleOneButtonLayoutAt(1).getContent()};
+                    startActivity(Intent.createChooser(
+                            intent.putExtra(Intent.EXTRA_EMAIL, emails)
+                                    .putExtra(Intent.EXTRA_SUBJECT, "").setType("message/rfc822"),
+                            getResources().getString(R.string.mensaje_elegir_cliente_correo)));
+                } catch (ActivityNotFoundException e) {
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.error_enviar_correo));
+                    e.printStackTrace();
+                }
+            } else if (view == mVerNotas.getSimpleMultiTextLayoutAt(0)) {
+                armarListaEvaluaciones();
+            } 
         }
     }
     
+    private void armarAgrupacion(Agrupacion agrupacion) {
+        mDatosInstructor.clear();
+        mNombreAgrupacion.setText(agrupacion.getDescripcion().toUpperCase());
+        mTipoAgrupacion.setText(agrupacion.getTipoAgrupacion().getDescripcion().toUpperCase());
+        mNombreInstructor.setText("INSTRUCTOR " + agrupacion.getInstructor().getNombre().toUpperCase() + " " + agrupacion.getInstructor().getApellido().toUpperCase());
+        mDatosInstructor.addSimpleTwoButtonLayout(agrupacion.getInstructor().getTelefonoMovil(), R.drawable.ic_llamada, R.drawable.ic_sms);
+        mDatosInstructor.addSimpleOneButtonLayout(agrupacion.getInstructor().getCorreo(), R.drawable.ic_correo);
+        mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getOneButton().setOnClickListener(HorarioAgrupacionFragment.this);
+        mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getTwoButton().setOnClickListener(HorarioAgrupacionFragment.this);
+        mDatosInstructor.getSimpleOneButtonLayoutAt(1).getButton().setOnClickListener(HorarioAgrupacionFragment.this);
+        for (int i = 0; i < agrupacion.getHorarioArea().size(); i++) {
+            Log.i(TAG, agrupacion.getHorarioArea().get(i).getHorario().getDia().getDescripcion());
+        }
+        mHorarioAdapter = new HorarioAgrupacionAdapter(getActivity(), agrupacion.getHorarioArea());
+        mHorarioAgrupaciones.setAdapter(mHorarioAdapter);
+        
+    }
     private void armarListaEvaluaciones() {
-        mEstudiante = mEstudianteTable.searchUser();
         mCustomEvaluacion = new MaterialDialog(getActivity());
         mViewDialog = LayoutInflater.from(getActivity()).inflate(R.layout.custom_evaluacion_agrupacion, null);
 

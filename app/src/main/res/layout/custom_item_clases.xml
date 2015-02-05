@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris_fondo">
+    
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/negro"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:id="@+id/nombre_clase"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@color/gris_oscuro"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:id="@+id/nivel_clase"/>
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/instructor_clase"
+        android:textSize="15sp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:textColor="@color/gris_oscuro"
+        android:layout_marginBottom="6dp"/>
+    
+    <com.juanlabrador.grouplayout.GroupContainer
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:textSizeLayout="15"
+        android:id="@+id/grupo_instructor_clase"/>
+
+    <com.juanlabrador.grouplayout.GroupContainer
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:textSizeLayout="15"
+        android:id="@+id/ver_notas_clases"
+        app:labelTextColor="@android:color/holo_blue_dark"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"/>
+    
+    <ListView
+        android:id="@+id/lista_horario_clases"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gris_fondo"
+        android:divider="@null"
+        android:dividerHeight="@null"/>
+
+</LinearLayout>

@@ -1,6 +1,9 @@
 package edu.ucla.fusa.android.modelo.herramientas;
 
-public class ItemListNoticia {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ItemListNoticia implements Parcelable {
 
     public long id;
     public String titulo;
@@ -66,5 +69,20 @@ public class ItemListNoticia {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(id);
+        parcel.writeString(titulo);
+        parcel.writeString(fecha);
+        parcel.writeByteArray(imagen);
+        parcel.writeString(descripcion);
+        parcel.writeInt(haveFoto);
     }
 }

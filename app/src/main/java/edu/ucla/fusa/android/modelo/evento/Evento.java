@@ -1,11 +1,14 @@
 package edu.ucla.fusa.android.modelo.evento;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
 /**
  * Created by juanlabrador on 17/01/15.
  */
-public class Evento {
+public class Evento implements Parcelable {
     
     private int id;
     private String nombre;
@@ -82,5 +85,22 @@ public class Evento {
 
     public void setEstatus(String estatus) {
         this.estatus = estatus;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(nombre);
+        parcel.writeString(descripcion);
+        parcel.writeString(fecha);
+        parcel.writeLong(hora.getTime());
+        parcel.writeValue(lugar);
+        parcel.writeString(estatus);
+
     }
 }

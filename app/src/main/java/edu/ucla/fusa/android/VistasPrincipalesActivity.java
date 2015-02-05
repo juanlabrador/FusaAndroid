@@ -20,12 +20,13 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,24 +37,15 @@ import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 
-import edu.ucla.fusa.android.DB.AgrupacionTable;
-import edu.ucla.fusa.android.DB.AreaEstudioTable;
+import at.markushi.ui.CircleButton;
 import edu.ucla.fusa.android.DB.ClaseParticularTable;
+import edu.ucla.fusa.android.DB.DataBaseHelper;
 import edu.ucla.fusa.android.DB.DiaTable;
 import edu.ucla.fusa.android.DB.EstudianteTable;
-import edu.ucla.fusa.android.DB.EventoTable;
 import edu.ucla.fusa.android.DB.HorarioAreaTable;
 import edu.ucla.fusa.android.DB.HorarioTable;
 import edu.ucla.fusa.android.DB.InstructorTable;
-import edu.ucla.fusa.android.DB.LugarTable;
-import edu.ucla.fusa.android.DB.NoticiasTable;
-import edu.ucla.fusa.android.DB.PrestamoTable;
-import edu.ucla.fusa.android.DB.SolicitudPrestamoTable;
-import edu.ucla.fusa.android.DB.TipoInstrumentoTable;
-import edu.ucla.fusa.android.DB.TipoPrestamoTable;
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
 import edu.ucla.fusa.android.fragmentos.AspiranteFragment;
@@ -62,26 +54,16 @@ import edu.ucla.fusa.android.fragmentos.ContenedorHorarioFragment;
 import edu.ucla.fusa.android.fragmentos.EstatusPrestamoFragment;
 import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
 import edu.ucla.fusa.android.fragmentos.NoticiasFragment;
-import edu.ucla.fusa.android.fragmentos.LogoutFragment;
 import edu.ucla.fusa.android.fragmentos.SolicitudPrestamoFragment;
-import edu.ucla.fusa.android.modelo.academico.Agrupacion;
-import edu.ucla.fusa.android.modelo.academico.AreaEstudio;
 import edu.ucla.fusa.android.modelo.academico.ClaseParticular;
 import edu.ucla.fusa.android.modelo.academico.Dia;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
 import edu.ucla.fusa.android.modelo.academico.Horario;
 import edu.ucla.fusa.android.modelo.academico.Instructor;
-import edu.ucla.fusa.android.modelo.evento.Evento;
-import edu.ucla.fusa.android.modelo.evento.Lugar;
-import edu.ucla.fusa.android.modelo.fundacion.Noticia;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
-import edu.ucla.fusa.android.modelo.herramientas.ItemListNoticia;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 import edu.ucla.fusa.android.modelo.instrumentos.Prestamo;
 import edu.ucla.fusa.android.modelo.instrumentos.SolicitudPrestamo;
-import edu.ucla.fusa.android.modelo.instrumentos.TipoInstrumento;
-import edu.ucla.fusa.android.modelo.instrumentos.TipoPrestamo;
-import edu.ucla.fusa.android.modelo.seguridad.TipoUsuario;
 import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import me.drakeet.materialdialog.MaterialDialog;
@@ -110,6 +92,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private ListView mListDrawer;
     private String[] mTextDrawer;
     private JSONParser mJSONParser;
+    private LinearLayout mContenedorPrincipal;
     
     private SharedPreferences mPreferencias;
     private SharedPreferences.Editor mEditor;
@@ -119,14 +102,12 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private TextView mTextLoading;
     private Toolbar mToolbar;
     
-    private Button mRetryButton;
+    private CircleButton mRetryButton;
     private String mUsername;
     private Uri mFotoCaptureUri;
-
-    private ArrayList<Noticia> mNoticias;
+    
     private Estudiante mEstudiante;
     private EstudianteTable mEstudianteTable;
-    private NoticiasTable mNoticiasTable;
     private UserTable mUserTable;
     private Usuario mUsuario;
     private Bitmap mBitmap;
@@ -134,14 +115,8 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private DrawerArrowDrawable mDrawerArrow;
     private byte[] mPhoto;
     private File mFile;
-    private ArrayList<TipoPrestamo> mTiposPrestamos;
-    private TipoPrestamoTable mTipoPrestamoTable;
-    private ArrayList<TipoInstrumento> mTiposInstrumentos;
-    private TipoInstrumentoTable mTipoInstrumentoTable;
     private int mPositionList;
-    
-    private SolicitudPrestamoTable mSolicitudPrestamoTable;
-    private PrestamoTable mPrestamoTable;
+
     private SolicitudPrestamo mSolicitudPrestamo;
     private Prestamo mPrestamo;
     
@@ -149,7 +124,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private ArrayAdapter<String> mAdapterPhoto;
     private MaterialDialog mDialog;
     private NotificationManager mManager;
-
+    private LoadingSolicitudPrestamo mServiceSolicitud;
 
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
@@ -180,18 +155,27 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 }
             }
         });
-        mToolbar.setVisibility(View.GONE);
-        
+                
         mEstudianteTable = new EstudianteTable(this);
-        mNoticiasTable = new NoticiasTable(this);
         mUserTable = new UserTable(this);
         mJSONParser = new JSONParser();
-        mTipoPrestamoTable = new TipoPrestamoTable(this);
-        mTipoInstrumentoTable = new TipoInstrumentoTable(this);
         
-        mLoading = (CircularProgressBar) findViewById(R.id.pb_cargando);
-        mTextLoading = (TextView) findViewById(R.id.text_cargando);
-        mRetryButton = (Button) findViewById(R.id.btn_reintentar_conexion);
+        mLoading = (CircularProgressBar) findViewById(R.id.pb_cargando_principal);
+        mTextLoading = (TextView) findViewById(R.id.principal_vacio);
+        mRetryButton = (CircleButton) findViewById(R.id.button_network_principal);
+        mRetryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mLoading.setVisibility(View.VISIBLE);
+                mTextLoading.setText(R.string.mensaje_cargando);
+                mTextLoading.setVisibility(View.VISIBLE);
+                mRetryButton.setVisibility(View.GONE);
+                mContenedorPrincipal.setVisibility(View.GONE);
+                new BuscarEstudiante().execute(mUsuario.getUsername());
+            }
+        });
+        
+        mContenedorPrincipal = (LinearLayout) findViewById(R.id.contenedor_principal);
         mNavigationDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationDrawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         mListDrawer = (ListView) findViewById(R.id.lista_funciones);
@@ -211,12 +195,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         };
 
         mNavigationDrawer.setDrawerListener(mDrawerToggle);
-
-        new LoadingEventos().execute();
-        new LoadingNoticias().execute();
-        new LoadingTipoPrestamo().execute();
-        new LoadingTipoInstrumentos().execute();
-
+        
         // Leemos los datos del usuario
         mUsername = getIntent().getStringExtra("NombreUsuario");
         cargarUsuario();
@@ -226,7 +205,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     @Override
     protected void onResume() {
         super.onResume();
-        mToolbar.setVisibility(View.GONE);
     }
 
     @Override
@@ -243,9 +221,14 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             cargarMenuEstudiante();
             mEstudiante = mEstudianteTable.searchUser();
             if (mEstudiante != null) {
-                new LoadingSolicitudPrestamo().execute(mEstudiante.getId());
-                new LoadingAgrupacion().execute(mEstudiante.getId());
-                //new LoadingClasePaticulares().execute(mEstudiante.getId());
+                mContenedorPrincipal.setVisibility(View.VISIBLE);
+                mLoading.setVisibility(View.GONE);
+                mTextLoading.setVisibility(View.GONE);
+                mRetryButton.setVisibility(View.GONE);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame_container, NoticiasFragment.newInstance())
+                        .commit();
             } else {
                 if (exiteConexionInternet()) {
                     Log.i(TAG, "¡Busca al estudiante en el servidor!");
@@ -253,6 +236,16 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 } else {
                     showOptionRetry();
                 }
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mServiceSolicitud != null) {
+            if (!mServiceSolicitud.isCancelled()) {
+                mServiceSolicitud.cancel(true);
             }
         }
     }
@@ -287,20 +280,11 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                         .commit();
                 break;
             case 2:
-                if (mSolicitudPrestamo == null) {
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .addToBackStack(null)
-                            .replace(R.id.frame_container, SolicitudPrestamoFragment.newInstance())
-                            .commit();
-                } else {
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .addToBackStack(null)
-                            .replace(R.id.frame_container, EstatusPrestamoFragment.newInstance())
-                            .commit();
-                }
-                break;
+                mServiceSolicitud = new LoadingSolicitudPrestamo();
+                mServiceSolicitud.execute(mEstudiante.getId());
+                SnackbarManager.show(
+                        Snackbar.with(getApplicationContext())
+                                .text(R.string.prestamo_buscando), VistasPrincipalesActivity.this);
             case 3:
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -329,10 +313,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                         .commit();
                 break;
             case 7:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.principal, LogoutFragment.newInstance())
-                        .commit();
+                new Logout().execute();
                 break;
         }
 
@@ -450,19 +431,16 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             super.onPreExecute();
             mLoading.setVisibility(View.VISIBLE);
             mTextLoading.setText(R.string.mensaje_cargando);
+            mTextLoading.setVisibility(View.VISIBLE);
             mRetryButton.setVisibility(View.GONE);
         }
 
         @Override
         protected Integer doInBackground(String... params) {
-            int response;
+            SystemClock.sleep(2000);
             Log.i(TAG, "¡Busca al estudiante en el servidor!");
-            // Parametros via GET
-            ArrayList<NameValuePair> parametros = new ArrayList<>();
-            parametros.add(new BasicNameValuePair("username", params[0]));
-
             // Aplicamos el servicio
-            mEstudiante = mJSONParser.serviceEstudiante(parametros);
+            mEstudiante = mJSONParser.serviceEstudiante(params[0]);
             if (mEstudiante != null) {
                 if (mEstudiante.getId() != -1) { // Existe el estudiante
                     // Guardamos los datos internamente
@@ -471,22 +449,14 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                             mEstudiante.getNombre(),
                             mEstudiante.getApellido(),
                             mEstudiante.getCedula(),
-                            mEstudiante.getCorreo(),
-                            mEstudiante.getEdad(),
-                            mEstudiante.getFechanac(),
-                            mEstudiante.getSexo(),
-                            mEstudiante.getTelefonoFijo(),
-                            mEstudiante.getTelefonoMovil(),
-                            mEstudiante.getImagen());
-                    
-                    response = 100;
+                            mEstudiante.getCorreo());
+                    return 100;
                 } else { // No existe el estudiante
-                    response = -1;
+                    return -1;
                 }
             } else { // Problemas con el servidor o conexión
-                response = 0;
+                return 0;
             }
-            return response;
         }
 
         @Override
@@ -496,120 +466,35 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 case 100:
                     // Delay 2 sg
                     Log.i(TAG, "¡Estudiante localizado!");
-                    new LoadingSolicitudPrestamo().execute(mEstudiante.getId());
-                    new LoadingAgrupacion().execute(mEstudiante.getId());
-                    //new LoadingClasePaticulares().execute(mEstudiante.getId());
+                    mContenedorPrincipal.setVisibility(View.VISIBLE);
+                    mLoading.setVisibility(View.GONE);
+                    mTextLoading.setVisibility(View.GONE);
+                    mRetryButton.setVisibility(View.GONE);
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frame_container, NoticiasFragment.newInstance())
+                            .commit();
                     break;
                 case -1:
                     Log.i(TAG, "¡No existe el estudiante!");
-                    
+                    mContenedorPrincipal.setVisibility(View.GONE);
+                    mLoading.setVisibility(View.GONE);
+                    mTextLoading.setText(R.string.mensaje_reintentar_estudiante);
+                    mTextLoading.setVisibility(View.VISIBLE);
+                    mRetryButton.setVisibility(View.VISIBLE);
                     break;
                 case 0:
                     Log.i(TAG, "¡Problemas con el servidor o de conexion!");
-                    
+                    mContenedorPrincipal.setVisibility(View.GONE);
+                    mLoading.setVisibility(View.GONE);
+                    mTextLoading.setText(R.string.mensaje_reintentar);
+                    mTextLoading.setVisibility(View.VISIBLE);
+                    mRetryButton.setVisibility(View.VISIBLE);
                     break;
             }
         }
     }
     
-    private class LoadingAgrupacion extends AsyncTask<Integer, Void, Void> {
-
-        private AgrupacionTable mAgrupacionTable;
-        private Agrupacion mAgrupacion;
-        private HorarioTable mHorarioTable;
-        private InstructorTable mInstructorTable;
-        private Instructor mInstructor;
-        private HorarioAreaTable mHorarioAreaTable;
-        private Horario mHorario;
-        private DiaTable mDiaTable;
-        private Dia mDia;
-        private AreaEstudio mAreaEstudio;
-        private AreaEstudioTable mAreaEstudioTable;
-        
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mAgrupacionTable = new AgrupacionTable(getApplicationContext());
-            mInstructorTable = new InstructorTable(getApplicationContext());
-            mHorarioTable = new HorarioTable(getApplicationContext());
-            mAgrupacion = new Agrupacion();
-            mHorarioAreaTable = new HorarioAreaTable(getApplicationContext());
-            mDia = new Dia();
-            mDiaTable = new DiaTable(getApplicationContext());
-            mAreaEstudio = new AreaEstudio();
-            mAreaEstudioTable = new AreaEstudioTable(getApplicationContext());
-        }
-
-        @Override
-        protected Void doInBackground(Integer... integers) {
-            
-            mAgrupacion = mAgrupacionTable.searchAgrupacion();
-            if (mAgrupacion != null) {
-                Log.i(TAG, "¡Ya tengo una agrupacion guardada!");
-            } else {
-                Log.i(TAG, "¡Buscando agrupacion en el servidor");
-                mAgrupacion = mJSONParser.serviceAgrupacionEstudiante(integers[0]);
-                if (mAgrupacion != null) {
-                    Log.i(TAG, "¡Estoy en una agrupacion!");
-                    mAgrupacionTable.insertData(
-                            mAgrupacion.getDescripcion(),
-                            mAgrupacion.getTipoAgrupacion().getDescripcion(),
-                            mAgrupacion.getInstructor().getId(),
-                            mAgrupacion.getId()
-                    );
-                    
-                    mInstructor = mInstructorTable.searchInstructor(mAgrupacion.getInstructor().getId());
-                    if (mInstructor == null) {
-                        Log.i(TAG, "¡No existe el instructor en agrupacion!");
-                        mInstructorTable.insertData(
-                                mAgrupacion.getInstructor().getId(),
-                                mAgrupacion.getInstructor().getNombre(),
-                                mAgrupacion.getInstructor().getApellido(),
-                                mAgrupacion.getInstructor().getCorreo(),
-                                mAgrupacion.getInstructor().getTelefonoMovil(),
-                                mAgrupacion.getInstructor().getTelefonoFijo(),
-                                mAgrupacion.getInstructor().getImagen()
-
-                        );
-                    }
-                    
-                    for (int i = 0; i < mAgrupacion.getHorarioArea().size(); i++){
-                        
-                        mHorarioAreaTable.insertData(
-                                0, 
-                                mAgrupacion.getId(), 
-                                mAgrupacion.getHorarioArea().get(i).getId(),
-                                mAgrupacion.getHorarioArea().get(i).getAreaEstudio().getId()
-                        );
-                        
-
-                        mHorarioTable.insertData(
-                                mAgrupacion.getHorarioArea().get(i).getHorario().getHorario_id(),
-                                mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDia_id(),
-                                mAgrupacion.getHorarioArea().get(i).getHorario().getHoraInicio(),
-                                mAgrupacion.getHorarioArea().get(i).getHorario().getHoraFin(),
-                                mAgrupacion.getHorarioArea().get(i).getId()
-                        );
-
-                        mDiaTable.insertData(
-                                mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDia_id(),
-                                mAgrupacion.getHorarioArea().get(i).getHorario().getDia().getDescripcion()
-                        );
-
-                        mAreaEstudioTable.insertData(
-                                mAgrupacion.getHorarioArea().get(i).getAreaEstudio().getDescripcion(),
-                                mAgrupacion.getHorarioArea().get(i).getAreaEstudio().getId()
-                        );
-                    }
-                    Log.i(TAG, "¡Guardado correctamente!");
-                } else {
-                    Log.i(TAG, "¡No estoy en una agrupacion!");
-                }
-            }
-            return null;
-        }
-    }
-
     private class LoadingClasePaticulares extends AsyncTask<Integer, Void, Void> {
 
         private ClaseParticularTable mClaseParticularTable;
@@ -657,16 +542,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                         mInstructor = mInstructorTable.searchInstructor(mClaseParticulares.get(i).getInstructor().getId());
                         if (mInstructor == null) {
                             Log.i(TAG, "¡No existe el instructor en Clase Particular!");
-                            mInstructorTable.insertData(
-                                    mClaseParticulares.get(i).getInstructor().getId(),
-                                    mClaseParticulares.get(i).getInstructor().getNombre(),
-                                    mClaseParticulares.get(i).getInstructor().getApellido(),
-                                    mClaseParticulares.get(i).getInstructor().getCorreo(),
-                                    mClaseParticulares.get(i).getInstructor().getTelefonoMovil(),
-                                    mClaseParticulares.get(i).getInstructor().getTelefonoFijo(),
-                                    mClaseParticulares.get(i).getInstructor().getImagen()
 
-                            );
                         }
                         
                         
@@ -712,221 +588,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         }
     }
     
-    // Noticias 
-
-    public class LoadingNoticias extends AsyncTask<Void, Void, Integer> {
-
-        private ArrayList<ItemListNoticia> mItemsNoticias;
-
-        protected Integer doInBackground(Void[] voids) {
-            SystemClock.sleep(2000);
-            mItemsNoticias = mNoticiasTable.searchNews();
-            if (mItemsNoticias.size() == 0) {
-                Log.i(TAG, "¡Buscando noticias!");
-                mNoticias = new ArrayList<>();
-                mNoticias = mJSONParser.serviceLoadingNoticias();
-                if (mNoticias == null) {
-                    return 0;
-                } else if (mNoticias.size() != 0) {
-                    for (Noticia noticia : mNoticias) {
-                        if (noticia.getImagen() != null) {
-                            mItemsNoticias.add(new ItemListNoticia(
-                                    noticia.getId(),
-                                    noticia.getTitulo(),
-                                    noticia.getFechapublicacion(),
-                                    noticia.getImagen(),
-                                    noticia.getDescripcion(),
-                                    1));
-                            //Guardamos en la base de datos
-                            mNoticiasTable.insertData(noticia.getTitulo(),
-                                    noticia.getDescripcion(),
-                                    noticia.getFechapublicacion(),
-                                    noticia.getImagen(),
-                                    noticia.getId(),
-                                    1);
-                        } else {
-                            mItemsNoticias.add(new ItemListNoticia(
-                                    noticia.getId(),
-                                    noticia.getTitulo(),
-                                    noticia.getFechapublicacion(),
-                                    noticia.getImagen(),
-                                    noticia.getDescripcion(),
-                                    0));
-                            //Guardamos en la base de datos
-                            mNoticiasTable.insertData(noticia.getTitulo(),
-                                    noticia.getDescripcion(),
-                                    noticia.getFechapublicacion(),
-                                    noticia.getImagen(),
-                                    noticia.getId(),
-                                    0);
-                        }
-                    }
-                    return 100;
-                } else {
-                    return -1;
-                }
-            } else {
-                return 200;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-            switch (result) {
-                case 200:
-                    Log.i(TAG, "¡Noticias por actualizar!");
-                    mLoading.setVisibility(View.GONE);
-                    mTextLoading.setVisibility(View.GONE);
-                    mToolbar.setVisibility(View.VISIBLE);
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.frame_container, NoticiasFragment.newInstance())
-                            .commit();
-                    break;
-                case 100:
-                    Log.i(TAG, "¡Noticias guardadas!");
-                    mLoading.setVisibility(View.GONE);
-                    mTextLoading.setVisibility(View.GONE);
-                    mToolbar.setVisibility(View.VISIBLE);
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.frame_container, NoticiasFragment.newInstance())
-                            .commit();
-                    break;
-                case -1:
-                    Log.i(TAG, "¡No hay noticias!");
-                    showOptionRetry();
-                    SnackbarManager.show(
-                            Snackbar.with(getApplicationContext())
-                                    .type(SnackbarType.MULTI_LINE)
-                                    .text(R.string.mensaje_error_busqueda));
-                    break;
-                case 0:
-                    Log.i(TAG, "¡Error al buscar las noticias!");
-                    showOptionRetry();
-                    SnackbarManager.show(
-                            Snackbar.with(getApplicationContext())
-                                    .type(SnackbarType.MULTI_LINE)
-                                    .text(R.string.mensaje_error_servidor));
-                    break;
-            }
-        }
-    }
-    
-    // Eventos
-    
-    public class LoadingEventos extends AsyncTask<Void, Void, Integer> {
-        
-        private String TAG = "LoadingEventos";
-        private ArrayList<Evento> mEventos;
-        private EventoTable mEventoTable;
-        private LugarTable mLugarTable;
-        private Lugar mLugar;
-        private int mUltimoEvento;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mEventoTable = new EventoTable(getApplicationContext());
-            mLugarTable = new LugarTable(getApplicationContext());
-        }
-
-        @Override
-        protected Integer doInBackground(Void... params) {
-            mEventos = mEventoTable.searchEventos();
-            Log.i(TAG, "Cantidad de eventos: " + mEventos.size());
-            if (mEventos.size() == 0) {
-                mEventos = mJSONParser.serviceLoadingEventos();
-                if (mEventos == null) {
-                    return 0;
-                } else if (mEventos.size() != 0) {
-                    for (Evento evento : mEventos) {
-                        mEventoTable.insertData(
-                                evento.getNombre(),
-                                evento.getDescripcion(),
-                                evento.getFecha(),
-                                evento.getHora(),
-                                evento.getId(),
-                                evento.getLugar().getId()
-                        );
-                        mLugar = mLugarTable.searchLugar(evento.getLugar().getId());
-                        if (mLugar == null) {
-                            Log.i(TAG, "¡No existe el lugar!");
-                            mLugarTable.insertData(
-                                    evento.getLugar().getId(),
-                                    evento.getLugar().getDescripcion(),
-                                    evento.getLugar().getDireccion()
-                            );
-                        } else {
-                            Log.i(TAG, "¡Existe el lugar!");
-                        }
-                    }
-                    return 100;
-                } else {
-                    return -1;
-                }
-            } else {
-                if (mEventos.size() < 30) {
-                    mUltimoEvento = mEventoTable.searchUltimoEvento();
-                    mEventos = mJSONParser.serviceLoadingNuevosEventos(mUltimoEvento);
-                    if (mEventos == null) {
-                        return -2;
-                    } else if (mEventos.size() != 0) {
-                        for (Evento evento : mEventos) {
-                            mEventoTable.insertData(
-                                    evento.getNombre(),
-                                    evento.getDescripcion(),
-                                    evento.getFecha(),
-                                    evento.getHora(),
-                                    evento.getId(),
-                                    evento.getLugar().getId()
-                            );
-                            mLugar = mLugarTable.searchLugar(evento.getLugar().getId());
-                            if (mLugar == null) {
-                                Log.i(TAG, "¡No existe el lugar para actualizar!");
-                                mLugarTable.insertData(
-                                        evento.getLugar().getId(),
-                                        evento.getLugar().getDescripcion(),
-                                        evento.getLugar().getDireccion()
-                                );
-                            } else {
-                                Log.i(TAG, "¡Si existe el lugar para actualizar!");
-                            }                          
-                        } 
-                        return 200;
-                    } else {
-                        return -2;
-                    }
-                }
-            }
-            Log.i(TAG, "¡No hay eventos ni viejos ni nuevos!");
-            return -1;
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-            switch (result) {
-                case 200:
-                    Log.i(TAG, "¡Eventos actualizados!");
-                    break;
-                case 100:
-                    Log.i(TAG, "¡Eventos guardados!");
-                    break;
-                case -2:
-                    Log.i(TAG, "¡No hay eventos nuevos!");
-                    break;
-                case -1:
-                    Log.i(TAG, "¡No hay eventos!");
-                    break;
-                case 0:
-                    Log.i(TAG, "¡Problemas con el servidor!");
-                    break;
-            }
-        }
-    }
-
     // Cambiar foto de perfil
 
     private void showDialog() {
@@ -1051,233 +712,55 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         }
     }
 
-    // Tipo de Prestamo 
-
-    private class LoadingTipoPrestamo extends AsyncTask<Void, Void, Integer> {
-
-        @Override
-        protected Integer doInBackground(Void... voids) {
-            mTiposPrestamos = mTipoPrestamoTable.searchTiposPrestamos();
-            if (mTiposPrestamos.size() == 0) {
-                mTiposPrestamos = mJSONParser.serviceLoadingTipoPrestamo();
-                if (mTiposPrestamos == null) {
-                    return 0;
-                } else if (mTiposPrestamos.size() != 0) {
-                    for (TipoPrestamo mTipoPrestamo : mTiposPrestamos) {
-                        mTipoPrestamoTable.insertData(
-                                mTipoPrestamo.getId(),
-                                mTipoPrestamo.getDescripcion()
-                        );
-                    }
-                    return 100;
-                } else {
-                    return 0;
-                }
-            } else {
-                return 200;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-            switch (result) {
-                case 0:
-                    Log.i(TAG, "¡No hay tipos de prestamos!");
-                    break;
-                case 100:
-                    Log.i(TAG, "¡Tipos de prestamos guardados!");
-                    break;
-                case 200:
-                    Log.i(TAG, "¡Ya existen tipos de prestamo!");
-                    break;
-            }
-        }
-    }
-
-    // Tipo de Instrumento
-
-    private class LoadingTipoInstrumentos extends AsyncTask<Void, Void, Integer> {
-
-        @Override
-        protected Integer doInBackground(Void... voids) {
-            mTiposInstrumentos = mTipoInstrumentoTable.searchTiposInstrumentos();
-            if (mTiposInstrumentos.size() == 0) {
-                mTiposInstrumentos = mJSONParser.serviceLoadingTipoInstrumento();
-                if (mTiposInstrumentos == null) {
-                    return 0;
-                } else if (mTiposInstrumentos.size() != 0) {
-                    for (TipoInstrumento mTipoInstrumento : mTiposInstrumentos) {
-                        mTipoInstrumentoTable.insertData(
-                                mTipoInstrumento.getId(),
-                                mTipoInstrumento.getDescripcion()
-                        );
-                    }
-                    return 100;
-                } else {
-                    return 0;
-                }
-            } else {
-                return 200;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-            switch (result) {
-                case 0:
-                    Log.i(TAG, "¡No hay tipos de instrumentos!");
-                    break;
-                case 100:
-                    Log.i(TAG, "¡Tipos de instrumentos guardados!");
-                    break;
-                case 200:
-                    Log.i(TAG, "¡Ya existen tipos de instrumentos!");
-                    break;
-            }
-        }
-    }
-    
     // Solicitud de prestamo 
     
-    public class LoadingSolicitudPrestamo extends AsyncTask<Integer, Void, Void> {
-
-        private String mEstatusSolicitud;
-        private int mIDSolicitud, mIDPrestamo;
+    public class LoadingSolicitudPrestamo extends AsyncTask<Integer, Void, Integer> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mSolicitudPrestamoTable = new SolicitudPrestamoTable(VistasPrincipalesActivity.this);
-            mJSONParser = new JSONParser();
-            mPrestamoTable = new PrestamoTable(VistasPrincipalesActivity.this);
-
         }
 
         @Override
-        protected Void doInBackground(Integer... integers) {
-            mSolicitudPrestamo = mSolicitudPrestamoTable.searchSolicitudPrestamo();
+        protected Integer doInBackground(Integer... integers) {
+            mSolicitudPrestamo = mJSONParser.serviceSolicitudPrestamoPorEstudiante(integers[0]);
             if (mSolicitudPrestamo != null) {  // Existe internamente, comprobar su estatus
-                mEstatusSolicitud = mSolicitudPrestamo.getEstatus();
-                if (!mEstatusSolicitud.equals("finalizado")) {
-                    if (!mEstatusSolicitud.equals("rechazado")) {
-                        mIDSolicitud = mSolicitudPrestamo.getId();
-                        mSolicitudPrestamo = mJSONParser.serviceSolicitudPrestamo(mIDSolicitud);
-                        if (mSolicitudPrestamo != null) {
-                            if (mSolicitudPrestamo.getEstatus().equals(mEstatusSolicitud)) {
-                                Log.i(TAG, "¡No ha cambiado el estatus!");
-                            } else {
-                                Log.i(TAG, "¡Cambio el estatus, actualiza!");
-                                mSolicitudPrestamoTable.updateData(
-                                        mSolicitudPrestamo.getId(),
-                                        mSolicitudPrestamo.getEstatus());
-                                mEstatusSolicitud = mSolicitudPrestamo.getEstatus();
-                                if (mEstatusSolicitud.equals("aprobado")) {
-                                    Log.i(TAG, "¡Cambio a aprobado!");
-                                    notificacion(
-                                            R.string.prestamo_aprobada_titulo,
-                                            R.string.prestamo_encabezado_aprobado,
-                                            APROBADO);
-                                } else if (mEstatusSolicitud.equals("rechazado")) {
-                                    Log.i(TAG, "¡Cambio a rechazado!");
-                                    notificacion(
-                                            R.string.prestamo_rechazada_titulo,
-                                            R.string.prestamo_encabezado_rechazado,
-                                            RECHAZADO);
-                                } else if (mEstatusSolicitud.equals("entregado")) {
-                                    Log.i(TAG, "¡Cambio a entregado!");
-                                    mIDSolicitud = mSolicitudPrestamo.getId();
-                                    mPrestamo = mPrestamoTable.searchPrestamo();
-                                    if (mPrestamo != null) {  // Actualiza el prestamo
-                                        Log.i(TAG, "¡Tengo un prestamo guardado internamente!");
-                                        Log.i(TAG, "¡Actualiza estatus del prestamo!");
-                                        mIDPrestamo = mPrestamo.getId();
-                                        mPrestamoTable.updateData(mIDPrestamo, mEstatusSolicitud);
-                                    } else { // El prestamo fue aprobado, lo guarda
-                                        Log.i(TAG, "¡No tengo un prestamo interno, busco en el servidor!");
-                                        mPrestamo = mJSONParser.servicePrestamo(mIDSolicitud);
-                                        if (mPrestamo != null) {
-                                            Log.i(TAG, "¡Nuevo prestamo, guardado!");
-                                            mPrestamoTable.insertData(
-                                                    mPrestamo.getFechaEmision(),
-                                                    mPrestamo.getFechaVencimiento(),
-                                                    mPrestamo.getEstatus(),
-                                                    mPrestamo.getInstrumento().getTipoInstrumento().getDescripcion(),
-                                                    mPrestamo.getInstrumento().getModelo().getDescripcion(),
-                                                    mPrestamo.getInstrumento().getSerial(),
-                                                    mPrestamo.getInstrumento().getModelo().getMarca().getDescripcion(),
-                                                    mPrestamo.getId()
-                                            );
-                                        } else {
-                                            Log.i(TAG, "¡Es raro, deberia de haber un prestamo!");
-                                        }
-                                    }
-                                } else {
-                                    Log.i(TAG, "¡No ha cambiado a entregado aún!");
-                                }
-                            }
-                        } else {
-                            Log.i(TAG, "¡Seria raro que tenga una solicitud interna y no en el servidor!");
-                        }
-                    } else {
-                        Log.i(TAG, "¡La solicitud fue rechazada");
-                        mPrestamo = null;
-                    }
+                if (mSolicitudPrestamo.getId() != -1) {
+                    return 100;
                 } else {
-                    Log.i(TAG, "¡La solicitud esta finalizada!");
-                }
-            } else {
-                Log.i(TAG, "¡Buscando alguna solicitud por estudiante!");
-                mSolicitudPrestamo = mJSONParser.serviceSolicitudPrestamoPorEstudiante(integers[0]);
-                if (mSolicitudPrestamo != null) {
-                    Log.i(TAG, "¡Al iniciar sesión de nuevo, tengo una solicitud en el servidor");
-                    mEstatusSolicitud = mSolicitudPrestamo.getEstatus();
-                    Log.i(TAG, mEstatusSolicitud);
-                    if (!mEstatusSolicitud.equals("finalizado")) {
-                        if (!mEstatusSolicitud.equals("rechazado")) {
-                            Log.i(TAG, "¡La solicitud aún esta vigente!");
-                            mSolicitudPrestamoTable.insertData(
-                                    mSolicitudPrestamo.getId(),
-                                    mSolicitudPrestamo.getTipoPrestamo().getDescripcion(),
-                                    mSolicitudPrestamo.getEstatus(),
-                                    mSolicitudPrestamo.getTipoInstrumento().getDescripcion(),
-                                    mSolicitudPrestamo.getFechaEmision(),
-                                    mSolicitudPrestamo.getFechaVencimiento());
-                            if (!mEstatusSolicitud.equals("en proceso")) {
-                                mPrestamo = mJSONParser.servicePrestamo(mSolicitudPrestamo.getId());
-                                if (mPrestamo != null) {
-                                    mPrestamoTable.insertData(
-                                            mPrestamo.getFechaEmision(),
-                                            mPrestamo.getFechaVencimiento(),
-                                            mPrestamo.getEstatus(),
-                                            mPrestamo.getInstrumento().getTipoInstrumento().getDescripcion(),
-                                            mPrestamo.getInstrumento().getModelo().getDescripcion(),
-                                            mPrestamo.getInstrumento().getSerial(),
-                                            mPrestamo.getInstrumento().getModelo().getMarca().getDescripcion(),
-                                            mPrestamo.getId()
-                                    );
-                                } else {
-                                    Log.i(TAG, "¡No tengo un prestamo aprobado!");
-                                }
-                            } else {
-                                Log.i(TAG, "¡Mi solicitud esta en proceso!");
-                            }
-                        } else {
-                            Log.i(TAG, "¡La utlima solicitud fue rechazada!");
-                            mPrestamo = null;
-                            mSolicitudPrestamo = null;
-                        }
-                    } else {
-                        Log.i(TAG, "¡La solicitud ya expiro!");
-                        mSolicitudPrestamo = null;
-                        mPrestamo = null;
-                    }
-                } else {
-                    Log.i(TAG, "¡No tengo ninguna solicitud!");
+                    return -1;
                 }
             }
-            return null;
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            switch (result) {
+                case 100:
+                    Bundle mID = new Bundle();
+                    mID.putInt("id_solicitud", mSolicitudPrestamo.getId());
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.frame_container, EstatusPrestamoFragment.newInstance(mID))
+                            .commit();
+                    break;
+                case 0:
+                    SnackbarManager.show(
+                            Snackbar.with(getApplicationContext())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.mensaje_error_servidor), VistasPrincipalesActivity.this);
+                    break;
+                case -1:
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.frame_container, SolicitudPrestamoFragment.newInstance())
+                            .commit();
+                    break;
+            }
         }
     }
     
@@ -1337,7 +820,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     }
     
     public void actualizarSolicitud() {
-        mSolicitudPrestamo = mSolicitudPrestamoTable.searchSolicitudPrestamo();
         mListDrawer.setItemChecked(3, true);
         mListDrawer.setSelection(3);
     }
@@ -1350,5 +832,43 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     public void actualizarPassword() {
         mListDrawer.setItemChecked(3, true);
         mListDrawer.setSelection(3);
+    }
+
+    private class Logout extends AsyncTask<Void, Void, Void> {
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mUsuario = mUserTable.searchUser();
+            mContenedorPrincipal.setVisibility(View.GONE);
+            mTextLoading.setText(R.string.mensaje_cargando);
+            mTextLoading.setVisibility(View.VISIBLE);
+            mLoading.setVisibility(View.VISIBLE);
+            mRetryButton.setVisibility(View.GONE);
+        }
+
+
+        protected Void doInBackground(Void[] params) {
+            SystemClock.sleep(3000);
+            mPreferencias = getSharedPreferences("usuario", Context.MODE_PRIVATE);
+            mEditor = mPreferencias.edit();
+            mEditor.clear();
+            mEditor.putString("usuario", mUsuario.getUsername());
+            if (mUsuario.getFoto() != null) {
+                mEditor.putString("foto", Base64.encodeToString(mUsuario.getFoto(), Base64.DEFAULT));
+            } else {
+                mEditor.putString("foto", "");
+            }
+            mEditor.commit();
+            Log.i(TAG, "¡Cerrando sesión...!");
+            DataBaseHelper.getInstance(getApplicationContext()).close();
+            deleteDatabase(DataBaseHelper.NAME);
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            startActivity(new Intent(VistasPrincipalesActivity.this, VistasInicialesActivity.class));
+            finish();
+        }
     }
 }

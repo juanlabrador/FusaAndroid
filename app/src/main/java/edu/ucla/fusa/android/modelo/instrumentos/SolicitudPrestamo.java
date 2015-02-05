@@ -1,11 +1,14 @@
 package edu.ucla.fusa.android.modelo.instrumentos;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import edu.ucla.fusa.android.modelo.academico.EstudiantePorAgrupacion;
 
 /**
  * Created by juanlabrador on 12/01/15.
  */
-public class SolicitudPrestamo {
+public class SolicitudPrestamo implements Parcelable {
 
     private int id;
     private EstudiantePorAgrupacion estudiantePorAgrupacion;
@@ -72,5 +75,21 @@ public class SolicitudPrestamo {
 
     public void setEstatus(String estatus) {
         this.estatus = estatus;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeValue(estudiantePorAgrupacion);
+        parcel.writeValue(tipoInstrumento);
+        parcel.writeValue(tipoPrestamo);
+        parcel.writeString(fechaEmision);
+        parcel.writeString(fechaVencimiento);
+        parcel.writeString(estatus);
     }
 }

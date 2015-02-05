@@ -1,11 +1,14 @@
 package edu.ucla.fusa.android.modelo.academico;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by juanlabrador on 25/01/15.
  */
-public class Agrupacion {
+public class Agrupacion implements Parcelable {
     
     private int id;
     private String descripcion;
@@ -55,6 +58,19 @@ public class Agrupacion {
     public void setTipoAgrupacion(TipoAgrupacion tipoAgrupacion) {
         this.tipoAgrupacion = tipoAgrupacion;
     }
-    
-    
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(descripcion);
+        parcel.writeValue(tipoAgrupacion);
+        parcel.writeList(horarioArea);
+        parcel.writeValue(instructor);
+    }
 }

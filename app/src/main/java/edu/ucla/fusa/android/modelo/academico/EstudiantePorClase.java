@@ -5,43 +5,25 @@ package edu.ucla.fusa.android.modelo.academico;
  */
 public class EstudiantePorClase {
     
-    private ClaseParticular claseParticular;
-    private Instructor instructor;
-    private Horario horario;
-    private AreaEstudio areaEstudio;
+    private int id;
+    private ClaseParticular clase;
 
     public EstudiantePorClase() {
     }
 
-    public ClaseParticular getClaseParticular() {
-        return claseParticular;
+    public ClaseParticular getClase() {
+        return clase;
     }
 
-    public void setClaseParticular(ClaseParticular claseParticular) {
-        this.claseParticular = claseParticular;
+    public void setClase(ClaseParticular clase) {
+        this.clase = clase;
     }
 
-    public Instructor getInstructor() {
-        return instructor;
+    public int getId() {
+        return id;
     }
 
-    public void setInstructor(Instructor instructor) {
-        this.instructor = instructor;
-    }
-
-    public Horario getHorario() {
-        return horario;
-    }
-
-    public void setHorario(Horario horario) {
-        this.horario = horario;
-    }
-
-    public AreaEstudio getAreaEstudio() {
-        return areaEstudio;
-    }
-
-    public void setAreaEstudio(AreaEstudio areaEstudio) {
-        this.areaEstudio = areaEstudio;
+    public void setId(int id) {
+        this.id = id;
     }
 }

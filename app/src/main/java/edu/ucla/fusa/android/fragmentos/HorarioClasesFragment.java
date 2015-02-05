@@ -1,158 +1,176 @@
 package edu.ucla.fusa.android.fragmentos;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.juanlabrador.grouplayout.GroupContainer;
+import java.util.ArrayList;
 
-import java.util.List;
-
+import at.markushi.ui.CircleButton;
+import edu.ucla.fusa.android.DB.EstudianteTable;
 import edu.ucla.fusa.android.R;
-import edu.ucla.fusa.android.modelo.academico.Agrupacion;
+import edu.ucla.fusa.android.adaptadores.ListClasesAdapter;
 import edu.ucla.fusa.android.modelo.academico.ClaseParticular;
+import edu.ucla.fusa.android.modelo.academico.Estudiante;
+import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 /**
  * Created by juanlabrador on 24/11/14.
  */
-public class HorarioClasesFragment extends Fragment {
+public class HorarioClasesFragment extends ListFragment {
 
     private static String TAG = "HorarioClasesFragment";
-    private GroupContainer mGrupoAgrupacion;
-    private GroupContainer mGrupoClases;
     private TextView mTextEmpty;
-    private Toolbar mToolbar;
-    private Agrupacion mAgrupacion;
-    private List<ClaseParticular> mClases;
-    private int mDia;
-    private TextView mCabeceraAgrupacion;
-    private TextView mCabeceraClases;
-    private boolean hayAgrupacion = false;
-    private boolean hayClases = false;
+    private CircularProgressBar mProgress;
+    private CircleButton mRetryButton;
+    private ArrayList<ClaseParticular> mClases;
+    private JSONParser mJSONParser;
+    private EstudianteTable mEstudianteTable;
+    private Estudiante mEstudiante;
+    private ListClasesAdapter mAdapter;
+    private LoadingClases mServiceClases;
+    private Bundle mCache;
 
-    public HorarioClasesFragment(Agrupacion mAgrupacion, List<ClaseParticular> mClases, int mDia) {
-        this.mAgrupacion = mAgrupacion;
-        this.mClases = mClases;
-        this.mDia = mDia;
-        this.setRetainInstance(true);
+    public static HorarioClasesFragment newInstance () {
+        HorarioClasesFragment fragment = new HorarioClasesFragment();
+        fragment.setRetainInstance(true);
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_drawer_schedule, container, false);
+        return inflater.inflate(R.layout.fragment_horario_clases, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mGrupoAgrupacion = (GroupContainer) view.findViewById(R.id.grupo_agrupacion);
-        mGrupoClases = (GroupContainer) view.findViewById(R.id.grupo_clase);
-        mCabeceraAgrupacion = (TextView) view.findViewById(R.id.cabecera_agrupacion);
-        mCabeceraClases = (TextView) view.findViewById(R.id.cabecera_clases);
-        mTextEmpty = (TextView) view.findViewById(R.id.sin_clases);
-        //prepareView();
+        mProgress = (CircularProgressBar) view.findViewById(R.id.pb_cargando_horario_clases);
+        mRetryButton = (CircleButton) view.findViewById(R.id.button_network_clases);
+        mRetryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getListView().setVisibility(View.GONE);
+                mTextEmpty.setVisibility(View.GONE);
+                mProgress.setVisibility(View.VISIBLE);
+                mRetryButton.setVisibility(View.GONE);
+                mServiceClases = new LoadingClases();
+                mServiceClases.execute(mEstudiante.getId());
+            }
+        });
+        mTextEmpty = (TextView) view.findViewById(R.id.horario_clases_vacio);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        mToolbar.setTitle(R.string.mis_clases_action_bar);
+        mJSONParser = new JSONParser();
+        mEstudianteTable = new EstudianteTable(getActivity());
+        mEstudiante = mEstudianteTable.searchUser();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i(TAG, "En onPause()");
+        mCache = new Bundle();
+        mCache.putParcelableArrayList("clases", mClases);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mCache = new Bundle();
+        mCache.putParcelableArrayList("clases", mClases);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (mCache != null) {
+            mClases = mCache.getParcelableArrayList("clases");
+            mAdapter = new ListClasesAdapter(getActivity(), mClases);
+            setListAdapter(mAdapter);
+            getListView().setVisibility(View.VISIBLE);
+            mTextEmpty.setVisibility(View.GONE);
+            mProgress.setVisibility(View.GONE);
+            mRetryButton.setVisibility(View.GONE);
+            Log.i(TAG, "¡Restaurando noticias!");
+        } else {
+            Log.i(TAG, "¡No tengo datos guardados!");
+            mServiceClases = new LoadingClases();
+            mServiceClases.execute(mEstudiante.getId());
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mServiceClases != null) {
+            if (!mServiceClases.isCancelled()) {
+                mServiceClases.cancel(true);
+            }
+        }
+        Log.i(TAG, "¡Destruyendo servicios!");
     }
 
 
-    private void prepareView() {
-        int horaI;
-        int horaF;
-        mGrupoClases.clear();
-        mGrupoAgrupacion.clear();
-        Log.i(TAG, "¡Hay una agrupacion para el dia " + mDia);
-        Log.i(TAG, "¡Tamaño del horario " + mAgrupacion.getHorarioArea().size());
-        for (int j = 0; j < mAgrupacion.getHorarioArea().size(); j++) {
-            Log.i(TAG, " " + mDia + "==" + mAgrupacion.getHorarioArea().get(j).getHorario().getDia().getDia_id());
-            if (mDia == mAgrupacion.getHorarioArea().get(j).getHorario().getDia().getDia_id()) {
-                mGrupoAgrupacion.addTextLayout(R.string.mis_clases_nombre_agrupacion, mAgrupacion.getDescripcion());
-                horaI = Integer.parseInt(mAgrupacion.getHorarioArea().get(j).getHorario().getHoraInicio());
-                horaF = Integer.parseInt(mAgrupacion.getHorarioArea().get(j + 1).getHorario().getHoraFin());
-                mGrupoAgrupacion.addTextLayout(R.string.mis_clases_horario, horaI + ":00 hasta " + horaF + ":00");
-                j++;
-                mGrupoAgrupacion.addTextLayout(R.string.mis_clases_instructor, mAgrupacion.getInstructor().getNombre() + " " + mAgrupacion.getInstructor().getApellido());
-                hayAgrupacion = true;
-            } else {
-                Log.i(TAG, "¡No hay una agrupacion para el dia " + mDia);
-                mCabeceraAgrupacion.setVisibility(View.GONE);
-                mGrupoAgrupacion.setVisibility(View.GONE);
-            }
-        }
-        
-        Log.i(TAG, "¡Hay una clase particular para el dia " + mDia);
-        for (int k = 0; k < mClases.size(); k++) {
-            for (int j = 0; j < mClases.get(k).getHorarioArea().size(); j++) {
-                if (mDia == mClases.get(k).getHorarioArea().get(j).getHorario().getDia().getDia_id()) {
-                    mGrupoClases.addTextLayout(R.string.mis_clases_catedra, mClases.get(0).getCatedra().getDescripcion());
-                    horaI = Integer.parseInt(mClases.get(k).getHorarioArea().get(j).getHorario().getHoraInicio());
-                    horaF = Integer.parseInt(mClases.get(k).getHorarioArea().get(j + 1).getHorario().getHoraFin());
-                    mGrupoClases.addTextLayout(R.string.mis_clases_horario, horaI + ":00 hasta " + horaF + ":00");
-                    j++;
-                    mGrupoClases.addTextLayout(R.string.mis_clases_instructor, mClases.get(0).getInstructor().getNombre() + " " + mClases.get(0).getInstructor().getApellido());
-                    hayClases = true;
-                } else {
-                    Log.i(TAG, "¡No hay una clase particular para el dia " + mDia);
-                    mCabeceraClases.setVisibility(View.GONE);
-                    mGrupoClases.setVisibility(View.GONE);
-                }
-            }
-        }
-        
+    private class LoadingClases extends AsyncTask<Integer, Void, Integer> {
 
-        if (!hayAgrupacion) {
-            if (!hayClases) {
-                Log.i(TAG, "¡No hay actividad para el dia " + mDia);
-                mTextEmpty.setVisibility(View.VISIBLE);
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            mClases = mJSONParser.serviceClaseEstudiante(integers[0]);
+            if (mClases != null) {
+                if (mClases.size() != 0) {
+                    return 100;
+                } else {
+                    return -1;
+                }
+            } else {
+                return 0;
             }
         }
-        /*for (int i = 0; i < 6; i++) {
-            if (mAgrupacion != null){
-                
-                for (int j = 0; j < mAgrupacion.getHorarioArea().size(); j++) {
-                    if (mDia == mAgrupacion.getHorarioArea().get(j).getHorario().getDia().getDia_id()) {
-                        horaI = Integer.parseInt(mAgrupacion.getHorarioArea().get(j).getHorario().getHoraInicio());
-                        horaF = Integer.parseInt(mAgrupacion.getHorarioArea().get(j + 1).getHorario().getHoraFin());
-                        mGrupoAgrupacion.addTextLayout(R.string.mis_clases_horario, horaI + ":00 hasta " + horaF + ":00");
-                        j++;
-                    }
-                }
-                
-            } else {
-                
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            switch (result) {
+                case 100:
+                    mAdapter = new ListClasesAdapter(getActivity(), mClases);
+                    setListAdapter(mAdapter);
+                    getListView().setVisibility(View.VISIBLE);
+                    mTextEmpty.setVisibility(View.GONE);
+                    mProgress.setVisibility(View.GONE);
+                    mRetryButton.setVisibility(View.GONE);
+                    break;
+                case 0:
+                    getListView().setVisibility(View.GONE);
+                    mTextEmpty.setText(R.string.mensaje_reintentar);
+                    mTextEmpty.setVisibility(View.VISIBLE);
+                    mProgress.setVisibility(View.GONE);
+                    mRetryButton.setVisibility(View.VISIBLE);
+                    break;
+                case -1:
+                    getListView().setVisibility(View.GONE);
+                    mTextEmpty.setText(R.string.mis_clases_sin_clase);
+                    mTextEmpty.setVisibility(View.VISIBLE);
+                    mProgress.setVisibility(View.GONE);
+                    mRetryButton.setVisibility(View.GONE);
+                    break;
             }
-            if (mClases != null){
-                
-                for (int k = 0; k < mClases.size(); k++) {
-                    for (int j = 0; j < mClases.get(k).getHorarioArea().size(); j++) {
-                        if (mDia == mClases.get(k).getHorarioArea().get(j).getHorario().getDia().getDia_id()) {
-                            horaI = Integer.parseInt(mClases.get(k).getHorarioArea().get(j).getHorario().getHoraInicio());
-                            horaF = Integer.parseInt(mClases.get(k).getHorarioArea().get(j + 1).getHorario().getHoraFin());
-                            mGrupoAgrupacion.addTextLayout(R.string.mis_clases_horario, horaI + ":00 hasta " + horaF + ":00");
-                            j++;
-                        }
-                    }
-                }
-                mGrupoAgrupacion.addTextLayout(R.string.mis_clases_instructor, mClases.get(0).getInstructor().getNombre() + " " + mClases.get(0).getInstructor().getApellido());
-            } else {
-                mContenedorClases.setVisibility(View.GONE);
-            }
-            
-            if (mAgrupacion == null && mClases == null) {
-                mTextEmpty.setVisibility(View.VISIBLE);
-            }
-        }*/
+        }
     }
 }

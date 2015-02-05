@@ -7,20 +7,8 @@ public class Catedra {
 
     private int id;
     private String descripcion;
-    private String estatus;
 
     public Catedra() {
-    }
-
-    public Catedra(int id, String descripcion, String estatus) {
-        this.id = id;
-        this.descripcion = descripcion;
-        this.estatus = estatus;
-    }
-
-    public Catedra(String descripcion, String estatus) {
-        this.descripcion = descripcion;
-        this.estatus = estatus;
     }
 
     public int getId() {
@@ -39,11 +27,4 @@ public class Catedra {
         this.descripcion = descripcion;
     }
 
-    public String getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(String estatus) {
-        this.estatus = estatus;
-    }
 }

@@ -17,6 +17,7 @@
     <string name="app_name">Fusa</string>
     <string name="cerrar_sesion">Cerrando sesión...</string>
     <string name="foto_actualizada">Tu foto ha sido actualizada.</string>
+    <string name="calendario_sin_nuevos_eventos">No hay nuevos eventos.</string>
     
     <!-- Evaluacion agrupacion -->
     <string name="agrupacion_evaluacion_titulo">OBJETIVOS</string>
@@ -30,7 +31,7 @@
     
     <!-- Horario Agrupacion -->
     <string name="agrupacion_horario_label">Horario</string>
-    <string name="agrupacion_horario_vacio">No participa en ninguna agrupación</string>
+    <string name="agrupacion_horario_vacio">No esta inscrito en alguna agrupación</string>
     <string name="agrupacion_horario_dia">Día</string>
     <string name="agrupacion_horario_notas">Ver mis notas</string>
     
@@ -50,6 +51,10 @@
     <string name="noticias_fecha_publicacion">Publicado el día</string>
     <string name="noticias_inicial">¿Quieres conocer los ultimos acontecimientos?\nMantente al día con las noticias\n más reciente de la fundación.</string>
     <string name="noticias_boton">NOTICIAS</string>
+
+    <string name="noticias_vacia">No hay noticias nuevas para mostrar.</string>
+    <string name="noticias_error_refrescar">No hemos podido conectar con el servidor. Por favor, intenta de nuevo.</string>
+    <string name="noticias_actualizadas">Las noticias están actualizadas.</string>
     
     <!-- Evento -->
     <string name="evento_nombre">Nombre</string>
@@ -73,6 +78,7 @@
     
     <!-- Prestamo de instrumento -->
     <string name="prestamo_solicitud_enviada">Tu postulación se ha enviado, pronto se hará su revisión.</string>
+    <string name="prestamo_solicitud_vacio">¡Tenemos problemas para buscar los datos! Por favor, intente más tarde..</string>
     <string name="prestamo_titulo_barra">Solicitud de Prestamo</string>
     <string name="prestamo_fecha_emision">Desde la fecha</string>
     <string name="prestamo_fecha_vencimiento">Hasta la fecha</string>
@@ -81,7 +87,8 @@
     <string name="prestamo_tipo_instrumento">Tipo de Instrumento</string>
     <string name="prestamo_periodo">Periodo de préstamo</string>
     <string name="prestamo_descripcion_tipo">Periodos: \n    - \"Fin de semana\" que equivale a 4 días.\n    - \"Vacacional\" que equivale a menos de 1 año.</string>
-
+    <string name="prestamo_buscando">¡Estamos verificando sus datos!</string>
+    
     <!-- Estatus del prestamo -->
     <string name="estatus_prestamo_titulo_barra">Estatus del prestamo</string>
     <string name="estatus_prestamo_fecha_emision">Desde la fecha</string>
@@ -116,6 +123,8 @@
     <string name="mensaje_error_repetir_contraseña">Las nuevas contraseñas con concuerdan.</string>
     <string name="mensaje_error_excepcion">De alguna manera, en algún lugar, algo salió mal.</string>
     <string name="mensaje_cargando">Un momento...</string>
+    <string name="mensaje_reintentar">¡No tenemos conexión!\nPor favor, reintente.</string>
+    <string name="mensaje_reintentar_estudiante">¡Tenemos problemas para buscar tus datos!\nPor favor, reintente.</string>
     <string name="mensaje_comprobar_conexion">Comprueba tu conexión y reinténtalo</string>
     <string name="error_enviar_correo">¡No posee un cliente de correo instalado!</string>
     <string name="error_enviar_sms">¡Hubo un error al enviar el mensaje, intente más tarde!</string>
@@ -235,6 +244,6 @@
     <string name="mis_clases_horario">Horario</string>
     <string name="mis_clases_instructor">Instructor</string>
     <string name="mis_clases_nombre_agrupacion">Nombre</string>
-    <string name="mis_clases_sin_clase">No posee alguna actividad para este día.</string>
+    <string name="mis_clases_sin_clase">No está inscrito en alguna catedra.</string>
 
 </resources>

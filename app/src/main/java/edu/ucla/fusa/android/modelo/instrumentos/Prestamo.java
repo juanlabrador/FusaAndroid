@@ -1,11 +1,14 @@
 package edu.ucla.fusa.android.modelo.instrumentos;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
 /**
  * Created by juanlabrador on 22/01/15.
  */
-public class Prestamo {
+public class Prestamo implements Parcelable {
     
     private int id;
     private String estatus;
@@ -63,5 +66,20 @@ public class Prestamo {
 
     public void setSolicitudPrestamo(SolicitudPrestamo solicitudPrestamo) {
         this.solicitudPrestamo = solicitudPrestamo;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(estatus);
+        parcel.writeLong(fechaEmision.getTime());
+        parcel.writeLong(fechaVencimiento.getTime());
+        parcel.writeValue(solicitudPrestamo);
+        parcel.writeValue(instrumento);
     }
 }

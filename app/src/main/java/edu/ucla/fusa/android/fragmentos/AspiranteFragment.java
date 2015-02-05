@@ -20,6 +20,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ScrollView;
+import android.widget.TextView;
+
 import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
 import com.juanlabrador.dateslider.SliderContainer;
 import com.juanlabrador.grouplayout.GroupContainer;
@@ -27,6 +29,7 @@ import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
 
+import at.markushi.ui.CircleButton;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.VistasPrincipalesActivity;
 import edu.ucla.fusa.android.modelo.fundacion.Aspirante;
@@ -53,7 +56,6 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
     private ScrollView mScroll;
     private CircularProgressBar mProgressBar;
     private ArrayList<String> mCustomMenu;
-    private View mView;
     private JSONParser jsonParser = new JSONParser();
     private List<TipoInstrumento> mInstrumentos = new ArrayList<>();
     private Aspirante mAspirante = new Aspirante();
@@ -62,6 +64,10 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
     private LinearLayout mParent;
     private NotificationManager mManager;
     private VistasPrincipalesActivity mActivity;
+    private CircleButton mRetryButton;
+    private TextView mEmpty;
+    private LoadingInstrumentos mServiceInstrumentos;
+    private UploadAspirante mServiceUpload;
 
     public static AspiranteFragment newInstance() {
         AspiranteFragment fragment = new AspiranteFragment();
@@ -71,53 +77,7 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle arguments) {
         super.onCreateView(inflater, container, arguments);
-        mView = inflater.inflate(R.layout.fragment_inicial_postulaciones, container, false);
-
-        mParent = (LinearLayout) mView.findViewById(R.id.fragment_postulacion);
-        mParent.setBackgroundColor(getResources().getColor(R.color.gris_fondo));
-        mScroll = (ScrollView) mView.findViewById(R.id.scroll_postulaciones);
-        mScroll.setVisibility(View.GONE);
-
-        mCedula = (GroupContainer) mView.findViewById(R.id.cedula);
-        mCedula.addEditTextLayout(R.string.postularse_cedula);
-        mCedula.getEditTextLayoutAt(0).setInputType(InputType.TYPE_CLASS_NUMBER);
-        mCedula.getEditTextLayoutAt(0).setMaxLength(8);
-        mCedula.getEditTextLayoutAt(0).getEditText().addTextChangedListener(this);
-        
-        mDatosBasicos = (GroupContainer) mView.findViewById(R.id.grupo_datos_basicos);
-        mDatosBasicos.addEditTextLayout(R.string.postularse_nombre);
-        mDatosBasicos.addEditTextLayout(R.string.postularse_apellido);
-        mDatosBasicos.addPopupLayout(R.string.postularse_sexo, R.menu.sexo);
-        mDatosBasicos.addTextLayout(R.string.postularse_fecha_nacimiento);
-
-
-        mDatosBasicos.getEditTextLayoutAt(0).getEditText().addTextChangedListener(this);
-        mDatosBasicos.getEditTextLayoutAt(1).getEditText().addTextChangedListener(this);
-        
-        mDatosMusicales = (GroupContainer) mView.findViewById(R.id.grupo_datos_musicales);
-        mDatosMusicales.addSwitchLayout(R.string.postularse_instrumento);
-        mDatosMusicales.getSwitchLayoutAt(0).setSwitchColor(getResources().getColor(R.color.azul));
-
-        
-        mDatosContacto = (GroupContainer) mView.findViewById(R.id.grupo_datos_contacto);
-        mDatosContacto.addEditTextLayout(R.string.postularse_telefono);
-        mDatosContacto.addValidatorLayout(R.string.postularse_correo);
-        mDatosContacto.getEditTextLayoutAt(0).setMaxLength(11);
-        mDatosContacto.getEditTextLayoutAt(0).getEditText().addTextChangedListener(this);
-        mDatosContacto.getValidatorLayoutAt(1).getEditText().addTextChangedListener(this);
-        mDatosContacto.getEditTextLayoutAt(0).setInputType(InputType.TYPE_CLASS_NUMBER);
-        mDatosContacto.getValidatorLayoutAt(1).setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-
-        mContainerDate = (SliderContainer) mView.findViewById(R.id.fecha_nacimiento);
-        mContainerDate.setOnTimeChangeListener(this);
-        mInitialTime = Calendar.getInstance();
-        mContainerDate.setMaxTime(mInitialTime);
-        mContainerDate.setTime(mInitialTime);
-        
-        mProgressBar = (CircularProgressBar) mView.findViewById(R.id.cargando_postulaciones);
-
-        new LoadingInstrumentos().execute();
-        return mView;
+        return inflater.inflate(R.layout.fragment_inicial_postulaciones, container, false);
     }
 
     @Override
@@ -144,14 +104,69 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
                     getFragmentManager().popBackStack();
                 }
             });
-            mToolbar.inflateMenu(R.menu.action_enviar);
             mToolbar.setOnMenuItemClickListener(this);
         } else {  // Esta dentro de la cuenta
             mToolbar.setTitle(R.string.postularse_titulo_barra_2);
-            mToolbar.inflateMenu(R.menu.action_enviar);
             mToolbar.setOnMenuItemClickListener(this);
             mActivity = (VistasPrincipalesActivity) getActivity();
         }
+
+        mParent = (LinearLayout) view.findViewById(R.id.fragment_postulacion);
+        mParent.setBackgroundColor(getResources().getColor(R.color.gris_fondo));
+        mScroll = (ScrollView) view.findViewById(R.id.scroll_postulaciones);
+        mScroll.setVisibility(View.GONE);
+
+        mCedula = (GroupContainer) view.findViewById(R.id.cedula);
+        mCedula.addEditTextLayout(R.string.postularse_cedula);
+        mCedula.getEditTextLayoutAt(0).setInputType(InputType.TYPE_CLASS_NUMBER);
+        mCedula.getEditTextLayoutAt(0).setMaxLength(8);
+        mCedula.getEditTextLayoutAt(0).getEditText().addTextChangedListener(this);
+
+        mDatosBasicos = (GroupContainer) view.findViewById(R.id.grupo_datos_basicos);
+        mDatosBasicos.addEditTextLayout(R.string.postularse_nombre);
+        mDatosBasicos.addEditTextLayout(R.string.postularse_apellido);
+        mDatosBasicos.addPopupLayout(R.string.postularse_sexo, R.menu.sexo);
+        mDatosBasicos.addTextLayout(R.string.postularse_fecha_nacimiento);
+
+
+        mDatosBasicos.getEditTextLayoutAt(0).getEditText().addTextChangedListener(this);
+        mDatosBasicos.getEditTextLayoutAt(1).getEditText().addTextChangedListener(this);
+
+        mDatosMusicales = (GroupContainer) view.findViewById(R.id.grupo_datos_musicales);
+        mDatosMusicales.addSwitchLayout(R.string.postularse_instrumento);
+        mDatosMusicales.getSwitchLayoutAt(0).setSwitchColor(getResources().getColor(R.color.azul));
+
+
+        mDatosContacto = (GroupContainer) view.findViewById(R.id.grupo_datos_contacto);
+        mDatosContacto.addEditTextLayout(R.string.postularse_telefono);
+        mDatosContacto.addValidatorLayout(R.string.postularse_correo);
+        mDatosContacto.getEditTextLayoutAt(0).setMaxLength(11);
+        mDatosContacto.getEditTextLayoutAt(0).getEditText().addTextChangedListener(this);
+        mDatosContacto.getValidatorLayoutAt(1).getEditText().addTextChangedListener(this);
+        mDatosContacto.getEditTextLayoutAt(0).setInputType(InputType.TYPE_CLASS_NUMBER);
+        mDatosContacto.getValidatorLayoutAt(1).setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+
+        mContainerDate = (SliderContainer) view.findViewById(R.id.fecha_nacimiento);
+        mContainerDate.setOnTimeChangeListener(this);
+        mInitialTime = Calendar.getInstance();
+        mContainerDate.setMaxTime(mInitialTime);
+        mContainerDate.setTime(mInitialTime);
+
+        mProgressBar = (CircularProgressBar) view.findViewById(R.id.cargando_postulaciones);
+        mEmpty = (TextView) view.findViewById(R.id.aspirante_vacio);
+        mRetryButton = (CircleButton) view.findViewById(R.id.button_network_aspirante);
+        mRetryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mEmpty.setVisibility(View.GONE);
+                mRetryButton.setVisibility(View.GONE);
+                mProgressBar.setVisibility(View.VISIBLE);
+                mServiceInstrumentos = new LoadingInstrumentos();
+                mServiceInstrumentos.execute();
+            }
+        });
+        mServiceInstrumentos = new LoadingInstrumentos();
+        mServiceInstrumentos.execute();
     }
 
 
@@ -171,7 +186,8 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
                                     .text(R.string.mensaje_complete_campos));
                 } else {
                     setAspirante();
-                    new UploadAspirante().execute(mAspirante);
+                    mServiceUpload = new UploadAspirante();
+                    mServiceUpload.execute(mAspirante);
                 }
                 break;
         }
@@ -228,11 +244,26 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
     @Override
     public void onTimeChange(Calendar calendar) {
         Calendar year = Calendar.getInstance();
-        Calendar mDate = calendar;
         setFechaNacimiento();
         if (calendar.getTime().before(mInitialTime.getTime())) {  //Validamos que la fecha de nacimiento sea menor a la fecha actual.
             age = year.get(Calendar.YEAR) - calendar.get(Calendar.YEAR);
         } 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mServiceInstrumentos != null) {
+            if (!mServiceInstrumentos.isCancelled()) {
+                mServiceInstrumentos.cancel(true);
+            }
+        }
+        if (mServiceUpload != null) {
+            if (!mServiceUpload.isCancelled()) {
+                mServiceUpload.cancel(true);
+            }
+        }
+        Log.i(TAG, "¡Destruyendo servicios!");
     }
 
     private class LoadingInstrumentos extends AsyncTask<Void, Void, Integer> {
@@ -245,8 +276,7 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
 
         @Override
         protected Integer doInBackground(Void... voids) {
-            Log.i(TAG, "¡Buscando catedras!");
-            SystemClock.sleep(3000);
+            Log.i(TAG, "¡Buscando instrumentos!");
             if (mDatosMusicales.getPopupLayoutAt(1) != null) {
                 mDatosMusicales.getPopupLayoutAt(1).getPopupMenu().getMenu().clear();
             }
@@ -259,7 +289,7 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
                 }
                 return 100;
             } else {
-                return 0;
+                return -1;
             }
         }
 
@@ -267,7 +297,18 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             switch (result) {
-                case 0:
+                case 100:
+                    mToolbar.inflateMenu(R.menu.action_enviar);
+                    mDatosMusicales.addPopupLayout(R.string.postularse_catedra, mCustomMenu);
+                    mProgressBar.setVisibility(View.GONE);
+                    mScroll.setVisibility(View.VISIBLE);
+                    mToolbar.setVisibility(View.VISIBLE);
+                    mRetryButton.setVisibility(View.GONE);
+                    mEmpty.setVisibility(View.GONE);
+                    mParent.setBackgroundColor(getResources().getColor(R.color.gris_fondo));
+                    Log.i(TAG, "¡Cargando sin problemas!");
+                    break;
+                case -1:
                     SnackbarManager.show(
                             Snackbar.with(getActivity())
                                     .type(SnackbarType.MULTI_LINE)
@@ -275,17 +316,12 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
                     getFragmentManager().popBackStack();
                     Log.i(TAG, "¡Error al buscar!");
                     break;
-                case 100:
-                    mDatosMusicales.addPopupLayout(R.string.postularse_catedra, mCustomMenu);
-                    try {
-                        mProgressBar.setVisibility(View.GONE);
-                        mScroll.setVisibility(View.VISIBLE);
-                        mToolbar.setVisibility(View.VISIBLE);
-                        mParent.setBackgroundColor(getResources().getColor(R.color.gris_fondo));
-                        Log.i(TAG, "¡Cargando sin problemas!");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                case 0:
+                    mScroll.setVisibility(View.GONE);
+                    mRetryButton.setVisibility(View.VISIBLE);
+                    mEmpty.setVisibility(View.VISIBLE);
+                    mProgressBar.setVisibility(View.GONE);
+                    Log.i(TAG, "¡Error del servidor!");
                     break;
             }
         }
@@ -304,15 +340,8 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
 
         @Override
         protected Integer doInBackground(Aspirante... aspirante) {
-            SystemClock.sleep(4000);
-            int result;
-            try {
-                result = jsonParser.uploadAspirante(aspirante[0]);
-            } catch (Exception e) {
-                e.printStackTrace();
-                result = 0;
-            }
-            return result;
+            SystemClock.sleep(2000);
+            return jsonParser.uploadAspirante(aspirante[0]);
         }
 
         @Override
@@ -339,6 +368,8 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
                             Snackbar.with(getActivity())
                                     .type(SnackbarType.MULTI_LINE)
                                     .text(R.string.mensaje_error_excepcion));
+                    mManager.cancel(1);
+                    mServiceUpload.cancel(true);
                     //new UploadAspirante().execute(mAspirante);
                     break;
                 case -1:
@@ -348,6 +379,7 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
                             Snackbar.with(getActivity())
                                     .type(SnackbarType.MULTI_LINE)
                                     .text(R.string.mensaje_error_enviar));
+                    getFragmentManager().popBackStack();
                     break;
             }
         }

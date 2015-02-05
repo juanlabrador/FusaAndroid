@@ -1,86 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.v4.widget.SwipeRefreshLayout
     android:id="@+id/fragment_calendar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/gris_fondo"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <com.squareup.timessquare.CalendarPickerView
-        android:id="@+id/calendario"
+    
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbarStyle="outsideOverlay"
-        android:clipToPadding="true"
-        android:visibility="gone"/>
+        android:background="@color/gris_fondo"
+        android:gravity="center">
 
-    <fr.castorflex.android.circularprogressbar.CircularProgressBar
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/pb_cargando_calendario"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:cpb_color="@color/azul"
-        app:cpb_stroke_width="2dp"
-        android:indeterminate="true"
-        android:layout_centerVertical="true"/>
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/contenedor_leyenda"
-        android:layout_alignBottom="@+id/calendario"
-        android:background="@color/azul_transparente"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <LinearLayout
+        <com.squareup.timessquare.CalendarPickerView
+            android:id="@+id/calendario"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="2dp"
-            android:gravity="center_vertical">
-
-            <View
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/border_leyenda_1"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#FFF"
-                android:textSize="16sp"
-                android:padding="5dp"
-                android:layout_marginLeft="10dp"
-                android:text="Mis eventos"/>
-
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:scrollbarStyle="outsideOverlay"
+            android:clipToPadding="true"
+            android:visibility="gone"/>
+    
+        <fr.castorflex.android.circularprogressbar.CircularProgressBar
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/pb_cargando_calendario"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:cpb_color="@color/azul"
+            app:cpb_stroke_width="2dp"
+            android:indeterminate="true"
+            android:layout_centerVertical="true"/>
         
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="2dp"
-            android:gravity="center_vertical">
-            
-            <View
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/border_leyenda_2"/>
-            
-            <TextView
-                android:layout_width="wrap_content"
+            android:id="@+id/contenedor_leyenda"
+            android:layout_alignBottom="@+id/calendario"
+            android:background="@color/azul_transparente"
+            android:orientation="vertical"
+            android:visibility="gone">
+    
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FFF"
-                android:textSize="16sp"
-                android:padding="5dp"
-                android:layout_marginLeft="10dp"
-                android:text="Otros eventos"/>
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:gravity="center_vertical">
+    
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/border_leyenda_1"/>
+    
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFF"
+                    android:textSize="16sp"
+                    android:padding="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Mis eventos"/>
+    
+            </LinearLayout>
             
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:gravity="center_vertical">
+                
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/border_leyenda_2"/>
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFF"
+                    android:textSize="16sp"
+                    android:padding="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Otros eventos"/>
+                
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>
+    </RelativeLayout>
+</android.support.v4.widget.SwipeRefreshLayout  >

@@ -5,17 +5,6 @@ package edu.ucla.fusa.android.modelo.academico;
  */
 public class Estudiante extends Persona {
 
-    private String estatus;
-
     public Estudiante() {
     }
-
-    public String getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(String estatus) {
-        this.estatus = estatus;
-    }
-
 }

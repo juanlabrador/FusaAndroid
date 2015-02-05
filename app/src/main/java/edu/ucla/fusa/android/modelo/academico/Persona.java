@@ -20,7 +20,6 @@ public class Persona {
     private String telefonoFijo;
     private int edad;
     private String nombreApellido;
-    private byte[] imagen;
     private String nombreImagen;
     private String direccion;
     private String estatus;
@@ -129,14 +128,6 @@ public class Persona {
 
     public void setNombreApellido(String nombreApellido) {
         this.nombreApellido = nombreApellido;
-    }
-
-    public byte[] getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(byte[] imagen) {
-        this.imagen = imagen;
     }
 
     public String getNombreImagen() {

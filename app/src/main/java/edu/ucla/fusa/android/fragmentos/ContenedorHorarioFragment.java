@@ -23,7 +23,7 @@ public class ContenedorHorarioFragment extends Fragment implements ViewPager.OnP
     private PagerSlidingTabStrip mTabs;
     private Toolbar mToolbar;
     private ViewPager mViewPager;
-    private static final String[] mContentTabs = new String[] {"AGRUPACIÓN"};
+    private static final String[] mContentTabs = new String[] {"CATEDRAS" , "AGRUPACIÓN"};
 
 
     public static ContenedorHorarioFragment newInstance() {
@@ -51,11 +51,17 @@ public class ContenedorHorarioFragment extends Fragment implements ViewPager.OnP
         mViewPager = (ViewPager) view.findViewById(R.id.view_pager_horario);
         mTabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs_horarios);
         mAdapter = new FragmentViewPagerAdapter(getChildFragmentManager(), mContentTabs);
+        mAdapter.addFragment(HorarioClasesFragment.newInstance());
         mAdapter.addFragment(HorarioAgrupacionFragment.newInstance());
-
         mViewPager.setAdapter(mAdapter);
         mTabs.setViewPager(mViewPager);
         mTabs.setOnPageChangeListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mToolbar.setVisibility(View.VISIBLE);
     }
 
     @Override

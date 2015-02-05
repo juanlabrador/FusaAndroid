@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:id="@+id/contenedor_horario_agrupacion">
+        android:id="@+id/contenedor_horario_agrupacion"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"
@@ -79,13 +80,23 @@
         android:indeterminate="true"/>
 
     <TextView
-        android:layout_marginTop="12dp"
         android:textSize="18sp"
         android:id="@+id/horario_agrupacion_vacio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/blanco"
+        android:textColor="@color/gris_oscuro"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"
         android:text="@string/agrupacion_horario_vacio"
         android:visibility="gone"/>
-    
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/button_network"
+        android:layout_width="64dip"
+        android:layout_height="64dip"
+        android:src="@drawable/ic_sin_conexion"
+        app:cb_color="@color/gris_oscuro"
+        app:cb_pressedRingWidth="8dip"
+        android:visibility="gone"/>
+
 </LinearLayout>

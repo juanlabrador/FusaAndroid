@@ -3,13 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gris_fondo">
     
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/contenedor_estatus"
+        android:visibility="gone">
         
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,4 +92,33 @@
         
         </LinearLayout>
     </ScrollView>
+
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        android:layout_gravity="center"
+        android:id="@+id/pb_cargando_estatus"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:cpb_color="@color/azul"
+        app:cpb_stroke_width="2dp"
+        android:indeterminate="true"/>
+
+    <TextView
+        android:textSize="18sp"
+        android:id="@+id/estatus_vacio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gris_oscuro"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"
+        android:text="@string/noticias_vacia"
+        android:visibility="gone"/>
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/button_network_estatus"
+        android:layout_width="64dip"
+        android:layout_height="64dip"
+        android:src="@drawable/ic_sin_conexion"
+        app:cb_color="@color/gris_oscuro"
+        app:cb_pressedRingWidth="8dip"
+        android:visibility="gone"/>
 </LinearLayout>

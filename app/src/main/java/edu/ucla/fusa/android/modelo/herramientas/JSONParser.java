@@ -48,8 +48,8 @@ public class JSONParser {
     
     public JSONParser() {
         mRequestFactory = new SimpleClientHttpRequestFactory();
-        mRequestFactory.setConnectTimeout(3000);
-        mRequestFactory.setReadTimeout(4000);
+        mRequestFactory.setConnectTimeout(2000);
+        mRequestFactory.setReadTimeout(3000);
     }
 
     // Usuario
@@ -63,38 +63,43 @@ public class JSONParser {
             return mRestTemplate.getForObject(URL + mParameters, Usuario.class);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public Integer updateUsuario(Usuario usuario) {
-        // Create a new RestTemplate instance
-        mRestTemplate = new RestTemplate(mRequestFactory);
+        try {
+            // Create a new RestTemplate instance
+            mRestTemplate = new RestTemplate(mRequestFactory);
 
-        System.setProperty("http.keepAlive", "false");
-        // Add the Jackson and String message converters
-        mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        mRestTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+            System.setProperty("http.keepAlive", "false");
+            // Add the Jackson and String message converters
+            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            mRestTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
-        Gson gson = new Gson();
-        String json = gson.toJson(usuario);
-        Log.i(TAG, json);
-        // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
-        return mRestTemplate.postForObject(URL + "usuario/update", usuario, Integer.class);
+            Gson gson = new Gson();
+            String json = gson.toJson(usuario);
+            Log.i(TAG, json);
+            // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
+            return mRestTemplate.postForObject(URL + "usuario/update", usuario, Integer.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     // Estudiante
 
-    public Estudiante serviceEstudiante(ArrayList<NameValuePair> params) {
+    public Estudiante serviceEstudiante(String username) {
         try {
             mRestTemplate = new RestTemplate(mRequestFactory);
             mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            mParameters = "ServiceEstudiante/" + params.get(0).getValue();
+            mParameters = "ServiceEstudiante/" + username;
             return mRestTemplate.getForObject(URL + mParameters, Estudiante.class);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public Agrupacion serviceAgrupacionEstudiante(int id) {
@@ -105,11 +110,11 @@ public class JSONParser {
             return mRestTemplate.getForObject(URL + mParameters, Agrupacion.class);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
-    public List<ClaseParticular> serviceClaseEstudiante(int id) {
+    public ArrayList<ClaseParticular> serviceClaseEstudiante(int id) {
         try {
             mRestTemplate = new RestTemplate(mRequestFactory);
             mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -157,21 +162,21 @@ public class JSONParser {
             return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
-    public ArrayList<Noticia> serviceRefreshNoticias(ArrayList<NameValuePair> params) {
+    public ArrayList<Noticia> serviceRefreshNoticias(long id) {
         try {
             mRestTemplate = new RestTemplate(mRequestFactory);
             mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            mParameters = "ServiceNewNoticias/" + params.get(0).getValue();
+            mParameters = "ServiceNewNoticias/" + id;
             ResponseEntity<Noticia[]> responseEntity = mRestTemplate.getForEntity(URL + mParameters, Noticia[].class);
             return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     // Catedras
@@ -190,39 +195,48 @@ public class JSONParser {
 
     // Postulación de un estudiante
 
-    public int uploadAspirante(Aspirante aspirante) throws Exception {
-        // Create a new RestTemplate instance
-        mRestTemplate = new RestTemplate(mRequestFactory);
+    public int uploadAspirante(Aspirante aspirante) {
+        try {
+            // Create a new RestTemplate instance
+            mRestTemplate = new RestTemplate(mRequestFactory);
 
-        System.setProperty("http.keepAlive", "false");
-        // Add the Jackson and String message converters
-        mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        mRestTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+            System.setProperty("http.keepAlive", "false");
+            // Add the Jackson and String message converters
+            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            mRestTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
-        Gson gson = new Gson();
-        String json = gson.toJson(aspirante);
-        Log.i(TAG, json);
-        // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
-        return mRestTemplate.postForObject(URL + "aspirante/guardar", aspirante, Integer.class);
+            Gson gson = new Gson();
+            String json = gson.toJson(aspirante);
+            Log.i(TAG, json);
+            // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
+            return mRestTemplate.postForObject(URL + "aspirante/guardar", aspirante, Integer.class);
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     // Solicitud de un prestamo
 
-    public SolicitudPrestamo uploadSolicitudPrestamo(SolicitudPrestamo solicitud) throws Exception {
-        // Create a new RestTemplate instance
-        mRestTemplate = new RestTemplate(mRequestFactory);
+    public int uploadSolicitudPrestamo(SolicitudPrestamo solicitud) {
+        try {
+            // Create a new RestTemplate instance
+            mRestTemplate = new RestTemplate(mRequestFactory);
 
-        System.setProperty("http.keepAlive", "false");
-        // Add the Jackson and String message converters
-        mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        mRestTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+            System.setProperty("http.keepAlive", "false");
+            // Add the Jackson and String message converters
+            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            mRestTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
-        Gson gson = new Gson();
-        String json = gson.toJson(solicitud);
-        
-        Log.i(TAG, json);
-        // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
-        return mRestTemplate.postForObject(URL + "SolicitudPrestamo/upload", solicitud, SolicitudPrestamo.class);
+            Gson gson = new Gson();
+            String json = gson.toJson(solicitud);
+
+            Log.i(TAG, json);
+            // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
+            return mRestTemplate.postForObject(URL + "SolicitudPrestamo/upload", solicitud, Integer.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     public SolicitudPrestamo serviceSolicitudPrestamoPorEstudiante(int id) {
@@ -233,8 +247,8 @@ public class JSONParser {
             return mRestTemplate.getForObject(URL + mParameters, SolicitudPrestamo.class);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public SolicitudPrestamo serviceSolicitudPrestamo(int id) {
@@ -245,8 +259,8 @@ public class JSONParser {
             return mRestTemplate.getForObject(URL + mParameters, SolicitudPrestamo.class);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     // Tipo de prestamo
@@ -314,8 +328,8 @@ public class JSONParser {
             return mRestTemplate.getForObject(URL + mParameters, Prestamo.class);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
 }

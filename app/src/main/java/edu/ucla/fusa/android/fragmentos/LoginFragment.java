@@ -204,34 +204,30 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
         protected Integer doInBackground(String... params) {
             SystemClock.sleep(2000);
             /** Cargamos los parametros que enviaremos por URL */
-            ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
+            ArrayList<NameValuePair> parametros = new ArrayList<>();
             parametros.add(new BasicNameValuePair("username", params[0]));
             parametros.add(new BasicNameValuePair("password", params[1]));
 
             /** Mandamos los parametros y esperemos una respuesta del servidor */
-            try {
-                mUsuario = mJSONParser.serviceLogin(parametros);
-                if (mUsuario != null) {
-                    Log.i(TAG, "Username: " + mUsuario.getUsername());
-                    if (!mUsuario.getUsername().equals("")) { /** Si el usuario existe */
-                        /** Guardamos sus datos internamente para que no se loguee de nuevo */
-                        mUserTable.insertData(
-                                mUsuario.getUsername(),
-                                mUsuario.getPassword(),
-                                mUsuario.getNombre(),
-                                mUsuario.getApellido(),
-                                mUsuario.getFoto(),
-                                mUsuario.getTipoUsuario().getId());
-                        return 100;
-                    }
+            mUsuario = mJSONParser.serviceLogin(parametros);
+            if (mUsuario != null) {
+                Log.i(TAG, "Username: " + mUsuario.getUsername());
+                if (!mUsuario.getUsername().equals("")) { /** Si el usuario existe */
+                    /** Guardamos sus datos internamente para que no se loguee de nuevo */
+                    mUserTable.insertData(
+                            mUsuario.getUsername(),
+                            mUsuario.getPassword(),
+                            mUsuario.getNombre(),
+                            mUsuario.getApellido(),
+                            mUsuario.getFoto(),
+                            mUsuario.getTipoUsuario().getId());
+                    return 100;
                 } else {
                     return -1;
                 }
-            } catch (Exception e) {
-                /** Hubo problemas con el servidor o lentitud de la red */
+            } else {
                 return 0;
-            }  
-            return 0;
+            }
         }
 
         @Override

@@ -1,66 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     android:id="@+id/principal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@color/azul"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/custom_toolbar"/>
-    
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
-        android:layout_below="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    
-        <LinearLayout
-            android:id="@+id/frame_container"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/contenedor_principal"
+        android:gravity="center"
+        android:visibility="gone">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/custom_toolbar"/>
+        
+        <android.support.v4.widget.DrawerLayout
+            android:id="@+id/drawer_layout"
+            android:layout_below="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@color/azul">
-
-            <fr.castorflex.android.circularprogressbar.CircularProgressBar
-                android:id="@+id/pb_cargando"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:cpb_color="@color/blanco"
-                app:cpb_stroke_width="2dp"
-                android:indeterminate="true"/>
-
-            <TextView
-                android:layout_marginTop="12dp"
-                android:textSize="18sp"
-                android:id="@+id/text_cargando"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/blanco"
-                android:text="@string/mensaje_cargando"
-                android:visibility="visible"/>
-
-            <Button
-                android:id="@+id/btn_reintentar_conexion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/boton_reintentar"
-                android:visibility="gone"
-                android:textColor="@color/blanco"
+            android:layout_height="match_parent">
+        
+            <LinearLayout
+                android:id="@+id/frame_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:background="@color/azul"/>
+        
+            <ListView 
+                android:textColor="@color/blanco"
+                android:layout_gravity="start"
+                android:id="@+id/lista_funciones"
+                android:background="@drawable/style_list_azul"
+                android:layout_width="280dp"
+                android:layout_below="@+id/toolbar"
+                android:layout_height="match_parent"
+                android:listSelector="@drawable/style_list_selector"
+                android:divider="@android:color/transparent"
+                android:choiceMode="singleChoice" />
+        </android.support.v4.widget.DrawerLayout>
+
         </LinearLayout>
     
-        <ListView android:textColor="@color/blanco"
-            android:layout_gravity="start"
-            android:id="@+id/lista_funciones"
-            android:background="@drawable/style_list_azul"
-            android:layout_width="280dp"
-            android:layout_below="@+id/toolbar"
-            android:layout_height="match_parent"
-            android:listSelector="@drawable/style_list_selector"
-            android:divider="@android:color/transparent"
-            android:choiceMode="singleChoice" />
-    </android.support.v4.widget.DrawerLayout>
-</RelativeLayout>
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        android:id="@+id/pb_cargando_principal"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:cpb_color="#FFF"
+        app:cpb_stroke_width="2dp"
+        android:indeterminate="true"/>
+
+    <TextView
+        android:textSize="18sp"
+        android:id="@+id/principal_vacio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"
+        android:text="@string/mensaje_reintentar"
+        android:visibility="gone"/>
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/button_network_principal"
+        android:layout_width="64dip"
+        android:layout_height="64dip"
+        android:src="@drawable/ic_sin_conexion_azul"
+        app:cb_color="#FFF"
+        app:cb_pressedRingWidth="8dip"
+        android:visibility="gone"/>
+</LinearLayout>

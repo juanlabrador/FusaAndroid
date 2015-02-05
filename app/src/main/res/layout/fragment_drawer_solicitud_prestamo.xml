@@ -4,58 +4,99 @@
     android:layout_height="match_parent"
     android:background="@color/gris_fondo"
     android:orientation="vertical"
+    android:gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <LinearLayout
+        android:id="@+id/contenedor_solicitud"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/gris_fondo"
+        android:gravity="center"
+        android:visibility="gone">
 
-    <com.juanlabrador.grouplayout.GroupContainer
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:textSizeLayout="15"
-        android:id="@+id/instrumentos_prestamo"
-        android:layout_marginTop="16dp"/>
+        <com.juanlabrador.grouplayout.GroupContainer
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textSizeLayout="15"
+            android:id="@+id/instrumentos_prestamo"
+            android:layout_marginTop="16dp"/>
+        
+        <com.juanlabrador.grouplayout.GroupContainer
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textSizeLayout="15"
+            android:id="@+id/tipos_prestamos"
+            android:layout_marginTop="16dp"/>
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prestamo_descripcion_tipo"
+            android:textSize="13sp"
+            android:textColor="@color/gris_oscuro"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"/>
+        
+        <com.juanlabrador.grouplayout.GroupContainer
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textSizeLayout="15"
+            android:id="@+id/fecha_emision_titulo"
+            android:layout_marginTop="12dp"/>
     
-    <com.juanlabrador.grouplayout.GroupContainer
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:textSizeLayout="15"
-        android:id="@+id/tipos_prestamos"
-        android:layout_marginTop="16dp"/>
+        <include
+            layout="@layout/simple_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fecha_emision"
+            android:layout_margin="6dp"/>
     
+        <com.juanlabrador.grouplayout.GroupContainer
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textSizeLayout="15"
+            android:id="@+id/fecha_vencimiento_titulo"
+            android:layout_marginTop="8dp"/>
+    
+        <include
+            layout="@layout/simple_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fecha_vencimiento"
+            android:layout_margin="6dp"/>
+
+    </LinearLayout>
+
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        android:layout_gravity="center"
+        android:id="@+id/pb_cargando_solicitud"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:cpb_color="@color/azul"
+        app:cpb_stroke_width="2dp"
+        android:indeterminate="true"/>
+
     <TextView
-        android:layout_width="match_parent"
+        android:textSize="18sp"
+        android:id="@+id/solicitud_vacia"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/prestamo_descripcion_tipo"
-        android:textSize="13sp"
         android:textColor="@color/gris_oscuro"
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"/>
-    
-    <com.juanlabrador.grouplayout.GroupContainer
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:textSizeLayout="15"
-        android:id="@+id/fecha_emision_titulo"
-        android:layout_marginTop="12dp"/>
+        android:gravity="center"
+        android:layout_marginBottom="8dp"
+        android:text="@string/mensaje_reintentar"
+        android:visibility="gone"/>
 
-    <include
-        layout="@layout/simple_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/fecha_emision"
-        android:layout_margin="6dp"/>
-
-    <com.juanlabrador.grouplayout.GroupContainer
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:textSizeLayout="15"
-        android:id="@+id/fecha_vencimiento_titulo"
-        android:layout_marginTop="8dp"/>
-
-    <include
-        layout="@layout/simple_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/fecha_vencimiento"
-        android:layout_margin="6dp"/>
+    <at.markushi.ui.CircleButton
+        android:id="@+id/button_network_solicitud"
+        android:layout_width="64dip"
+        android:layout_height="64dip"
+        android:src="@drawable/ic_sin_conexion"
+        app:cb_color="@color/gris_oscuro"
+        app:cb_pressedRingWidth="8dip"
+        android:visibility="gone"/>
 </LinearLayout>

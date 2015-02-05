@@ -51,7 +51,6 @@ public class HorarioClasesAdapter extends BaseAdapter {
         if (convertView == null) {
             mViewHolder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.custom_item_horario_clases, null);
-            mViewHolder.mLugar = (TextView) convertView.findViewById(R.id.lugar_horario_clases);
             mViewHolder.mHorario = (GroupContainer) convertView.findViewById(R.id.hora_clases);
             convertView.setTag(mViewHolder);
           
@@ -62,13 +61,12 @@ public class HorarioClasesAdapter extends BaseAdapter {
         mHorarioArea = mHorarios.get(position);
         mViewHolder.mHorario.clear();
         Log.i(TAG, "ID: " + mHorarioArea.getHorario().getHorario_id());
-        mViewHolder.mLugar.setText(mHorarioArea.getAreaEstudio().getDescripcion().toUpperCase() + " - " + mHorarioArea.getHorario().getDia().getDescripcion().toUpperCase());
+        mViewHolder.mHorario.addSimpleMultiTextLayout(mHorarioArea.getHorario().getDia().getDescripcion().toUpperCase() + " - " + mHorarioArea.getAreaEstudio().getDescripcion().toUpperCase());
         mViewHolder.mHorario.addTextLayout(R.string.mis_clases_horario, mHorarioArea.getHorario().getHoraInicio() + ":00" + " - " + mHorarioArea.getHorario().getHoraFin() + ":00");
         return convertView;
     }
 
     public static class ViewHolder {
-        TextView mLugar;
         GroupContainer mHorario;
     }
 }

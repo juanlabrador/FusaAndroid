@@ -59,7 +59,6 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
     private SolicitudPrestamo mSolicitudPrestamo;
     private Estudiante mEstudiante;
     private EstudianteTable mEstudianteTable;
-    private EstudiantePorAgrupacion mEstudiantePorAgrupacion;
     private Toolbar mToolbar;
     private ArrayList<TipoPrestamo> mTiposPrestamos;
     private ArrayList<String> mCustomMenuPrestamo = new ArrayList<>();
@@ -78,6 +77,8 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
     private LoadingTipoPrestamo mServicePrestamo;
     private LoadingTipoInstrumentos mServiceInstrumento;
     private UploadSolicitudPrestamo mServiceUpload;
+    private EstudiantePorAgrupacion mEstudiantePorAgrupacion;
+    private BuscarEstudianteAgrupacion mServiceValidar;
 
     public static SolicitudPrestamoFragment newInstance() {
         SolicitudPrestamoFragment fragment = new SolicitudPrestamoFragment();
@@ -95,7 +96,6 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
         
         mActivity = (VistasPrincipalesActivity) getActivity();
         mEstudianteTable = new EstudianteTable(getActivity());
-        mEstudiantePorAgrupacion = new EstudiantePorAgrupacion();
         mJSONParser = new JSONParser();
         mDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     }
@@ -144,9 +144,9 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
                 mServicePrestamo.execute();
             }
         });
-        
-        mServicePrestamo = new LoadingTipoPrestamo();
-        mServicePrestamo.execute();
+        mEstudiante = mEstudianteTable.searchUser();
+        mServiceValidar = new BuscarEstudianteAgrupacion();
+        mServiceValidar.execute(mEstudiante.getId());
     }
 
     @Override
@@ -160,7 +160,6 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
         mSolicitudPrestamo.setEstatus(ESTATUS);
         mSolicitudPrestamo.setFechaEmision(mDateFormat.format(mFechaEmision));
         mSolicitudPrestamo.setFechaVencimiento(mDateFormat.format(mFechaVencimiento));
-        mEstudiantePorAgrupacion.setEstudiante(mEstudiante);
         mSolicitudPrestamo.setEstudiantePorAgrupacion(mEstudiantePorAgrupacion);
         mSolicitudPrestamo.setTipoPrestamo(mTiposPrestamos.get(mGrupoPrestamo.getPopupLayoutAt(0).getItemPosition()));
         mSolicitudPrestamo.setTipoInstrumento(mTiposInstrumentos.get(mGrupoInstrumentos.getPopupLayoutAt(0).getItemPosition()));
@@ -172,7 +171,6 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
 
         Date mFechaEmision = mContainerFechaEmision.getTime().getTime();
         Date mFechaVencimiento = mContainerFechaVencimiento.getTime().getTime();
-        mEstudiante = mEstudianteTable.searchUser();
         long mTiempo = mFechaVencimiento.getTime() - mFechaEmision.getTime();
         long dias = mTiempo / (1000 * 60 *  60 * 24);
         Log.i(TAG, "Dias: " + dias);
@@ -271,7 +269,6 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
 
         @Override
         protected Integer doInBackground(SolicitudPrestamo... params) {
-            SystemClock.sleep(3000);
             return jsonParser.uploadSolicitudPrestamo(params[0]);
         }
 
@@ -357,8 +354,58 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
                 mServiceUpload.cancel(true);
             }
         }
+
+        if (mServiceValidar != null) {
+            if (!mServiceValidar.isCancelled()) {
+                mServiceValidar.cancel(true);
+            }
+        }
     }
 
+    private class BuscarEstudianteAgrupacion extends AsyncTask<Integer, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            mEstudiantePorAgrupacion = mJSONParser.serviceEstudiantePorAgrupacion(integers[0]);
+            if (mEstudiantePorAgrupacion == null) {
+                return 0;
+            } else if (mEstudiantePorAgrupacion.getId() != -1) {
+                return 100;
+            } else {
+                return -1;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            switch (result) {
+                case 100:
+                    Log.i(TAG, "¡Esta en una agrupacion!");
+                    mServicePrestamo = new LoadingTipoPrestamo();
+                    mServicePrestamo.execute();
+                    break;
+                case 0:
+                    Log.i(TAG, "¡Problemas de conexión!");
+                    mContenedor.setVisibility(View.GONE);
+                    mProgress.setVisibility(View.GONE);
+                    mEmpty.setVisibility(View.VISIBLE);
+                    mRetryButton.setVisibility(View.VISIBLE);
+                    break;
+                case -1:
+                    Log.i(TAG, "¡No esta en una agrupacion!");
+                    mToolbar.getMenu().clear();
+                    mActivity.actualizarSolicitud();
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.prestamo_solicitud_error));
+                    getFragmentManager().popBackStack();
+                    break;
+            }
+        }
+    }
+    
     // Tipo de Prestamo 
 
     private class LoadingTipoPrestamo extends AsyncTask<Void, Void, Integer> {

@@ -22,7 +22,9 @@ import edu.ucla.fusa.android.modelo.academico.Agrupacion;
 import edu.ucla.fusa.android.modelo.academico.Catedra;
 import edu.ucla.fusa.android.modelo.academico.ClaseParticular;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
+import edu.ucla.fusa.android.modelo.academico.EstudiantePorAgrupacion;
 import edu.ucla.fusa.android.modelo.academico.EvaluacionPorAgrupacion;
+import edu.ucla.fusa.android.modelo.academico.EvaluacionPorClase;
 import edu.ucla.fusa.android.modelo.evento.Evento;
 import edu.ucla.fusa.android.modelo.instrumentos.Prestamo;
 import edu.ucla.fusa.android.modelo.instrumentos.SolicitudPrestamo;
@@ -102,6 +104,18 @@ public class JSONParser {
         }
     }
 
+    public EstudiantePorAgrupacion serviceEstudiantePorAgrupacion(int id) {
+        try {
+            mRestTemplate = new RestTemplate(mRequestFactory);
+            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            mParameters = "EstudiantePorAgrupacion/" + id;
+            return mRestTemplate.getForObject(URL + mParameters, EstudiantePorAgrupacion.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public Agrupacion serviceAgrupacionEstudiante(int id) {
         try {
             mRestTemplate = new RestTemplate(mRequestFactory);
@@ -147,8 +161,20 @@ public class JSONParser {
             return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
+    }
+
+    public List<EvaluacionPorClase> serviceEvaluacionPorClases(int id_clase, int id_estudiante) {
+        try {
+            mRestTemplate = new RestTemplate(mRequestFactory);
+            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            ResponseEntity<EvaluacionPorClase[]> responseEntity = mRestTemplate.getForEntity(URL + "EvalEstudianteClaseParticular/" + id_clase + "/" + id_estudiante, EvaluacionPorClase[].class);
+            return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

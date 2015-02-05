@@ -52,7 +52,6 @@ public class HorarioAgrupacionFragment extends Fragment implements View.OnClickL
     private TextView mEmpty;
     private LinearLayout mContenedorHorario;
     private TextView mNombreAgrupacion;
-    private TextView mNombreInstructor;
     private TextView mTipoAgrupacion;
     private GroupContainer mDatosInstructor;
     private GroupContainer mVerNotas;
@@ -102,11 +101,10 @@ public class HorarioAgrupacionFragment extends Fragment implements View.OnClickL
         mHorarioAgrupaciones = (ListView) view.findViewById(R.id.lista_horario_agrupacion);
         mProgress = (CircularProgressBar) view.findViewById(R.id.pb_cargando_horario_agrupacion);
         mNombreAgrupacion = (TextView) view.findViewById(R.id.nombre_agrupacion);
-        mNombreInstructor = (TextView) view.findViewById(R.id.instructor_agrupacion);
         mDatosInstructor = (GroupContainer) view.findViewById(R.id.grupo_instructor);
         mEmpty = (TextView) view.findViewById(R.id.horario_agrupacion_vacio);
         mTipoAgrupacion = (TextView) view.findViewById(R.id.tipo_agrupacion);
-        mVerNotas = (GroupContainer) view.findViewById(R.id.ver_notas_agrupacion);
+        mVerNotas = (GroupContainer) view.findViewById(R.id.ver_notas);
         mVerNotas.addSimpleMultiTextLayout(R.string.agrupacion_horario_notas);
         mVerNotas.getSimpleMultiTextLayoutAt(0).setOnClickListener(this);
         mButtonNetwork = (CircleButton) view.findViewById(R.id.button_network);
@@ -225,22 +223,22 @@ public class HorarioAgrupacionFragment extends Fragment implements View.OnClickL
     @Override
     public void onClick(View view) {
         if (mDatosInstructor != null) {
-            if (view == mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getOneButton()) {
+            if (view == mDatosInstructor.getSimpleTwoButtonLayoutAt(1).getOneButton()) {
                 try {
                     startActivity(new Intent("android.intent.action.CALL",
-                            Uri.parse("tel:" + mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getContent())));
+                            Uri.parse("tel:" + mDatosInstructor.getSimpleTwoButtonLayoutAt(1).getContent())));
                 } catch (Exception e) {
                     SnackbarManager.show(
                             Snackbar.with(getActivity())
                                     .text(R.string.error_llamada));
                     e.printStackTrace();
                 }
-            } else if (view == mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getTwoButton()) {
+            } else if (view == mDatosInstructor.getSimpleTwoButtonLayoutAt(1).getTwoButton()) {
                 try {
                     Intent smsIntent = new Intent(Intent.ACTION_VIEW);
                     smsIntent.setData(Uri.parse("smsto:"));
                     smsIntent.setType("vnd.android-dir/mms-sms");
-                    smsIntent.putExtra("address", mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getContent());
+                    smsIntent.putExtra("address", mDatosInstructor.getSimpleTwoButtonLayoutAt(1).getContent());
                     smsIntent.putExtra("sms_body", "");
                     startActivity(smsIntent);
                 } catch (Exception e) {
@@ -250,7 +248,7 @@ public class HorarioAgrupacionFragment extends Fragment implements View.OnClickL
                                     .text(R.string.error_enviar_sms));
                     e.printStackTrace();
                 }
-            } else if (view == mDatosInstructor.getSimpleOneButtonLayoutAt(1).getButton()) {
+            } else if (view == mDatosInstructor.getSimpleOneButtonLayoutAt(2).getButton()) {
                 try {
                     Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
                     String[] emails = new String[]{mDatosInstructor.getSimpleOneButtonLayoutAt(1).getContent()};
@@ -275,12 +273,12 @@ public class HorarioAgrupacionFragment extends Fragment implements View.OnClickL
         mDatosInstructor.clear();
         mNombreAgrupacion.setText(agrupacion.getDescripcion().toUpperCase());
         mTipoAgrupacion.setText(agrupacion.getTipoAgrupacion().getDescripcion().toUpperCase());
-        mNombreInstructor.setText("INSTRUCTOR " + agrupacion.getInstructor().getNombre().toUpperCase() + " " + agrupacion.getInstructor().getApellido().toUpperCase());
+        mDatosInstructor.addSimpleMultiTextLayout("Instructor: " + agrupacion.getInstructor().getNombre().toUpperCase() + " " + agrupacion.getInstructor().getApellido().toUpperCase());
         mDatosInstructor.addSimpleTwoButtonLayout(agrupacion.getInstructor().getTelefonoMovil(), R.drawable.ic_llamada, R.drawable.ic_sms);
         mDatosInstructor.addSimpleOneButtonLayout(agrupacion.getInstructor().getCorreo(), R.drawable.ic_correo);
-        mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getOneButton().setOnClickListener(HorarioAgrupacionFragment.this);
-        mDatosInstructor.getSimpleTwoButtonLayoutAt(0).getTwoButton().setOnClickListener(HorarioAgrupacionFragment.this);
-        mDatosInstructor.getSimpleOneButtonLayoutAt(1).getButton().setOnClickListener(HorarioAgrupacionFragment.this);
+        mDatosInstructor.getSimpleTwoButtonLayoutAt(1).getOneButton().setOnClickListener(HorarioAgrupacionFragment.this);
+        mDatosInstructor.getSimpleTwoButtonLayoutAt(1).getTwoButton().setOnClickListener(HorarioAgrupacionFragment.this);
+        mDatosInstructor.getSimpleOneButtonLayoutAt(2).getButton().setOnClickListener(HorarioAgrupacionFragment.this);
         for (int i = 0; i < agrupacion.getHorarioArea().size(); i++) {
             Log.i(TAG, agrupacion.getHorarioArea().get(i).getHorario().getDia().getDescripcion());
         }
@@ -288,6 +286,7 @@ public class HorarioAgrupacionFragment extends Fragment implements View.OnClickL
         mHorarioAgrupaciones.setAdapter(mHorarioAdapter);
         
     }
+    
     private void armarListaEvaluaciones() {
         mCustomEvaluacion = new MaterialDialog(getActivity());
         mViewDialog = LayoutInflater.from(getActivity()).inflate(R.layout.custom_evaluacion_agrupacion, null);
@@ -312,6 +311,13 @@ public class HorarioAgrupacionFragment extends Fragment implements View.OnClickL
     }
     
     private class LoadingEvaluacion extends AsyncTask<Integer, Void, Integer> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mTotalObjetivos = 0;
+            mObjetivosAprobados = 0;
+        }
 
         @Override
         protected Integer doInBackground(Integer... integers) {

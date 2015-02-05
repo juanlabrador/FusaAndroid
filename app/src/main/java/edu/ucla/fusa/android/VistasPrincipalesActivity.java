@@ -351,7 +351,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         mNombre = (TextView) mHeader.findViewById(R.id.etNombreDrawer);
         mFoto.setVisibility(View.VISIBLE);
         mNombre.setVisibility(View.VISIBLE);
-        if (mUsuario.getFoto().length > 40) {
+        if (mUsuario.getFoto() != null && mUsuario.getFoto().length > 40) {
             mFoto.setImageBitmap(convertByteToImage(mUsuario.getFoto()));
         } else {
             mFoto.setImageResource(R.drawable.no_avatar);
@@ -492,99 +492,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                     mRetryButton.setVisibility(View.VISIBLE);
                     break;
             }
-        }
-    }
-    
-    private class LoadingClasePaticulares extends AsyncTask<Integer, Void, Void> {
-
-        private ClaseParticularTable mClaseParticularTable;
-        private List<ClaseParticular> mClaseParticulares;
-        private HorarioTable mHorarioTable;
-        private InstructorTable mInstructorTable;
-        private Instructor mInstructor;
-        private HorarioAreaTable mHorarioAreaTable;
-        private Horario mHorario;
-        private DiaTable mDiaTable;
-        private Dia mDia;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mClaseParticularTable = new ClaseParticularTable(getApplicationContext());
-            mInstructorTable = new InstructorTable(getApplicationContext());
-            mHorarioTable = new HorarioTable(getApplicationContext());
-            mClaseParticulares= new ArrayList<>();
-            mHorarioAreaTable = new HorarioAreaTable(getApplicationContext());
-            mDia = new Dia();
-            mDiaTable = new DiaTable(getApplicationContext());
-        }
-
-        @Override
-        protected Void doInBackground(Integer... integers) {
-
-            mClaseParticulares = mClaseParticularTable.searchClases();
-            if (mClaseParticulares != null) {
-                Log.i(TAG, "¡Ya tengo mis clases guardada!");
-            } else {
-                Log.i(TAG, "¡Buscando mis clases en el servidor");
-                mClaseParticulares = mJSONParser.serviceClaseEstudiante(integers[0]);
-                if (mClaseParticulares.size() != 0) {
-                    Log.i(TAG, "¡Estoy en una agrupacion!");
-                    
-                    for (int i = 0; i < mClaseParticulares.size(); i++) {
-                        mClaseParticularTable.insertData(
-                                mClaseParticulares.get(i).getCatedra().getDescripcion(),
-                                mClaseParticulares.get(i).getInstructor().getId(),
-                                mClaseParticulares.get(i).getId()
-                                
-                        );
-                        
-                        mInstructor = mInstructorTable.searchInstructor(mClaseParticulares.get(i).getInstructor().getId());
-                        if (mInstructor == null) {
-                            Log.i(TAG, "¡No existe el instructor en Clase Particular!");
-
-                        }
-                        
-                        
-                        for (int j = 0; j < mClaseParticulares.get(i).getHorarioArea().size(); j++) {
-
-                            mHorarioAreaTable.insertData(
-                                    mClaseParticulares.get(i).getId(),
-                                    0,
-                                    mClaseParticulares.get(i).getHorarioArea().get(j).getId(),
-                                    mClaseParticulares.get(i).getHorarioArea().get(j).getAreaEstudio().getId()
-                            );
-                            
-                            mHorario = mHorarioTable.searchHorario(mClaseParticulares.get(i).getHorarioArea().get(j).getId());
-                            if (mHorario == null) {
-                                Log.i(TAG, "¡No existe este horario para la clase!");
-                                mHorarioTable.insertData(
-                                        mClaseParticulares.get(i).getHorarioArea().get(j).getHorario().getHorario_id(),
-                                        mClaseParticulares.get(i).getHorarioArea().get(j).getHorario().getDia().getDia_id(),
-                                        mClaseParticulares.get(i).getHorarioArea().get(j).getHorario().getHoraInicio(),
-                                        mClaseParticulares.get(i).getHorarioArea().get(j).getHorario().getHoraFin(),
-                                        mClaseParticulares.get(i).getHorarioArea().get(j).getId()
-                                );
-
-                                mDia = mDiaTable.search(mClaseParticulares.get(i).getHorarioArea().get(j).getHorario().getDia().getDia_id());
-                                if (mDia == null) {
-                                    mDiaTable.insertData(
-                                            mClaseParticulares.get(i).getHorarioArea().get(j).getHorario().getDia().getDia_id(),
-                                            mClaseParticulares.get(i).getHorarioArea().get(j).getHorario().getDia().getDescripcion()
-                                    );
-                                }
-                            } else {
-                                Log.i(TAG, "¡Ya tenemos este horario para la clase!");
-                            }
-                        }
-                    }
-                    
-                    Log.i(TAG, "¡Guardado correctamente!");
-                } else {
-                    Log.i(TAG, "¡No estoy en una agrupacion!");
-                }
-            }
-            return null;
         }
     }
     

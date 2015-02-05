@@ -348,7 +348,10 @@ public class CalendarioFragment extends Fragment implements CalendarPickerView.O
     }
 
     private Bitmap convertByteToImage(byte[] data) {
-        return BitmapFactory.decodeByteArray(data, 0, data.length);
+        if (data != null && data.length != 0) {
+            return BitmapFactory.decodeByteArray(data, 0, data.length);
+        }
+        return null;
     }
 
     @Override

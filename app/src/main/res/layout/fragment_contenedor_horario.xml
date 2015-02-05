@@ -4,6 +4,7 @@
     android:id="@+id/fragment_contacto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gris_fondo"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -22,6 +23,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager_horario"
         android:layout_width="match_parent"
+        android:background="@color/gris_fondo"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 

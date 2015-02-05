@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import com.juanlabrador.grouplayout.GroupContainer;
 
@@ -51,8 +50,7 @@ public class HorarioAgrupacionAdapter extends BaseAdapter {
         if (convertView == null) {
             mViewHolder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.custom_item_horario_agrupacion, null);
-            mViewHolder.mLugar = (TextView) convertView.findViewById(R.id.lugar_horario_agrupacion);
-            mViewHolder.mHorario = (TextView) convertView.findViewById(R.id.hora_agrupacion);
+            mViewHolder.mHorario = (GroupContainer) convertView.findViewById(R.id.hora_agrupacion);
             convertView.setTag(mViewHolder);
           
         } else {
@@ -60,14 +58,14 @@ public class HorarioAgrupacionAdapter extends BaseAdapter {
         }
 
         mHorarioArea = mHorarios.get(position);
+        mViewHolder.mHorario.clear();
         Log.i(TAG, "ID: " + mHorarioArea.getHorario().getHorario_id());
-        mViewHolder.mLugar.setText(mHorarioArea.getAreaEstudio().getDescripcion().toUpperCase() + " - " + mHorarioArea.getHorario().getDia().getDescripcion().toUpperCase());
-        mViewHolder.mHorario.setText(mHorarioArea.getHorario().getHoraInicio() + ":00" + " - " + mHorarioArea.getHorario().getHoraFin() + ":00");
+        mViewHolder.mHorario.addSimpleMultiTextLayout(mHorarioArea.getHorario().getDia().getDescripcion().toUpperCase() + " - " + mHorarioArea.getAreaEstudio().getDescripcion().toUpperCase());
+        mViewHolder.mHorario.addTextLayout(R.string.agrupacion_horario_label, mHorarioArea.getHorario().getHoraInicio() + ":00" + " - " + mHorarioArea.getHorario().getHoraFin() + ":00");
         return convertView;
     }
 
     public static class ViewHolder {
-        TextView mLugar;
-        TextView mHorario;
+        GroupContainer mHorario;
     }
 }

@@ -64,6 +64,7 @@
         android:layout_height="wrap_content"
         android:textColor="#FFF"
         android:gravity="center"
+        android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"
         android:text="@string/mensaje_reintentar"
         android:visibility="gone"/>

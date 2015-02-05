@@ -62,12 +62,132 @@
                 android:layout_marginTop="12dp"
                 app:textSizeLayout="15"/>
 
-            <include 
-                layout="@layout/custom_date_complete"
-                 android:id="@+id/fecha_nacimiento"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_margin="6dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingRight="12dp"
+                android:paddingLeft="12dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_izquierda"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_izquierda"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_izquierda"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0.6dp"
+                    android:layout_height="match_parent"
+                    android:background="#d3d3d3"/>
+
+                <com.juanlabrador.dateslider.SliderContainer
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="#FFF"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fecha_nacimiento">
+
+                    <com.juanlabrador.dateslider.ScrollLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/slider_back"
+                        app:labelerClass="com.juanlabrador.dateslider.labeler.YearLabeler"
+                        app:labelerFormat="%tY"
+                        app:childWidth="120dp"
+                        app:childHeight="40dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:background="#d3d3d3"/>
+
+                    <com.juanlabrador.dateslider.ScrollLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/slider_back"
+                        app:labelerClass="com.juanlabrador.dateslider.labeler.MonthLabeler"
+                        app:labelerFormat="%tB"
+                        app:childWidth="110dp"
+                        app:childHeight="40dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:background="#d3d3d3"/>
+
+                    <com.juanlabrador.dateslider.ScrollLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/slider_back"
+                        app:labelerClass="com.juanlabrador.dateslider.labeler.DayDateLabeler"
+                        app:labelerFormat="%td %ta"
+                        app:childWidth="40dp"
+                        app:childHeight="40dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:background="#d3d3d3"/>
+
+                </com.juanlabrador.dateslider.SliderContainer>
+
+                <View
+                    android:layout_width="0.6dp"
+                    android:layout_height="match_parent"
+                    android:background="#d3d3d3"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_derecha"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_derecha"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_derecha"/>
+
+                </LinearLayout>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -76,7 +196,7 @@
                 android:textColor="@color/gris_oscuro"
                 android:textSize="15sp"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="12dp"/>
     
             <com.juanlabrador.grouplayout.GroupContainer
                 android:id="@+id/grupo_datos_musicales"

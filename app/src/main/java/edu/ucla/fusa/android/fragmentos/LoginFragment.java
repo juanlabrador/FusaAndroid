@@ -237,7 +237,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
             switch (result) {
                 case 100:
                     if (mUsuario.getTipoUsuario().getId() == 1) {
-                        if (mUsuario.getFoto().length > 40) {
+                        if (mUsuario.getFoto() != null && mUsuario.getFoto().length > 40) {
                             mBitmap = convertByteToImage(mUsuario.getFoto());
                             mAvatar.setImageBitmap(mBitmap);
                         }

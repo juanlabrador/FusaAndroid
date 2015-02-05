@@ -77,6 +77,7 @@
     <string name="nivel_calificacion_evento_5">Me encantó</string>
     
     <!-- Prestamo de instrumento -->
+    <string name="prestamo_solicitud_error">No puede solicitar un préstamo si no esta inscrito en una agrupación.</string>
     <string name="prestamo_solicitud_enviada">Tu postulación se ha enviado, pronto se hará su revisión.</string>
     <string name="prestamo_solicitud_vacio">¡Tenemos problemas para buscar los datos! Por favor, intente más tarde..</string>
     <string name="prestamo_titulo_barra">Solicitud de Prestamo</string>
@@ -245,5 +246,11 @@
     <string name="mis_clases_instructor">Instructor</string>
     <string name="mis_clases_nombre_agrupacion">Nombre</string>
     <string name="mis_clases_sin_clase">No está inscrito en alguna catedra.</string>
+    
+    <!-- TAG -->
+    <string name="TAG_NOTAS">notas</string>
+    <string name="TAG_CALL">llamada</string>
+    <string name="TAG_SMS">sms</string>
+    <string name="TAG_EMAIL">email</string>
 
 </resources>

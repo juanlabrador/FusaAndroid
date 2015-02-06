@@ -60,7 +60,7 @@ public class RestaurarPasswordFragment extends Fragment implements View.OnClickL
         mDrawerArrow.setProgress(1f);
 
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mToolbar.setTitle(R.string.postularse_titulo_barra);
+        mToolbar.setTitle(R.string.restaurar_titulo_barra);
         mToolbar.setNavigationIcon(mDrawerArrow);
         mToolbar.inflateMenu(R.menu.action_enviar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

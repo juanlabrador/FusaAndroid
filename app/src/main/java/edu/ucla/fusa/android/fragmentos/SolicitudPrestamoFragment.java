@@ -360,6 +360,8 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
                 mServiceValidar.cancel(true);
             }
         }
+        
+        mToolbar.getMenu().clear();
     }
 
     private class BuscarEstudianteAgrupacion extends AsyncTask<Integer, Void, Integer> {

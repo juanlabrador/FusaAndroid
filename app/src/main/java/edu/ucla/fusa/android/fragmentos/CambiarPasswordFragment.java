@@ -95,6 +95,12 @@ public class CambiarPasswordFragment extends Fragment implements TextWatcher, Co
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mToolbar.getMenu().clear();
+    }
+
     public void afterTextChanged(Editable editable) {
         if (!mAntiguaContraseña.getValidatorLayoutAt(0).getContent().equals("") &&
                 !mNuevaContraseña.getEditTextLayoutAt(0).getContent().equals("") &&

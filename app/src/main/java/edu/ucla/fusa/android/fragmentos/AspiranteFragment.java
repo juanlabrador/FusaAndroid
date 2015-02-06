@@ -251,7 +251,7 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
         super.onDestroy();
         if (mServiceInstrumentos != null) {
             if (!mServiceInstrumentos.isCancelled()) {
@@ -264,6 +264,7 @@ public class AspiranteFragment extends Fragment implements SliderContainer.OnTim
             }
         }
         Log.i(TAG, "¡Destruyendo servicios!");
+        mToolbar.getMenu().clear();
     }
 
     private class LoadingInstrumentos extends AsyncTask<Void, Void, Integer> {

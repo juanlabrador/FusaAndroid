@@ -137,6 +137,8 @@ public class EstatusPrestamoFragment extends Fragment implements Toolbar.OnMenuI
                 mServiceSolicitud.cancel(true);
             }
         }
+        
+        mToolbar.getMenu().clear();
     }
 
     @Override

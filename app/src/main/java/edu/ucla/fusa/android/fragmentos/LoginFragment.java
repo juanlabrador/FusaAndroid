@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -83,6 +84,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
 
         mCredenciales = (GroupContainer) view.findViewById(R.id.login_credenciales);
         Log.i(TAG, "¡Paso al restaurar pantalla!");
+        mCredenciales.clear();
         mCredenciales.addEditTextLayout(R.string.login_usuario);
         mCredenciales.addEditTextLayout(R.string.login_contraseña);
         mCredenciales.getEditTextLayoutAt(0).getEditText().addTextChangedListener(this);
@@ -177,12 +179,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
 
     public boolean exiteConexionInternet() {
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        //State edge = cm.getNetworkInfo(0).getState();
+        State edge = cm.getNetworkInfo(0).getState();
         State wifi = cm.getNetworkInfo(1).getState();
-        //NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        //if (edge == State.CONNECTED || edge == State.CONNECTING) {
-            //return true;
-        //}else
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (edge == State.CONNECTED || edge == State.CONNECTING) {
+            return true;
+        }else
         if(wifi == State.CONNECTED || wifi == State.CONNECTING) {
             return true;
         }else{
@@ -202,7 +204,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
 
         @Override
         protected Integer doInBackground(String... params) {
-            SystemClock.sleep(2000);
             /** Cargamos los parametros que enviaremos por URL */
             ArrayList<NameValuePair> parametros = new ArrayList<>();
             parametros.add(new BasicNameValuePair("username", params[0]));
@@ -219,6 +220,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
                             mUsuario.getPassword(),
                             mUsuario.getNombre(),
                             mUsuario.getApellido(),
+                            mUsuario.getCorreo(),
                             mUsuario.getFoto(),
                             mUsuario.getTipoUsuario().getId());
                     return 100;

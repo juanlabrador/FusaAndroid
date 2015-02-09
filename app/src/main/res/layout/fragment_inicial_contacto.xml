@@ -1,55 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     android:gravity="center"
     android:orientation="vertical"
     android:id="@+id/fragment_contacto_i"
     android:background="@color/azul"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools=" http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
     
     <ImageView
-        android:layout_marginTop="22dp"
+        android:id="@+id/logo_fundamusical"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginBottom="32dp"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
         android:src="@drawable/logo_fundamusical" />
     
     <TextView
-        android:textSize="20sp"
+        android:id="@+id/descrip_contancto"
+        android:textSize="@dimen/size_text_button"
         android:textColor="@color/blanco"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
         android:text="@string/contacto_mensaje"
-        android:layout_weight="3" />
+        android:layout_below="@+id/logo_fundamusical"/>
     
     <Button
-        android:textSize="22sp"
+        android:textSize="28sp"
         android:textColor="@color/azul_oscuro"
         android:gravity="center"
         android:id="@+id/btn_contacto"
         android:background="@drawable/style_button_background_azul"
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:text="@string/contacto_boton"
-        android:textStyle="bold"/>
+        fontPath="fonts/HelveticaNeueMedium.ttf"
+        android:layout_above="@+id/contenedor_sesion"/>
 
     <LinearLayout
+        android:id="@+id/contenedor_sesion"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:layout_alignParentBottom="true">
 
         <TextView
-            android:textSize="16sp"
+            android:textSize="@dimen/size_text_subtitle"
             android:textColor="@color/blanco"
             android:gravity="center_vertical"
             android:layout_width="wrap_content"
@@ -57,7 +66,7 @@
             android:layout_margin="3dip"
             android:text="@string/login_verificar_cuenta" />
         <TextView
-            android:textSize="16sp"
+            android:textSize="@dimen/size_text_subtitle"
             android:textColor="@color/style_link_background_azul"
             android:gravity="center_vertical"
             android:id="@+id/tv_iniciar_sesion"
@@ -65,6 +74,7 @@
             android:layout_height="match_parent"
             android:layout_margin="3dip"
             android:text="@string/login"
-            android:onClick="IniciarSesion" />
+            android:onClick="IniciarSesion"
+            fontPath="fonts/HelveticaNeueMedium.ttf"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

@@ -11,6 +11,7 @@
     <color name="gris">#ffd6d6d6</color>
     <color name="gris_fondo">#dcdee3</color>
     <color name="gris_oscuro">#ff747474</color>
+    <color name="gris_super_oscuro">#ff5A5A5A</color>
 
     <color name="clase_particular">#ff379bff</color>
     <color name="clase_agrupacion">#ffFF8000</color>

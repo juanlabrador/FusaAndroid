@@ -9,10 +9,19 @@ public class Usuario {
     private String password;
     private String nombre;
     private String apellido;
+    private String correo;
     private byte[] foto;
     private TipoUsuario tipoUsuario;
 
     public Usuario() {}
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 
     public String getNombre() {
         return nombre;

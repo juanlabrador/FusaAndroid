@@ -22,7 +22,7 @@
             android:layout_alignParentTop="true"/>
 
         <TextView
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:id="@+id/tv_titulo_noticia_sin_foto"
             android:layout_margin="5dp"
             android:layout_width="match_parent"
@@ -46,16 +46,16 @@
             android:layout_below="@+id/tv_titulo_noticia_sin_foto">
             
             <TextView
-                android:textSize="13sp"
-                android:textColor="@color/gris_oscuro"
+                android:textSize="14sp"
+                android:textColor="@color/negro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/noticias_fecha_publicacion"/>
             
             <TextView
                 android:layout_marginLeft="5dp"
-                android:textSize="13sp"
-                android:textColor="@color/gris_oscuro"
+                android:textSize="14sp"
+                android:textColor="@color/azul"
                 android:id="@+id/tv_fecha_publicacion_noticia_sin_foto"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -87,8 +87,8 @@
                 android:id="@+id/expandable_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gris_oscuro"
-                android:textSize="14sp"
+                android:textColor="@color/negro"
+                android:textSize="16sp"
                 android:text="Sed elementum facilisis dapibus. Proin rutrum est in est ullamcorper, eget feugiat ante dictum. Maecenas vel volutpat elit. Nullam facilisis nibh a turpis pellentesque efficitur. Integer quis lectus et nisi elementum fringilla id a odio. Proin porta vel diam lobortis viverra. Cras quis odio elit. "/>
             
             <ImageButton

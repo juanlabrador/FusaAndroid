@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:id="@+id/fragment_datos_contacto"
+    android:background="@color/gris_fondo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:textSize="@dimen/size_text_medium"
+        android:textColor="@color/gris_oscuro"
+        android:text="@string/contacto_direccion"/>
+    
+    <com.juanlabrador.grouplayout.GroupContainer
+        android:id="@+id/direccion_contacto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:textSizeLayout="@integer/size_text_group_layout"
+        android:layout_marginTop="6dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:textSize="@dimen/size_text_medium"
+        android:textColor="@color/gris_oscuro"
+        android:text="@string/contacto"/>
+    
+    <com.juanlabrador.grouplayout.GroupContainer
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/medios_contacto"
+        app:textSizeLayout="@integer/size_text_group_layout"
+        android:layout_marginTop="6dp"/>
+</LinearLayout>

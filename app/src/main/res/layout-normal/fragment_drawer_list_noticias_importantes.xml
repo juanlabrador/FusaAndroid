@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:background="@color/gris_fondo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.yalantis.pulltorefresh.library.PullToRefreshView
+        android:id="@+id/pull_to_refresh_importantes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ListView
+            android:id="@android:id/list"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"/>
+
+    </com.yalantis.pulltorefresh.library.PullToRefreshView>
+
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        android:layout_gravity="center"
+        android:id="@+id/pb_cargando_noticias_importantes"
+        android:layout_width="@dimen/size_progress_bar"
+        android:layout_height="@dimen/size_progress_bar"
+        app:cpb_color="@color/azul"
+        app:cpb_stroke_width="2dp"
+        android:indeterminate="true"/>
+
+    <TextView
+        android:textSize="@dimen/size_text_title"
+        android:id="@+id/noticias_vacias_importantes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gris_oscuro"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"
+        android:text="@string/noticias_vacia"
+        android:visibility="gone"/>
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/button_network_noticias_importantes"
+        android:layout_width="@dimen/size_circle_button"
+        android:layout_height="@dimen/size_circle_button"
+        android:src="@drawable/ic_sin_conexion"
+        app:cb_color="@color/gris_oscuro"
+        app:cb_pressedRingWidth="8dip"
+        android:visibility="gone"/>
+</LinearLayout>

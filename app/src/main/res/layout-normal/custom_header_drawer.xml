@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools=" http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
+
+    <ImageView
+        android:id="@+id/fondo"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:src="@drawable/fondo"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"/>
+
+    <com.github.siyamed.shapeimageview.HexagonImageView
+        android:id="@+id/iv_foto_perfil_drawer"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/no_avatar"
+        app:siBorderWidth="1dp"
+        app:siBorderColor="@color/blanco"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="8dp"/>
+
+    <TextView
+        android:textSize="@dimen/size_text_title"
+        android:textColor="@color/blanco"
+        android:id="@+id/etNombreDrawer"
+        android:layout_width="wrap_content"
+        android:gravity="left"
+        android:layout_height="wrap_content"
+        android:text="Juan Labrador"
+        android:layout_below="@+id/iv_foto_perfil_drawer"
+        android:layout_margin="8dp"
+        fontPath="fonts/HelveticaNeueMedium.ttf"/>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/negro_transparente"
+        android:layout_alignParentRight="true"
+        android:padding="5dp"
+        android:layout_margin="12dp"
+        android:orientation="horizontal"
+        android:layout_alignBottom="@+id/fondo"
+        android:gravity="right|center_vertical|bottom">
+    
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_notificaciones"/>
+        
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:layout_marginLeft="5dp"
+            android:textSize="@dimen/size_text_medium"
+            android:textColor="#FFF"/>
+    </LinearLayout>
+
+</RelativeLayout>

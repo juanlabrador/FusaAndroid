@@ -33,7 +33,7 @@ public class VistasInicialesActivity extends FragmentActivity implements ViewPag
         setContentView(R.layout.activity_inicial);
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                        .setDefaultFontPath("fonts/HelveticaNeueLight.ttf")
+                        .setDefaultFontPath("fonts/HelveticaNeue.ttf")
                         .setFontAttrId(R.attr.fontPath)
                         .build()
         );

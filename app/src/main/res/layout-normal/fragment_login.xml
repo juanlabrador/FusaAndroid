@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:id="@+id/fragment_login"
+    android:background="@color/azul"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools=" http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/azul"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/logo"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:paddingTop="15dp"
+            android:textSize="@dimen/size_text_button"
+            android:textColor="@color/blanco"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="@string/login_titulo_barra" />
+
+        <com.github.siyamed.shapeimageview.HexagonImageView
+            android:id="@+id/avatar_login"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/no_avatar"
+            app:siBorderWidth="1dp"
+            android:layout_gravity="center"
+            app:siBorderColor="@color/blanco"
+            android:layout_marginTop="16dp"/>
+        
+        <com.juanlabrador.grouplayout.GroupContainer
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_credenciales"
+            app:textSizeLayout="@integer/size_text_group_layout"
+            app:withBorder="true"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="16dp"/>
+
+        <com.dd.CircularProgressButton
+            android:textSize="@dimen/size_text_button"
+            android:textColor="@color/blanco"
+            android:id="@+id/btn_iniciar_sesion"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:cpb_cornerRadius="3dp"
+            android:text="@string/login_boton"
+            app:cpb_textComplete="@string/login_boton_correcto"
+            app:cpb_textIdle="@string/login_boton"
+            app:cpb_textError="@string/login_boton_error"
+            app:cpb_colorProgress="@color/azul_oscuro"
+            app:cpb_colorIndicator="@color/blanco"
+            app:cpb_colorIndicatorBackground="@color/azul"
+            app:cpb_selectorComplete="@color/style_btn_circular_progress_verde"
+            app:cpb_selectorError="@color/style_btn_circular_progress_rojo"
+            app:cpb_selectorIdle="@color/style_btn_circular_progress_azul"
+            android:gravity="center"/>
+        
+        <TextView
+            android:enabled="true"
+            android:textSize="@dimen/size_text_content"
+            android:textColor="@color/style_link_background_blanco"
+            android:id="@+id/tv_olvidar_password_iniciar_sesion"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/login_olvidar_contraseña"
+            fontPath="fonts/HelveticaNeueMedium.ttf"    />
+
+        <TextView
+            android:visibility="gone"
+            android:enabled="true"
+            android:textSize="@dimen/size_text_content"
+            android:textColor="@color/style_link_background_blanco"
+            android:id="@+id/tv_cambiar_usuario"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/login_cambiar_usuario"
+            fontPath="fonts/HelveticaNeueMedium.ttf"/>
+            
+    </LinearLayout>
+</LinearLayout>

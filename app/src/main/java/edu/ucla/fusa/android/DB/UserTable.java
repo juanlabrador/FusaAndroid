@@ -19,6 +19,7 @@ public class UserTable {
     private static final String COLUMN_PASSWORD = "password";
     private static final String COLUMN_NOMBRE = "nombre";
     private static final String COLUMN_APELLIDO = "apellido";
+    private static final String COLUMN_CORREO = "correo";
     private static final String COLUMN_PHOTO = "foto";
     private static final String COLUMN_TIPO_USER = "tipo_usuario";
 
@@ -28,6 +29,7 @@ public class UserTable {
                     + COLUMN_PASSWORD + " TEXT, "
                     + COLUMN_NOMBRE + " TEXT, "
                     + COLUMN_APELLIDO + " TEXT, "
+                    + COLUMN_CORREO + " TEXT, "
                     + COLUMN_PHOTO + " BLOB, "
                     + COLUMN_TIPO_USER + " INTEGER);";
 
@@ -41,22 +43,23 @@ public class UserTable {
         mDataBase = mHelper.getWritableDatabase();
     }
 
-    private ContentValues generarValores (String username, String password, String nombre, String apellido, byte[] foto, int tipoUsuario) {
+    private ContentValues generarValores (String username, String password, String nombre, String apellido, String correo, byte[] foto, int tipoUsuario) {
 
         ContentValues valores = new ContentValues();
         valores.put(COLUMN_USERNAME, username);
         valores.put(COLUMN_PASSWORD, password);
         valores.put(COLUMN_NOMBRE, nombre);
         valores.put(COLUMN_APELLIDO, apellido);
+        valores.put(COLUMN_CORREO, correo);
         valores.put(COLUMN_PHOTO, foto);
         valores.put(COLUMN_TIPO_USER, tipoUsuario);
 
         return valores;
     }
 
-    public void insertData(String username, String password, String nombre, String apellido, byte[] foto, int tipoUsuario) {
+    public void insertData(String username, String password, String nombre, String apellido, String correo, byte[] foto, int tipoUsuario) {
         //db = helper.getWritableDatabase();
-        mDataBase.insert(TABLE_NAME, null, generarValores(username, password, nombre, apellido, foto, tipoUsuario));
+        mDataBase.insert(TABLE_NAME, null, generarValores(username, password, nombre, apellido, correo, foto, tipoUsuario));
     }
 
     public void updateFoto(String username, byte[] foto) {
@@ -82,9 +85,10 @@ public class UserTable {
             mUsuario.setPassword(mCursor.getString(2));
             mUsuario.setNombre(mCursor.getString(3));
             mUsuario.setApellido(mCursor.getString(4));
-            mUsuario.setFoto(mCursor.getBlob(5));
+            mUsuario.setCorreo(mCursor.getString(5));
+            mUsuario.setFoto(mCursor.getBlob(6));
             mUsuario.setTipoUsuario(
-                    new TipoUsuario(mCursor.getInt(6), "Estudiante", "activo"));
+                    new TipoUsuario(mCursor.getInt(7), "Estudiante", "activo"));
         } else {
             mUsuario = null;
         }

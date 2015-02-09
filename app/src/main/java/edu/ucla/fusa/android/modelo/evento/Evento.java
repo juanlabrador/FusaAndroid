@@ -14,14 +14,14 @@ public class Evento implements Parcelable {
     private String nombre;
     private String descripcion;
     private String fecha;
-    private Date hora;
+    private long hora;
     private Lugar lugar;
     private String estatus;
 
     public Evento() {
     }
 
-    public Evento(int id, String nombre, String descripcion, String fecha, Date hora, Lugar lugar, String estatus) {
+    public Evento(int id, String nombre, String descripcion, String fecha, long hora, Lugar lugar, String estatus) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -71,11 +71,11 @@ public class Evento implements Parcelable {
         this.fecha = fecha;
     }
 
-    public Date getHora() {
+    public long getHora() {
         return hora;
     }
 
-    public void setHora(Date hora) {
+    public void setHora(long hora) {
         this.hora = hora;
     }
 
@@ -98,7 +98,7 @@ public class Evento implements Parcelable {
         parcel.writeString(nombre);
         parcel.writeString(descripcion);
         parcel.writeString(fecha);
-        parcel.writeLong(hora.getTime());
+        parcel.writeLong(hora);
         parcel.writeValue(lugar);
         parcel.writeString(estatus);
 

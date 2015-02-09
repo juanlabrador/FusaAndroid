@@ -49,7 +49,7 @@
     
     <string name="noticias_titulo_barra">Ultimas Noticias</string>
     <string name="noticias_fecha_publicacion">Publicado el día</string>
-    <string name="noticias_inicial">¿Quieres conocer los ultimos acontecimientos?\nMantente al día con las noticias\n más reciente de la fundación.</string>
+    <string name="noticias_inicial">¿Quieres conocer los ultimos acontecimientos? Mantente al día con las noticias más reciente de la fundación.</string>
     <string name="noticias_boton">NOTICIAS</string>
 
     <string name="noticias_vacia">No hay noticias nuevas para mostrar.</string>
@@ -75,8 +75,11 @@
     <string name="nivel_calificacion_evento_3">Está bien</string>
     <string name="nivel_calificacion_evento_4">Me gustó</string>
     <string name="nivel_calificacion_evento_5">Me encantó</string>
+    <string name="comentario_titulo_barra">Todos los comentarios</string>
+    <string name="comentarios_vacio">No hay comentarios sobre este evento.</string>
     
     <!-- Prestamo de instrumento -->
+    <string name="prestamo_solicitud_instrumentos">No posee instrumentos asociados.</string>
     <string name="prestamo_solicitud_error">No puede solicitar un préstamo si no esta inscrito en una agrupación.</string>
     <string name="prestamo_solicitud_enviada">Tu postulación se ha enviado, pronto se hará su revisión.</string>
     <string name="prestamo_solicitud_vacio">¡Tenemos problemas para buscar los datos! Por favor, intente más tarde..</string>
@@ -88,7 +91,7 @@
     <string name="prestamo_tipo_instrumento">Tipo de Instrumento</string>
     <string name="prestamo_periodo">Periodo de préstamo</string>
     <string name="prestamo_descripcion_tipo">Periodos: \n    - \"Fin de semana\" que equivale a 4 días.\n    - \"Vacacional\" que equivale a menos de 1 año.</string>
-    <string name="prestamo_buscando">¡Estamos verificando sus datos!</string>
+    <string name="prestamo_buscando">¡Estamos comprobando tus datos!</string>
     
     <!-- Estatus del prestamo -->
     <string name="estatus_prestamo_titulo_barra">Estatus del prestamo</string>
@@ -109,6 +112,12 @@
     <string name="estatus_prestamo_rechazado">Declinado</string>
     <string name="estatus_prestamo_entregar_instrumento">Recuerde devolver el instrumento en los próximos días.</string>
 
+    <!-- Calificacion del evento -->
+    <string name="calificacion_enviar">Enviando tu comentario</string>
+    <string name="calificacion_comentarios">Ver todos los comentarios</string>
+    <string name="calificacion_comentarios_vacio">No se ha calificado este evento.</string>
+    <string name="calificacion_enviada">Tu calificación fue enviada, ya puedes revisar los demás comentarios.</string>
+    
     <!-- Notificaciones -->
     <string name="prestamo_enviar">Enviando tu solicitud</string>
     <string name="prestamo_aprobado">Tu solicitud fue APROBADA, recuerda pasar por las oficinas para recoger tu instrumento.</string>
@@ -139,7 +148,7 @@
     <string name="mensaje_error_crear_mapa">¡Lo sentimos! Imposible crear el mapa</string>
     <string name="mensaje_error_iniciar_sesion">Su dirección de correo o contraseña no son válidos</string>
     <string name="mensaje_error_conexion">¡No esta conectado a Internet! Por favor, conectese a una red.</string>
-    <string name="mensaje_error_servidor">¡Estamos presentando problemas con el servidor! Por favor, intente más tarde.</string>
+    <string name="mensaje_error_servidor">¡Estamos presentando problemas con el servidor! Por favor, intente nuevamente.</string>
     <string name="mensaje_error_cargar_catedras">¡no hemos podido cargar la lista de catedras! Por favor, intente de nuevo más tarde.</string>
     <string name="mensaje_error_cambiar_foto">¡No hemos podido cargar tu foto! Por favor, intenta más tarde.</string>
     <string name="mensaje_error_cargar_tipo_prestamo">¡No hemos podido cargar los tipos de prestamos! Por favor, intente de nuevo más tarde.</string>
@@ -191,7 +200,7 @@
     <string name="postularse_fecha_nacimiento">Fecha de nacimiento</string>
     <string name="postularse_boton">POSTULATE</string>
     <string name="postularse_instrumento">¿Posee instrumento propio?</string>
-    <string name="postulacion_mensaje">¿No eres parte de nuestro grupo?\nEl sistema prepará a los niños para que sean hombres y mujeres existosos, productivos y felices.\nEnvianos tu postulación.</string>
+    <string name="postulacion_mensaje">¿No eres parte de nuestro grupo? El sistema prepará a los niños para que sean hombres y mujeres existosos, productivos y felices. Envianos tu postulación.</string>
     <string name="postulacion_sexo_masculino">Masculino</string>
     <string name="postulacion_sexo_femenino">Femenino</string>
     <string name="postulacion_cabecera_datos">DATOS BÁSICOS</string>
@@ -200,7 +209,7 @@
     <string name="postulacion_descripcion_cedula">Si el niño/a no posee una cédula, por favor ingrese la cédula de su representante.</string>
 
     <!-- Contacto fundación -->
-    <string name="contacto_mensaje">Con nosotros, el proceso \nde enseñanza en forma continua \nlogrará de su trabajo un aprendizaje \nconstante y significativo.</string>
+    <string name="contacto_mensaje">Con nosotros, el proceso de enseñanza en forma continua logrará de su trabajo un aprendizaje constante y significativo.</string>
     <string name="contacto_correo_fundacion">crlara@fundamusical.org.ve</string>
     <string name="contacto_telefono1">02512676646</string>
     <string name="contacto_telefono2">02512532556</string>
@@ -223,7 +232,7 @@
     <string name="login">Inicia sesión</string>
     <string name="login_verificar_cuenta">¿Ya tienes una cuenta?</string>
     <string name="login_olvidar_contraseña">¿Olvidaste tu contraseña?</string>
-    <string name="login_titulo_barra">Inicia sesión en Fundamusical</string>
+    <string name="login_titulo_barra">Inicia sesión\nen Fundamusical</string>
     <string name="login_usuario">Usuario</string>
     <string name="login_contraseña">Contraseña</string>
     <string name="login_boton_error">¡Ups! Error</string>
@@ -232,8 +241,11 @@
     <string name="login_cambiar_usuario">Iniciar sesión con otra cuenta</string>
 
     <!-- Restaurar contraseña -->
+    <string name="restaurar_enviar">Enviando tu solicitud</string>
+    <string name="restaurar_mensaje">Pronto se le enviara un correo electrónico con su restauración de la contraseña.</string>
+    <string name="restaurar_error_user">El usuario no existe. Por favor, verifique su nombre de usuario.</string>
     <string name="restaurar_titulo_barra">¿Olvidaste tu contraseña?</string>
-    <string name="restaurar_correo">Correo electrónico</string>
+    <string name="restaurar_user">Su nombre de usuario</string>
     <string name="restaurar_boton">Restaurar contraseña</string>
     <string name="restaurar_text_informativo">¿No tienes una contraseña? No hay problema. Te enviaremos instrucciones para restaurar tu contraseña.</string>
 

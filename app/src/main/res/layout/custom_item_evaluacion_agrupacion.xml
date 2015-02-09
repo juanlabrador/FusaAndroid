@@ -34,14 +34,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Escala Mi"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:id="@+id/tarea_asignada_agrupacion"
                 android:textColor="@color/negro"/>
 
             <ImageView
                 android:id="@+id/calificacion_agrupacion"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/check"/>
 
         </LinearLayout>
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="2015-01-31"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:layout_marginBottom="4dp"
@@ -79,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/negro"
-                android:textSize="13sp"
+                android:textSize="16sp"
                 android:text="Pieza: \'Debusi Claro de Luna\' \nExcelente"/>
 
             <ImageButton

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:gravity="center"
+    android:id="@+id/fragment_postulacion"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris_fondo"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/toolbar_interna"
+        layout="@layout/custom_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+    
+    <ScrollView
+        android:id="@+id/scroll_postulaciones"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
+        
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/postulacion_cabecera_datos"
+                android:textColor="@color/gris_super_oscuro"
+                android:textSize="@dimen/size_text_medium"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="6dp"/>
+
+            <com.juanlabrador.grouplayout.GroupContainer
+                android:id="@+id/cedula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:textSizeLayout="@integer/size_text_group_layout"
+                app:contentTextColor="@color/azul"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gris_super_oscuro"
+                android:textSize="@dimen/size_text_subcontent"
+                android:text="@string/postulacion_descripcion_cedula"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"/>
+            
+            <com.juanlabrador.grouplayout.GroupContainer
+                android:id="@+id/grupo_datos_basicos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:textSizeLayout="@integer/size_text_group_layout"
+                app:contentTextColor="@color/azul"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingRight="12dp"
+                android:paddingLeft="12dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_izquierda"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_izquierda"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_izquierda"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0.6dp"
+                    android:layout_height="match_parent"
+                    android:background="#d3d3d3"/>
+
+                <com.juanlabrador.dateslider.SliderContainer
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="#FFF"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fecha_nacimiento">
+
+                    <com.juanlabrador.dateslider.ScrollLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/slider_back"
+                        app:labelerClass="com.juanlabrador.dateslider.labeler.YearLabeler"
+                        app:labelerFormat="%tY"
+                        app:childWidth="120dp"
+                        app:childHeight="40dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:background="#d3d3d3"/>
+
+                    <com.juanlabrador.dateslider.ScrollLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/slider_back"
+                        app:labelerClass="com.juanlabrador.dateslider.labeler.MonthLabeler"
+                        app:labelerFormat="%tB"
+                        app:childWidth="110dp"
+                        app:childHeight="40dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:background="#d3d3d3"/>
+
+                    <com.juanlabrador.dateslider.ScrollLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/slider_back"
+                        app:labelerClass="com.juanlabrador.dateslider.labeler.DayDateLabeler"
+                        app:labelerFormat="%td %ta"
+                        app:childWidth="40dp"
+                        app:childHeight="40dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:background="#d3d3d3"/>
+
+                </com.juanlabrador.dateslider.SliderContainer>
+
+                <View
+                    android:layout_width="0.6dp"
+                    android:layout_height="match_parent"
+                    android:background="#d3d3d3"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_derecha"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_derecha"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_derecha"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/postulacion_cabecera_aspectos_musicales"
+                android:textColor="@color/gris_super_oscuro"
+                android:textSize="@dimen/size_text_medium"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"/>
+    
+            <com.juanlabrador.grouplayout.GroupContainer
+                android:id="@+id/grupo_datos_musicales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:textSizeLayout="@integer/size_text_group_layout"
+                app:contentTextColor="@color/azul"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/postulacion_cabecera_contacto"
+                android:textColor="@color/gris_super_oscuro"
+                android:textSize="@dimen/size_text_medium"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="16dp"/>
+    
+            <com.juanlabrador.grouplayout.GroupContainer
+                android:id="@+id/grupo_datos_contacto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="12dp"
+                app:textSizeLayout="@integer/size_text_group_layout"
+                app:contentTextColor="@color/azul"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        android:layout_gravity="center"
+        android:id="@+id/cargando_postulaciones"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:cpb_color="@color/azul"
+        app:cpb_stroke_width="2dp"
+        android:indeterminate="true"/>
+
+    <TextView
+        android:textSize="@dimen/size_text_title"
+        android:id="@+id/aspirante_vacio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gris_oscuro"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"
+        android:text="@string/mensaje_error_servidor"
+        android:visibility="gone"/>
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/button_network_aspirante"
+        android:layout_width="64dip"
+        android:layout_height="64dip"
+        android:src="@drawable/ic_sin_conexion"
+        app:cb_color="@color/gris_oscuro"
+        app:cb_pressedRingWidth="8dip"
+        android:visibility="gone"/>
+</LinearLayout>

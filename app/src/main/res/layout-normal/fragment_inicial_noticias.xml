@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/fragment_estudiante"
+    android:background="@color/azul"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools=" http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
+    
+    <ImageView
+        android:id="@+id/hexagono_noticia"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/noticias"
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/descripcion_logotipo" 
+        android:layout_alignParentTop="true"/>
+    
+    <TextView
+        android:textSize="@dimen/size_text_title"
+        android:textColor="@color/blanco"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/noticias_inicial"
+        android:layout_below="@+id/hexagono_noticia"/>
+
+    <Button android:textSize="@dimen/size_text_button"
+        android:textColor="@color/azul_oscuro"
+        android:gravity="center"
+        android:id="@+id/btnNoticias"
+        android:background="@drawable/style_button_background_azul"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/noticias_boton"
+        fontPath="fonts/HelveticaNeueMedium.ttf"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

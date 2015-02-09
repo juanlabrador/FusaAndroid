@@ -4,7 +4,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
@@ -31,10 +30,6 @@ import java.util.Date;
 
 import at.markushi.ui.CircleButton;
 import edu.ucla.fusa.android.DB.EstudianteTable;
-import edu.ucla.fusa.android.DB.SolicitudPrestamoTable;
-import edu.ucla.fusa.android.DB.TipoInstrumentoTable;
-import edu.ucla.fusa.android.DB.TipoPrestamoTable;
-import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.VistasPrincipalesActivity;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
@@ -43,7 +38,6 @@ import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 import edu.ucla.fusa.android.modelo.instrumentos.SolicitudPrestamo;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoInstrumento;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoPrestamo;
-import edu.ucla.fusa.android.modelo.seguridad.Usuario;
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 public class SolicitudPrestamoFragment extends Fragment implements SliderContainer.OnTimeChangeListener , Toolbar.OnMenuItemClickListener {
@@ -464,7 +458,7 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
 
         @Override
         protected Integer doInBackground(Void... voids) {
-            mTiposInstrumentos = mJSONParser.serviceLoadingTipoInstrumento();
+            mTiposInstrumentos = mJSONParser.serviceInstrumentosEstudiante(mEstudiante.getId());
             if (mTiposInstrumentos == null) {
                 return 0;
             } else if (mTiposInstrumentos.size() != 0) {
@@ -503,8 +497,7 @@ public class SolicitudPrestamoFragment extends Fragment implements SliderContain
                     mActivity.actualizarSolicitud();
                     SnackbarManager.show(
                             Snackbar.with(getActivity())
-                                    .type(SnackbarType.MULTI_LINE)
-                                    .text(R.string.prestamo_solicitud_vacio));
+                                    .text(R.string.prestamo_solicitud_instrumentos));
                     getFragmentManager().popBackStack();
                     break;
             }

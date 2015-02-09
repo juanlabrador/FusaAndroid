@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="windowActionBar">false</item>
         <item name="android:textColorPrimary">@color/negro</item>
         <item name="android:textColorPrimaryInverse">@color/blanco</item>
         <item name="android:windowBackground">@color/gris_fondo</item>
         <item name="android:textColorSecondary">@color/azul</item>
+        
+        <item name="android:colorAccent" tools:ignore="NewApi">@color/azul</item>
     </style>
 
     <style name="RatingBarBig" parent="@android:style/Widget.Holo.Light.RatingBar.Indicator">

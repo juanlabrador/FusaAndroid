@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:id="@+id/fragment_contacto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/custom_toolbar"/>
+
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="@color/azul"
+        android:textColor="@color/blanco"
+        app:pstsIndicatorColor="@color/blanco"
+        app:pstsTextStyle="normal"
+        app:pstsTextSelectedStyle="normal"
+        app:pstsIndicatorHeight="2dp"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager_contacto"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>

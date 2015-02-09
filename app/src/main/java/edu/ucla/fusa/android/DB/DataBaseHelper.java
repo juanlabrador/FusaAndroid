@@ -34,42 +34,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(UserTable.CREATE_TABLE);
         db.execSQL(EstudianteTable.CREATE_TABLE);
-        db.execSQL(NoticiasTable.CREATE_TABLE);
-        db.execSQL(EventoTable.CREATE_TABLE);
-        db.execSQL(LugarTable.CREATE_TABLE);
-        db.execSQL(TipoPrestamoTable.CREATE_TABLE);
-        db.execSQL(TipoInstrumentoTable.CREATE_TABLE);
-        db.execSQL(SolicitudPrestamoTable.CREATE_TABLE);
-        db.execSQL(PrestamoTable.CREATE_TABLE);
-        db.execSQL(AgrupacionTable.CREATE_TABLE);
-        db.execSQL(ClaseParticularTable.CREATE_TABLE);
-        db.execSQL(InstructorTable.CREATE_TABLE);
-        db.execSQL(HorarioTable.CREATE_TABLE);
-        db.execSQL(HorarioAreaTable.CREATE_TABLE);
-        db.execSQL(DiaTable.CREATE_TABLE);
-        db.execSQL(LapsoAcademicoTable.CREATE_TABLE);
-        db.execSQL(AreaEstudioTable.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i2) {
         db.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + EstudianteTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + NoticiasTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + EventoTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + LugarTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + TipoPrestamoTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + TipoInstrumentoTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + SolicitudPrestamoTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + PrestamoTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + AgrupacionTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + ClaseParticularTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + InstructorTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + HorarioTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + HorarioAreaTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + DiaTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + LapsoAcademicoTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + AreaEstudioTable.TABLE_NAME);
         onCreate(db);
     }
 

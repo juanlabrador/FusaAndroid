@@ -29,7 +29,8 @@
                 android:id="@+id/expandable_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="16sp"
+                android:textColor="@color/negro"
                 android:text="Sed elementum facilisis dapibus. Proin rutrum est in est ullamcorper, eget feugiat ante dictum. Maecenas vel volutpat elit. Nullam facilisis nibh a turpis pellentesque efficitur. Integer quis lectus et nisi elementum fringilla id a odio. Proin porta vel diam lobortis viverra. Cras quis odio elit. "/>
             
             <ImageButton
@@ -60,13 +61,13 @@
             android:id="@+id/iv_foto_noticia"
             android:background="@color/negro_transparente"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="200dp"
             android:src="@drawable/logo_equipo"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"/>
 
         <TextView
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:id="@+id/tv_titulo_noticia"
             android:background="@color/negro_mas_transparente"
             android:paddingLeft="16dp"
@@ -93,7 +94,7 @@
             android:layout_alignRight="@+id/iv_foto_noticia">
 
             <TextView
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#FFF"
@@ -101,7 +102,7 @@
 
             <TextView
                 android:layout_marginLeft="5dp"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:textColor="#FFF"
                 android:id="@+id/tv_fecha_publicacion_noticia"
                 android:layout_width="0dp"

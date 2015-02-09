@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/gris_fondo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="16dp">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#FFF"
+        android:layout_marginTop="2dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:background="#BDBDBD"/>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Escala Mi"
+                android:textSize="@dimen/size_text_medium"
+                android:id="@+id/tarea_asignada_clase"
+                android:textColor="@color/negro"/>
+
+            <ImageView
+                android:id="@+id/calificacion_clase"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/check"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2015-01-31"
+            android:textSize="@dimen/size_text_subcontent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="4dp"
+            android:id="@+id/fecha_tarea_clase"
+            android:textColor="@color/gris_oscuro"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:background="#BDBDBD"/>
+
+        <com.ms.square.android.expandabletextview.ExpandableTextView
+            android:id="@+id/observaciones_tarea_clase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="6dp"
+            expandableTextView:maxCollapsedLines="1"
+            expandableTextView:animDuration="200">
+
+            <TextView
+                android:id="@+id/expandable_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/negro"
+                android:textSize="@dimen/size_text_content"
+                android:text="Pieza: \'Debusi Claro de Luna\' \nExcelente"/>
+
+            <ImageButton
+                android:id="@+id/expand_collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="8dp"
+                android:layout_gravity="right|bottom"
+                android:background="@android:color/transparent"/>
+        </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:background="#BDBDBD"/>
+    </LinearLayout>
+    
+</LinearLayout>

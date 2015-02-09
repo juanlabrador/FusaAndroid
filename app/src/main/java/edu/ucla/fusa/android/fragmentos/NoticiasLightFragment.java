@@ -171,7 +171,7 @@ public class NoticiasLightFragment extends ListFragment implements View.OnClickL
                 for (Noticia noticia : mNoticias) {
                     //Agregamos a la lista de noticias
                     if (noticia.getImagen() != null) {
-                        mItemsNoticias.add(0, new ItemListNoticia(
+                        mItemsNoticias.add(new ItemListNoticia(
                                 noticia.getId(),
                                 noticia.getTitulo(),
                                 noticia.getFechapublicacion(),
@@ -179,7 +179,7 @@ public class NoticiasLightFragment extends ListFragment implements View.OnClickL
                                 noticia.getDescripcion(),
                                 1));
                     } else {
-                        mItemsNoticias.add(0, new ItemListNoticia(
+                        mItemsNoticias.add(new ItemListNoticia(
                                 noticia.getId(),
                                 noticia.getTitulo(),
                                 noticia.getFechapublicacion(),
@@ -210,7 +210,7 @@ public class NoticiasLightFragment extends ListFragment implements View.OnClickL
                 case 0:
                     Log.i(TAG, "¡No hay conexion!");
                     mContenedor.setVisibility(View.GONE);
-                    mTextLoading.setText(R.string.mensaje_reintentar);
+                    mTextLoading.setText(R.string.mensaje_error_servidor);
                     mTextLoading.setVisibility(View.VISIBLE);
                     mButtonRetry.setVisibility(View.VISIBLE);
                     mLoading.setVisibility(View.GONE);

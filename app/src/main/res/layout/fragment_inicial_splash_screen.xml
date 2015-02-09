@@ -1,48 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     android:orientation="vertical"
     android:id="@+id/fragment_splashscreen"
     android:background="@color/azul"
-    android:paddingLeft="10dip"
-    android:paddingRight="10dip"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools=" http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
 
     <ImageView
         android:id="@+id/logotipo"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
         android:src="@drawable/logotipo"
+        android:layout_marginTop="30dp"
         android:scaleType="fitCenter"
-        android:layout_weight="6"
-        android:contentDescription="@string/descripcion_logotipo" />
+        android:contentDescription="@string/descripcion_logotipo"
+        android:layout_alignParentTop="true"/>
     <TextView
-        android:textSize="28sp"
+        android:id="@+id/text_bienvenida"
+        android:textSize="24sp"
         android:textColor="@color/blanco"
         android:gravity="center"
-        android:layout_width="fill_parent"
-        android:layout_height="0.0dip"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/inicio_texto_bienvenida"
-        android:layout_weight="2"
         android:layout_below="@id/logotipo" />
     <TextView
         android:textSize="20sp"
         android:textColor="@color/blanco"
         android:gravity="center"
         android:id="@+id/textoInformacion"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
         android:text="@string/inicio_texto_informativo"
-        android:layout_weight="3" />
+        android:layout_above="@+id/contenedor_estatus"/>
+    
     <LinearLayout
+        android:id="@+id/contenedor_estatus"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true">
         <TextView
-            android:textSize="16sp"
+            android:textSize="@dimen/size_text_subtitle"
             android:textColor="@color/blanco"
             android:gravity="center"
             android:layout_width="wrap_content"
@@ -50,7 +57,7 @@
             android:layout_margin="3dp"
             android:text="@string/login_verificar_cuenta" />
         <TextView
-            android:textSize="16sp"
+            android:textSize="@dimen/size_text_subtitle"
             android:textColor="@color/style_link_background_azul"
             android:gravity="center"
             android:id="@+id/tv_iniciar_sesion"
@@ -58,6 +65,7 @@
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:text="@string/login"
-            android:onClick="IniciarSesion" />
+            android:onClick="IniciarSesion"
+            fontPath="fonts/HelveticaNeueMedium.ttf"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

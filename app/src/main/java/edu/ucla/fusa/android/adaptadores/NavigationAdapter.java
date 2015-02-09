@@ -14,55 +14,51 @@ import java.util.ArrayList;
 
 public class NavigationAdapter extends BaseAdapter {
 
-    private Activity activity;
-    private ArrayList<ItemListDrawer> arrayItems;
+    private Activity mActivity;
+    private ArrayList<ItemListDrawer> mItems;
 
     public NavigationAdapter(Activity paramActivity, ArrayList<ItemListDrawer> paramArrayList) {
-        this.activity = paramActivity;
-        this.arrayItems = paramArrayList;
+        this.mActivity = paramActivity;
+        this.mItems = paramArrayList;
     }
 
     public void clear() {
-        arrayItems.clear();
+        mItems.clear();
     }
 
     public int getCount() {
-        return this.arrayItems.size();
+        return mItems.size();
     }
 
     public Object getItem(int paramInt) {
-        return this.arrayItems.get(paramInt);
+        return mItems.get(paramInt);
     }
 
     public long getItemId(int paramInt) {
         return paramInt;
     }
 
-    public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
-        LayoutInflater layoutInflater = activity.getLayoutInflater();
-        Fila fila;
-        View view;
-        if (paramView == null) {
-            fila = new Fila();
-            ItemListDrawer item = arrayItems.get(paramInt);
-            if (item.getIcono() != -1) {
-                view = layoutInflater.inflate(R.layout.custom_item_list_drawer, null);
-                fila.titulo = ((TextView) view.findViewById(R.id.tv_funcionalidad_drawer));
-                fila.titulo.setText(item.getTitulo());
-                fila.icono = ((ImageView) view.findViewById(R.id.iv_icono_drawer));
-                fila.icono.setImageResource(item.getIcono());
-                view.setTag(fila);
-            } else { //Es una sección
-                view = layoutInflater.inflate(R.layout.custom_separator_list_view, null);
-            }
+    public View getView(int position, View convertView, ViewGroup parent) {
+        LayoutInflater mInflater = mActivity.getLayoutInflater();
+        ViewHolder mViewHolder;
+        if (convertView == null) {
+            mViewHolder = new ViewHolder();
+            convertView = mInflater.inflate(R.layout.custom_item_list_drawer, null);
+            mViewHolder.mTitulo = ((TextView) convertView.findViewById(R.id.tv_funcionalidad_drawer));
+            mViewHolder.mIcono = ((ImageView) convertView.findViewById(R.id.iv_icono_drawer));
+            convertView.setTag(mViewHolder);
         } else {
-            view = paramView;
+            mViewHolder = (ViewHolder) convertView.getTag();
         }
-        return view;
+        
+        ItemListDrawer item = mItems.get(position);
+        mViewHolder.mTitulo.setText(item.getTitulo());
+        mViewHolder.mIcono.setImageResource(item.getIcono());
+        return convertView;
     }
 
-    public static class Fila {
-        ImageView icono;
-        TextView titulo;
+    public static class ViewHolder {
+        ImageView mIcono;
+        TextView mTitulo;
     }
 }

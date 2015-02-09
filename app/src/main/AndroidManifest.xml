@@ -5,12 +5,11 @@
     android:versionName="1.0"
     package="edu.ucla.fusa.android">
     <supports-screens
-        android:anyDensity="true"
-        android:smallScreens="true"
+        android:smallScreens="false"
         android:normalScreens="true"
-        android:largeScreens="true"
-        android:resizeable="true"
-        android:xlargeScreens="false" />
+        android:largeScreens="false"
+        android:xlargeScreens="false"
+        android:anyDensity="true"/>
 
     <permission
         android:name="edu.ucla.fusa.android.permission.MAPS_RECEIVE"

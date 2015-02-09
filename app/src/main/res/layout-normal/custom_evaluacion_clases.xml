@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/gris_fondo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:id="@+id/contenedor_evaluaciones_clases"
+        android:visibility="gone">
+    
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gris_oscuro"
+            android:textSize="@dimen/size_text_big"
+            android:text="@string/agrupacion_evaluacion_titulo"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="2dp"/>
+        
+        <ListView
+            android:id="@+id/lista_evaluaciones_clases"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="0dp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="6dp">
+
+            <View
+                android:id="@+id/barra_nivel_1"
+                android:background="@android:color/darker_gray"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_margin="2dp"
+                android:layout_weight="1" />
+            <View
+                android:id="@+id/barra_nivel_2"
+                android:background="@android:color/darker_gray"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_margin="2dp"
+                android:layout_weight="1" />
+            <View
+                android:id="@+id/barra_nivel_3"
+                android:background="@android:color/darker_gray"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_margin="2dp"
+                android:layout_weight="1" />
+            <View
+                android:id="@+id/barra_nivel_4"
+                android:background="@android:color/darker_gray"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_margin="2dp"
+                android:layout_weight="1" />
+            
+            <View
+                android:id="@+id/barra_nivel_5"
+                android:background="@android:color/darker_gray"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_margin="2dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:textSize="@dimen/size_text_content"
+            android:gravity="right"
+            android:id="@+id/tv_status_progreso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="5dp"/>
+    </LinearLayout>
+
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        android:layout_gravity="center"
+        android:id="@+id/pb_cargando_evaluacion_clases"
+        android:layout_width="@dimen/size_progress_bar"
+        android:layout_height="@dimen/size_progress_bar"
+        app:cpb_color="@color/azul"
+        app:cpb_stroke_width="2dp"
+        android:indeterminate="true"/>
+
+</LinearLayout>

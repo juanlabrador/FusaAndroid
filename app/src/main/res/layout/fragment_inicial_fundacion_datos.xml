@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="16dp"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:textColor="@color/gris_oscuro"
         android:text="@string/contacto_direccion"/>
     
@@ -21,7 +21,7 @@
         android:id="@+id/direccion_contacto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:textSizeLayout="15"
+        app:textSizeLayout="@integer/size_text_group_layout"
         android:layout_marginTop="6dp"/>
 
     <TextView
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="16dp"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:textColor="@color/gris_oscuro"
         android:text="@string/contacto"/>
     
@@ -37,6 +37,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/medios_contacto"
-        app:textSizeLayout="15"
+        app:textSizeLayout="@integer/size_text_group_layout"
         android:layout_marginTop="6dp"/>
 </LinearLayout>

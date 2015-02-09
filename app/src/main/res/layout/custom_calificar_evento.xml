@@ -17,8 +17,8 @@
 
         <com.github.siyamed.shapeimageview.HexagonImageView
             android:id="@+id/iv_foto_perfil_calificando"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/no_avatar"
             app:siBorderWidth="1dp"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
             <TextView
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textColor="#FFF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
                 android:text="Calificación por" />
 
             <TextView
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textColor="#FFF"
                 android:id="@+id/tv_descripcion_usuario_calificacion"
                 android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
             style="@style/RatingBarBig" />
 
         <TextView
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:textColor="@color/azul_oscuro"
             android:id="@+id/tv_descripcion_calificacion"
             android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
         <com.juanlabrador.grouplayout.GroupContainer
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:textSizeLayout="15"
+            app:textSizeLayout="@integer/size_text_group_layout"
             android:id="@+id/descripcion_comentario"/>
     </LinearLayout>
 </LinearLayout>

@@ -22,12 +22,9 @@ import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import at.markushi.ui.CircleButton;
-import edu.ucla.fusa.android.DB.AgrupacionTable;
 import edu.ucla.fusa.android.DB.EstudianteTable;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.adaptadores.EvaluacionAgrupacionAdapter;
@@ -47,7 +44,6 @@ public class HorarioAgrupacionFragment extends Fragment implements View.OnClickL
     private static String TAG = "HorarioAgrupacionFragment";
     private ListView mHorarioAgrupaciones;
     private Agrupacion mAgrupacion;
-    private AgrupacionTable mAgrupacionTable;
     private CircularProgressBar mProgress;
     private TextView mEmpty;
     private LinearLayout mContenedorHorario;
@@ -131,7 +127,6 @@ public class HorarioAgrupacionFragment extends Fragment implements View.OnClickL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAgrupacionTable = new AgrupacionTable(getActivity());
         mJSONParser = new JSONParser();
         mEstudianteTable = new EstudianteTable(getActivity());
         mEstudiante = mEstudianteTable.searchUser();

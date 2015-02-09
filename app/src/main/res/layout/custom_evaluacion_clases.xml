@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/gris_oscuro"
-            android:textSize="17sp"
+            android:textSize="@dimen/size_text_big"
             android:text="@string/agrupacion_evaluacion_titulo"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
@@ -81,7 +81,7 @@
         </LinearLayout>
 
         <TextView
-            android:textSize="14sp"
+            android:textSize="@dimen/size_text_medium"
             android:gravity="right"
             android:id="@+id/tv_status_progreso"
             android:layout_width="match_parent"
@@ -94,8 +94,8 @@
     <fr.castorflex.android.circularprogressbar.CircularProgressBar
         android:layout_gravity="center"
         android:id="@+id/pb_cargando_evaluacion_clases"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/size_progress_bar"
+        android:layout_height="@dimen/size_progress_bar"
         app:cpb_color="@color/azul"
         app:cpb_stroke_width="2dp"
         android:indeterminate="true"/>

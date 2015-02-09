@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/gris_fondo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contenedor_encabezado_noticia"
+        android:background="@color/blanco"
+        android:elevation="5dp">
+
+        <com.ms.square.android.expandabletextview.ExpandableTextView
+            android:id="@+id/expand_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_margin="5dp"
+            expandableTextView:maxCollapsedLines="2"
+            expandableTextView:animDuration="200">
+            
+            <TextView
+                android:id="@+id/expandable_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_text_content"
+                android:textColor="@color/negro"
+                android:text="Sed elementum facilisis dapibus. Proin rutrum est in est ullamcorper, eget feugiat ante dictum. Maecenas vel volutpat elit. Nullam facilisis nibh a turpis pellentesque efficitur. Integer quis lectus et nisi elementum fringilla id a odio. Proin porta vel diam lobortis viverra. Cras quis odio elit. "/>
+            
+            <ImageButton
+                android:id="@+id/expand_collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="8dp"
+                android:layout_gravity="right|bottom"
+                android:background="@android:color/transparent"/>
+        </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:background="#BDBDBD"
+            android:layout_below="@+id/expand_text_view"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contenedor_encabezado_noticia">
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_foto_noticia"
+            android:background="@color/negro_transparente"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:src="@drawable/logo_equipo"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"/>
+
+        <TextView
+            android:textSize="@dimen/size_text_title"
+            android:id="@+id/tv_titulo_noticia"
+            android:background="@color/negro_mas_transparente"
+            android:paddingLeft="16dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingRight="16dp"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Este sera el titulo de una noticia que se publicara por la aplicación web de FUSA."
+            android:textColor="#FFF"
+            android:layout_alignTop="@+id/iv_foto_noticia"/>
+
+        <LinearLayout
+            android:id="@+id/fecha_noticia"
+            android:orientation="horizontal"
+            android:padding="6dp"
+            android:background="@color/negro_mas_transparente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="8dp"
+            android:layout_alignBottom="@+id/iv_foto_noticia"
+            android:layout_alignRight="@+id/iv_foto_noticia">
+
+            <TextView
+                android:textSize="@dimen/size_text_subcontent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFF"
+                android:text="@string/noticias_fecha_publicacion"/>
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:textSize="@dimen/size_text_subcontent"
+                android:textColor="#FFF"
+                android:id="@+id/tv_fecha_publicacion_noticia"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="21/02/2015"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    
+</RelativeLayout>

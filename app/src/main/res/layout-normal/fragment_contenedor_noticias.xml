@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:id="@+id/fragment_contacto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris_fondo"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tabs_noticias"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:background="@color/azul"
+        android:textColor="@color/blanco"
+        app:pstsIndicatorColor="@color/blanco"
+        app:pstsTextStyle="normal"
+        app:pstsTextSelectedStyle="normal"
+        app:pstsIndicatorHeight="2dp"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager_noticias"
+        android:layout_width="match_parent"
+        android:background="@color/gris_fondo"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

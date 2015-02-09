@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/fragment_estudiante"
+    android:background="@color/azul"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools=" http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
+    
+    <ImageView
+        android:id="@+id/hexagono_aspirante"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/postulate"
+        android:scaleType="fitCenter"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/descripcion_logotipo" />
+    
+    <TextView
+        android:textSize="@dimen/size_text_title"
+        android:textColor="@color/blanco"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/postulacion_mensaje" 
+        android:layout_below="@+id/hexagono_aspirante"/>
+
+    <Button android:textSize="@dimen/size_text_button"
+        android:textColor="@color/azul_oscuro"
+        android:gravity="center"
+        android:id="@+id/btnPostularse"
+        android:background="@drawable/style_button_background_azul"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/postularse_boton"
+        fontPath="fonts/HelveticaNeueMedium.ttf"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"/>
+</RelativeLayout>

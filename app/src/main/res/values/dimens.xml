@@ -21,7 +21,17 @@
     <dimen name="indicator_internal_padding">4.0dip</dimen>
     <dimen name="indicator_right_padding">10.0dip</dimen>
     <dimen name="stroke_width">4.0dip</dimen>
-
-    <item name="floatinghintedittext_hint_scale" type="dimen" format="float">0.6</item>
-    <item name="floatinghintedittext_animation_steps" type="dimen" format="integer">6</item>
+    
+    <dimen name="size_text_more_big">22sp</dimen>
+    <dimen name="size_text_button">20sp</dimen>
+    <integer name="size_text_group_layout">17</integer>
+    <dimen name="size_text_title">20sp</dimen>
+    <dimen name="size_text_big">19sp</dimen>
+    <dimen name="size_text_subtitle">16sp</dimen>
+    <dimen name="size_text_medium">16sp</dimen>
+    <dimen name="size_text_content">16sp</dimen>
+    <dimen name="size_text_subcontent">14sp</dimen>
+    
+    <dimen name="size_progress_bar">42dp</dimen>
+    <dimen name="size_circle_button">72dp</dimen>
 </resources>

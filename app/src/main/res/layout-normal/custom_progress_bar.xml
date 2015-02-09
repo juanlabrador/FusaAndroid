@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="56dp"
+    android:minWidth="56dp">
+    
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        android:layout_gravity="center"
+        android:id="@+id/action_enviando"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:cpb_color="@color/blanco"
+        app:cpb_stroke_width="2dp"
+        android:indeterminate="true"
+        android:layout_margin="5dp"/>
+</FrameLayout>

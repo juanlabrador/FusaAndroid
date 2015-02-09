@@ -7,14 +7,16 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools=" http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:gravity="center"
         android:orientation="horizontal"
         android:background="@color/azul"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="80dp">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,7 +32,7 @@
 
         <TextView
             android:paddingTop="22dp"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:textColor="@color/blanco"
             android:layout_width="match_parent"
             android:gravity="center"
@@ -39,8 +41,8 @@
 
         <com.github.siyamed.shapeimageview.HexagonImageView
             android:id="@+id/avatar_login"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:src="@drawable/no_avatar"
             app:siBorderWidth="1dp"
             android:layout_gravity="center"
@@ -51,21 +53,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/login_credenciales"
-            app:textSizeLayout="15"
+            app:textSizeLayout="@integer/size_text_group_layout"
             app:withBorder="true"
             android:layout_marginLeft="22dp"
             android:layout_marginRight="22dp"
             android:layout_marginTop="16dp"/>
 
         <com.dd.CircularProgressButton
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textColor="@color/blanco"
             android:id="@+id/btn_iniciar_sesion"
             android:layout_marginLeft="22dp"
             android:layout_marginRight="22dp"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             app:cpb_cornerRadius="3dp"
             android:text="@string/login_boton"
             app:cpb_textComplete="@string/login_boton_correcto"
@@ -81,26 +83,28 @@
         
         <TextView
             android:enabled="true"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textColor="@color/style_link_background_blanco"
             android:id="@+id/tv_olvidar_password_iniciar_sesion"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/login_olvidar_contraseña" />
+            android:text="@string/login_olvidar_contraseña"
+            fontPath="fonts/HelveticaNeueMedium.ttf"    />
 
         <TextView
             android:visibility="gone"
             android:enabled="true"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textColor="@color/style_link_background_blanco"
             android:id="@+id/tv_cambiar_usuario"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/login_cambiar_usuario" />
+            android:text="@string/login_cambiar_usuario"
+            fontPath="fonts/HelveticaNeueMedium.ttf"/>
             
     </LinearLayout>
 </LinearLayout>

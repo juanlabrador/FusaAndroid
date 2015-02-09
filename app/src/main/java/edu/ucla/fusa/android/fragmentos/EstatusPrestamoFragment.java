@@ -18,8 +18,6 @@ import com.juanlabrador.grouplayout.GroupContainer;
 import java.text.SimpleDateFormat;
 
 import at.markushi.ui.CircleButton;
-import edu.ucla.fusa.android.DB.PrestamoTable;
-import edu.ucla.fusa.android.DB.SolicitudPrestamoTable;
 import edu.ucla.fusa.android.R;
 import edu.ucla.fusa.android.VistasPrincipalesActivity;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;

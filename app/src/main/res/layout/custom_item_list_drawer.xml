@@ -10,17 +10,17 @@
 
     <ImageView
         android:id="@+id/iv_icono_drawer"
-        android:layout_width="25dip"
-        android:layout_height="25dip" 
-        android:scaleType="fitCenter"/>
+        android:layout_width="25dp"
+        android:layout_height="25dp"/>
 
     <TextView
-        android:textSize="16sp"
+        android:textSize="17sp"
         android:id="@+id/tv_funcionalidad_drawer"
         android:layout_width="0dip"
         android:layout_height="match_parent"
         android:singleLine="true"
         android:layout_weight="1"
+        android:textColor="@color/negro"
         android:gravity="center_vertical"
         android:layout_marginLeft="20dp"/>
 </LinearLayout>

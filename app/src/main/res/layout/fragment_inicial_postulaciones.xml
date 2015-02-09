@@ -33,23 +33,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/postulacion_cabecera_datos"
-                android:textColor="@color/gris_oscuro"
-                android:textSize="15sp"
+                android:textColor="@color/gris_super_oscuro"
+                android:textSize="17sp"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp"/>
+                android:layout_marginTop="6dp"/>
 
             <com.juanlabrador.grouplayout.GroupContainer
                 android:id="@+id/cedula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                app:textSizeLayout="15"/>
+                app:textSizeLayout="@integer/size_text_group_layout"
+                app:contentTextColor="@color/azul"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gris_oscuro"
-                android:textSize="13sp"
+                android:textColor="@color/gris_super_oscuro"
+                android:textSize="14sp"
                 android:text="@string/postulacion_descripcion_cedula"
                 android:layout_marginTop="6dp"
                 android:layout_marginLeft="12dp"
@@ -60,7 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                app:textSizeLayout="15"/>
+                app:textSizeLayout="@integer/size_text_group_layout"
+                app:contentTextColor="@color/azul"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -193,8 +195,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/postulacion_cabecera_aspectos_musicales"
-                android:textColor="@color/gris_oscuro"
-                android:textSize="15sp"
+                android:textColor="@color/gris_super_oscuro"
+                android:textSize="17sp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="12dp"/>
     
@@ -203,14 +205,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                app:textSizeLayout="15"/>
+                app:textSizeLayout="@integer/size_text_group_layout"
+                app:contentTextColor="@color/azul"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/postulacion_cabecera_contacto"
-                android:textColor="@color/gris_oscuro"
-                android:textSize="15sp"
+                android:textColor="@color/gris_super_oscuro"
+                android:textSize="17sp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="16dp"/>
     
@@ -220,7 +223,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="12dp"
-                app:textSizeLayout="15"/>
+                app:textSizeLayout="@integer/size_text_group_layout"
+                app:contentTextColor="@color/azul"/>
         </LinearLayout>
     </ScrollView>
 
@@ -234,14 +238,14 @@
         android:indeterminate="true"/>
 
     <TextView
-        android:textSize="18sp"
+        android:textSize="@dimen/size_text_title"
         android:id="@+id/aspirante_vacio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/gris_oscuro"
         android:gravity="center"
         android:layout_marginBottom="8dp"
-        android:text="@string/mensaje_reintentar"
+        android:text="@string/mensaje_error_servidor"
         android:visibility="gone"/>
 
     <at.markushi.ui.CircleButton

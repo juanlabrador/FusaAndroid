@@ -39,27 +39,18 @@ import com.nispok.snackbar.enums.SnackbarType;
 
 
 import at.markushi.ui.CircleButton;
-import edu.ucla.fusa.android.DB.ClaseParticularTable;
 import edu.ucla.fusa.android.DB.DataBaseHelper;
-import edu.ucla.fusa.android.DB.DiaTable;
 import edu.ucla.fusa.android.DB.EstudianteTable;
-import edu.ucla.fusa.android.DB.HorarioAreaTable;
-import edu.ucla.fusa.android.DB.HorarioTable;
-import edu.ucla.fusa.android.DB.InstructorTable;
 import edu.ucla.fusa.android.DB.UserTable;
 import edu.ucla.fusa.android.adaptadores.NavigationAdapter;
 import edu.ucla.fusa.android.fragmentos.AspiranteFragment;
 import edu.ucla.fusa.android.fragmentos.CambiarPasswordFragment;
 import edu.ucla.fusa.android.fragmentos.ContenedorHorarioFragment;
+import edu.ucla.fusa.android.fragmentos.ContenedorNoticiasFragment;
 import edu.ucla.fusa.android.fragmentos.EstatusPrestamoFragment;
 import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
-import edu.ucla.fusa.android.fragmentos.NoticiasFragment;
 import edu.ucla.fusa.android.fragmentos.SolicitudPrestamoFragment;
-import edu.ucla.fusa.android.modelo.academico.ClaseParticular;
-import edu.ucla.fusa.android.modelo.academico.Dia;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
-import edu.ucla.fusa.android.modelo.academico.Horario;
-import edu.ucla.fusa.android.modelo.academico.Instructor;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
 import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 import edu.ucla.fusa.android.modelo.instrumentos.Prestamo;
@@ -73,7 +64,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
 
@@ -88,8 +78,8 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private ArrayList<ItemListDrawer> mItemsDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationAdapter mNavigationAdapter;
-    private DrawerLayout mNavigationDrawer;
-    private ListView mListDrawer;
+    public DrawerLayout mNavigationDrawer;
+    public ListView mListDrawer;
     private String[] mTextDrawer;
     private JSONParser mJSONParser;
     private LinearLayout mContenedorPrincipal;
@@ -130,7 +120,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         super.onCreate(paramBundle);
         setContentView(R.layout.activity_principal);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                        .setDefaultFontPath("fonts/HelveticaNeueLight.ttf")
+                        .setDefaultFontPath("fonts/HelveticaNeue.ttf")
                         .setFontAttrId(R.attr.fontPath)
                         .build()
         );
@@ -205,6 +195,19 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     @Override
     protected void onResume() {
         super.onResume();
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(R.string.noticias_titulo_barra);
+        mToolbar.setNavigationIcon(mDrawerArrow);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mNavigationDrawer.isDrawerOpen(mListDrawer)) {
+                    mNavigationDrawer.closeDrawer(mListDrawer);
+                } else {
+                    mNavigationDrawer.openDrawer(mListDrawer);
+                }
+            }
+        });
     }
 
     @Override
@@ -227,7 +230,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 mRetryButton.setVisibility(View.GONE);
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.frame_container, NoticiasFragment.newInstance())
+                        .replace(R.id.frame_container, ContenedorNoticiasFragment.newInstance())
                         .commit();
             } else {
                 if (exiteConexionInternet()) {
@@ -252,13 +255,12 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
 
     public boolean exiteConexionInternet() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        //State edge = cm.getNetworkInfo(0).getState();
+        NetworkInfo.State edge = cm.getNetworkInfo(0).getState();
         NetworkInfo.State wifi = cm.getNetworkInfo(1).getState();
-        //NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        //if (edge == State.CONNECTED || edge == State.CONNECTING) {
-        //return true;
-        //}else
-        if (wifi == NetworkInfo.State.CONNECTED || wifi == NetworkInfo.State.CONNECTING) {
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (edge == NetworkInfo.State.CONNECTED || edge == NetworkInfo.State.CONNECTING) {
+            return true;
+        }else if (wifi == NetworkInfo.State.CONNECTED || wifi == NetworkInfo.State.CONNECTING) {
             return true;
         } else {
             return false;
@@ -288,7 +290,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             case 3:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.frame_container, NoticiasFragment.newInstance())
+                        .replace(R.id.frame_container, ContenedorNoticiasFragment.newInstance())
                         .commit();
                 break;
             case 4:
@@ -407,13 +409,13 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             mNavigationDrawer.closeDrawer(mListDrawer);
         } else {
             Log.i(TAG, "¡Cantidad de fragmentos activos: " + getSupportFragmentManager().getBackStackEntryCount());
-            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0 && getSupportFragmentManager().getBackStackEntryCount() < 2) {
                 mListDrawer.setItemChecked(3, true);
                 mListDrawer.setSelection(3);
                 getSupportFragmentManager().popBackStack(getSupportFragmentManager().getBackStackEntryAt(0).getId(), getSupportFragmentManager().POP_BACK_STACK_INCLUSIVE);
             } else {
-                mListDrawer.setItemChecked(3, true);
-                mListDrawer.setSelection(3);
+                //mListDrawer.setItemChecked(3, true);
+                //mListDrawer.setSelection(3);
                 super.onBackPressed();
             }
         }
@@ -472,7 +474,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                     mRetryButton.setVisibility(View.GONE);
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.frame_container, NoticiasFragment.newInstance())
+                            .replace(R.id.frame_container, ContenedorNoticiasFragment.newInstance())
                             .commit();
                     break;
                 case -1:
@@ -487,7 +489,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                     Log.i(TAG, "¡Problemas con el servidor o de conexion!");
                     mContenedorPrincipal.setVisibility(View.GONE);
                     mLoading.setVisibility(View.GONE);
-                    mTextLoading.setText(R.string.mensaje_reintentar);
+                    mTextLoading.setText(R.string.mensaje_error_servidor);
                     mTextLoading.setVisibility(View.VISIBLE);
                     mRetryButton.setVisibility(View.VISIBLE);
                     break;
@@ -599,6 +601,13 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             switch (result) {
+                case 0:
+                    Log.i(TAG, "¡No se cargo la foto!");
+                    SnackbarManager.show(
+                            Snackbar.with(getApplicationContext())
+                                    .text(R.string.mensaje_error_excepcion), VistasPrincipalesActivity.this);
+                    mManager.cancel(2);
+                    break;
                 case -1:
                     Log.i(TAG, "¡No se cargo la foto!");
                     SnackbarManager.show(
@@ -633,12 +642,17 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             mSolicitudPrestamo = mJSONParser.serviceSolicitudPrestamoPorEstudiante(integers[0]);
             if (mSolicitudPrestamo != null) {  // Existe internamente, comprobar su estatus
                 if (mSolicitudPrestamo.getId() != -1) {
-                    return 100;
+                    if (!mSolicitudPrestamo.getEstatus().equals("finalizado")) {
+                        return 100;
+                    } else {
+                        return -1;
+                    }
                 } else {
                     return -1;
                 }
+            } else {
+                return 0;
             }
-            return 0;
         }
 
         @Override
@@ -646,6 +660,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
             super.onPostExecute(result);
             switch (result) {
                 case 100:
+                    Log.i(TAG, "¡Tiene unas solicitud!");
                     Bundle mID = new Bundle();
                     mID.putInt("id_solicitud", mSolicitudPrestamo.getId());
                     getSupportFragmentManager()
@@ -655,12 +670,14 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                             .commit();
                     break;
                 case 0:
+                    Log.i(TAG, "¡Problemas de conexion!");
                     SnackbarManager.show(
                             Snackbar.with(getApplicationContext())
                                     .type(SnackbarType.MULTI_LINE)
                                     .text(R.string.mensaje_error_servidor), VistasPrincipalesActivity.this);
                     break;
                 case -1:
+                    Log.i(TAG, "¡No tiene una solicitud!");
                     getSupportFragmentManager()
                             .beginTransaction()
                             .addToBackStack(null)

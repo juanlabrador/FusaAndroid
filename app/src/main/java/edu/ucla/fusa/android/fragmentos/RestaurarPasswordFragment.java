@@ -1,28 +1,34 @@
 package edu.ucla.fusa.android.fragmentos;
 
+import android.app.NotificationManager;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
 import com.juanlabrador.grouplayout.GroupContainer;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.enums.SnackbarType;
 
 import edu.ucla.fusa.android.R;
-import edu.ucla.fusa.android.validadores.ValidadorEmails;
+import edu.ucla.fusa.android.modelo.herramientas.JSONParser;
 
-public class RestaurarPasswordFragment extends Fragment implements View.OnClickListener, TextWatcher, Toolbar.OnMenuItemClickListener {
+public class RestaurarPasswordFragment extends Fragment implements Toolbar.OnMenuItemClickListener {
 
-    private GroupContainer mCorreo;
-    private View mView;
+    private GroupContainer mUser;
     private Toolbar mToolbar;
     private DrawerArrowDrawable mDrawerArrow;
+    private RestaurarPassword mServiceRestore;
+    private JSONParser mJSONParser;
+    private NotificationManager mManager;
 
     public static RestaurarPasswordFragment newInstance() {
         RestaurarPasswordFragment fragment = new RestaurarPasswordFragment();
@@ -32,18 +38,7 @@ public class RestaurarPasswordFragment extends Fragment implements View.OnClickL
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle arguments) {
         super.onCreateView(inflater, container, arguments);
-
-        mView = inflater.inflate(R.layout.fragment_inicial_restaurar_password, container, false);
-         
-        mCorreo = (GroupContainer) mView.findViewById(R.id.correo_restaurar);
-        mCorreo.addValidatorLayout(R.string.restaurar_correo);
-        mCorreo.getValidatorLayoutAt(0).getEditText().addTextChangedListener(this);
-        mCorreo.getValidatorLayoutAt(0).setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        return mView;
-    }
-
-    public void onClick(View paramView) {
-        
+        return inflater.inflate(R.layout.fragment_inicial_restaurar_password, container, false);
     }
 
     @Override
@@ -63,6 +58,7 @@ public class RestaurarPasswordFragment extends Fragment implements View.OnClickL
         mToolbar.setTitle(R.string.restaurar_titulo_barra);
         mToolbar.setNavigationIcon(mDrawerArrow);
         mToolbar.inflateMenu(R.menu.action_enviar);
+        mToolbar.setOnMenuItemClickListener(this);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,30 +70,93 @@ public class RestaurarPasswordFragment extends Fragment implements View.OnClickL
                         .commit();*/
             }
         });
+        mUser = (GroupContainer) view.findViewById(R.id.correo_restaurar);
+        mUser.addEditTextLayout(R.string.restaurar_user);
+        mJSONParser = new JSONParser();
+    }  
+    
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.action_enviar:
+                if (!mUser.getEditTextLayoutAt(0).getContent().equals("")) {
+                    mServiceRestore = new RestaurarPassword();
+                    mServiceRestore.execute(mUser.getEditTextLayoutAt(0).getContent());
+                }
+        }
+        return true;
     }
 
     @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-        
-    }
-
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-        if (ValidadorEmails.validarEmail(mCorreo.getValidatorLayoutAt(0).getContent()) != true) {
-            mCorreo.getValidatorLayoutAt(0).dataError();
-        } else {
-            mCorreo.getValidatorLayoutAt(0).dataCheck();
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mServiceRestore != null) {
+            if (!mServiceRestore.isCancelled()) {
+                mServiceRestore.cancel(true);
+            }
         }
     }
 
-    @Override
-    public void afterTextChanged(Editable editable) {
+    private class RestaurarPassword extends AsyncTask<String, Void, Integer> {
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if (mToolbar.getMenu().findItem(R.id.action_enviar).getActionView() == null) {
+                mToolbar.getMenu().findItem(R.id.action_enviar).setActionView(R.layout.custom_progress_bar);
+            }
+            sendNotificacion();
+        }
+
+        @Override
+        protected Integer doInBackground(String... strings) {
+            return mJSONParser.serviceRestaurarPassword(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            mManager.cancel(1);
+            switch (result) {
+                case 100:
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.restaurar_mensaje));
+                    getFragmentManager().popBackStack();
+                    break;
+                case 0:
+                    mToolbar.getMenu().findItem(R.id.action_enviar).setActionView(null);
+
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.mensaje_error_servidor));
+                    break;
+                case -1:
+                    mToolbar.getMenu().findItem(R.id.action_enviar).setActionView(null);
+                    SnackbarManager.show(
+                            Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(R.string.restaurar_error_user));
+                    break;
+            }
+        }
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem menuItem) {
-        return true;
+    private void sendNotificacion() {
+        try {
+            NotificationCompat.Builder mNotificacion = new NotificationCompat.Builder(getActivity())
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setContentTitle(getString(R.string.restaurar_enviar))
+                    .setTicker(getString(R.string.restaurar_enviar))
+                    .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+            mNotificacion.setAutoCancel(true);
+            mManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+            mManager.notify(1, mNotificacion.build());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    
 }

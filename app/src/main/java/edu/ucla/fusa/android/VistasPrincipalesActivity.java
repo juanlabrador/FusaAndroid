@@ -534,7 +534,7 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
                 Log.i(TAG, "¡Selecciono el evento " + i + " de la lista");
             }
         });
-
+        mDialog.setCanceledOnTouchOutside(true);
         mDialog.setTitle("Cambia tu foto de perfil")
                 .setContentView(mListPhoto)
                 .show();

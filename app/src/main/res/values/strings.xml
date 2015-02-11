@@ -81,7 +81,7 @@
     <!-- Prestamo de instrumento -->
     <string name="prestamo_solicitud_instrumentos">No posee instrumentos asociados.</string>
     <string name="prestamo_solicitud_error">No puede solicitar un préstamo si no esta inscrito en una agrupación.</string>
-    <string name="prestamo_solicitud_enviada">Tu postulación se ha enviado, pronto se hará su revisión.</string>
+    <string name="prestamo_solicitud_enviada">Tu solicitud se ha enviado, pronto se hará su revisión.</string>
     <string name="prestamo_solicitud_vacio">¡Tenemos problemas para buscar los datos! Por favor, intente más tarde..</string>
     <string name="prestamo_titulo_barra">Solicitud de Prestamo</string>
     <string name="prestamo_fecha_emision">Desde la fecha</string>

@@ -3,7 +3,9 @@ package edu.ucla.fusa.android.modelo.instrumentos;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import edu.ucla.fusa.android.modelo.academico.Agrupacion;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
+import edu.ucla.fusa.android.modelo.evento.Evento;
 
 /**
  * Created by juanlabrador on 10/02/15.
@@ -18,6 +20,10 @@ public class Notificacion implements Parcelable {
     private String estatus;
     private TipoNotificacion tipoNotificacion;
     private Estudiante estudiante;
+    private Prestamo prestamo;
+    private SolicitudPrestamo solicitud;
+    private Evento evento;
+    private Agrupacion agrupacion;
 
     public Notificacion() {
     }
@@ -86,6 +92,38 @@ public class Notificacion implements Parcelable {
         this.estudiante = estudiante;
     }
 
+    public Prestamo getPrestamo() {
+        return prestamo;
+    }
+
+    public void setPrestamo(Prestamo prestamo) {
+        this.prestamo = prestamo;
+    }
+
+    public SolicitudPrestamo getSolicitud() {
+        return solicitud;
+    }
+
+    public void setSolicitud(SolicitudPrestamo solicitud) {
+        this.solicitud = solicitud;
+    }
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+
+    public Agrupacion getAgrupacion() {
+        return agrupacion;
+    }
+
+    public void setAgrupacion(Agrupacion agrupacion) {
+        this.agrupacion = agrupacion;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -99,6 +137,10 @@ public class Notificacion implements Parcelable {
         parcel.writeString(descripcion);
         parcel.writeString(estatus);
         parcel.writeValue(tipoNotificacion);
+        parcel.writeValue(estudiante);
+        parcel.writeValue(prestamo);
+        parcel.writeValue(solicitud);
+        parcel.writeValue(agrupacion);
         parcel.writeString(String.valueOf(mensajeLeido));
     }
 }

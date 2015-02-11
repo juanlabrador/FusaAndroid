@@ -31,6 +31,7 @@
     <dimen name="size_text_medium">16sp</dimen>
     <dimen name="size_text_content">16sp</dimen>
     <dimen name="size_text_subcontent">14sp</dimen>
+    <dimen name="size_text_small">13sp</dimen>
     
     <dimen name="size_progress_bar">42dp</dimen>
     <dimen name="size_circle_button">72dp</dimen>

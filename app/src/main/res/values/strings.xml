@@ -126,7 +126,8 @@
     <string name="prestamo_aprobada_titulo">¡Buenas noticias!</string>
     <string name="prestamo_encabezado_aprobado">Aprobaron tu solicitud</string>
     <string name="prestamo_encabezado_rechazado">Rechazaron tu solicitud</string>
-    
+    <string name="notificaciones_vacia">No tienes nada pendiente. Que tengas un buen día.</string>
+    <string name="notificaciones_barra_titulo">Notificaciones</string>
     <!--  Mensajes de Toast -->
     <string name="mensaje_error_contraseña_actual">La actual contraseña no es correcta.</string>
     <string name="mensaje_error_contraseña_requisitos">La contraseña nueva no cumple con los requisitos.</string>

@@ -28,6 +28,7 @@ import edu.ucla.fusa.android.modelo.academico.EvaluacionPorClase;
 import edu.ucla.fusa.android.modelo.evento.CalificarEvento;
 import edu.ucla.fusa.android.modelo.evento.Evento;
 import edu.ucla.fusa.android.modelo.fundacion.NoticiaSlide;
+import edu.ucla.fusa.android.modelo.instrumentos.Notificacion;
 import edu.ucla.fusa.android.modelo.instrumentos.Prestamo;
 import edu.ucla.fusa.android.modelo.instrumentos.SolicitudPrestamo;
 import edu.ucla.fusa.android.modelo.instrumentos.TipoInstrumento;
@@ -506,5 +507,43 @@ public class JSONParser {
             return null;
         }
     }
+    
+    // Notificaciones
+
+    public ArrayList<Notificacion> serviceLoadingNotificaciones(int id) {
+        try {
+            mRestTemplate = new RestTemplate(mRequestFactory);
+            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            mParameters = "Notificaciones/" + id;
+            ResponseEntity<Notificacion[]> responseEntity = mRestTemplate.getForEntity(IP + URL + mParameters, Notificacion[].class);
+            return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public int serviceNotificacionLeido(Notificacion notificacion) {
+        try {
+            // Create a new RestTemplate instance
+            mRestTemplate = new RestTemplate(mRequestFactory);
+
+            System.setProperty("http.keepAlive", "false");
+            // Add the Jackson and String message converters
+            mRestTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            mRestTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+
+            Gson gson = new Gson();
+            String json = gson.toJson(notificacion);
+
+            Log.i(TAG, json);
+            // Make the HTTP POST request, marshaling the request to JSON, and the response to a Integer
+            return mRestTemplate.postForObject(IP + URL + "notificacionLeido/notificacion", notificacion, Integer.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 
 }

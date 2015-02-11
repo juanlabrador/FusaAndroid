@@ -20,7 +20,7 @@
             android:dividerHeight="0dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"/>
+            android:background="@color/gris_fondo"/>
 
     </com.yalantis.pulltorefresh.library.PullToRefreshView>
 

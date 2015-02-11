@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="#d3d3d3"
+        android:layout_above="@+id/contenedor_notificacion"/>
+    
+    <RelativeLayout
+        android:id="@+id/contenedor_notificacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/fecha_notificacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/azul"
+            android:textSize="@dimen/size_text_small"
+            android:text="hace 5 min"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"/>
+
+        <ImageView
+            android:id="@+id/imagen_notificacion"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/notificacion_evento"
+            android:layout_alignParentLeft="true"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"/>
+    
+        <TextView
+            android:id="@+id/titulo_notificacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/negro"
+            android:layout_marginTop="8dp"
+            android:textSize="@dimen/size_text_title"
+            android:text="Nuevo Evento"
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@id/imagen_notificacion"/>
+
+    
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/descripcion_notificacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/negro"
+            android:textSize="@dimen/size_text_content"
+            android:layout_marginLeft="6dp"
+            android:text="En hora buena tu y tu agrupacion han sido selecionados para participar en un evento  "
+            android:layout_below="@+id/titulo_notificacion"
+            android:layout_toRightOf="@id/imagen_notificacion"/>
+
+    </RelativeLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="#d3d3d3"
+        android:layout_below="@+id/contenedor_notificacion"/>
+    
+</RelativeLayout>

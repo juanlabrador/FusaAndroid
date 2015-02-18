@@ -49,7 +49,6 @@ import edu.ucla.fusa.android.fragmentos.ContenedorHorarioFragment;
 import edu.ucla.fusa.android.fragmentos.ContenedorNoticiasFragment;
 import edu.ucla.fusa.android.fragmentos.EstatusPrestamoFragment;
 import edu.ucla.fusa.android.fragmentos.CalendarioFragment;
-import edu.ucla.fusa.android.fragmentos.NotificacionesFragment;
 import edu.ucla.fusa.android.fragmentos.SolicitudPrestamoFragment;
 import edu.ucla.fusa.android.modelo.academico.Estudiante;
 import edu.ucla.fusa.android.modelo.herramientas.ItemListDrawer;
@@ -66,7 +65,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
-public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class VistasPrincipalesActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
 
     private static final int APROBADO = 1;
     private static final int RECHAZADO = 2;
@@ -116,8 +115,6 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     private MaterialDialog mDialog;
     private NotificationManager mManager;
     private LoadingSolicitudPrestamo mServiceSolicitud;
-    
-    private LinearLayout mNotificaciones;
 
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
@@ -350,26 +347,9 @@ public class VistasPrincipalesActivity extends FragmentActivity implements Adapt
     }
 
     // Estudiante
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.boton_notificaciones:
-                mNavigationDrawer.closeDrawer(mListDrawer);
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.frame_container, NotificacionesFragment.newInstance())
-                        .commit();
-                break;
-        }
-
-    }
     
     
     private void cargarHeader(View mHeader) {
-        mNotificaciones = (LinearLayout) mHeader.findViewById(R.id.boton_notificaciones);
-        mNotificaciones.setOnClickListener(this);
         mFoto = (HexagonImageView) mHeader.findViewById(R.id.iv_foto_perfil_drawer);
         mNombre = (TextView) mHeader.findViewById(R.id.etNombreDrawer);
         mFoto.setVisibility(View.VISIBLE);

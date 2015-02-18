@@ -5,7 +5,7 @@ package edu.ucla.fusa.android.modelo.academico;
  */
 public class Dia {
 
-    private int dia_id;
+    private int id;
     private String descripcion;
     private String estatus;
 
@@ -20,12 +20,12 @@ public class Dia {
         this.estatus = estatus;
     }
 
-    public int getDia_id() {
-        return dia_id;
+    public int getId() {
+        return id;
     }
 
-    public void setDia_id(int dia_id) {
-        this.dia_id = dia_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescripcion() {

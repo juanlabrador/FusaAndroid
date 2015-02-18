@@ -60,7 +60,7 @@ public class HorarioClasesAdapter extends BaseAdapter {
 
         mHorarioArea = mHorarios.get(position);
         mViewHolder.mHorario.clear();
-        Log.i(TAG, "ID: " + mHorarioArea.getHorario().getHorario_id());
+        Log.i(TAG, "ID: " + mHorarioArea.getHorario().getId());
         mViewHolder.mHorario.addSimpleMultiTextLayout(mHorarioArea.getHorario().getDia().getDescripcion().toUpperCase() + " - " + mHorarioArea.getAreaEstudio().getDescripcion().toUpperCase());
         mViewHolder.mHorario.addTextLayout(R.string.mis_clases_horario, mHorarioArea.getHorario().getHoraInicio() + ":00" + " - " + mHorarioArea.getHorario().getHoraFin() + ":00");
         return convertView;

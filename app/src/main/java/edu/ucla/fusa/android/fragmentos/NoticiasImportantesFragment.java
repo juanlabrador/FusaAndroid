@@ -168,21 +168,21 @@ public class NoticiasImportantesFragment extends ListFragment implements PullToR
             } else if (mNoticias.size() != 0) {
                 for (NoticiaSlide noticia : mNoticias) {
                     //Agregamos a la lista de noticias
-                    if (noticia.getImagen() != null) {
+                    if (noticia.getNoticia().getImagen() != null) {
                         mItemsNoticias.add(new ItemListNoticia(
                                 noticia.getId(),
-                                noticia.getTitulo(),
-                                noticia.getFechapublicacion(),
-                                noticia.getImagen(),
-                                noticia.getDescripcion(),
+                                noticia.getNoticia().getTitulo(),
+                                noticia.getNoticia().getFechapublicacion(),
+                                noticia.getNoticia().getImagen(),
+                                noticia.getNoticia().getDescripcion(),
                                 1));
                     } else {
                         mItemsNoticias.add(new ItemListNoticia(
                                 noticia.getId(),
-                                noticia.getTitulo(),
-                                noticia.getFechapublicacion(),
-                                noticia.getImagen(),
-                                noticia.getDescripcion(),
+                                noticia.getNoticia().getTitulo(),
+                                noticia.getNoticia().getFechapublicacion(),
+                                noticia.getNoticia().getImagen(),
+                                noticia.getNoticia().getDescripcion(),
                                 0));
                     }
                 }
@@ -239,21 +239,21 @@ public class NoticiasImportantesFragment extends ListFragment implements PullToR
             } else if (mNoticias.size() != 0) {
                 Log.i(TAG, "Tamaño de la lista " + mNoticias.size());
                 for (NoticiaSlide noticia : mNoticias) {
-                    if (noticia.getImagen() != null) {   //Noticia con foto
+                    if (noticia.getNoticia().getImagen() != null) {   //Noticia con foto
                         mItemsNoticias.add(0, new ItemListNoticia(
                                 noticia.getId(),
-                                noticia.getTitulo(),
-                                noticia.getFechapublicacion(),
-                                noticia.getImagen(),
-                                noticia.getDescripcion(),
+                                noticia.getNoticia().getTitulo(),
+                                noticia.getNoticia().getFechapublicacion(),
+                                noticia.getNoticia().getImagen(),
+                                noticia.getNoticia().getDescripcion(),
                                 1));
                     } else {   //Noticias sin foto
                         mItemsNoticias.add(0, new ItemListNoticia(
                                 noticia.getId(),
-                                noticia.getTitulo(),
-                                noticia.getFechapublicacion(),
-                                noticia.getImagen(),
-                                noticia.getDescripcion(),
+                                noticia.getNoticia().getTitulo(),
+                                noticia.getNoticia().getFechapublicacion(),
+                                noticia.getNoticia().getImagen(),
+                                noticia.getNoticia().getDescripcion(),
                                 0));
                     }
                 }

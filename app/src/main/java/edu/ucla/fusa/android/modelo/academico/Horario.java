@@ -6,7 +6,7 @@ package edu.ucla.fusa.android.modelo.academico;
  */
 public class Horario {
 
-    private int horario_id;
+    private int id;
     private Dia dia;
     private String horaInicio;
     private String horaFin;
@@ -14,12 +14,12 @@ public class Horario {
     public Horario() {
     }
 
-    public int getHorario_id() {
-        return horario_id;
+    public int getId() {
+        return id;
     }
 
-    public void setHorario_id(int horario_id) {
-        this.horario_id = horario_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Dia getDia() {

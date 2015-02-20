@@ -1,6 +1,9 @@
 Fusa Android
 =============
-[![FusaAndroid]()](https://www.youtube.com/watch?v=nFupHmkIbYo)
+[![FusaAndroid](screenshot/1.png)](https://www.youtube.com/watch?v=nFupHmkIbYo)
+
+Click to image for see video.
+
 Fusa es una aplicación para la gestión de un estudiante que pertenezca a la Fundación Simón Bolívar. Un estudiante puede estar informado de las noticias más relevantes de la fundación, ver sus horarios de clases, sus notas, ver los eventos por efectuarse y ya realizados, comentar en los que ya se realizaron, solicitar el préstamo de un instrumento, ver el estatus del instrumento, postularse o postular a un amigo, cambiar su contraseña y foto de perfil.
 
 Esta aplicación fue realizada por motivo de asignación por parte de la asignatura Sistemas de Información de la Universidad Centroccidental Lisandro Alvarado (UCLA) como proyecto de grado para la ultima carga académica, esta aplicación junto a su aplicación web, serán para la Fundación.
